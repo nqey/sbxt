@@ -52,16 +52,25 @@
         return location.hostname.indexOf(LOCAL_URL) >= 0 ? LOCAL_URL : location.hostname;
     }
   })();
+  const ENTERPRISE_TYPE = {
+    wait: '待支付',
+    pending: '待初审',
+    collectting: '待认证官上门采集',
+    confirmFailed: '初审未通过',
+
+    pending2: '待复审',
+    confirm2Failed: '复审未通过',
+
+    passed: '通过审核',
+  };
   // 验证码
   const CHECKNUMBER = `${DECLARE_BASE_URL}publics/checknumber.jpg?t=`;
   // 申报机构登录接口地址
   const DECLARE_LOGIN_DO_ADDRESS = `${DECLARE_BASE_URL}publics/login/do`;
   // 绑定申报机构接口地址
-  const ENTERPRISE_BIND_DECLAREORG_ADDRESS = `${ENTERPRISE_BASE_URL}bind/declare/enterprise`;
+  const ENTERPRISE_BIND_DECLAREORG_ADDRESS = `${ENTERPRISE_BASE_URL}sbxt/declare/enterprise`;
   // 查询申报机构接口地址
-  const ENTERPRISE_QUERY_DECLAREORG_ADDRESS = `${ENTERPRISE_BASE_URL}bind/query/declareorg`;
-  // 查询企业接口地址
-  const ENTERPRISE_BIND_QUERY_ENTERPRISE_ADDRESS = `${ENTERPRISE_BASE_URL}bind/query/enterprise`;
+  const ENTERPRISE_QUERY_DECLAREORG_ADDRESS = `${ENTERPRISE_BASE_URL}sbxt/query/declareorg`;
 
   export default {
     test,
@@ -73,6 +82,6 @@
     ENTERPRISE_BIND_DECLAREORG_ADDRESS,
     ENTERPRISE_QUERY_DECLAREORG_ADDRESS,
     CHECKNUMBER,
-    ENTERPRISE_BIND_QUERY_ENTERPRISE_ADDRESS,
+    ENTERPRISE_TYPE,
   };
 </script>

@@ -12,14 +12,14 @@
                 <td>
                   <div style="position: relative;">
                     <label>输入企业名称：</label>
-                    <input type="text" @input="getKeywords" size="50" v-model="enterpriseName" value="" title="关键词">
+                    <input type="text" size="50" v-model="enterpriseName" value="" title="关键词">
                     &nbsp;
                     <input type="submit" @click="bindEnterprise" class="btn btn-success" value="添 加">
                     <span :class="{errInfo: isErrInfo, successInfo: isSuccessInfo}" v-show="showTishi">{{tishi}}</span>
                     &nbsp;
                     <div class="bdsug" style="height: auto;" v-show="showKeywords">
                       <ul>
-                        <li v-for="key in keywords" @click="sendKeywords(key)">
+                        <li v-for="key in keywords">
                           {{ key.enterpriseName }}
                         </li>
                       </ul>
@@ -42,7 +42,7 @@
 import axios from 'axios';
 import nav from '@/components/nav/nav';
 import Global from '@/components/tool/Global';
-import cookie from '@/components/tool/cookie';
+import utils from '@/components/tool/utils';
 
 export default {
   name: 'enterprise',
@@ -64,18 +64,11 @@ export default {
   methods: {
     bindEnterprise() {
       const params = {
-        enterpriseId: this.enterpriseId,
-        declareOrgId: cookie.getCookie('declareOrgId'),
+        enterpriseName: this.enterpriseName,
       };
-      axios.post(Global.ENTERPRISE_BIND_DECLAREORG_ADDRESS, {}, {
-        transformRequest: [() => {
-          let ret = '';
-          Object.entries(params).forEach((d) => {
-            ret += `${encodeURIComponent(d[0])}=${encodeURIComponent(d[1])}&`;
-          });
-          return ret;
-        }],
-      }).then((res) => {
+      axios.post(Global.ENTERPRISE_BIND_DECLAREORG_ADDRESS,
+        utils.toFormData(params),
+      ).then((res) => {
         if (res.data.code === 0) {
           this.tishi = '绑定企业成功';
           this.showTishi = true;
@@ -89,29 +82,6 @@ export default {
           this.isSuccessInfo = false;
         }
       });
-    },
-    getKeywords() {
-      axios.get(Global.ENTERPRISE_BIND_QUERY_ENTERPRISE_ADDRESS, {
-        params: {
-          enterpriseName: this.enterpriseName,
-        },
-      }).then((res) => {
-        if (res.data.code === 0) {
-          this.keywords = res.data.data;
-          if (res.data.data.length > 0) {
-            this.showKeywords = true;
-          } else {
-            this.showKeywords = false;
-          }
-        } else {
-          this.tishi = res.data.message;
-        }
-      });
-    },
-    sendKeywords(o) {
-      this.enterpriseId = o.enterpriseId;
-      this.enterpriseName = o.enterpriseName;
-      this.showKeywords = false;
     },
   },
 };

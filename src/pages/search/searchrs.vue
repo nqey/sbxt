@@ -21,6 +21,7 @@
 import searchtr from '@/pages/search/searchtr';
 import axios from 'axios';
 import Global from '@/components/tool/Global';
+import utils from '@/components/tool/utils';
 
 export default {
   name: 'searchrs',
@@ -35,11 +36,7 @@ export default {
   methods: {
     getInfo() {
       axios.get(Global.ENTERPRISE_QUERY_DECLAREORG_ADDRESS, {
-        params: {
-          declareOrgName: this.params.declareOrgName,
-          state: this.params.state,
-          declareOrgId: this.params.declareOrgId,
-        },
+        params: utils.toRmEmpty(this.params),
       }).then((res) => {
         if (res.data.code === 0) {
           this.showTishi = false;

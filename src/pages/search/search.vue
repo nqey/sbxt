@@ -21,18 +21,14 @@
                   <label>按状态查找：</label>
                   <select name="state" id="state" v-model="state">
                     <option value="">全部</option>
-                    <option value="pending">初审</option>
-                    <option value="pending2">复审</option>
-                    <option value="passed">完成</option>
+                    <option value="wait">待支付</option>
+                    <option value="pending">待初审</option>
+                    <option value="collectting">待认证官上门采集</option>
+                    <option value="confirmFailed">初审未通过</option>
+                    <option value="pending2">待复审</option>
+                    <option value="confirm2Failed">复审未通过</option>
+                    <option value="passed">通过审核</option>
                   </select>
-                <!--   &nbsp;
-                  <label>按二维码数量查找：</label>
-                  <select v-model="codeNums">
-                    <option value="0">全部</option>
-                    <option value="1">1000以下</option>
-                    <option value="2">1001-10000</option>
-                    <option value="3">10000以上</option>                
-                  </select> -->
                   &nbsp;
                   <input type="submit" class="btn btn-success" @click="search" value="搜 索">
                   &nbsp; </td>
@@ -66,7 +62,7 @@ export default {
       declareOrgId: '',
       params: {
         declareOrgName: '',
-        state: '0',
+        state: '',
         declareOrgId: '',
       },
     };

@@ -35,6 +35,7 @@
 
 <script>
 import cookie from '@/components/tool/cookie';
+import utils from '@/components/tool/utils';
 import logo from '@/assets/img/ZHS-logo.png';
 import axios from 'axios';
 import Global from '@/components/tool/Global';
@@ -72,20 +73,14 @@ export default {
           password: this.password,
           checknumber: this.checknumber,
         };
-        axios.post(Global.DECLARE_LOGIN_DO_ADDRESS, {}, {
-          transformRequest: [() => {
-            let ret = '';
-            Object.entries(params).forEach((d) => {
-              ret += `${encodeURIComponent(d[0])}=${encodeURIComponent(d[1])}&`;
-            });
-            return ret;
-          }],
-        }).then((res) => {
+        axios.post(Global.DECLARE_LOGIN_DO_ADDRESS,
+         utils.toFormData(params),
+        ).then((res) => {
           this.lo = '正在登录...';
           if (res.data.code === 0) {
             this.showTishi = false;
             cookie.setCookie('username', this.username, 1000 * 60);
-            cookie.setCookie('declareOrgId', res.data.data.id, 1000 * 60);
+            cookie.setCookie('sb_token', res.data.data.sb_token, 1000 * 60);
             setTimeout(() => { this.$router.push('/search'); }, 1000);
           } else {
             this.lo = '登录';

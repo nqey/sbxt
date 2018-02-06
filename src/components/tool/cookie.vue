@@ -1,8 +1,10 @@
 <script>
+  import Global from '@/components/tool/Global';
+
   const setCookie = (cName, value, expire) => {
     const date = new Date();
     date.setSeconds(date.getSeconds() + expire);
-    document.cookie = `${cName} = ${escape(value)}; expires=${date.toGMTString()}`;
+    document.cookie = `${cName} = ${escape(value)}; expires=${date.toGMTString()}; domain=${Global.DOMAIN}; path=/`;
   };
   const getCookie = (cName) => {
     if (document.cookie.length > 0) {

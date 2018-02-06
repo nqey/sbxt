@@ -25,9 +25,7 @@ new Vue({
   // 进入页面时
   created() {
     this.checkLogin();
-    // cookie操作方法在源码里有或者参考网上的即可
     if (cookie.getCookie('username')) {
-      // 如果没有登录状态则跳转到登录页
       this.$router.push('/search');
     }
   },

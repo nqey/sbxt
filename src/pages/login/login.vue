@@ -80,7 +80,7 @@ export default {
           if (res.data.code === 0) {
             this.showTishi = false;
             cookie.setCookie('username', this.username, 1000 * 60);
-            cookie.setCookie('sb_token', res.data.data.sb_token, 1000 * 60);
+            cookie.setCookie('sb_token', res.data.data.token, 1000 * 60);
             setTimeout(() => { this.$router.push('/search'); }, 1000);
           } else {
             this.lo = '登录';

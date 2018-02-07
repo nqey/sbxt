@@ -17,13 +17,6 @@
                     <input type="submit" @click="bindEnterprise" class="btn btn-success" value="添 加">
                     <span :class="{errInfo: isErrInfo, successInfo: isSuccessInfo}" v-show="showTishi">{{tishi}}</span>
                     &nbsp;
-                    <div class="bdsug" style="height: auto;" v-show="showKeywords">
-                      <ul>
-                        <li v-for="key in keywords">
-                          {{ key.enterpriseName }}
-                        </li>
-                      </ul>
-                    </div>
                   </div> 
                 </td>
               </tr>
@@ -52,8 +45,6 @@ export default {
       enterpriseId: '',
       showTishi: false,
       tishi: '',
-      keywords: [],
-      showKeywords: false,
       isErrInfo: false,
       isSuccessInfo: false,
     };

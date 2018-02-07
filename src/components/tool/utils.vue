@@ -1,8 +1,12 @@
 <script>
   export default {
-    // 格式化表单数据
+    // 长度一以上时使用 格式化表单数据
     toFormData(params) {
-      return Object.entries(params).reduce((p, c, i) => {
+      const ps = Object.entries(params);
+      if (ps.length === 1) {
+        return `${encodeURIComponent(ps[0][0])}=${encodeURIComponent(ps[0][1])}`;
+      }
+      return ps.reduce((p, c, i) => {
         if (i === 1) {
           return `${encodeURIComponent(p[0])}=${encodeURIComponent(p[1])}&${encodeURIComponent(c[0])}=${encodeURIComponent(c[1])}`;
         }

@@ -1,24 +1,28 @@
 <template>
-  <table class="table table-striped">
-   <tbody>
-    <tr>
-     <th>企业名称</th>
-     <th>状态</th>
-     <th>二维码生成数量</th>
-     <th>补贴金额</th>
-    </tr>
-    <tr v-show="showTishi"><span style="color: red">{{tishi}}</span></tr>
-    <tr 
-      is="v-searchtr"
-      v-for="(list, index) in lists"
-      :list="list"
-    ></tr>
-   </tbody>
-  </table>
+  <div>
+    <table class="table table-striped">
+     <tbody>
+      <tr>
+       <th>企业名称</th>
+       <th>状态</th>
+       <th>二维码生成数量</th>
+       <th>补贴金额</th>
+      </tr>
+      <tr v-show="showTishi"><span style="color: red">{{tishi}}</span></tr>
+      <tr 
+        is="v-searchtr"
+        v-for="(list, index) in lists"
+        :list="list"
+      ></tr>
+     </tbody>
+    </table>
+    <v-pagenav :page="10"></v-pagenav>
+  </div>
 </template>
 
 <script>
 import searchtr from '@/pages/search/searchtr';
+import pagenav from '@/pages/search/pagenav';
 import axios from 'axios';
 import Global from '@/components/tool/Global';
 import utils from '@/components/tool/utils';
@@ -53,6 +57,7 @@ export default {
   },
   components: {
     'v-searchtr': searchtr,
+    'v-pagenav': pagenav,
   },
 };
 </script>

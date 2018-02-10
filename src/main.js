@@ -11,6 +11,7 @@ import router from './router';
 
 Vue.config.productionTip = false;
 axios.defaults.withCredentials = true;
+Vue.prototype.setObj = Vue.set;
 
 /* eslint-disable no-new */
 new Vue({

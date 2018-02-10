@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: rgb(0, 106, 236);">
+  <div  class="bj" :style="note">
       <div class="wrap">
         <div style="text-align:center;"><img :src="logo" style="width:90%;margin-top: 5%;"> </div>
         <div class="js-ajax-form" id="login-form" style="margin-top: 10%;">
@@ -7,7 +7,7 @@
             <div class="login">
               <ul>
                 <li>
-                  <input class="input valid" name="username" type="text"  placeholder="用户名" title="用户名" v-model="username">
+                  <input class="input valid" name="username" type="text" placeholder="用户名" title="用户名" v-model="username">
                 </li>
                 <li>
                   <input class="input valid" name="password" type="password" placeholder="密码" title="密码" v-model="password">
@@ -15,17 +15,16 @@
                 <li>
                   <ul class="logo_yzm">
                     <li>
-                      <input class="input" type="text" v-model="checknumber" name="checknumber" placeholder="请输入验证码">
+                      <input class="input" type="text" name="checknumber" placeholder="请输入验证码" v-model="checknumber">
                     </li>
-                    <li class="verifycode-wrapper"> <img :src="yzx" alt="点击更换验证码" width="112" height="45" @click="yzm"> </li>
+                    <li class="verifycode-wrapper"> <img id="imgVerify" :src="yzx" alt="点击更换验证码" width="112" height="45" @click="yzm"> </li>
                   </ul>
                 </li>
               </ul>
               <div id="login_btn_wraper">
-                <button class="btn js-ajax-submit" @click="login">{{lo}}</button>
+                <button id="submit-login" class="btn js-ajax-submit" @click="login">{{lo}}</button>
                 <span style="color: red" v-show="showTishi">{{tishi}}</span>
               </div>
-              
             </div>
           </div>
         </div>
@@ -36,7 +35,8 @@
 <script>
 import cookie from '@/components/tool/cookie';
 import utils from '@/components/tool/utils';
-import logo from '@/assets/img/ZHS-logo.png';
+import logo from '@/assets/img/SB-logo.png';
+import zhs from '@/assets/img/ZHS.png';
 import axios from 'axios';
 import Global from '@/components/tool/Global';
 
@@ -57,6 +57,9 @@ export default {
       lo: '登录',
       logo,
       yzx: `${Global.CHECKNUMBER}${new Date().getTime()}&domain=${Global.DOMAIN}`,
+      note: {
+        backgroundImage: `url(${zhs})`,
+      },
     };
   },
   methods: {
@@ -98,6 +101,9 @@ export default {
 </script>
 
 <style scoped>
+.bj {
+  height:100%;background-size:cover;
+}
 /*登录相关*/
 /*-----------------------------------------------------------------------*/
 #login_btn_wraper .tips_error {

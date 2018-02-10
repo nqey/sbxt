@@ -26,8 +26,8 @@
       </div>
       <div class="left_menu" id="left-menu">
         <div class="logo"><img :src="logo"/>
-          <h3>国家商品诚信数据库<br />
-            <span>成都市</span>管理后台</h3>
+          <h3>中国商品诚信数据库<br/>
+          <span>申报机构</span>管理后台</h3>
         </div>
         <div class="main-left_nav_list">
             <section class="sidebar">
@@ -42,8 +42,8 @@
 </template>
 
 <script>
-import Logo from '@/assets/logo.png';
-import Tx from '@/assets/tx.png';
+import Logo from '@/assets/img/logo.png';
+import Tx from '@/assets/img/tx.png';
 import cookie from '@/components/tool/cookie';
 
 export default {
@@ -262,7 +262,7 @@ ul li {
     width: 350px;
     color: #fff;
     padding: 6px 45px;
-    background: url(../../assets/fdj.png) no-repeat 15px;
+    background: url(/assets/img/fdj.png) no-repeat 15px;
     display: none;
 }
 </style>

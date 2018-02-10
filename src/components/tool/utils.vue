@@ -1,6 +1,6 @@
 <script>
   export default {
-    // 长度一以上时使用 格式化表单数据
+    // 格式化表单数据
     toFormData(params) {
       const ps = Object.entries(params);
       if (ps.length === 1) {

@@ -1,6 +1,7 @@
 <template>
   <div>
-    <v-nav></v-nav>
+    <v-head></v-head>
+    <v-lmenu></v-lmenu>
     <div class="container">
       <div style="height: 100px;"></div>
       <div class="content_list">
@@ -49,8 +50,9 @@
 </template>
 
 <script>
-import searchrs from '@/pages/search/searchrs';
-import nav from '@/components/nav/nav';
+import searchrs from '@/page/search/searchrs';
+import head from '@/components/header/head';
+import lmenu from '@/components/leftMenu/menu';
 import cookie from '@/components/tool/cookie';
 
 export default {
@@ -78,7 +80,8 @@ export default {
   },
   components: {
     'v-searchrs': searchrs,
-    'v-nav': nav,
+    'v-head': head,
+    'v-lmenu': lmenu,
   },
 };
 </script>

@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import search from '@/pages/search/search';
-import bindEnterprise from '@/pages/bindEnterprise/bindEnterprise';
-import login from '@/pages/login/login';
+import search from '@/page/search/search';
+import bindEnterprise from '@/page/bindEnterprise/bindEnterprise';
+import login from '@/page/login/login';
 
 Vue.use(Router);
 

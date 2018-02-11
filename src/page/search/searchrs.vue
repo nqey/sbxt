@@ -21,8 +21,8 @@
 </template>
 
 <script>
-import searchtr from '@/pages/search/searchtr';
-import pagenav from '@/pages/search/pagenav';
+import searchtr from '@/page/search/searchtr';
+import pagenav from '@/page/search/pagenav';
 import axios from 'axios';
 import Global from '@/components/tool/Global';
 import utils from '@/components/tool/utils';

@@ -76,7 +76,7 @@ export default {
           checknumber: this.checknumber,
         };
         this.lo = '正在登录...';
-        const res = await http.post(DECLARE_LOGIN_DO_ADDRESS, params);
+        const res = await http.xhr('post', DECLARE_LOGIN_DO_ADDRESS, params);
         if (res.data.code === 0) {
           this.showTishi = false;
           setCookie('username', this.username, 1000 * 60);

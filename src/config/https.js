@@ -59,19 +59,11 @@ const checkCode = (res) => {
 };
 
 export default {
-  async post(url, data) {
+  async xhr(method, url, data) {
     const res = await axios({
-      method: 'post',
+      method,
       url,
       data,
-    });
-    return checkCode(checkStatus(res));
-  },
-  async get(url, params) {
-    const res = await axios({
-      method: 'get',
-      url,
-      params, // get 请求时带的参数
     });
     return checkCode(checkStatus(res));
   },

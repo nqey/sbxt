@@ -24,8 +24,8 @@
 import searchtr from '@/page/search/searchtr';
 import pagenav from '@/page/search/pagenav';
 import axios from 'axios';
-import Global from '@/components/tool/Global';
-import utils from '@/components/tool/utils';
+import { ENTERPRISE_QUERY_DECLAREORG_ADDRESS } from '@/config/env';
+import { toRmEmpty } from '@/config/utils';
 
 export default {
   name: 'searchrs',
@@ -39,8 +39,8 @@ export default {
   },
   methods: {
     getInfo() {
-      axios.get(Global.ENTERPRISE_QUERY_DECLAREORG_ADDRESS, {
-        params: utils.toRmEmpty(this.params),
+      axios.get(ENTERPRISE_QUERY_DECLAREORG_ADDRESS, {
+        params: toRmEmpty(this.params),
       }).then((res) => {
         if (res.data.code === 0) {
           this.showTishi = false;

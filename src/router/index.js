@@ -1,8 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import search from '@/page/search/search';
-import bindEnterprise from '@/page/bindEnterprise/bindEnterprise';
-import login from '@/page/login/login';
+
+const bindEnterprise = r => require.ensure([], (require) => { r(require('@/page/bindEnterprise')); }, 'bindEnterprise');
+const search = r => require.ensure([], (require) => { r(require('@/page/search')); }, 'search');
+const login = r => require.ensure([], (require) => { r(require('@/page/login')); }, 'login');
 
 Vue.use(Router);
 

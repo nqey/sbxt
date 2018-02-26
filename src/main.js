@@ -3,6 +3,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min';
 import { getCookie } from '@/config/cookie';
+import http from '@/config/https';
 
 import Vue from 'vue';
 import App from './App';
@@ -10,6 +11,7 @@ import router from './router';
 
 Vue.config.productionTip = false;
 Vue.prototype.setObj = Vue.set;
+Vue.prototype.$xhr = http.xhr;
 
 /* eslint-disable no-new */
 new Vue({

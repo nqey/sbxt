@@ -20,7 +20,7 @@ import Logo from '@/assets/img/logo.png';
 import { getCookie, delCookie } from '@/config/cookie';
 
 export default {
-  name: 'menu',
+  name: 'lmenu',
   data() {
     return {
       username: getCookie('username'),

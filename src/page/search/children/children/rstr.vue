@@ -11,7 +11,7 @@
 import { ENTERPRISE_TYPE } from '@/config/env';
 
 export default {
-  name: 'searchtr',
+  name: 'rstr',
   props: ['list'],
   computed: {
     listStatus() { return ENTERPRISE_TYPE[this.list.status]; },
@@ -28,5 +28,8 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+  td {
+    color: #797979 !important;
+  }
 </style>

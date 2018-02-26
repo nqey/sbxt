@@ -16,19 +16,16 @@
       ></tr>
      </tbody>
     </table>
-    <v-pagenav :page="10"></v-pagenav>
+    
   </div>
 </template>
 
 <script>
-import searchtr from '@/page/search/searchtr';
-import pagenav from '@/page/search/pagenav';
-import axios from 'axios';
+import searchtr from '@/page/search/children/children/rstr';
 import { ENTERPRISE_QUERY_DECLAREORG_ADDRESS } from '@/config/env';
-import { toRmEmpty } from '@/config/utils';
 
 export default {
-  name: 'searchrs',
+  name: 'result',
   props: ['params'],
   data() {
     return {
@@ -38,18 +35,16 @@ export default {
     };
   },
   methods: {
-    getInfo() {
-      axios.get(ENTERPRISE_QUERY_DECLAREORG_ADDRESS, {
-        params: toRmEmpty(this.params),
-      }).then((res) => {
-        if (res.data.code === 0) {
-          this.showTishi = false;
-          this.lists = res.data.data;
-        } else {
-          this.tishi = res.data.message;
-          this.showTishi = true;
-        }
-      });
+    async getInfo() {
+      const res = await this.$xhr('get', ENTERPRISE_QUERY_DECLAREORG_ADDRESS, this.params);
+      if (res.data.code === 0) {
+        this.showTishi = false;
+        this.lists = res.data.data;
+      } else {
+        this.tishi = res.data.message;
+        this.showTishi = true;
+      }
+      this.$emit('isrs', true);
     },
   },
   watch: {
@@ -57,11 +52,18 @@ export default {
   },
   components: {
     'v-searchtr': searchtr,
-    'v-pagenav': pagenav,
   },
 };
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+.table-striped {
+  tbody {
+    tr {
+      &:nth-of-type(odd) {
+        background-color: #edf2fe !important;
+      }
+    }
+  }
+}
 </style>

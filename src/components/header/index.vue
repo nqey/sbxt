@@ -30,7 +30,7 @@ import Tx from '@/assets/img/tx.png';
 import { getCookie, delCookie } from '@/config/cookie';
 
 export default {
-  name: 'head',
+  name: 'mhead',
   data() {
     return {
       username: getCookie('username'),
@@ -61,6 +61,14 @@ export default {
   margin-left: 500px;
 }
 .header_search {
+  background: none;
+  border: 1px solid #fff;
+  @include borderRadius(90px);
+  @include wh(350px, 40px);
+  color: $fc;
+  padding: 6px 45px;
+  background: url(/assets/img/fdj.png) no-repeat 15px;
+  display: none;
   &::-webkit-input-placeholder {
      color: $fc;
   }
@@ -108,15 +116,5 @@ export default {
       @include sc(12, #949494);
     }
   }
-}
-.header_content .header_search {
-  background: none;
-  border: 1px solid #fff;
-  @include borderRadius(90px);
-  @include wh(350px, 40px);
-  color: $fc;
-  padding: 6px 45px;
-  background: url(/assets/img/fdj.png) no-repeat 15px;
-  display: none;
 }
 </style>

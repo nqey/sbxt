@@ -31,7 +31,7 @@
                     <option value="passed">通过审核</option>
                   </select>
                   &nbsp;
-                  <input type="submit" class="btn btn-success" @click="search" value="搜 索">
+                  <input type="submit" class="btn btn-success" @click="search(1)" value="搜 索">
                   &nbsp; </td>
               </tr>
               <tr>
@@ -40,9 +40,10 @@
             </tbody>
           </table>
         </div>
-        <div class="content_list_list_con table-responsive" style="display: block;">
+        <div v-show="isShowRs" class="content_list_list_con table-responsive" style="display: block;">
           <h5>筛选结果：</h5>
-          <v-searchrs :params="params"></v-searchrs>
+          <v-searchrs :params="params" @isrs="isprs"></v-searchrs>
+          <v-pagenav v-show="isPageShow" :page="pages" @nextPage="search"></v-pagenav>
         </div> 
       </div>
     </div>
@@ -50,9 +51,10 @@
 </template>
 
 <script>
-import searchrs from '@/page/search/children/searchrs';
-import head from '@/components/header/head';
-import lmenu from '@/components/leftMenu/menu';
+import searchrs from '@/page/search/children/result';
+import pagenav from '@/components/pagenav';
+import vhead from '@/components/header';
+import lmenu from '@/components/leftMenu';
 import { getCookie } from '@/config/cookie';
 
 export default {
@@ -62,6 +64,10 @@ export default {
       declareOrgName: '',
       state: '',
       declareOrgId: '',
+      isShowRs: false,
+      isPageShow: false,
+      pages: 1,
+      lines: 10,
       params: {
         declareOrgName: '',
         state: '',
@@ -70,125 +76,38 @@ export default {
     };
   },
   methods: {
-    search() {
+    async search(page) {
       const o = {};
       o.declareOrgName = this.declareOrgName;
       o.state = this.state;
       o.declareOrgId = getCookie('declareOrgId');
+      o.page = page;
       this.params = o;
+      const aPage = await this.$xhr('get', 'api/count');
+      this.pages = aPage.data.data.count / this.lines;
+      this.isPageShow = true;
+    },
+    isprs(isShow) {
+      this.isShowRs = isShow;
     },
   },
   components: {
     'v-searchrs': searchrs,
-    'v-head': head,
+    'v-head': vhead,
     'v-lmenu': lmenu,
+    'v-pagenav': pagenav,
   },
 };
 </script>
 
-<style>
-/*首页*/
-.main {
-  padding: 5% 0;
-}
-.main_header_login {
-  text-align: right;
-}
-.main_header_login a {
-  color: #fff;
-  border: 1px solid #fff;
-  border-radius: 20px;
-  padding: 10px 25px;
-}
-.main_center {
-  padding: 5% 0;
-}
+<style lang="scss" scoped>
 .main_center_logo {
   text-align: center;
   color: #333;
+  h2 {
+    padding: 25px 0;
+  }
 }
-.main_center_logo h2 {
-  padding: 25px 0;
-}
-.main_center_search {
-  text-align: center;
-  padding: 10px 0;
-}
-.main_center_ps {
-  padding-top: 12%;
-  color: #fff;
-  width: 66%;
-  margin: auto;
-}
-.main_center_ps p {
-  padding-bottom: 40px;
-  line-height: 28px;
-}
-.main_center_search .navbar-form {
-  width: 70% !important;
-  margin: auto;
-}
-.main_center_search .form-group {
-  width: 75%;
-  margin-right: 4%;
-}
-.main_center_search .form-group input {
-  width: 100% !important;
-  background: #fff;
-  border-radius: 40px;
-  height: 40px;
-  font-size: 16px;
-  padding: 6px 18px !important;
-}
-.main_center_search button {
-  width: 20%;
-  border-radius: 40px;
-  height: 40px;
-  font-size: 16px;
-  outline: none !important;
-}
-.main_center_search .modal-body {
-  padding: 35px 35px 50px 35px !important;
-}
-.tc .glyphicon {
-  font-size: 18px;
-  padding: 15px;
-  border-radius: 360px;
-}
-.tc .glyphicon-ok {
-  border: 2px solid #5cb85c;
-  color: #5cb85c;
-}
-.tc .glyphicon-remove {
-  border: 2px solid red;
-  color: red;
-}
-.tc h4 {
-  padding: 25px 0 35px;
-}
-.tc a {
-  color: #fff;
-  padding: 10px 30px;
-  border-radius: 20px;
-}
-.success a {
-  background: #449d44;
-}
-.failure a {
-  background: red;
-}
-@media (min-width: 768px) {
-.modal-sm {
-  width: 350px !important;
-}
-}
-@media (min-width: 768px) {
-.modal-dialog {
-  margin: 15% auto;
-}
-}
-/*企业列表页*/
-
 .content_list {
   padding: 5% 0 3% 0;
   text-align: center;
@@ -198,46 +117,11 @@ export default {
   padding: 20px 30px;
   border-radius: 8px;
 }
-.content_list_list h4 {
-  border-bottom: 1px solid #eee;
-  color: #716d6d;
-  padding-bottom: 10px;
-}
 .content_list_list_search {
   padding: 10px;
-    background: #f9f9f9;
-}
-.content_list_list_search input, .content_list_list_search select {
-  margin-right: 30px;
-  border-radius: 5px;
-  padding: 2px 10px;
-  border: 1px solid #eee;
-}
-.content_list_list_search select {
-  min-width: 120px;
-}
-.content_list_list_search label {
-  font-size: 12px;
-}
-.content_list_list_search .btn {
-  padding: 3px 35px;
-  border: none;
-  border-radius: 15px;
-  outline: none !important;
-}
-.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
-  padding: 12px !important;
-  border-top: none !important;
-}
-.table-striped>tbody>tr:nth-of-type(odd) {
-  background-color: #edf2fe !important;
-}
-td {
-  color: #797979;
-}
-.pagination>li>a:focus, .pagination>li>a:hover, .pagination>li>span:focus, .pagination>li>span:hover {
-  background: #5cb85c !important;
-  border-color: #5cb85c !important;
-  color: #fff !important;
+  background: #f9f9f9;
+  select {
+    min-width: 120px;
+  }
 }
 </style>

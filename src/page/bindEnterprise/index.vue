@@ -33,11 +33,9 @@
 </template>
 
 <script>
-import axios from 'axios';
 import { ENTERPRISE_BIND_DECLAREORG_ADDRESS } from '@/config/env';
-import { toFormData } from '@/config/utils';
-import head from '@/components/header/head';
-import lmenu from '@/components/leftMenu/menu';
+import vhead from '@/components/header';
+import vlmenu from '@/components/leftMenu';
 
 export default {
   name: 'enterprise',
@@ -52,30 +50,27 @@ export default {
     };
   },
   components: {
-    'v-head': head,
-    'v-lmenu': lmenu,
+    'v-head': vhead,
+    'v-lmenu': vlmenu,
   },
   methods: {
-    bindEnterprise() {
-      const params = {
+    async bindEnterprise() {
+      const data = {
         enterpriseName: this.enterpriseName,
       };
-      axios.post(ENTERPRISE_BIND_DECLAREORG_ADDRESS,
-        toFormData(params),
-      ).then((res) => {
-        if (res.data.code === 0) {
-          this.tishi = '绑定企业成功';
-          this.showTishi = true;
-          this.isErrInfo = false;
-          this.isSuccessInfo = true;
-          setTimeout(() => { this.showTishi = false; }, 2000);
-        } else {
-          this.tishi = res.data.message;
-          this.showTishi = true;
-          this.isErrInfo = true;
-          this.isSuccessInfo = false;
-        }
-      });
+      const res = await this.$xhr('post', ENTERPRISE_BIND_DECLAREORG_ADDRESS, data);
+      if (res.data.code === 0) {
+        this.tishi = '绑定企业成功';
+        this.showTishi = true;
+        this.isErrInfo = false;
+        this.isSuccessInfo = true;
+        setTimeout(() => { this.showTishi = false; }, 2000);
+      } else {
+        this.tishi = res.data.message;
+        this.showTishi = true;
+        this.isErrInfo = true;
+        this.isSuccessInfo = false;
+      }
     },
   },
 };
@@ -88,35 +83,12 @@ export default {
 .successInfo {
  color: green;
 }
-.bdsug ul li {
-  display: list-item;
-}
-.bdsug {
-  position: absolute;
-  z-index: 1;
-  width: 400px;
-  left: 89px;
+.content_list_list {
   background: #fff;
-  border: 1px solid #ccc;
-  _overflow: hidden;
-  box-shadow: 1px 1px 3px #ededed;
-  -webkit-box-shadow: 1px 1px 3px #ededed;
-  -moz-box-shadow: 1px 1px 3px #ededed;
-  -o-box-shadow: 1px 1px 3px #ededed;
+  padding: 20px 30px;
+  border-radius: 8px;
 }
-.bdsug li {
-  width: 100%;
-  color: #000;
-  font: 14px arial;
-  line-height: 22px;
-  padding: 0 8px;
-  position: relative;
-  cursor: default;
-}
-.bdsug ul li b{display: inline;}
-.bdsug ul{display: block;}
-.bdsug ul li:hover
-{ 
-  background-color:#eee;
+.content_list_list_search {
+  padding: 10px;
 }
 </style>

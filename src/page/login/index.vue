@@ -36,7 +36,6 @@
 import { setCookie } from '@/config/cookie';
 import logo from '@/assets/img/SB-logo.png';
 import zhs from '@/assets/img/ZHS.png';
-import http from '@/config/https';
 import { CHECKNUMBER, DOMAIN, DECLARE_LOGIN_DO_ADDRESS } from '@/config/env';
 
 export default {
@@ -70,13 +69,13 @@ export default {
         this.tishi = '请输入验证码';
         this.showTishi = true;
       } else {
-        const params = {
+        const data = {
           username: this.username,
           password: this.password,
           checknumber: this.checknumber,
         };
         this.lo = '正在登录...';
-        const res = await http.xhr('post', DECLARE_LOGIN_DO_ADDRESS, params);
+        const res = await this.$xhr('post', DECLARE_LOGIN_DO_ADDRESS, data);
         if (res.data.code === 0) {
           this.showTishi = false;
           setCookie('username', this.username, 1000 * 60);
@@ -96,25 +95,16 @@ export default {
 };
 </script>
 
-<style scoped>
-.bj {
-  height:100%;background-size:cover;
-}
+<style lang="scss" scoped>
+@import '../../assets/css/mixin.scss';
+
 /*登录相关*/
 /*-----------------------------------------------------------------------*/
-#login_btn_wraper .tips_error {
-  display: block;
-}
-#login_btn_wraper .tips_success {
-  display: block;
-  color: #4fc1ad;
-}
 #login_btn_wraper {
   text-align: center;
 }
 .wrap {
-  width: 550px;
-  height: 974px;
+  @include wh(550px, 974px);
   overflow: hidden;
   margin: 0 auto;
   padding-top: 130px;

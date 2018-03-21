@@ -27,7 +27,7 @@ axios.interceptors.request.use((config) => {
     config.method === 'patch'
   ) {
     // 序列化
-    con.data = toFormData(con.data);
+    con.data = toFormData(toRmEmpty(con.data));
     con.headers['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
   }
   if (config.method === 'get') {

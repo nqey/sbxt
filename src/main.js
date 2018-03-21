@@ -35,7 +35,7 @@ new Vue({
       // cookie操作方法在源码里有或者参考网上的即可
       if (!getCookie('username')) {
         // 如果没有登录状态则跳转到登录页
-        this.$router.push('/login');
+        // this.$router.push('/login');
       }
     },
   },

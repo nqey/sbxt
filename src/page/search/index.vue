@@ -43,7 +43,7 @@
         <div v-show="isShowRs" class="content_list_list_con table-responsive" style="display: block;">
           <h5>筛选结果：</h5>
           <v-searchrs :params="params" @isrs="isprs"></v-searchrs>
-          <v-pagenav v-show="isPageShow" :page="pages" @nextPage="search"></v-pagenav>
+          <v-pagination v-show="isPageShow" :page="pages" @nextPage="search"></v-pagination>
         </div> 
       </div>
     </div>
@@ -52,10 +52,11 @@
 
 <script>
 import searchrs from '@/page/search/children/result';
-import pagenav from '@/components/pagenav';
+import pagination from '@/components/pagination';
 import vhead from '@/components/header';
 import lmenu from '@/components/leftMenu';
 import { getCookie } from '@/config/cookie';
+import { ENTERPRISE_QUERY_COUNT_ADDRESS } from '@/config/env';
 
 export default {
   name: 'search',
@@ -67,7 +68,7 @@ export default {
       isShowRs: false,
       isPageShow: false,
       pages: 1,
-      lines: 10,
+      rows: 20,
       params: {
         declareOrgName: '',
         state: '',
@@ -82,9 +83,10 @@ export default {
       o.state = this.state;
       o.declareOrgId = getCookie('declareOrgId');
       o.page = page;
+      o.rows = this.rows;
       this.params = o;
-      const aPage = await this.$xhr('get', 'api/count');
-      this.pages = aPage.data.data.count / this.lines;
+      const aPage = await this.$xhr('get', ENTERPRISE_QUERY_COUNT_ADDRESS);
+      this.pages = aPage.data.data.count / this.rows;
       this.isPageShow = true;
     },
     isprs(isShow) {
@@ -95,7 +97,7 @@ export default {
     'v-searchrs': searchrs,
     'v-head': vhead,
     'v-lmenu': lmenu,
-    'v-pagenav': pagenav,
+    'v-pagination': pagination,
   },
 };
 </script>

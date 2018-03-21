@@ -1,6 +1,9 @@
 // 格式化表单数据
 const toFormData = (params) => {
   const ps = Object.entries(params);
+  if (ps.length === 0) {
+    return '';
+  }
   if (ps.length === 1) {
     return `${encodeURIComponent(ps[0][0])}=${encodeURIComponent(ps[0][1])}`;
   }

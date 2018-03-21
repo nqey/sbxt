@@ -72,6 +72,9 @@ const DECLARE_LOGIN_DO_ADDRESS = `${DECLARE_BASE_URL}publics/login/do`;
 const ENTERPRISE_BIND_DECLAREORG_ADDRESS = `${ENTERPRISE_BASE_URL}sbxt/declare/enterprise`;
 // 查询申报机构接口地址
 const ENTERPRISE_QUERY_DECLAREORG_ADDRESS = `${ENTERPRISE_BASE_URL}sbxt/query/declareorg`;
+// 查询申报机构数接口地址
+const ENTERPRISE_QUERY_COUNT_ADDRESS = `${ENTERPRISE_BASE_URL}sbxt/query/count`;
+
 
 export {
   test,
@@ -84,4 +87,5 @@ export {
   ENTERPRISE_QUERY_DECLAREORG_ADDRESS,
   CHECKNUMBER,
   ENTERPRISE_TYPE,
+  ENTERPRISE_QUERY_COUNT_ADDRESS,
 };

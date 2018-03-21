@@ -1,41 +1,157 @@
 <template>
-  <div  class="bj" :style="note">
-      <div class="wrap">
-        <div style="text-align:center;"><img :src="logo" style="width:90%;margin-top: 5%;"> </div>
-        <div class="js-ajax-form" id="login-form" style="margin-top: 10%;">
-          <div style="background: #fff;height: 280px;width: 84%;border-radius: 12px; margin:auto;">
-            <div class="login">
-              <ul>
-                <li>
-                  <input class="input valid" name="username" type="text" placeholder="用户名" title="用户名" v-model="username">
-                </li>
-                <li>
-                  <input class="input valid" name="password" type="password" placeholder="密码" title="密码" v-model="password">
-                </li>
-                <li>
-                  <ul class="logo_yzm">
-                    <li>
-                      <input class="input" type="text" name="checknumber" placeholder="请输入验证码" v-model="checknumber">
-                    </li>
-                    <li class="verifycode-wrapper"> <img id="imgVerify" :src="yzx" alt="点击更换验证码" width="112" height="45" @click="yzm"> </li>
-                  </ul>
-                </li>
-              </ul>
-              <div id="login_btn_wraper">
-                <button id="submit-login" class="btn js-ajax-submit" @click="login">{{lo}}</button>
-                <span style="color: red" v-show="showTishi">{{tishi}}</span>
-              </div>
+  <div>
+    <!-- 波浪特效开始 -->
+    <div class="waveWrapper waveAnimation">
+      <div class="waveWrapperInner bgTop">
+        <div class="wave waveTop" :style="waveTopd"></div>
+      </div>
+      <div class="waveWrapperInner bgMiddle">
+        <div class="wave waveMiddle" :style="waveMiddled"></div>
+      </div>
+      <div class="waveWrapperInner bgBottom">
+        <div class="wave waveBottom" :style="waveBottomd"></div>
+      </div>
+    </div>
+    <!-- 波浪特效结束 -->
+    <!-- 登录内容开始 -->
+    <div class="content">
+      <!-- 左占位2 开始-->
+      <div class="col-sm-2"></div>
+      <!-- 左占位2 结束-->
+      <!-- 申报机构logo和说明 开始 -->
+      <div class="col-sm-4 caption">
+        <img :src="logo"></img>
+        <h1>CPS 申报机构</h1>
+        <p style="line-height: 25px;">申报机构是依法筛选和推荐符合标准的生产企业，获得<br/>中国商品诚信数据库项目扶持资金补贴，隶属于中国商<br/>品诚信数据库服务中心，忠实执行中国商品诚信数据库<br/>的筛选标准，全心全意为消费者服务。</p>
+        <br/>
+        <br/>
+        <router-link to="/step1"><button class="btn">立即申请</button></router-link>
+      </div>
+      <!-- 申报机构logo和说明 结束 -->
+      <!-- 登录框 开始 -->
+      <div class="col-sm-6" style="position: relative;text-align: center;">
+         <div  class="loginContent">
+          <div class="login">
+            <h3 class="loginTitle">CPS申报机构自主管理平台登录</h3>
+            <ul>
+              <li>
+                <input class="input valid" name="username" type="text" placeholder="请输入帐号" title="用户名"  v-model="username">
+              </li>
+              <li>
+                <input class="input valid" name="password" type="password" placeholder="请输入密码" title="密码" v-model="password">
+              </li>
+              <li>
+                <ul class="logo_yzm">
+                  <li>
+                    <input class="input" type="text" name="checknumber" placeholder="请输入验证码"  v-model="checknumber">
+                  </li>
+                  <li class="verifycode-wrapper"> 
+                    <img id="imgVerify" :src="yzx" alt="点击更换验证码" width="112" height="45" @click="yzm">
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" value="">记住帐号
+                      </label>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <a style="line-height: 40px">忘记密码？</a>
+                </div>
+            </div>
+            <div id="login_btn_wraper">
+              <button id="submit-login" class="btn js-ajax-submit" @click="login">{{lo}}</button>
             </div>
           </div>
         </div>
       </div>
+      <!-- 登录框 结束 -->
+      <!-- 公告 开始 -->
+      <div  class="col-sm-2"></div>
+      <div  class="col-sm-10 announcement">
+        <div class="col-sm-1">
+          <span class="glyphicon glyphicon-volume-up"></span> 系统公告
+        </div>
+        <div class="col-sm-9">
+          申报机构报名办理指南，请认真阅读 第二批申报机构申报官培训时间安排  
+        </div>
+        <div class="col-sm-2">
+          <router-link to="/noti">更多>></router-link>
+        </div>
+      </div>
+      <!-- 公告 结束 -->
+      <!-- 查看详情 开始 -->
+      <div  class="col-sm-3"></div>
+      <div  class="col-sm-2 seeDetails">
+            <div class="seeDetailsLogo1">
+                <img :src="sbxt"></img>
+            </div>
+            <br/>
+            <br/>
+            <p>申报机构</p>
+            <p>邀约并协助生产型企业完成申报工作，对 企业讲解中国商品诚信数据库，让企业充 分了解入库的必要性。</p>
+            <br/>
+            <router-link to="/seeDetails"><button class="btn ckxq">查看详情</button></router-link>
+      </div>
+       <div  class="col-sm-2 seeDetails">
+            <div class="seeDetailsLogo2">
+                <img :src="sjglzx"></img>
+            </div>
+            <br/>
+            <br/>
+            <p>市级管理中心</p>
+            <p>邀约并协助生产型企业完成申报工作，对 企业讲解中国商品诚信数据库，让企业充 分了解入库的必要性，并管理当市企业。</p>
+            <br/>
+            <button class="btn ckxq">查看详情</button>
+      </div>
+
+      <div  class="col-sm-2 seeDetails">
+        <div class="seeDetailsLogo3">
+            <img :src="ssjglzx"></img>
+        </div>
+        <br/>
+        <br/>
+        <p>省级服务中心</p>
+        <p>邀约并协助生产型企业完成申报工作，对 企业讲解中国商品诚信数据库，让企业充 分了解入库的必要性，并管理当省企业。</p>
+        <br/>
+        <button class="btn ckxq">查看详情</button>
+      </div>
+      <div class="col-sm-3"></div>
+      <!-- 查看详情 结束 -->
+      <!-- 页脚 开始 -->
+
+      <div class="col-sm-12 lFooter">
+          <div class="col-sm-6">
+              <a>关于我们 |</a>
+              <a>服务协议 |</a>
+              <a>联系我们 |</a>
+              <a>官网网站 |</a>
+              <a>企业入库</a>
+          </div>
+          <div class="col-sm-6">
+            <small>版权所有 @中国商品诚信数据库技术服务中心 ALL Rights Reserved 蜀ICP备16015082号-2 </small>
+          </div>
+      </div>
+      <!-- 页脚 结束-->
+    </div>
+     <!-- 登录内容结束 -->
   </div>
 </template>
 
 <script>
 import { setCookie } from '@/config/cookie';
-import logo from '@/assets/img/SB-logo.png';
+import logo from '@/assets/img/logo.png';
 import zhs from '@/assets/img/ZHS.png';
+import sbxt from '@/assets/img/sbxt.png';
+import sjglzx from '@/assets/img/sjglzx.png';
+import ssjglzx from '@/assets/img/ssjglzx.png';
+import waveTop from '@/assets/img/wave-top.png';
+import waveMiddle from '@/assets/img/wave-mid.png';
+import waveBottom from '@/assets/img/wave-bot.png';
 import { CHECKNUMBER, DOMAIN, DECLARE_LOGIN_DO_ADDRESS } from '@/config/env';
 
 export default {
@@ -54,38 +170,40 @@ export default {
       tishi: '',
       lo: '登录',
       logo,
+      sbxt,
+      sjglzx,
+      ssjglzx,
       yzx: `${CHECKNUMBER}${new Date().getTime()}&domain=${DOMAIN}`,
       note: {
         backgroundImage: `url(${zhs})`,
       },
+      waveTopd: {
+        backgroundImage: `url(${waveTop})`,
+      },
+      waveMiddled: {
+        backgroundImage: `url(${waveMiddle})`,
+      },
+      waveBottomd: {
+        backgroundImage: `url(${waveBottom})`,
+      },
+
     };
   },
   methods: {
     async login() {
-      if (this.username === '' || this.password === '') {
-        this.tishi = '请输入用户名和密码';
-        this.showTishi = true;
-      } else if (this.checknumber === '') {
-        this.tishi = '请输入验证码';
-        this.showTishi = true;
+      const data = {
+        username: this.username,
+        password: this.password,
+        checknumber: this.checknumber,
+      };
+      this.lo = '正在登录...';
+      const res = await this.$xhr('post', DECLARE_LOGIN_DO_ADDRESS, data);
+      if (res.data.code === 0) {
+        setCookie('username', this.username, 1000 * 60);
+        setCookie('sb_token', res.data.data.token, 1000 * 60);
+        setTimeout(() => { this.$router.push('/search'); }, 1000);
       } else {
-        const data = {
-          username: this.username,
-          password: this.password,
-          checknumber: this.checknumber,
-        };
-        this.lo = '正在登录...';
-        const res = await this.$xhr('post', DECLARE_LOGIN_DO_ADDRESS, data);
-        if (res.data.code === 0) {
-          this.showTishi = false;
-          setCookie('username', this.username, 1000 * 60);
-          setCookie('sb_token', res.data.data.token, 1000 * 60);
-          setTimeout(() => { this.$router.push('/search'); }, 1000);
-        } else {
-          this.lo = '登录';
-          this.tishi = res.data.message;
-          this.showTishi = true;
-        }
+        this.lo = '登录';
       }
     },
     yzm() {
@@ -98,155 +216,214 @@ export default {
 <style lang="scss" scoped>
 @import '../../assets/css/mixin.scss';
 
-/*登录相关*/
-/*-----------------------------------------------------------------------*/
-#login_btn_wraper {
-  text-align: center;
+@keyframes move_wave {
+    0% {
+        transform: translateX(0) translateZ(0) scaleY(1)
+    }
+    50% {
+        transform: translateX(-25%) translateZ(0) scaleY(0.55)
+    }
+    100% {
+        transform: translateX(-50%) translateZ(0) scaleY(1)
+    }
 }
-.wrap {
-  @include wh(550px, 974px);
-  overflow: hidden;
-  margin: 0 auto;
-  padding-top: 130px;
-  -webkit-animation: bounceIn 600ms linear;
-  -moz-animation: bounceIn 600ms linear;
-  -o-animation: bounceIn 600ms linear;
-  animation: bounceIn 600ms linear;
+.waveWrapper {
+    overflow: hidden;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    margin: auto;
 }
-h1 a {
-  display: block;
-  height: 50px;
-  /* width: 398px; */
-  margin: auto;
-  overflow: hidden;
+.waveWrapperInner {
+    position: absolute;
+    width: 100%;
+    overflow: hidden;
+    height: 500px;
+    top: -1px;
+    background-image: linear-gradient(to right,  rgb(73,43,253) , rgb(51,141,255)); /* 标准的语法 */
+}
+.bgTop {
+    z-index: 15;
+    opacity: 0.5;
+}
+.bgMiddle {
+    z-index: 10;
+    opacity: 0.75;
+}
+.bgBottom {
+    z-index: 5;
+}
+.wave {
+    position: absolute;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    background-repeat: repeat no-repeat;
+    background-position: 0 bottom;
+    transform-origin: center bottom;
+}
+.waveTop {
+    background-size: 50% 100px;
+}
+.waveAnimation .waveTop {
+  animation: move-wave 3s;
+   -webkit-animation: move-wave 3s;
+   -webkit-animation-delay: 1s;
+   animation-delay: 1s;
+}
+.waveMiddle {
+    background-size: 50% 120px;
+}
+.waveAnimation .waveMiddle {
+    animation: move_wave 10s linear infinite;
+}
+.waveBottom {
+    background-size: 50% 100px;
+}
+.waveAnimation .waveBottom {
+    animation: move_wave 15s linear infinite;
+}
+.content {
+  position: absolute;width: 100%;top:40px;height: 400px;z-index: 16;
+}
+.caption {
   color: #fff;
-  font-size: 30px;
-  /* font-weight: normal; */
-  text-align: center;
-  text-decoration: none; /* line-height: 50px; */
 }
-.login ul, .login li {
-  padding: 0;
-  margin: 0;
-  list-style: none;
+.loginContent {
+  background: #fff;height: 350px;width: 410px;border-radius: 12px; margin:auto;
 }
-.login ul {
-  background: #fff;
-  /*box-shadow:1px 1px 1px #ccc;*/
-  border-radius: 3px;
-  overflow: hidden;
-  margin-bottom: 15px;
-  width: 350px;
-  margin: auto;
-  overflow: hidden;
-  padding: 25px 0;
+.loginTitle {
+  position: relative;top: 15px;line-height: 50px
 }
-.logo_yzm li {
-  width: 50%;
-  float: left;
-  border: none !important;
+.announcement {
+  margin-top: 150px
 }
-.logo_yzm {
-  border-bottom: 1px solid #d3d4d4;
-  padding: 0 !important;
+.seeDetails {
+  margin-top: 60px;text-align: center;
 }
-.login li {
-  border-bottom: 1px solid #d3d4d4;
-  height: 50px;
-  line-height: 50px;
+.seeDetailsLogo3 {
+  display: inline-block;width: 60px;height: 60px;border-radius: 30px;background-color: #fedfe5;padding-top: 15px;text-align: center;
 }
-.login .verifycode-wrapper {
-  padding: 0px;
+.seeDetailsLogo2 {
+  display: inline-block;width: 60px;height: 60px;border-radius: 30px;background-color: #d8e6ff;padding-top: 15px;text-align: center;
 }
-.login li img {
-  vertical-align: top;
-  padding-top: 4px;
+.seeDetailsLogo1 {
+  display: inline-block;width: 60px;height: 60px;border-radius: 30px;background-color: #fff0db;padding-top: 15px;text-align: center;
+}
+.btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 25px;
+    color: #fff;
+    width: 180px;
+    background-color: rgba(73,43,253,0);
+    border-color: rgba(255,255,255,0.7);
 }
 .login .input {
-  width: 100%;
-  padding: 7px;
-  vertical-align: middle;
-  border: 0 none;
-  color: #000000;
-  background: transparent;
-  font-size: 17px; /* font-family: Arial,"Microsoft Yahei";*/
+    width: 100%;
+    padding: 7px;
+    vertical-align: middle;
+    border: 0 none;
+    color: #000000;
+    background: transparent;
+    font-size: 17px;
 }
-.login .input:focus {
-  outline: 0 none;
+.lFooter {
+  margin-top: 90px;text-align: center;height: 50px;
+  small {
+    color: rgb(153, 153, 153)
+  }
 }
-.placeholder {
-  color: #999;
+#login_btn_wraper .tips_error {
+    display: block;
+}
+#login_btn_wraper .tips_success {
+    display: block;
+    color: #4fc1ad;
+}
+#login_btn_wraper {
+    text-align: center;
 }
 
-/*登录框动画*/
-@-webkit-keyframes bounceIn {
- 0% {
- opacity: 0;
- -webkit-transform: scale(.3);
+.login ul, .login li {
+    padding: 0;
+    margin: 0;
+    list-style: none;
 }
- 50% {
- opacity: 1;
- -webkit-transform: scale(1.05);
+.login ul {
+    background: #fff;
+    overflow: hidden;
+    margin-bottom: 15px;
+    width: 350px;
+    margin: auto;
+    overflow: hidden;
+    padding: 25px 0;
 }
- 70% {
- -webkit-transform: scale(.9);
+.logo_yzm li {
+    width: 50%;
+    float: left;
+    border: none !important;
 }
- 100% {
- -webkit-transform: scale(1);
+.logo_yzm {
+    border-bottom: 1px solid #d3d4d4;
+    padding: 0 !important;
 }
+.login li {
+    border-bottom: 1px solid #d3d4d4;
+    height: 50px;
+    line-height: 50px;
 }
- @-moz-keyframes bounceIn {
- 0% {
- opacity: 0;
- -moz-transform: scale(.3);
+.login .verifycode-wrapper {
+    padding:5px 0;
+    text-align: right;
 }
- 50% {
- opacity: 1;
- -moz-transform: scale(1.05);
+.login li img {
+    vertical-align: top;
+    padding-top: 4px;
 }
- 70% {
- -moz-transform: scale(.9);
+.login .input {
+    width: 100%;
+    padding: 7px;
+    vertical-align: middle;
+    border: 0 none;
+    color: #000000;
+    background: transparent;
+    font-size: 17px; 
 }
- 100% {
- -moz-transform: scale(1);
+.login .input:focus {
+    outline: 0 none;
 }
+.placeholder {
+    color: #999;
 }
- @-o-keyframes bounceIn {
- 0% {
- opacity: 0;
- -o-transform: scale(.3);
+.js-ajax-submit {
+    width: 350px;
+    margin: auto;
+    color:#fff;
+    background: rgb(1, 200, 83);
 }
- 50% {
- opacity: 1;
- -o-transform: scale(1.05);
-}
- 70% {
- -o-transform: scale(.9);
-}
- 100% {
- -o-transform: scale(1);
-}
-}
- @keyframes bounceIn {
- 0% {
- opacity: 0;
- transform: scale(.3);
-}
- 50% {
- opacity: 1;
- transform: scale(1.05);
-}
- 70% {
- transform: scale(.9);
-}
- 100% {
- transform: scale(1);
-}
-}
-.vt {
-  vertical-align: top !important;
-}
-a:hover {
-  color: #33a8ff;
+.ckxq {
+    width: 150px;
+    margin: auto;
+    color:rgb(1, 200, 83);
+    border-color: rgb(1, 200, 83);
 }
 </style>

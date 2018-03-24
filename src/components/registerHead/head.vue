@@ -1,5 +1,5 @@
 <template>
-    <div class="row">
+    <div>
       <div class="col-sm-12 step_head">
         <img :src="logo" class="step_title_logo"></img>
         <h3 class="step_title">CPS 申报机构自主管理平台</h3>
@@ -25,7 +25,7 @@ export default {
 .step_head {
 	height: 80px;
 	background-color: #fff;
-	box-shadow: 1px 1px 3px #aaaaaa;
+	border-bottom: 1px solid #D2D2D2;
 	padding: 10px;
 }
 .step_title_logo {

@@ -1,10 +1,10 @@
 <template>
   <div>
     <v-registerhead :step="2"></v-registerhead>
-    <div class="row">
+    <div>
       <div class="col-sm-12 container">
         <div class="col-sm-12 bs-example">
-          <div class="form-inline row clearfix">
+          <div class="form-inline clearfix">
               <div class="form-group col-sm-5 txr">
                   <label class="label_height">姓 名：</label>
               </div>

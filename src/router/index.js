@@ -15,7 +15,10 @@ const step31 = r => require.ensure([], (require) => { r(require('@/page/step/ste
 const step4 = r => require.ensure([], (require) => { r(require('@/page/step/step4')); }, 'step4');
 const step5 = r => require.ensure([], (require) => { r(require('@/page/step/step5')); }, 'step5');
 const pwmsg = r => require.ensure([], (require) => { r(require('@/page/pw/msg')); }, 'pwmsg');
-
+const index = r => require.ensure([], (require) => { r(require('@/page/index')); }, 'index');
+const addOfficer = r => require.ensure([], (require) => { r(require('@/page/addOfficer')); }, 'addOfficer');
+const officermsg = r => require.ensure([], (require) => { r(require('@/page/addOfficer/msg')); }, 'officermsg');
+const officerlist = r => require.ensure([], (require) => { r(require('@/page/officerList')); }, 'officerlist');
 
 Vue.use(Router);
 
@@ -25,6 +28,26 @@ export default new Router({
       path: '/search',
       name: 'search',
       component: search,
+    },
+    {
+      path: '/index',
+      name: 'index',
+      component: index,
+    },
+    {
+      path: '/addOfficer',
+      name: 'addOfficer',
+      component: addOfficer,
+    },
+    {
+      path: '/officermsg',
+      name: 'officermsg',
+      component: officermsg,
+    },
+    {
+      path: '/officerlist',
+      name: 'officerlist',
+      component: officerlist,
     },
     {
       path: '/pwmsg',

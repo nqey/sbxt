@@ -44,7 +44,7 @@ export default {
         {
           name: '首页',
           haveSub: false,
-          link: '/xxxx',
+          link: '/index',
         },
         {
           name: '申报官',
@@ -53,11 +53,11 @@ export default {
           subItems: [
             {
               name: '添加申报官',
-              link: '/xxxx',
+              link: '/addOfficer',
             },
             {
               name: '申报官列表',
-              link: '/xxxx',
+              link: '/officerlist',
             },
           ],
         },

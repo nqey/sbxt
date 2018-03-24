@@ -1,22 +1,12 @@
 <template>
-  <div class="row">
-    <div class="col-sm-12" style="height: 80px;background-color: #fff;box-shadow: 1px 1px 3px #aaaaaa;padding: 10px;">
-      <img :src="logo" style="margin-left: 60px;height: 60px; float: left;"></img>
-      <h3 style="float: left;margin-left: 20px;line-height: 60px;">CPS 申报机构自主管理平台登录</h3>
-      <button class="btn dl">登录</button>
-    </div>
-    <div class="col-sm-12" style="height: 165px;height: 165px;padding: 30px 60px;">
-      <div style="height: 100px;background-color: #4786ff;border-radius: 10px;">
-        <h3 style="float: left;margin-left: 100px;line-height: 64px;color: #fff;line-height: 100px">没有账号的，可申请成为CPS申报机构</h3>
-        <button class="btn ljsq">立即申请</button>
-      </div>
-    </div>
-    <div class="col-sm-12" style="padding: 30px;">
-      <div class="col-sm-12" style="background-color: #fff;box-shadow:-1px -1px 1px #aaaaaa;">
-        <h4 style="border-left: #4786ff solid 3px;margin-left: -15px;margin-top: 30px">
-          <router-link to="/login">　首页</router-link>　>　申报机构
-          　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　<small>联系申报机构请拨打 400-666-6666</small>
-        </h4>
+  <div>
+    <v-lhead ></v-lhead>
+    <div class="col-sm-12 container">
+      <div class="col-sm-12 bs-example">
+        <span class="t_nav"><router-link to="/login">&#12288;首页</router-link>&#12288;>&#12288;申报机构</span>
+        <small>&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;联系申报机构请拨打 400-666-6666</small>
+        <br/>
+        <br/>
         <br/>
         <div class="row">
           <div class="col-sm-1">
@@ -101,6 +91,7 @@
 <script>
 import logo from '@/assets/img/logo.png';
 import pagination from '@/components/pagination';
+import lhead from '@/components/registerHead/lhead';
 
 export default {
   name: 'seeDetails',
@@ -118,6 +109,7 @@ export default {
   },
   components: {
     'v-pagination': pagination,
+    'v-lhead': lhead,
   },
   methods: {
     search() {
@@ -128,55 +120,39 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.btn {
-    display: inline-block;
-    padding: 6px 12px;
-    margin-bottom: 0;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.42857143;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-image: none;
-    border: 1px solid transparent;
-    border-radius: 25px;
-    color: #fff;
-    width: 180px;
-    background-color: rgba(73,43,253,0);
-    border-color: rgba(255,255,255,0.7);
-}
-.dl {
-    width: 110px;
-    margin: auto;
-    color: #fff;
-    border-color: rgb(1, 200, 83);
-    background-color: rgb(1, 200, 83);
-    position: absolute;
-    right: 170px;
-    top: 24px;
-}
-.ljsq {
-    width: 150px;
-    margin: auto;
-    color:#fff;
-    border-color: #fff;
-    position: absolute;
-    right: 170px;
-    top: 65px;
-}
 .ss {
     width: 110px;
     margin: auto;
     color: #fff;
     border-color: rgb(1, 200, 83);
     background-color: rgb(1, 200, 83);
+}
+.container {
+  padding: 0px 55px;
+}
+.bs-example {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    -webkit-border-top-left-radius: 4px;
+    -webkit-border-top-right-radius: 4px;
+    -moz-border-radius-topleft: 4px;
+    -moz-border-radius-topright: 4px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    margin: 15px 0;
+    padding: 35px 30px;
+    position: relative;
+}
+.t_nav {
+  border-left: #4786ff solid 3px;
+  margin-left: -30px;
+  /*font-weight: bold;*/
+  font-size: 18px;
+}
+a {
+  text-decoration: none;
+}
+small {
+  color: #999;
 }
 </style>

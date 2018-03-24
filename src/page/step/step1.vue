@@ -1,14 +1,12 @@
 <template>
   <div>
     <v-registerhead :step="1"></v-registerhead>
-    <div class="row">
-      <div class="col-sm-12" style="padding: 0px 55px;">
+    <div>
+      <div class="col-sm-12 container">
         <div class="col-sm-12 bs-example">
-          <div class="col-sm-12" style="text-align: center;">
+          <div class="col-sm-12 txc">
             <h2>注册帐号</h2>
             <p>* 每一个手机号码仅能生成一个帐号</p>
-            <br/>
-            <br/>
           </div>
           <div class="col-sm-12" style="position: relative;height: 370px;">
             <div style="position: relative;width: 400px;margin: 0 auto;">
@@ -30,7 +28,7 @@
               </div>
   `          </div>
           </div>
-          <div class="col-sm-12" style="text-align: center;">
+          <div class="col-sm-12 txc">
             <div class="checkbox">
               <label>
                 <input type="checkbox" id="blankCheckbox" value="option1" aria-label="..."><span style="line-height: 20px">我同意并遵守<a>《CPS申报机构公共业务平台服务协议》</a></span>
@@ -38,7 +36,6 @@
             </div>
             <br/>
             <button class="btn js-ajax-submit">注册</button>
-            <br/>
             <br/>
             <br/>
             <p>已有申报机构公共业务平台帐号? <a>立即登录</a></p>
@@ -75,6 +72,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.txc {
+  text-align: center;
+}
+.container {
+  padding: 0px 55px;
+}
 .bs-example {
     background-color: #fff;
     border: 1px solid #ddd;

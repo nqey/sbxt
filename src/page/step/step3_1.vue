@@ -1,10 +1,10 @@
 <template>
   <div>
     <v-registerhead :step="3"></v-registerhead>
-    <div class="row">
+    <div >
       <div class="col-sm-12 container">
         <div class="col-sm-12 bs-example">
-          <div class="form-inline row clearfix">
+          <div class="form-inline  clearfix">
               <div class="form-group col-sm-12 txc imb">
                 <p class="err"><span  v-show="!isShowCard" class="glyphicon glyphicon-exclamation-sign"></span> 未通过原因: 您的身份证号码与你的真实姓名不匹配，需要重新提交。</p>
                 <!-- <p><span  v-show="!isShowCard" class="glyphicon glyphicon-exclamation-sign err"></span></p> -->

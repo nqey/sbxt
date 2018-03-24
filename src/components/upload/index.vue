@@ -28,7 +28,7 @@
     <!--     <div class="upload_warp_text">
           选中{{imgList.length}}张文件，共{{bytesToSize(this.size)}}
         </div> -->
-        <input @change="fileChange($event)" type="file" id="upload_file" multiple style="display: none"/>
+        <input @change="fileChange($event)" type="file" :id="uploadid" multiple style="display: none"/>
         
       </div>
     </div>
@@ -43,7 +43,7 @@ import wenjian from '@/assets/img/wenjian.png';
 
 export default {
   name: 'upload',
-  props: [],
+  props: ['uploadid'],
   data() {
     return {
       del,
@@ -58,7 +58,7 @@ export default {
 
   methods: {
     fileClick() {
-      document.getElementById('upload_file').click();
+      document.getElementById(this.uploadid).click();
     },
     fileChange(el) {
       if (!el.target.files[0].size) return;

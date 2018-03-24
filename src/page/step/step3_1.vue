@@ -1,21 +1,31 @@
 <template>
   <div>
-    <v-registerhead :step="2"></v-registerhead>
+    <v-registerhead :step="3"></v-registerhead>
     <div class="row">
       <div class="col-sm-12 container">
         <div class="col-sm-12 bs-example">
           <div class="form-inline row clearfix">
+              <div class="form-group col-sm-12 txc imb">
+                <p class="err"><span  v-show="!isShowCard" class="glyphicon glyphicon-exclamation-sign"></span> 未通过原因: 您的身份证号码与你的真实姓名不匹配，需要重新提交。</p>
+                <!-- <p><span  v-show="!isShowCard" class="glyphicon glyphicon-exclamation-sign err"></span></p> -->
+              </div>
               <div class="form-group col-sm-5 txr">
                   <label class="label_height">姓 名：</label>
               </div>
               <div class="form-group col-sm-7 imb">
-                  <input type="text" class="form-control iw" name="authCode" placeholder="请输入姓名">
+                <input v-show="!isShowName" type="text" class="form-control iw isuccess" name="authCode" placeholder="请输入姓名">
+                <span  v-show="!isShowName" class="glyphicon glyphicon-ok-circle success"></span>
+                <input v-show="isShowName" type="text" class="form-control iw ierr" name="authCode" placeholder="请输入姓名">
+                <span  v-show="isShowName" class="glyphicon glyphicon-exclamation-sign err"></span>
               </div>
               <div class="form-group col-sm-5 txr">
                   <label class="label_height">身份证号码：</label>
               </div>
               <div class="form-group col-sm-7 imb">
-                  <input type="text" class="form-control iw" name="authCode" placeholder="请输入身份证号码">
+                <input v-show="isShowCard" type="text" class="form-control iw isuccess" name="authCode" placeholder="请输入身份证号码">
+                <span  v-show="isShowCard" class="glyphicon glyphicon-ok-circle success"></span>
+                <input v-show="!isShowCard" type="text" class="form-control iw ierr" name="authCode" placeholder="请输入身份证号码">
+                <span  v-show="!isShowCard" class="glyphicon glyphicon-exclamation-sign err"></span>
               </div>
               <v-imgenlarge v-if="showImg" @clickit="viewImg" :imgSrc="imgSrc"></v-imgenlarge>
               <div class="form-group col-sm-5 txr">
@@ -79,6 +89,8 @@ export default {
     return {
       showImg: false,
       imgSrc: '',
+      isShowCard: false,
+      isShowName: false,
     };
   },
   components: {
@@ -101,6 +113,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.err {
+  color: #ac2925;
+}
+.success {
+  color: #4cae4c;
+}
+.ierr {
+  border: 1px solid #ac2925
+}
+.isuccess {
+  border: 1px solid #4cae4c
+}
 .container {
   padding: 0px 55px;
 }

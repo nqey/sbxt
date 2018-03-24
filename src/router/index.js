@@ -11,8 +11,11 @@ const step1 = r => require.ensure([], (require) => { r(require('@/page/step/step
 const step11 = r => require.ensure([], (require) => { r(require('@/page/step/step1_1')); }, 'step11');
 const step2 = r => require.ensure([], (require) => { r(require('@/page/step/step2')); }, 'step2');
 const step3 = r => require.ensure([], (require) => { r(require('@/page/step/step3')); }, 'step3');
+const step31 = r => require.ensure([], (require) => { r(require('@/page/step/step3_1')); }, 'step31');
 const step4 = r => require.ensure([], (require) => { r(require('@/page/step/step4')); }, 'step4');
 const step5 = r => require.ensure([], (require) => { r(require('@/page/step/step5')); }, 'step5');
+const pwmsg = r => require.ensure([], (require) => { r(require('@/page/pw/msg')); }, 'pwmsg');
+
 
 Vue.use(Router);
 
@@ -22,6 +25,11 @@ export default new Router({
       path: '/search',
       name: 'search',
       component: search,
+    },
+    {
+      path: '/pwmsg',
+      name: 'pwmsg',
+      component: pwmsg,
     },
     {
       path: '/bindEnterprise',
@@ -67,6 +75,11 @@ export default new Router({
       path: '/step3',
       name: 'step3',
       component: step3,
+    },
+    {
+      path: '/step31',
+      name: 'step31',
+      component: step31,
     },
     {
       path: '/step4',

@@ -53,7 +53,8 @@ export default {
 .harder {
   position: fixed;
   z-index: 100;
-  background: $bc;
+  background: #fff;
+  border-bottom: 1px solid #D2D2D2;
   @include wh(100%, 90px);
 }
 .header_con {
@@ -94,7 +95,7 @@ export default {
       padding-right: 10px;
     }
     span {
-      color: $fc;
+      color: #999;
     }
   }
   .tc {

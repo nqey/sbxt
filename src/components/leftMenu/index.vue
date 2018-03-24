@@ -1,14 +1,29 @@
 <template>
   <div class="left_menu" id="left-menu">
     <div class="logo"><img :src="logo"/>
-      <h3>中国商品诚信数据库<br/>
-      <span>申报机构</span>管理后台</h3>
+      <br/>
+      <br/>
+      <h3>CPS申报机构</h3>
+      <h3>自主管理平台</h3>
     </div>
     <div class="main-left_nav_list">
         <section class="sidebar">
             <ul class="sidebar-menu">
                 <li class="treeview"><router-link to="/bindEnterprise">添加</router-link></li>
                 <li class="treeview"><router-link to="/search">搜索</router-link></li>
+                <li v-for="item in items"> 
+                    <a v-if="item.haveSub" @click="showToggle(item)">
+                      {{item.name}}
+                      <span v-show="!item.isSubShow" class="glyphicon glyphicon-menu-up ms"></span>
+                      <span v-show="item.isSubShow" class="glyphicon glyphicon-menu-down ms"></span>
+                    </a> 
+                    <router-link v-else :to="item.link">{{item.name}}</router-link>
+                    <ul v-if="item.haveSub" v-show="item.isSubShow" class="treeview-menu"> 
+                      <li v-for="subItem in item.subItems"> 
+                        <router-link :to="subItem.link">{{subItem.name}}</router-link>
+                      </li> 
+                    </ul> 
+                </li> 
             </ul>
         </section>
     </div>
@@ -25,12 +40,67 @@ export default {
     return {
       username: getCookie('username'),
       logo: Logo,
+      items: [
+        {
+          name: '首页',
+          haveSub: false,
+          link: '/xxxx',
+        },
+        {
+          name: '申报官',
+          isSubShow: false,
+          haveSub: true,
+          subItems: [
+            {
+              name: '添加申报官',
+              link: '/xxxx',
+            },
+            {
+              name: '申报官列表',
+              link: '/xxxx',
+            },
+          ],
+        },
+        {
+          name: '申报企业',
+          haveSub: false,
+          link: '/xxxx',
+        },
+        {
+          name: '企业列表',
+          haveSub: false,
+          link: '/xxxx',
+        },
+        {
+          name: '推荐列表',
+          haveSub: false,
+          link: '/xxxx',
+        },
+        {
+          name: '权限管理',
+          haveSub: true,
+          isSubShow: false,
+          subItems: [
+            {
+              name: '添加账户',
+              link: '/xxxx',
+            },
+            {
+              name: '帐号列表',
+              link: '/xxxx',
+            },
+          ],
+        },
+      ],
     };
   },
   methods: {
     logout() {
       delCookie('username');
       this.$router.push('/login');
+    },
+    showToggle(item) {
+      item.isSubShow = !item.isSubShow;
     },
   },
 };
@@ -39,12 +109,17 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 @import '../../assets/css/mixin.scss';
-
+.ms {
+  position: absolute;
+  right: 35px;
+  top: 20px;
+}
 .left_menu {
     min-width: 240px;
     position: fixed;
     left: 0;
-    background: #fff;
+    /*background: #4063FF;*/
+    background-image: linear-gradient(to bottom,  rgb(73,43,253) , rgb(51,141,255));
     background-size: 100% 100%;
     text-align: center;
     z-index: 101;
@@ -56,10 +131,10 @@ export default {
         height: 6px;
     }
     ::-webkit-scrollbar-thumb {
-        background: rgba(255, 255, 255, 0);
+        background: rgba(255, 255, 255, 0.2);
     }
     &::-webkit-scrollbar-track {
-        background: rgba(0, 0, 0, 0);
+        background: rgba(0, 0, 0, 0.1);
     }
 }
 
@@ -69,14 +144,13 @@ export default {
     padding-top: 40px;
     text-align: center;
     display: list-item;
-    background: #4063FF;
+    /*background: #4063FF;*/
     position:fixed;
     z-index:102;
     h3 {
         color: #fff;
         line-height: 35px;
         font-size: 20px;
-        font-weight: bold;
     }
 }
 
@@ -84,32 +158,77 @@ export default {
     padding: 20px 0 60px 0;
     margin-top:250px;
 }
+.main-left_nav_list ul li a {
+    color: #fff;
+}
 
-.sidebar-menu {
-    a {
-        color: #b8c7ce;
-        text-decoration: none;
-    }
-    li {
-        position: relative;
-        margin: 0;
-        padding: 0;
-        a {
-            padding: 15px;
-            display: block;
-            color: #4e4e4e;
-            font-size: 16px;
-            border-left: 3px solid #fff;
-            img {
-                width: 22px;
-                margin-right: 20px;
-            }
-        }
-        &:hover {
-            a {
-                color: #015FE5;
-            }
-        }
-    }
+.sidebar-menu > li {
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+.sidebar-menu > li > a {
+    padding: 15px;
+    display: block;
+    color: #fff;
+    border-top: 1px solid rgba(0, 0, 0, 0);
+    border-bottom: 1px solid rgba(0, 0, 0, 0);
+    font-size: 16px;
+}
+.sidebar-menu > li > a img {
+    width: 22px;
+    margin-right: 20px;
+}
+.sidebar-menu > li:hover > a, .sidebar-menu > li.active > a {
+    color: #fff;
+    background: #3b8fff;
+}
+.sidebar-menu > li:hover > a {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+.sidebar-menu > li > .treeview-menu {
+    background: #472efc;
+    margin: 1px 0;
+    padding: 0 20px;
+}
+.sidebar-menu > li > .treeview-menu > li {
+    border-bottom: 1px solid #3d66fc;
+}
+.sidebar-menu > li .label, .sidebar-menu > li .badge {
+    margin-top: 3px;
+    margin-right: 5px;
+}
+.sidebar-menu li > a > .fa-angle-left {
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin-right: 10px;
+    margin-top: 3px;
+}
+.sidebar-menu a {
+    color: #b8c7ce;
+    text-decoration: none;
+}
+.sidebar-menu .treeview-menu {
+    /*display: none;*/
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.sidebar-menu .treeview-menu .treeview-menu {
+    padding-left: 20px;
+}
+.sidebar-menu .treeview-menu > li {
+    margin: 0;
+    padding: 10px 0;
+}
+.sidebar-menu .treeview-menu > li:hover, .sidebar-menu .treeview-menu > li.active {
+    background: #3b8fff;
+}
+.sidebar-menu .treeview-menu > li > a {
+    display: block;
+    font-size: 14px;
+    color: #fff;
 }
 </style>

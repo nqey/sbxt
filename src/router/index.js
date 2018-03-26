@@ -19,6 +19,17 @@ const index = r => require.ensure([], (require) => { r(require('@/page/index'));
 const addOfficer = r => require.ensure([], (require) => { r(require('@/page/addOfficer')); }, 'addOfficer');
 const officermsg = r => require.ensure([], (require) => { r(require('@/page/addOfficer/msg')); }, 'officermsg');
 const officerlist = r => require.ensure([], (require) => { r(require('@/page/officerList')); }, 'officerlist');
+const officerdetail = r => require.ensure([], (require) => { r(require('@/page/officerList/detail')); }, 'officerdetail');
+const decEnt = r => require.ensure([], (require) => { r(require('@/page/decEnt')); }, 'decEnt');
+const decEntMsg = r => require.ensure([], (require) => { r(require('@/page/decEnt/msg')); }, 'decEntMsg');
+const entList = r => require.ensure([], (require) => { r(require('@/page/entList')); }, 'entList');
+const entListdetail = r => require.ensure([], (require) => { r(require('@/page/entList/detail')); }, 'entListdetail');
+const entListedit = r => require.ensure([], (require) => { r(require('@/page/entList/edit')); }, 'edit');
+const recommendlist = r => require.ensure([], (require) => { r(require('@/page/recommendlist')); }, 'recommendlist');
+const addUser = r => require.ensure([], (require) => { r(require('@/page/addUser')); }, 'addUser');
+const userlist = r => require.ensure([], (require) => { r(require('@/page/addUser/list')); }, 'userlist');
+const userdetail = r => require.ensure([], (require) => { r(require('@/page/addUser/detail')); }, 'userdetail');
+const useredit = r => require.ensure([], (require) => { r(require('@/page/addUser/edit')); }, 'useredit');
 
 Vue.use(Router);
 
@@ -30,9 +41,59 @@ export default new Router({
       component: search,
     },
     {
+      path: '/addUser',
+      name: 'addUser',
+      component: addUser,
+    },
+    {
+      path: '/userlist',
+      name: 'userlist',
+      component: userlist,
+    },
+    {
+      path: '/userdetail',
+      name: 'userdetail',
+      component: userdetail,
+    },
+    {
+      path: '/useredit',
+      name: 'useredit',
+      component: useredit,
+    },
+    {
       path: '/index',
       name: 'index',
       component: index,
+    },
+    {
+      path: '/recommendlist',
+      name: 'recommendlist',
+      component: recommendlist,
+    },
+    {
+      path: '/entListedit',
+      name: 'entListedit',
+      component: entListedit,
+    },
+    {
+      path: '/entList',
+      name: 'entList',
+      component: entList,
+    },
+    {
+      path: '/entListdetail',
+      name: 'entListdetail',
+      component: entListdetail,
+    },
+    {
+      path: '/decEnt',
+      name: 'decEnt',
+      component: decEnt,
+    },
+    {
+      path: '/decEntMsg',
+      name: 'decEntMsg',
+      component: decEntMsg,
     },
     {
       path: '/addOfficer',
@@ -48,6 +109,11 @@ export default new Router({
       path: '/officerlist',
       name: 'officerlist',
       component: officerlist,
+    },
+    {
+      path: '/officerdetail',
+      name: 'officerdetail',
+      component: officerdetail,
     },
     {
       path: '/pwmsg',

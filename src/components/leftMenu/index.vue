@@ -64,17 +64,17 @@ export default {
         {
           name: '申报企业',
           haveSub: false,
-          link: '/xxxx',
+          link: '/decEnt',
         },
         {
           name: '企业列表',
           haveSub: false,
-          link: '/xxxx',
+          link: '/entList',
         },
         {
           name: '推荐列表',
           haveSub: false,
-          link: '/xxxx',
+          link: '/recommendList',
         },
         {
           name: '权限管理',
@@ -83,11 +83,11 @@ export default {
           subItems: [
             {
               name: '添加账户',
-              link: '/xxxx',
+              link: '/addUser',
             },
             {
               name: '帐号列表',
-              link: '/xxxx',
+              link: '/userList',
             },
           ],
         },

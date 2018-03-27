@@ -83,7 +83,7 @@ const DECLARE_VALIDATECODE = `${DECLARE_BASE_URL}publics/validatecode/`;
 // 通用图片上传
 const DECLARE_UPLOAD = `${DECLARE_BASE_URL}publics/file/upload`;
 // 获取地区树
-const DECLARE_AREA_TREE = `${DECLARE_BASE_URL}publics/area/tree`;
+const DECLARE_GET_AREA_TREE = `${DECLARE_BASE_URL}publics/area/tree`;
 // 选择推荐机构 + {name}
 const DECLARE_RECOMMEND_ORGANIZ = `${DECLARE_BASE_URL}publics/recommend/organiz/`;
 // 获取负责区域名额 + {areaCode}
@@ -205,7 +205,7 @@ export {
   DECLARE_LOGIN,
   DECLARE_VALIDATECODE,
   DECLARE_UPLOAD,
-  DECLARE_AREA_TREE,
+  DECLARE_GET_AREA_TREE,
   DECLARE_RECOMMEND_ORGANIZ,
   DECLARE_AREALIMIT_AREACODE,
   DECLARE_UNPASS,

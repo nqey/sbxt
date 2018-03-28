@@ -1,6 +1,6 @@
 const test = (() => {
   if (/lh-xm.com/.test(window.location.hostname) || /test.com/.test(window.location.hostname)) {
-    return 'test';
+    return 'online';
   } else if (/cpsdb.com/.test(window.location.hostname)) {
     return 'online';
   }
@@ -81,7 +81,7 @@ const DECLARE_LOGIN = `${DECLARE_BASE_URL}publics/login`;
 // 获取注册验证码 + {type}/{cellphone}
 const DECLARE_VALIDATECODE = `${DECLARE_BASE_URL}publics/validatecode/`;
 // 通用图片上传
-const DECLARE_UPLOAD = `${DECLARE_BASE_URL}publics/file/upload`;
+const DECLARE_POST_UPLOAD = `${ENTERPRISE_BASE_URL}publics/file/upload`;
 // 获取地区树
 const DECLARE_GET_AREA_TREE = `${DECLARE_BASE_URL}publics/area/tree`;
 // 选择推荐机构 + {name}
@@ -204,7 +204,7 @@ export {
   DECLARE_ORGANIZ,
   DECLARE_LOGIN,
   DECLARE_VALIDATECODE,
-  DECLARE_UPLOAD,
+  DECLARE_POST_UPLOAD,
   DECLARE_GET_AREA_TREE,
   DECLARE_RECOMMEND_ORGANIZ,
   DECLARE_AREALIMIT_AREACODE,

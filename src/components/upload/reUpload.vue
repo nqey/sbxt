@@ -33,7 +33,6 @@ export default {
       const reader = new FileReader();
       reader.readAsDataURL(el.target.files[0]);
       reader.onload = (e) => {
-        // file.src = e.target.result;
         this.limgSrc = e.target.result;
       };
       el.target.value = '';

@@ -9,49 +9,59 @@
                   <label class="label_height">姓 名：</label>
               </div>
               <div class="form-group col-sm-7 imb">
-                  <input type="text" class="form-control iw" name="authCode" placeholder="请输入姓名">
+                  <input type="text" class="form-control iw" placeholder="请输入姓名" v-model="name">
               </div>
               <div class="form-group col-sm-5 txr">
                   <label class="label_height">身份证号码：</label>
               </div>
               <div class="form-group col-sm-7 imb">
-                  <input type="text" class="form-control iw" name="authCode" placeholder="请输入身份证号码">
+                  <input type="text" class="form-control iw" placeholder="请输入身份证号码" v-model="idNumber">
               </div>
               <v-imgenlarge v-if="showImg" @clickit="viewImg" :imgSrc="imgSrc"></v-imgenlarge>
               <div class="form-group col-sm-5 txr">
                   <label class="label_height">身份证照片：</label>
               </div>
               <div class="form-group col-sm-7 imb">
-                  <v-upload @clickbg="enlarge"></v-upload>
+                  <small class="info2 label_height">请按照示例上传证件照片；支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
+                  <p></p>
+                  <small class="info label_height">请上传本人真实身份证，否则审核不通过。</small>
+                  <div class="clearfix"></div>
+                  <v-upload uploadid="upload1" text="上传正面" @acceptData="frontUrl"></v-upload>
+                  <v-upload uploadid="upload2" text="上传背面" @acceptData="backUrl"></v-upload>
               </div>
               <div class="form-group col-sm-5 txr">
                   <label class="label_height">常住地址：</label>
               </div>
               <div class="col-sm-7 imb">
-                  <v-geoarea></v-geoarea>
+                  <v-geoarea @acceptData="makeData"></v-geoarea>
               </div>
               <div class="form-group col-sm-5 txr">
                   <label class="label_height">选择申请区域：</label>
               </div>
               <div class="col-sm-7 imb">
-                  <v-apparea></v-apparea>
+                  <v-apparea @acceptData="makeData"></v-apparea>
               </div>
               <div class="form-group col-sm-5 txr">
                   <label class="label_height">推荐机构：</label>
               </div>
               <div class="form-group col-sm-7 imb">
-                  <input type="text" class="form-control iw600" name="authCode" placeholder="请输入推荐机构">
+                  <input type="text" @input="showRecommendName" class="form-control iw600" placeholder="请输入推荐机构" v-model="recommendName">
+                  <div class="bdsug" v-show="isShowRecommendName">
+                   <ul>
+                    <li v-for="(item, index) of list" @click="setRecommendName(index)">{{item.name}}</li>
+                   </ul>
+                 </div>
               </div>
               <div class="form-group col-sm-5 txr">
                   <label class="label_height">企业全称：</label>
               </div>
               <div class="form-group col-sm-7 imb">
-                  <input type="text" class="form-control iw600" name="authCode" placeholder="例如:四川中华搜信息技术有限公司">
+                  <input type="text" class="form-control iw600" placeholder="例如:四川中华搜信息技术有限公司" v-model="enterpriseName">
               </div>
               <div class="form-group col-sm-5 txr">
               </div>
               <div class="form-group col-sm-7 imb">
-                  <button class="btn js-ajax-submit">提交</button>
+                  <button class="btn js-ajax-submit" @click="submit">提交</button>
               </div>
           </div>
         </div>
@@ -62,7 +72,7 @@
 </template>
 
 <script>
-import upload from '@/components/upload';
+import upload from '@/components/upload/idCardUpload';
 import geoarea from '@/components/geoArea';
 import registerHead from '@/components/registerHead';
 import imgenlarge from '@/components/imgEnlarge';
@@ -78,7 +88,18 @@ export default {
   data() {
     return {
       showImg: false,
+      isShowRecommendName: false,
       imgSrc: '',
+      name: '',
+      idNumber: '',
+      idFrontUrl: '',
+      idBackUrl: '',
+      recommendName: '',
+      recommendOrgnizId: '',
+      recommendOrgnizType: '',
+      enterpriseName: '',
+      obj: {},
+      list: [],
     };
   },
   components: {
@@ -96,11 +117,87 @@ export default {
     viewImg() {
       this.showImg = false;
     },
+    frontUrl(d) {
+      this.idFrontUrl = d;
+    },
+    backUrl(d) {
+      this.idBackUrl = d;
+    },
+    makeData(d) {
+      this.obj = Object.assign(this.obj, d);
+    },
+    setRecommendName(index) {
+      this.recommendName = this.list[index].name;
+      this.isShowRecommendName = false;
+      this.recommendOrgnizId = this.list[index].id;
+      this.recommendOrgnizType = this.list[index].type;
+    },
+    showRecommendName() {
+      // get http todo
+      this.list = [
+        {
+          id: '001',
+          type: '1',
+          name: '四川中新华搜信息技术有限公司1',
+        },
+        {
+          id: '002',
+          type: '2',
+          name: '四川中新华搜信息技术有限公司2',
+        },
+        {
+          id: '003',
+          type: '3',
+          name: '四川中新华搜信息技术有限公司3',
+        },
+      ];
+      this.isShowRecommendName = true;
+    },
+    submit() {
+      this.obj.name = this.name;
+      this.obj.idNumber = this.idNumber;
+      this.obj.idFrontUrl = this.idFrontUrl;
+      this.obj.idBackUrl = this.idBackUrl;
+      this.obj.recommendOrgnizId = this.recommendOrgnizId;
+      this.obj.recommendOrgnizType = this.recommendOrgnizType;
+      this.obj.enterpriseName = this.enterpriseName;
+      console.log(this.obj);
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.bdsug {
+    position: absolute;
+    z-index: 1;
+    width: 538px;
+    background: #fff;
+    border: 1px solid #ccc;
+    _overflow: hidden;
+    box-shadow: 1px 1px 3px #ededed;
+    -webkit-box-shadow: 1px 1px 3px #ededed;
+    -moz-box-shadow: 1px 1px 3px #ededed;
+    -o-box-shadow: 1px 1px 3px #ededed;
+}
+.bdsug li {
+    width: 522px;
+    color: #000;
+    font: 14px arial;
+    line-height: 22px;
+    padding: 0 8px;
+    position: relative;
+    cursor: default;
+}
+.bdsug li:hover {
+  background-color: #888;
+}
+.info {
+  color: #ac2925;
+}
+.info2 {
+  color: #999;
+}
 .container {
   padding: 0px 55px;
 }

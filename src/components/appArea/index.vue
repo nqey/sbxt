@@ -1,20 +1,12 @@
 <template>
   <div class="form-group">
-    <select class="form-control">
-      <option>请选择省份</option>
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option>
+    <select class='form-control' @change="queryCity" v-model="province">
+      <option value="0">请选择省份</option>
+      <option v-for="item in provinces" :value="item.id">{{item.name}}</option>
     </select>
-    <select class="form-control">
-      <option>请选择市</option>
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option>
+    <select class='form-control' @change="queryPlaces" v-model="city">
+      <option value="0">请选择市</option>
+      <option v-for="item in citys" :value="item.id">{{item.name}}</option>
     </select>
     <span>剩余名额 <font class="fc">{{rmplaces}}</font></span>
     <br/>
@@ -32,11 +24,122 @@ export default {
   props: [],
   data() {
     return {
-      rmplaces: 3,
+      province: '0',
+      city: '0',
+      provinces: [],
+      citys: [],
+      rmplaces: 0,
     };
   },
   components: {},
-  methods: {},
+  methods: {
+    // async getAreaTree() {
+    //   const res = await this.$xhr('get', DECLARE_GET_AREA_TREE);
+      // if (res.data.code === 0) {
+      // } else {
+      // }
+    // },
+    queryCity() {
+      this.citys = [];
+      this.city = '0';
+      this.provinces.forEach((item) => {
+        if (item.id === this.province) {
+          this.citys = item.children;
+        }
+      });
+    },
+    queryPlaces() {
+      // let api = `${DECLARE_AREALIMIT_AREACODE}${this.province}${this.city}`;
+      //   const res = await this.$xhr('get', api);
+      this.rmplaces = 5;
+      this.$emit('acceptData', {
+        applyAddress: `${this.province}${this.city}`,
+      });
+    },
+  },
+  mounted() {
+    this.provinces = [{
+      id: '1',
+      name: '四川省1',
+      children: [{
+        id: '1',
+        name: '成都市x',
+        children: [{
+          id: '1',
+          name: '双流区x1',
+        },
+        {
+          id: '2',
+          name: '双流区x2',
+        },
+        {
+          id: '3',
+          name: '双流区x3',
+        },
+        ],
+      },
+      {
+        id: '2',
+        name: '成都市x2',
+        children: [{
+          id: '1',
+          name: '双流区x21',
+        },
+        {
+          id: '2',
+          name: '双流区x22',
+        },
+        {
+          id: '3',
+          name: '双流区x23',
+        },
+        ],
+      },
+      {
+        id: '3',
+        name: '成都市x3',
+        children: [{
+          id: '1',
+          name: '双流区x31',
+        },
+        {
+          id: '2',
+          name: '双流区x32',
+        },
+        {
+          id: '3',
+          name: '双流区x33',
+        },
+        ],
+      },
+      ],
+    },
+    {
+      id: '2',
+      name: '四川省2',
+      children: [{
+        id: '1',
+        name: '成都市2',
+        children: [{
+          id: '1',
+          name: '双流区2',
+        }],
+      }],
+    },
+    {
+      id: '3',
+      name: '四川省3',
+      children: [{
+        id: '1',
+        name: '成都市3',
+        children: [{
+          id: '1',
+          name: '双流区3',
+        }],
+      }],
+    },
+    ];
+  },
 };
 </script>
 

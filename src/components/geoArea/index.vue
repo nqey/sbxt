@@ -1,10 +1,10 @@
 <template>
   <div class='form-group'>
-    <select class='form-control' @change="queryCity($event.target.value)" v-model="province">
+    <select class='form-control' @change="queryCity" v-model="province">
       <option value="0">请选择省份</option>
       <option v-for="item in provinces" :value="item.id">{{item.name}}</option>
     </select>
-    <select class='form-control' @change="queryTown($event.target.value)" v-model="city">
+    <select class='form-control' @change="queryTown" v-model="city">
       <option value="0">请选择市</option>
       <option v-for="item in citys" :value="item.id">{{item.name}}</option>
     </select>
@@ -13,7 +13,7 @@
       <option v-for="item in towns" :value="item.id">{{item.name}}</option>
     </select>
     <div class='mt'>
-       <input type='text' class='form-control iw' placeholder='请输入详细地址'>
+       <input type='text' class='form-control iw' placeholder='请输入详细地址' @blur="sendData" v-model="address">
     </div>
 </div>
 </template>
@@ -29,6 +29,7 @@ export default {
       province: '0',
       city: '0',
       town: '0',
+      address: '',
       provinces: [],
       citys: [],
       towns: [],
@@ -42,24 +43,31 @@ export default {
       // } else {
       // }
     // },
-    queryCity(province) {
+    queryCity() {
       this.citys = [];
       this.towns = [];
       this.city = '0';
       this.town = '0';
       this.provinces.forEach((item) => {
-        if (item.id === province) {
+        if (item.id === this.province) {
           this.citys = item.children;
         }
       });
     },
-    queryTown(city) {
+    queryTown() {
       this.towns = [];
       this.town = '0';
       this.citys.forEach((item) => {
-        if (item.id === city) {
+        if (item.id === this.city) {
           this.towns = item.children;
         }
+      });
+      this.sendData();
+    },
+    sendData() {
+      this.$emit('acceptData', {
+        liveAddress: `${this.province}${this.city}${this.town}`,
+        address: this.address,
       });
     },
   },

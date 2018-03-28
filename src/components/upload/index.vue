@@ -43,7 +43,7 @@ import wenjian from '@/assets/img/wenjian.png';
 
 export default {
   name: 'upload',
-  props: ['uploadid'],
+  props: ['uploadid', 'len'],
   data() {
     return {
       del,
@@ -110,6 +110,9 @@ export default {
         this.imgList.push({
           file,
         });
+        if (this.imgList > this.len) {
+          this.imgList.splice(0, 1);
+        }
       } else {
         const reader = new FileReader();
         reader.readAsDataURL(file);
@@ -118,6 +121,9 @@ export default {
           this.imgList.push({
             file,
           });
+          if (this.imgList.length > this.len) {
+            this.imgList.splice(0, 1);
+          }
         };
       }
     },

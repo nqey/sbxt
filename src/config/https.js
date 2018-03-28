@@ -30,6 +30,10 @@ axios.interceptors.request.use((config) => {
     con.data = toFormData(toRmEmpty(con.data));
     con.headers['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
   }
+  if (config.method === 'upload') {
+    config.method = 'post';
+    // con.headers['Content-Type'] = 'multipart/form-data';
+  }
   if (config.method === 'get') {
     con.params = toRmEmpty(config.params);
   }

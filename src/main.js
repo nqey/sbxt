@@ -8,6 +8,7 @@ import http from '@/config/https';
 import Vue from 'vue';
 import App from './App';
 import router from './router';
+import store from './store/store';
 
 Vue.config.productionTip = false;
 Vue.prototype.setObj = Vue.set;
@@ -17,6 +18,7 @@ Vue.prototype.$xhr = http.xhr;
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App },
   // 监听路由检查登录
@@ -26,16 +28,18 @@ new Vue({
   // 进入页面时
   created() {
     this.checkLogin();
-    if (getCookie('username')) {
+    if (getCookie('token')) {
       this.$router.push('/search');
     }
   },
   methods: {
     checkLogin() {
       // cookie操作方法在源码里有或者参考网上的即可
-      if (!getCookie('username')) {
-        // 如果没有登录状态则跳转到登录页
-        // this.$router.push('/login');
+      if (!location.hash.match('step')) {
+        if (!getCookie('token')) {
+          // 如果没有登录状态则跳转到登录页
+          // this.$router.push('/login');
+        }
       }
     },
   },

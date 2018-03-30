@@ -3,50 +3,27 @@
     <v-head></v-head>
     <v-lmenu></v-lmenu>
     <div class="bs-example">
-      <span class="t_nav">&#12288;&#12288;推荐列表</span>
+      <span class="t_nav">&#12288;&#12288;添加申报官</span>
       <br/>
       <br/>
       <br/>
-      <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>机构名称</th>
-              <th>负责人</th>
-              <th>推荐人</th>
-              <th>状态</th>
-              <th>申报时间</th>
-              <th>联系电话</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td style="color: #ac2925;">Otto <span class="glyphicon glyphicon-question-sign"></span></td>
-              <td>@mdo</td>
-              <td>@mdo</td>
-              <td><a>查看</a> <a>删除</a> <a>修改</a></td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-              <td>@fat</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Larry</td>
-              <td>the Bird</td>
-              <td>@twitter</td>
-              <td>@twitter</td>
-              <td>@mdo</td>
-            </tr>
-          </tbody>
-        </table>
+      <div style="width: 100%;text-align: center;">
+      <div style="display: inline-block;width: 50px;height: 50px;border-radius: 25px;border: #01c853 1px solid;">
+          <span class="glyphicon glyphicon-ok" style="line-height: 50px;font-size: 20px; color:  #01c853"></span>
+      </div>
+      <br/>
+      <br/>
+      <p>企业申报提交成功</p>
+      <br/>
+      <br/>
+      <p>审核时长3个工作日以内，企业审核状态可在企业列表查看</p>
+      <p>审核结果将以短信的方式发送至企业法人手机</p>
+      <br/>
+      <br/>
+      <button class="btn js-ajax-submit">继续申报</button>
+      </div>
     </div>
-  </div>
+   </div>
 </template>
 
 <script>
@@ -133,9 +110,16 @@ a {
   color: #999;
 }
 .js-ajax-submit {
-    width: 350px;
+    width: 150px;
     margin: auto;
     color:#fff;
     background: rgb(1, 200, 83);
+}
+.ljsq {
+    width: 150px;
+    margin: auto;
+    color:#333;
+    border: 1px #999 solid;
+    background: #fff;
 }
 </style>

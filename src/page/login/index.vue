@@ -77,10 +77,10 @@
           <span class="glyphicon glyphicon-volume-up"></span> 系统公告
         </div>
         <div class="col-sm-9">
-          申报机构报名办理指南，请认真阅读 第二批申报机构申报官培训时间安排  
+          <router-link :to="'/sysMsgDetail/'+sysMsgId">{{sysMsgTitle}}</router-link>
         </div>
         <div class="col-sm-2">
-          <router-link to="/noti">更多>></router-link>
+          <router-link to="/sysMsg">更多>></router-link>
         </div>
       </div>
       <!-- 公告 结束 -->
@@ -95,7 +95,7 @@
             <p>申报机构</p>
             <p>邀约并协助生产型企业完成申报工作，对 企业讲解中国商品诚信数据库，让企业充 分了解入库的必要性。</p>
             <br/>
-            <router-link to="/seeDetails"><button class="btn ckxq">查看详情</button></router-link>
+            <router-link to="/agency"><button class="btn ckxq">查看详情</button></router-link>
       </div>
        <div  class="col-sm-2 seeDetails">
             <div class="seeDetailsLogo2">
@@ -186,7 +186,8 @@ export default {
       waveBottomd: {
         backgroundImage: `url(${waveBottom})`,
       },
-
+      sysMsgTitle: '申报机构报名办理指南，请认真阅读 第二批申报机构申报官培训时间安排',
+      sysMsgId: '1',
     };
   },
   methods: {
@@ -200,8 +201,26 @@ export default {
       const res = await this.$xhr('post', DECLARE_LOGIN_DO_ADDRESS, data);
       if (res.data.code === 0) {
         setCookie('username', this.username, 1000 * 60);
-        setCookie('sb_token', res.data.data.token, 1000 * 60);
-        setTimeout(() => { this.$router.push('/search'); }, 1000);
+        setCookie('token', res.data.data.token, 1000 * 60);
+        setCookie('rule', res.data.data.rule, 1000 * 60);
+        setCookie('state', res.data.data.state, 1000 * 60);
+        setCookie('state', 'pass', 1000 * 60);
+        // res.data.data.state = 'baseWaitAudit';
+        if (res.data.data.state === 'baseWaitSubmit') {
+          setTimeout(() => { this.$router.push('/step2'); }, 1000);
+        } else if (res.data.data.state === 'baseWaitAudit') {
+          setTimeout(() => { this.$router.push('/step3'); }, 1000);
+        } else if (res.data.data.state === 'baseUnAudit') {
+          setTimeout(() => { this.$router.push('/step31'); }, 1000);
+        } else if (res.data.data.state === 'registWaitSubmit') {
+          setTimeout(() => { this.$router.push('/step4'); }, 1000);
+        } else if (res.data.data.state === 'registWaitAudit') {
+          setTimeout(() => { this.$router.push('/step5'); }, 1000);
+        } else if (res.data.data.state === 'registUnPass') {
+          setTimeout(() => { this.$router.push('/step51'); }, 1000);
+        } else {
+          setTimeout(() => { this.$router.push('/index'); }, 1000);
+        }
       } else {
         this.lo = '登录';
       }

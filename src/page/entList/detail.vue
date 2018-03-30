@@ -20,7 +20,7 @@
         <div class="form-group col-sm-11 imb">
             <p class="label_height">企业负责人XXX</p>
         </div>
-        <v-imgenlarge v-if="showImg" @clickit="viewImg" :imgSrc="imgSrc"></v-imgenlarge>
+        <v-bigimg v-if="showImg" @hideViewImg="viewImg" :imgSrc="imgSrc"></v-bigimg>
         <div class="form-group col-sm-1 txr">
             <label class="label_height">手机号码：</label>
         </div>
@@ -37,57 +37,57 @@
           <label class="label_height">身份证照片：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-          <v-commonimg :imgSrc="abm" @clickbg="enlarge"></v-commonimg>
-          <v-commonimg :imgSrc="jze" @clickbg="enlarge"></v-commonimg>
+          <v-commonimg :imgSrc="abm" @acceptImgSrc="bigimg"></v-commonimg>
+          <v-commonimg :imgSrc="jze" @acceptImgSrc="bigimg"></v-commonimg>
         </div>
         <div class="form-group col-sm-1 txr">
           <label class="label_height">营业执照：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-          <v-commonimg :imgSrc="abm" @clickbg="enlarge"></v-commonimg>
-          <v-commonimg :imgSrc="jze" @clickbg="enlarge"></v-commonimg>
+          <v-commonimg :imgSrc="abm" @acceptImgSrc="bigimg"></v-commonimg>
+          <v-commonimg :imgSrc="jze" @acceptImgSrc="bigimg"></v-commonimg>
         </div>
         <div class="form-group col-sm-1 txr">
           <label class="label_height">生产许可证：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-          <v-commonimg :imgSrc="abm" @clickbg="enlarge"></v-commonimg>
-          <v-commonimg :imgSrc="jze" @clickbg="enlarge"></v-commonimg>
+          <v-commonimg :imgSrc="abm" @acceptImgSrc="bigimg"></v-commonimg>
+          <v-commonimg :imgSrc="jze" @acceptImgSrc="bigimg"></v-commonimg>
         </div>
         <div class="form-group col-sm-1 txr">
           <label class="label_height">企业尽职调查表：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-          <v-commonimg :imgSrc="abm" @clickbg="enlarge"></v-commonimg>
-          <v-commonimg :imgSrc="jze" @clickbg="enlarge"></v-commonimg>
+          <v-commonimg :imgSrc="abm" @acceptImgSrc="bigimg"></v-commonimg>
+          <v-commonimg :imgSrc="jze" @acceptImgSrc="bigimg"></v-commonimg>
         </div>
         <div class="form-group col-sm-1 txr">
           <label class="label_height">企业负责人尽职调查表：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-          <v-commonimg :imgSrc="abm" @clickbg="enlarge"></v-commonimg>
-          <v-commonimg :imgSrc="jze" @clickbg="enlarge"></v-commonimg>
+          <v-commonimg :imgSrc="abm" @acceptImgSrc="bigimg"></v-commonimg>
+          <v-commonimg :imgSrc="jze" @acceptImgSrc="bigimg"></v-commonimg>
         </div>
         <div class="form-group col-sm-1 txr">
           <label class="label_height">企业入库申请函：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-          <v-commonimg :imgSrc="abm" @clickbg="enlarge"></v-commonimg>
-          <v-commonimg :imgSrc="jze" @clickbg="enlarge"></v-commonimg>
+          <v-commonimg :imgSrc="abm" @acceptImgSrc="bigimg"></v-commonimg>
+          <v-commonimg :imgSrc="jze" @acceptImgSrc="bigimg"></v-commonimg>
         </div>
         <div class="form-group col-sm-1 txr">
           <label class="label_height">授权委托书：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-          <v-commonimg :imgSrc="abm" @clickbg="enlarge"></v-commonimg>
-          <v-commonimg :imgSrc="jze" @clickbg="enlarge"></v-commonimg>
+          <v-commonimg :imgSrc="abm" @acceptImgSrc="bigimg"></v-commonimg>
+          <v-commonimg :imgSrc="jze" @acceptImgSrc="bigimg"></v-commonimg>
         </div>
         <div class="form-group col-sm-1 txr">
           <label class="label_height">其他补充材料：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-          <v-commonimg :imgSrc="abm" @clickbg="enlarge"></v-commonimg>
-          <v-commonimg :imgSrc="jze" @clickbg="enlarge"></v-commonimg>
+          <v-commonimg :imgSrc="abm" @acceptImgSrc="bigimg"></v-commonimg>
+          <v-commonimg :imgSrc="jze" @acceptImgSrc="bigimg"></v-commonimg>
         </div>
       </div>
     </div>
@@ -98,7 +98,7 @@
 import vhead from '@/components/header';
 import lmenu from '@/components/leftMenu';
 import upload from '@/components/upload';
-import imgenlarge from '@/components/imgEnlarge';
+import bigImg from '@/components/bigImg';
 import abm from '@/assets/img/abm.jpg';
 import jze from '@/assets/img/jze.jpg';
 import commonimg from '@/components/commonImg';
@@ -113,7 +113,7 @@ export default {
     };
   },
   methods: {
-    enlarge(src) {
+    bigimg(src) {
       this.imgSrc = src;
       this.showImg = true;
     },
@@ -125,7 +125,7 @@ export default {
     'v-head': vhead,
     'v-lmenu': lmenu,
     'v-upload': upload,
-    'v-imgenlarge': imgenlarge,
+    'v-bigimg': bigImg,
     'v-commonimg': commonimg,
   },
 };

@@ -2,34 +2,35 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 const bindEnterprise = r => require.ensure([], (require) => { r(require('@/page/bindEnterprise')); }, 'bindEnterprise');
-const noti = r => require.ensure([], (require) => { r(require('@/page/noti')); }, 'noti');
-const notid = r => require.ensure([], (require) => { r(require('@/page/noti/children/notid')); }, 'notid');
-const seeDetails = r => require.ensure([], (require) => { r(require('@/page/seeDetails')); }, 'seeDetails');
+const sysMsg = r => require.ensure([], (require) => { r(require('@/page/sysMsg')); }, 'sysMsg');
+const sysMsgDetail = r => require.ensure([], (require) => { r(require('@/page/sysMsg/detail')); }, 'sysMsgDetail');
+const agency = r => require.ensure([], (require) => { r(require('@/page/login/agency')); }, 'agency');
 const search = r => require.ensure([], (require) => { r(require('@/page/search')); }, 'search');
 const login = r => require.ensure([], (require) => { r(require('@/page/login')); }, 'login');
-const step1 = r => require.ensure([], (require) => { r(require('@/page/step/step1')); }, 'step1');
-const step11 = r => require.ensure([], (require) => { r(require('@/page/step/step1_1')); }, 'step11');
-const step2 = r => require.ensure([], (require) => { r(require('@/page/step/step2')); }, 'step2');
-const step3 = r => require.ensure([], (require) => { r(require('@/page/step/step3')); }, 'step3');
-const step31 = r => require.ensure([], (require) => { r(require('@/page/step/step3_1')); }, 'step31');
-const step4 = r => require.ensure([], (require) => { r(require('@/page/step/step4')); }, 'step4');
-const step5 = r => require.ensure([], (require) => { r(require('@/page/step/step5')); }, 'step5');
-const pwmsg = r => require.ensure([], (require) => { r(require('@/page/pw/msg')); }, 'pwmsg');
+const step1 = r => require.ensure([], (require) => { r(require('@/page/register/step1')); }, 'step1');
+const step11 = r => require.ensure([], (require) => { r(require('@/page/register/step1_1')); }, 'step11');
+const step2 = r => require.ensure([], (require) => { r(require('@/page/register/step2')); }, 'step2');
+const step3 = r => require.ensure([], (require) => { r(require('@/page/register/step3')); }, 'step3');
+const step31 = r => require.ensure([], (require) => { r(require('@/page/register/step3_1')); }, 'step31');
+const step4 = r => require.ensure([], (require) => { r(require('@/page/register/step4')); }, 'step4');
+const step5 = r => require.ensure([], (require) => { r(require('@/page/register/step5')); }, 'step5');
+const repassword = r => require.ensure([], (require) => { r(require('@/page/repassword')); }, 'repassword');
+const pwmsg = r => require.ensure([], (require) => { r(require('@/page/repassword/msg')); }, 'pwmsg');
 const index = r => require.ensure([], (require) => { r(require('@/page/index')); }, 'index');
-const addOfficer = r => require.ensure([], (require) => { r(require('@/page/addOfficer')); }, 'addOfficer');
-const officermsg = r => require.ensure([], (require) => { r(require('@/page/addOfficer/msg')); }, 'officermsg');
-const officerlist = r => require.ensure([], (require) => { r(require('@/page/officerList')); }, 'officerlist');
-const officerdetail = r => require.ensure([], (require) => { r(require('@/page/officerList/detail')); }, 'officerdetail');
-const decEnt = r => require.ensure([], (require) => { r(require('@/page/decEnt')); }, 'decEnt');
-const decEntMsg = r => require.ensure([], (require) => { r(require('@/page/decEnt/msg')); }, 'decEntMsg');
+const addOfficer = r => require.ensure([], (require) => { r(require('@/page/officer')); }, 'addOfficer');
+const officermsg = r => require.ensure([], (require) => { r(require('@/page/officer/msg')); }, 'officermsg');
+const officerlist = r => require.ensure([], (require) => { r(require('@/page/officer/list')); }, 'officerlist');
+const officerdetail = r => require.ensure([], (require) => { r(require('@/page/officer/detail')); }, 'officerdetail');
+const decEnt = r => require.ensure([], (require) => { r(require('@/page/enterprise')); }, 'decEnt');
+const decEntMsg = r => require.ensure([], (require) => { r(require('@/page/enterprise/msg')); }, 'decEntMsg');
 const entList = r => require.ensure([], (require) => { r(require('@/page/entList')); }, 'entList');
 const entListdetail = r => require.ensure([], (require) => { r(require('@/page/entList/detail')); }, 'entListdetail');
 const entListedit = r => require.ensure([], (require) => { r(require('@/page/entList/edit')); }, 'edit');
 const recommendlist = r => require.ensure([], (require) => { r(require('@/page/recommendlist')); }, 'recommendlist');
-const addUser = r => require.ensure([], (require) => { r(require('@/page/addUser')); }, 'addUser');
-const userlist = r => require.ensure([], (require) => { r(require('@/page/addUser/list')); }, 'userlist');
-const userdetail = r => require.ensure([], (require) => { r(require('@/page/addUser/detail')); }, 'userdetail');
-const useredit = r => require.ensure([], (require) => { r(require('@/page/addUser/edit')); }, 'useredit');
+const addUser = r => require.ensure([], (require) => { r(require('@/page/user')); }, 'addUser');
+const userlist = r => require.ensure([], (require) => { r(require('@/page/user/list')); }, 'userlist');
+const userdetail = r => require.ensure([], (require) => { r(require('@/page/user/detail')); }, 'userdetail');
+const useredit = r => require.ensure([], (require) => { r(require('@/page/user/edit')); }, 'useredit');
 
 Vue.use(Router);
 
@@ -116,6 +117,11 @@ export default new Router({
       component: officerdetail,
     },
     {
+      path: '/repassword',
+      name: 'repassword',
+      component: repassword,
+    },
+    {
       path: '/pwmsg',
       name: 'pwmsg',
       component: pwmsg,
@@ -126,19 +132,19 @@ export default new Router({
       component: bindEnterprise,
     },
     {
-      path: '/noti',
-      name: 'noti',
-      component: noti,
+      path: '/sysMsg',
+      name: 'sysMsg',
+      component: sysMsg,
     },
     {
-      path: '/notid',
-      name: 'notid',
-      component: notid,
+      path: '/sysMsgDetail/:id',
+      name: 'sysMsgDetail',
+      component: sysMsgDetail,
     },
     {
-      path: '/seeDetails',
-      name: 'seeDetails',
-      component: seeDetails,
+      path: '/agency',
+      name: 'agency',
+      component: agency,
     },
     {
       path: '/login',

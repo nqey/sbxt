@@ -26,7 +26,7 @@ import { DECLARE_POST_UPLOAD } from '@/config/env';
 
 export default {
   name: 'upload',
-  props: ['uploadid', 'text'],
+  props: ['uploadid', 'text', 'imgUrl'],
   data() {
     return {
       upload,
@@ -57,6 +57,12 @@ export default {
       this.upFile(el.target.files[0]);
       el.target.value = '';
     },
+  },
+  mounted() {
+    if (this.imgUrl) {
+      this.imgSrc = this.imgUrl;
+      this.showImg = true;
+    }
   },
 };
 </script>

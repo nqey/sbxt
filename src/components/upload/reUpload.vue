@@ -39,7 +39,7 @@ export default {
     },
     bigImg() {
       // 发送事件
-      this.$emit('clickbg', this.limgSrc);
+      this.$emit('acceptImgSrc', this.limgSrc);
     },
   },
   mounted() {

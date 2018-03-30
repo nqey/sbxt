@@ -10,7 +10,7 @@
                 </div>
                 <img :src="del" class="upload_warp_img_div_del" @click="fileDel(index)">
               </div>
-              <div class="upload_warp_img_div_bottom" @click="clickEnlarge(item.file.src)">
+              <div class="upload_warp_img_div_bottom" @click="sendImgSrc(item.file.src)">
                 <span class="glyphicon glyphicon-resize-full" ></span>
               </div>
               <img :src="item.file.src" >
@@ -39,7 +39,7 @@
 import del from '@/assets/img/del.png';
 import upload from '@/assets/img/upload.png';
 import wenjian from '@/assets/img/wenjian.png';
-
+import { DECLARE_POST_UPLOAD } from '@/config/env';
 
 export default {
   name: 'upload',
@@ -53,6 +53,7 @@ export default {
       size: 0,
       showImg: false,
       imgSrc: '',
+      imgRes: [],
     };
   },
 
@@ -63,7 +64,7 @@ export default {
     fileChange(el) {
       if (!el.target.files[0].size) return;
       this.fileList(el.target);
-
+      this.upFile(el.target.files[0]);
       el.target.value = '';
     },
     fileList(fileList) {
@@ -131,6 +132,8 @@ export default {
       // 总大小
       this.size = this.size - this.imgList[index].file.size;
       this.imgList.splice(index, 1);
+      this.imgRes.splice(index, 1);
+      this.$emit('acceptData', this.imgRes);
     },
     bytesToSize(bytes) {
       if (bytes === 0) return '0 B';
@@ -154,9 +157,16 @@ export default {
       el.preventDefault();
       this.fileList(el.dataTransfer);
     },
-    clickEnlarge(src) {
+    sendImgSrc(src) {
       // 发送事件
-      this.$emit('clickbg', src);
+      this.$emit('acceptImgSrc', src);
+    },
+    async upFile(file) {
+      const param = new FormData();
+      param.append('fileList', file);
+      const res = await this.$xhr('upload', DECLARE_POST_UPLOAD, param);
+      this.imgRes.push(res.data.data[0]);
+      this.$emit('acceptData', this.imgRes);
     },
   },
 };

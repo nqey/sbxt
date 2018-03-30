@@ -15,7 +15,7 @@ export default {
   methods: {
     bigImg() {
       // 发送事件
-      this.$emit('clickbg', this.imgSrc);
+      this.$emit('acceptImgSrc', this.imgSrc);
     },
   },
 };

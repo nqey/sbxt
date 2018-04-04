@@ -1,7 +1,5 @@
 <template>
   <div>
-    <v-head></v-head>
-    <v-lmenu></v-lmenu>
     <div class="bs-example">
       <span class="t_nav">&#12288;&#12288;添加申报官</span>
       <br/>
@@ -16,16 +14,14 @@
       <p>添加成功</p>
       <br/>
       <br/>
-      <button class="btn js-ajax-submit">继续添加</button>
-      <button class="btn ljsq">返回列表</button>
+      <router-link to="/addOfficer"><button class="btn js-ajax-submit">继续添加</button></router-link>
+      <router-link to="/officerlist"><button class="btn ljsq">返回列表</button></router-link>
       </div>
     </div>
    </div>
 </template>
 
 <script>
-import vhead from '@/components/header';
-import lmenu from '@/components/leftMenu';
 import upload from '@/components/upload';
 import bigImg from '@/components/bigImg';
 
@@ -46,8 +42,6 @@ export default {
     },
   },
   components: {
-    'v-head': vhead,
-    'v-lmenu': lmenu,
     'v-upload': upload,
     'v-bigimg': bigImg,
   },

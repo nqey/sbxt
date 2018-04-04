@@ -1,75 +1,87 @@
 <template>
   <div>
-    <v-head></v-head>
-    <v-lmenu></v-lmenu>
     <div class="bs-example">
       <span class="t_nav">&#12288;&#12288;系统通知</span>
       <br/>
       <br/>
       <br/>
       <ul>
-        <li style="height: 50px; position: relative;"><router-link to="/notid">申报机构申请办事指南　</router-link><span style="display: inline-block;background-color: #fdc5d0;color: #fa607e">new</span><span style="position: absolute;right: 0">2017-12-27</span></li>
-        <li style="height: 50px; position: relative;">申报机构申请办事指南　<span style="display: inline-block;background-color: #fdc5d0;color: #fa607e">new</span> <span style="position: absolute;right: 0">2017-12-27</span></li>
-        <li style="height: 50px; position: relative;">申报机构申请办事指南　<span style="display: inline-block;background-color: #fdc5d0;color: #fa607e">new</span> <span style="position: absolute;right: 0">2017-12-27</span></li>
-        <li style="height: 50px; position: relative;">申报机构申请办事指南  <span style="position: absolute;right: 0">2017-12-27</span></li>
-        <li style="height: 50px; position: relative;">申报机构申请办事指南  <span style="position: absolute;right: 0">2017-12-27</span></li>
-        <li style="height: 50px; position: relative;">申报机构申请办事指南  <span style="position: absolute;right: 0">2017-12-27</span></li>
-        <li style="height: 50px; position: relative;">申报机构申请办事指南  <span style="position: absolute;right: 0">2017-12-27</span></li>
-        <li style="height: 50px; position: relative;">申报机构申请办事指南  <span style="position: absolute;right: 0">2017-12-27</span></li>
-        <li style="height: 50px; position: relative;">申报机构申请办事指南  <span style="position: absolute;right: 0">2017-12-27</span></li>
+        <li class="news" v-for="(item, index) of news">
+          <router-link :to="'/sysMsgDetail/'+item.id">{{item.title}}</router-link>
+          <span class="news_new" v-show="index < 3">new</span>
+          <span class="news_time">{{item.pushTime}}</span>
+        </li>
+        <li></li>
       </ul>
+      <v-pagination :page="pages" @nextPage="search"></v-pagination>
+      <div style="clear: both;"></div>
     </div>
   </div>
 </template>
 
 <script>
-import searchrs from '@/page/search/children/result';
 import pagination from '@/components/pagination';
-import vhead from '@/components/header';
-import lmenu from '@/components/leftMenu';
-import { getCookie } from '@/config/cookie';
-import { ENTERPRISE_QUERY_COUNT_ADDRESS } from '@/config/env';
 
 export default {
   name: 'search',
   data() {
     return {
-      declareOrgName: '',
-      state: '',
-      declareOrgId: '',
-      isShowRs: false,
-      isPageShow: false,
-      pages: 1,
-      rows: 20,
-      params: {
-        declareOrgName: '',
-        state: '',
-        declareOrgId: '',
-      },
+      pages: 0,
+      news: [],
     };
   },
   methods: {
-    async search(page) {
-      const o = {};
-      o.declareOrgName = this.declareOrgName;
-      o.state = this.state;
-      o.declareOrgId = getCookie('declareOrgId');
-      o.page = page;
-      o.rows = this.rows;
-      this.params = o;
-      const aPage = await this.$xhr('get', ENTERPRISE_QUERY_COUNT_ADDRESS);
-      this.pages = aPage.data.data.count / this.rows;
-      this.isPageShow = true;
-    },
-    isprs(isShow) {
-      this.isShowRs = isShow;
+    search() {
+      this.news = [
+        {
+          title: '申报机构申请办事指南',
+          id: '1',
+          pushTime: '2017-12-27',
+        },
+        {
+          title: '申报机构申请办事指南',
+          id: '2',
+          pushTime: '2017-12-27',
+        },
+        {
+          title: '申报机构申请办事指南',
+          id: '3',
+          pushTime: '2017-12-27',
+        },
+        {
+          title: '申报机构申请办事指南',
+          id: '4',
+          pushTime: '2017-12-27',
+        },
+        {
+          title: '申报机构申请办事指南',
+          id: '5',
+          pushTime: '2017-12-27',
+        },
+        {
+          title: '申报机构申请办事指南',
+          id: '6',
+          pushTime: '2017-12-27',
+        },
+        {
+          title: '申报机构申请办事指南',
+          id: '7',
+          pushTime: '2017-12-27',
+        },
+        {
+          title: '申报机构申请办事指南',
+          id: '8',
+          pushTime: '2017-12-27',
+        },
+      ];
     },
   },
   components: {
-    'v-searchrs': searchrs,
-    'v-head': vhead,
-    'v-lmenu': lmenu,
     'v-pagination': pagination,
+  },
+  mounted() {
+    this.search(1);
+    this.pages = 10;
   },
 };
 </script>
@@ -102,5 +114,13 @@ export default {
 a {
   text-decoration: none;
 }
-
+.news {
+  height: 50px; position: relative;
+}
+.news_new {
+  display: inline-block;background-color: #fdc5d0;color: #fa607e;
+}
+.news_time {
+  position: absolute;right: 0
+}
 </style>

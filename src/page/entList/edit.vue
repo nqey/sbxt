@@ -1,7 +1,5 @@
 <template>
   <div>
-    <v-head></v-head>
-    <v-lmenu></v-lmenu>
     <div class="bs-example">
       <span class="t_nav">&#12288;&#12288;修改资料</span>
       <br/>
@@ -95,8 +93,6 @@
 </template>
 
 <script>
-import vhead from '@/components/header';
-import lmenu from '@/components/leftMenu';
 import upload from '@/components/upload';
 import bigImg from '@/components/bigImg';
 import abm from '@/assets/img/abm.jpg';
@@ -122,8 +118,6 @@ export default {
     },
   },
   components: {
-    'v-head': vhead,
-    'v-lmenu': lmenu,
     'v-upload': upload,
     'v-bigimg': bigImg,
     'v-commonimg': commonimg,

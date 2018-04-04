@@ -6,7 +6,7 @@
             <div class="upload_warp_img_div" v-for="(item,index) of imgList">
               <div class="upload_warp_img_div_top">
                 <div class="upload_warp_img_div_text">
-                  {{item.file.name}}
+                  <!-- {{item.file.name}} -->
                 </div>
                 <img :src="del" class="upload_warp_img_div_del" @click="fileDel(index)">
               </div>
@@ -43,7 +43,7 @@ import { DECLARE_POST_UPLOAD } from '@/config/env';
 
 export default {
   name: 'upload',
-  props: ['uploadid', 'len'],
+  props: ['uploadid', 'len', 'imgUrl'],
   data() {
     return {
       del,
@@ -166,8 +166,20 @@ export default {
       param.append('fileList', file);
       const res = await this.$xhr('upload', DECLARE_POST_UPLOAD, param);
       this.imgRes.push(res.data.data[0]);
-      this.$emit('acceptData', this.imgRes);
+      this.$emit('acceptData', this.imgRes.join(','));
     },
+  },
+  mounted() {
+    if (this.imgUrl) {
+      this.imgUrl.split(',').forEach((f) => {
+        const o = {
+          file: {
+            src: f,
+          },
+        };
+        this.imgList.push(o);
+      });
+    }
   },
 };
 </script>

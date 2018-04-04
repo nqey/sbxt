@@ -1,7 +1,5 @@
 <template> 
   <div>
-    <v-head></v-head>
-    <v-lmenu></v-lmenu>
     <div style="height: 262px;"></div>
     <div class="container">
       <div class="content_list_list">
@@ -34,8 +32,6 @@
 
 <script>
 import { ENTERPRISE_BIND_DECLAREORG_ADDRESS } from '@/config/env';
-import vhead from '@/components/header';
-import vlmenu from '@/components/leftMenu';
 
 export default {
   name: 'enterprise',
@@ -48,10 +44,6 @@ export default {
       isErrInfo: false,
       isSuccessInfo: false,
     };
-  },
-  components: {
-    'v-head': vhead,
-    'v-lmenu': vlmenu,
   },
   methods: {
     async bindEnterprise() {

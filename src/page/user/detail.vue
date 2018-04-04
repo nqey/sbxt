@@ -1,9 +1,9 @@
 <template>
   <div>
-    <v-head></v-head>
-    <v-lmenu></v-lmenu>
     <div class="bs-example">
       <span class="t_nav">&#12288;&#12288;帐号详情</span>
+      <button class="btn btnDelete">删除</button>
+      <router-link to="/useredit"><button class="btn js-ajax-submit">修改</button></router-link>
       <br/>
       <br/>
       <br/>
@@ -12,74 +12,52 @@
             <label class="label_height">用户名：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-            <input type="text" class="form-control iw600" name="authCode" placeholder="请输入用户名">
+            <span class="label_height">{{name}}&#12288;&#12288;</span>
         </div>
         <div class="form-group col-sm-1 txr">
             <label class="label_height">密码：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-            <input type="text" class="form-control iw600" name="authCode" placeholder="请输入密码">
+          <span class="label_height">{{password}}&#12288;&#12288;</span>
         </div>
         <div class="form-group col-sm-1 txr">
             <label class="label_height">选择对象：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-            <select class="form-control">
-		      <option>请选择</option>
-		      <option>1</option>
-		      <option>2</option>
-		      <option>3</option>
-		      <option>4</option>
-		      <option>5</option>
-		    </select>
+            <span class="label_height">{{declarer}}&#12288;&#12288;</span>
         </div>
         <div class="form-group col-sm-1 txr">
-            <label class="label_height">选择功能：</label>
+            <label class="label_height">权限功能：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-            <input type="checkbox"/> 企业申报  
-            <br/>
-            <input type="checkbox"/> 企业列表  
-            <br/>
-            <input type="checkbox"/> 推荐列表  
+          <span class="label_height" v-for="r of role">{{r}}&#12288;&#12288;&#12288;</span>
         </div>
-          <div class="form-group col-sm-1 txr">
-          </div>
-          <div class="form-group col-sm-11 imb">
-              <button class="btn js-ajax-submit">添加</button>
-          </div>
+        <div class="form-group col-sm-1 txr">
+           <label class="label_height">操作历史：</label>
+        </div>
+        <div class="form-group col-sm-11 imb">
+           <span class="label_height">待定</span>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import vhead from '@/components/header';
-import lmenu from '@/components/leftMenu';
-import upload from '@/components/upload';
-import bigImg from '@/components/bigImg';
 
 export default {
-  name: 'search',
+  name: 'userdetail',
   data() {
     return {
-      showImg: false,
+      id: '001',
+      declarer: '申报官姓名',
+      declarerId: '001',
+      name: '用户名',
+      password: '密码',
+      role: ['申报企业', '企业列表', '推荐列表'],
     };
   },
   methods: {
-    bigimg(src) {
-      this.imgSrc = src;
-      this.showImg = true;
-    },
-    viewImg() {
-      this.showImg = false;
-    },
-  },
-  components: {
-    'v-head': vhead,
-    'v-lmenu': lmenu,
-    'v-upload': upload,
-    'v-bigimg': bigImg,
   },
 };
 </script>
@@ -137,9 +115,21 @@ a {
   color: #999;
 }
 .js-ajax-submit {
-    width: 350px;
+    float: right;
+    width: 120px;
+    height: 35px;
     margin: auto;
     color:#fff;
     background: rgb(1, 200, 83);
+    margin-right: 10px;
+}
+.btnDelete {
+    float: right;
+    width: 120px;
+    height: 35px;
+    margin: auto;
+    color:#999;
+    background: #fff;
+    border:1px #999 solid;
 }
 </style>

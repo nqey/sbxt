@@ -1,7 +1,5 @@
 <template>
   <div>
-    <v-head></v-head>
-    <v-lmenu></v-lmenu>
     <div class="bs-example">
       <span class="t_nav">&#12288;&#12288;添加申报官</span>
       <br/>
@@ -20,20 +18,18 @@
       <p>审核结果将以短信的方式发送至企业法人手机</p>
       <br/>
       <br/>
-      <button class="btn js-ajax-submit">继续申报</button>
+      <router-link to="/decEnt"><button class="btn js-ajax-submit">继续申报</button></router-link>
       </div>
     </div>
    </div>
 </template>
 
 <script>
-import vhead from '@/components/header';
-import lmenu from '@/components/leftMenu';
 import upload from '@/components/upload';
 import bigImg from '@/components/bigImg';
 
 export default {
-  name: 'search',
+  name: 'msg',
   data() {
     return {
       showImg: false,
@@ -49,8 +45,6 @@ export default {
     },
   },
   components: {
-    'v-head': vhead,
-    'v-lmenu': lmenu,
     'v-upload': upload,
     'v-bigimg': bigImg,
   },

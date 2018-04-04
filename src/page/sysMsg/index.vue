@@ -21,7 +21,6 @@
 </template>
 
 <script>
-import logo from '@/assets/img/logo.png';
 import lhead from '@/components/registerHead/lhead';
 import pagination from '@/components/pagination';
 
@@ -38,13 +37,12 @@ export default {
   },
   data() {
     return {
-      logo,
       pages: 0,
       news: [],
     };
   },
   methods: {
-    search(page) {
+    search() {
       this.news = [
         {
           title: '申报机构申请办事指南',

@@ -6,6 +6,9 @@
             <div class="upload_warp_img_div" @click="fileClick">
               <img :src="imgSrc" >
             </div>
+            <div class="upload_warp_img_div_bottom" @click="sendImgSrc">
+              <span class="glyphicon glyphicon-resize-full" ></span>
+            </div>
         </div>
         <div class="upload_warp" v-show="!showImg">
           <div class="upload_warp_left" @click="fileClick">
@@ -45,7 +48,11 @@ export default {
       const res = await this.$xhr('upload', DECLARE_POST_UPLOAD, param);
       this.$emit('acceptData', res.data.data[0]);
     },
-    async fileChange(el) {
+    sendImgSrc() {
+      // 发送事件
+      this.$emit('acceptImgSrc', this.imgSrc);
+    },
+    fileChange(el) {
       if (!el.target.files[0].size) return;
       if (el.target.files[0].type === '') return;
       const reader = new FileReader();
@@ -72,7 +79,7 @@ export default {
 
 .upload_warp_img_div img {
   max-width: 100%;
-  max-height: 100%;
+  /*max-height: 100%;*/
   vertical-align: middle;
 }
 
@@ -90,8 +97,8 @@ export default {
 }
 .upload_warp_img {
   overflow: hidden;
+  position: relative;
 }
-
 
 .upload_warp_left img {
   margin-top: 40px;
@@ -113,5 +120,19 @@ export default {
 .hello {
   width: 200px;
   text-align: center;
+}
+
+.upload_warp_img_div_bottom {
+  position: absolute;
+  bottom: 0;
+  width: 30px;
+  height: 30px;
+  background-color: rgba(0, 0, 0, 0.4);
+  line-height: 35px;
+  text-align: left;
+  color: #fff;
+  font-size: 12px;
+  text-indent: 4px;
+  right: 0;
 }
 </style>

@@ -1,7 +1,5 @@
 <template>
   <div>
-    <v-head></v-head>
-    <v-lmenu></v-lmenu>
     <div class="container">
       <div style="height: 100px;"></div>
       <div class="content_list">
@@ -53,8 +51,6 @@
 <script>
 import searchrs from '@/page/search/children/result';
 import pagination from '@/components/pagination';
-import vhead from '@/components/header';
-import lmenu from '@/components/leftMenu';
 import { getCookie } from '@/config/cookie';
 import { ENTERPRISE_QUERY_COUNT_ADDRESS } from '@/config/env';
 
@@ -95,8 +91,6 @@ export default {
   },
   components: {
     'v-searchrs': searchrs,
-    'v-head': vhead,
-    'v-lmenu': lmenu,
     'v-pagination': pagination,
   },
 };

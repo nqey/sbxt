@@ -1,7 +1,5 @@
 <template>
   <div>
-    <v-head></v-head>
-    <v-lmenu></v-lmenu>
     <div class="bs-example">
       <span class="t_nav">&#12288;&#12288;申报官详情</span>
       <br/>
@@ -9,7 +7,7 @@
       <br/>
       <div class="form-inline clearfix">
         <div class="form-group col-sm-12 txc imb">
-            <p class="err"><span class="glyphicon glyphicon-exclamation-sign"></span> 未通过原因: 您的身份证号码与你的真实姓名不匹配，需要重新提交。</p>
+            <p class="err"><span class="glyphicon glyphicon-exclamation-sign"></span> 未通过原因:{{reason}}</p>
         </div>
         <div class="clearfix"></div>
         <div class="form-group col-sm-1 txr">
@@ -20,12 +18,11 @@
              &#12288;<span class="glyphicon glyphicon-edit"></span>
             <br/>
             <br/>
-            <span>手机号码：{{phone}}</span>
+            <span>手机号码：{{tellphone}}</span>
             &#12288;<span class="glyphicon glyphicon-edit"></span>
             <br/>
             <br/>
-            <span>身份证号：{{cardId}}   &#12288;<span class="glyphicon glyphicon-edit"></span>&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;考试分数：<span class="cscore">{{score}}</span>分</span>
-
+            <span>身份证号：{{idNumber}}   &#12288;<span class="glyphicon glyphicon-edit"></span>&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;考试分数：<span class="cscore">{{score}}</span>分</span>
         </div>
         <div class="clearfix"></div>
         <br/>
@@ -65,8 +62,6 @@
 </template>
 
 <script>
-import vhead from '@/components/header';
-import lmenu from '@/components/leftMenu';
 import upload from '@/components/upload';
 import reupload from '@/components/upload/reUpload';
 import bigImg from '@/components/bigImg';
@@ -76,7 +71,7 @@ import abm from '@/assets/img/abm.jpg';
 import jze from '@/assets/img/jze.jpg';
 
 export default {
-  name: 'search',
+  name: 'officerDetail',
   data() {
     return {
       showImg: false,
@@ -84,9 +79,16 @@ export default {
       abm,
       jze,
       name: '克里斯塔',
-      phone: '13780546859',
-      cardId: '51018219900805XXXX',
+      tellphone: '13780546859',
+      idNumber: '51018219900805XXXX',
+      reason: '您的身份证号码与你的真实姓名不匹配，需要重新提交。',
       score: 86,
+      portrait: '',
+      idFrontUrl: 'gfasdf4s24df135asd',
+      idBackUrl: 'gfasdf4s24df135asd',
+      surveyImageUrl: 'gfasdf4s24df135asd',
+      letterImageUrl: 'gfasdf4s24df135asd',
+      state: '审核未通过',
     };
   },
   methods: {
@@ -99,8 +101,6 @@ export default {
     },
   },
   components: {
-    'v-head': vhead,
-    'v-lmenu': lmenu,
     'v-upload': upload,
     'v-bigimg': bigImg,
     'v-commonimg': commonimg,

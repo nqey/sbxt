@@ -1,20 +1,17 @@
 <template>
   <div class='form-group'>
-    <select class='form-control' @change="queryCity" v-model="province">
+    <select v-show="provinces.length > 0" class='form-control' @change="queryCity" v-model="province">
       <option value="0">请选择省份</option>
       <option v-for="item in provinces" :value="item.id">{{item.name}}</option>
     </select>
-    <select class='form-control' @change="queryTown" v-model="city">
+    <select v-show="citys.length > 0" class='form-control' @change="queryTown" v-model="city">
       <option value="0">请选择市</option>
       <option v-for="item in citys" :value="item.id">{{item.name}}</option>
     </select>
-    <select class='form-control' v-model="town">
+    <select v-show="towns.length > 0" class='form-control' v-model="town" @change="sendData">
       <option value="0">请选择区/县</option>
       <option v-for="item in towns" :value="item.id">{{item.name}}</option>
     </select>
-    <div class='mt'>
-       <input type='text' class='form-control iw' placeholder='请输入详细地址' @blur="sendData" v-model="address">
-    </div>
 </div>
 </template>
 
@@ -29,7 +26,6 @@ export default {
       province: '0',
       city: '0',
       town: '0',
-      address: '',
       provinces: [],
       citys: [],
       towns: [],
@@ -53,6 +49,7 @@ export default {
           this.citys = item.children;
         }
       });
+      this.sendData();
     },
     queryTown() {
       this.towns = [];
@@ -65,10 +62,7 @@ export default {
       this.sendData();
     },
     sendData() {
-      this.$emit('acceptData', {
-        liveAddress: `${this.province}${this.city}${this.town}`,
-        address: this.address,
-      });
+      this.$emit('acceptData', `${this.province}${this.city}${this.town}`);
     },
   },
   mounted() {

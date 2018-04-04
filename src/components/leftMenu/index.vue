@@ -9,8 +9,8 @@
     <div class="main-left_nav_list">
         <section class="sidebar">
             <ul class="sidebar-menu">
-                <li class="treeview"><router-link to="/bindEnterprise">添加</router-link></li>
-                <li class="treeview"><router-link to="/search">搜索</router-link></li>
+<!--                 <li class="treeview"><router-link to="/bindEnterprise">添加</router-link></li>
+                <li class="treeview"><router-link to="/search">搜索</router-link></li> -->
                 <li v-for="item in items"> 
                     <a v-if="item.haveSub" @click="showToggle(item)">
                       {{item.name}}
@@ -45,11 +45,13 @@ export default {
           name: '首页',
           haveSub: false,
           link: '/index',
+          id: 1,
         },
         {
           name: '申报官',
           isSubShow: false,
           haveSub: true,
+          id: 2,
           subItems: [
             {
               name: '添加申报官',
@@ -65,21 +67,25 @@ export default {
           name: '申报企业',
           haveSub: false,
           link: '/decEnt',
+          id: 3,
         },
         {
           name: '企业列表',
           haveSub: false,
           link: '/entList',
+          id: 4,
         },
         {
           name: '推荐列表',
           haveSub: false,
           link: '/recommendList',
+          id: 5,
         },
         {
           name: '权限管理',
           haveSub: true,
           isSubShow: false,
+          id: 6,
           subItems: [
             {
               name: '添加账户',
@@ -137,7 +143,6 @@ export default {
         background: rgba(0, 0, 0, 0.1);
     }
 }
-
 .logo {
     @include wh(240px, 250px);
     min-width: 240px;
@@ -182,6 +187,9 @@ export default {
 .sidebar-menu > li:hover > a, .sidebar-menu > li.active > a {
     color: #fff;
     background: #3b8fff;
+}
+.active {
+  background: #3b8fff;
 }
 .sidebar-menu > li:hover > a {
     border-top: 1px solid rgba(255, 255, 255, 0.2);

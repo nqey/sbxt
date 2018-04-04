@@ -1,13 +1,11 @@
 <template>
   <div>
-    <v-registerhead :step="3"></v-registerhead>
+    <v-registerhead :step="2"></v-registerhead>
+    <v-errinfo :errMsg="errMsg"></v-errinfo>
     <div>
       <div class="col-sm-12 container">
         <div class="col-sm-12 bs-example">
           <div class="form-inline clearfix">
-              <div class="form-group col-sm-12 txc imb">
-                <p class="err"><span class="glyphicon glyphicon-exclamation-sign"></span> 未通过原因: {{errMsg}}</p>
-              </div>
               <div class="form-group col-sm-5 txr">
                   <label class="label_height">姓 名：</label>
               </div>
@@ -18,7 +16,7 @@
                   <label class="label_height">身份证号码：</label>
               </div>
               <div class="form-group col-sm-7 imb">
-                  <input type="text" class="form-control iw" placeholder="请输入身份证号码" v-model="idNumber">
+                  <input type="text" class="form-control iw" placeholder="请输入身份证号码" v-model="idNumber" @blur="validate">
               </div>
               <v-bigimg v-if="showImg" @hideViewImg="viewImg" :imgSrc="imgSrc"></v-bigimg>
               <div class="form-group col-sm-5 txr">
@@ -29,20 +27,23 @@
                   <p></p>
                   <small class="info label_height">请上传本人真实身份证，否则审核不通过。</small>
                   <div class="clearfix"></div>
-                  <v-upload uploadid="upload1" text="上传正面" @acceptData="frontUrl" :imgUrl="idFrontUrl"></v-upload>
-                  <v-upload uploadid="upload2" text="上传背面" @acceptData="backUrl" :imgUrl="idBackUrl"></v-upload>
+                  <v-upload uploadid="upload1" :imgUrl="idFrontUrl" text="上传正面" @acceptImgSrc="bigimg" @acceptData="frontUrl"></v-upload>
+                  <v-upload uploadid="upload2" :imgUrl="idBackUrl" text="上传背面" @acceptImgSrc="bigimg" @acceptData="backUrl"></v-upload>
               </div>
               <div class="form-group col-sm-5 txr">
                   <label class="label_height">常住地址：</label>
               </div>
               <div class="col-sm-7 imb">
-                  <v-geoarea @acceptData="makeData"></v-geoarea>
+                  <v-geoarea @acceptData="setLiveAddress"></v-geoarea>
+                  <div class='mt'>
+                     <input type='text' class='form-control iw' placeholder='请输入详细地址' v-model="address">
+                  </div>
               </div>
               <div class="form-group col-sm-5 txr">
                   <label class="label_height">选择申请区域：</label>
               </div>
               <div class="col-sm-7 imb">
-                  <v-apparea @acceptData="makeData"></v-apparea>
+                  <v-apparea @acceptData="setApplyAddress"></v-apparea>
               </div>
               <div class="form-group col-sm-5 txr">
                   <label class="label_height">推荐机构：</label>
@@ -80,14 +81,12 @@ import geoarea from '@/components/reegionalCascade/geoArea';
 import registerHead from '@/components/registerHead';
 import bigImg from '@/components/bigImg';
 import apparea from '@/components/reegionalCascade/appArea';
+import errInfo from '@/components/errInfo';
+import rules from '@/config/rules';
+// import { DECLARE_GET_BASEINFO, DECLARE_RECOMMEND_ORGANIZ } from '@/config/env';
 
 export default {
-  name: 'step2',
-  props: {
-    value: {
-      type: String,
-    },
-  },
+  name: 'step31',
   data() {
     return {
       showImg: false,
@@ -97,13 +96,16 @@ export default {
       idNumber: '',
       idFrontUrl: '',
       idBackUrl: '',
+      address: '',
+      liveAddress: '',
+      applyAddress: '',
       recommendName: '',
       recommendOrgnizId: '',
       recommendOrgnizType: '',
       enterpriseName: '',
-      errMsg: '您的身份证号码与你的真实姓名不匹配，需要重新提交。',
       obj: {},
       list: [],
+      errMsg: [],
     };
   },
   components: {
@@ -112,8 +114,55 @@ export default {
     'v-registerhead': registerHead,
     'v-bigimg': bigImg,
     'v-apparea': apparea,
+    'v-errinfo': errInfo,
   },
   methods: {
+    validate() {
+      this.errMsg = [];
+      // 生份证号码验证
+      if (this.idNumber !== '' && !rules.cP.pattern.test(this.idNumber)) {
+        this.errMsg.push(rules.cP.message);
+      }
+    },
+    validate2() {
+      this.validate();
+      // 生份证号码验证
+      if (this.idNumber === '') {
+        this.errMsg.push(`${rules.nonEmpty}${rules.idNumber}`);
+      }
+      // 姓名验证
+      if (this.name === '') {
+        this.errMsg.push(`${rules.nonEmpty}${rules.name}`);
+      }
+      // 身份证照片正面
+      if (this.idFrontUrl === '') {
+        this.errMsg.push(`${rules.upload}${rules.idFrontUrl}`);
+      }
+      // 身份证照片背面
+      if (this.idBackUrl === '') {
+        this.errMsg.push(`${rules.upload}${rules.idBackUrl}`);
+      }
+      // 常住地址 详细地址
+      if (this.address === '') {
+        this.errMsg.push(`${rules.nonEmpty}${rules.address}`);
+      }
+      // 常住地址
+      if (this.liveAddress === '') {
+        this.errMsg.push(`${rules.select}${rules.liveAddress}`);
+      }
+      // 申请区域
+      if (this.applyAddress === '') {
+        this.errMsg.push(`${rules.select}${rules.applyAddress}`);
+      }
+      // 推荐机构验证
+      if (this.recommendOrgnizId === '') {
+        this.errMsg.push(`${rules.nonEmpty}${rules.ecommendOrgniz}`);
+      }
+      // 企业全称
+      if (this.enterpriseName === '') {
+        this.errMsg.push(`${rules.nonEmpty}${rules.enterpriseName}`);
+      }
+    },
     bigimg(src) {
       this.imgSrc = src;
       this.showImg = true;
@@ -127,8 +176,11 @@ export default {
     backUrl(d) {
       this.idBackUrl = d;
     },
-    makeData(d) {
-      this.obj = Object.assign(this.obj, d);
+    setLiveAddress(d) {
+      this.liveAddress = d;
+    },
+    setApplyAddress(d) {
+      this.applyAddress = d;
     },
     setRecommendName(index) {
       this.recommendName = this.list[index].name;
@@ -158,6 +210,7 @@ export default {
       this.isShowRecommendName = true;
     },
     submit() {
+      this.validate2();
       this.obj.name = this.name;
       this.obj.idNumber = this.idNumber;
       this.obj.idFrontUrl = this.idFrontUrl;
@@ -165,9 +218,17 @@ export default {
       this.obj.recommendOrgnizId = this.recommendOrgnizId;
       this.obj.recommendOrgnizType = this.recommendOrgnizType;
       this.obj.enterpriseName = this.enterpriseName;
-      // console.log(this.obj);
-      this.$router.push('/step4');
+      this.obj.liveAddress = this.liveAddress;
+      this.obj.address = this.address;
+      this.obj.applyAddress = this.applyAddress;
+      if (this.errMsg.length === 0) {
+        this.$router.push('/step3');
+      }
     },
+  },
+  mounted() {
+    // const res = await this.$xhr('post', DECLARE_LOGIN_DO_ADDRESS, data);
+    this.errMsg.push('您的身份证号码与你的真实姓名不匹配，需要重新提交');
   },
 };
 </script>
@@ -268,7 +329,7 @@ export default {
     color:#fff;
     background: rgb(1, 200, 83);
 }
-.err {
-  color: #ac2925;
+.mt {
+  margin-top: 30px;
 }
 </style>

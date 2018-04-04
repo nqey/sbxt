@@ -211,13 +211,13 @@ export default {
         } else if (res.data.data.state === 'baseWaitAudit') {
           setTimeout(() => { this.$router.push('/step3'); }, 1000);
         } else if (res.data.data.state === 'baseUnAudit') {
-          setTimeout(() => { this.$router.push('/step31'); }, 1000);
+          setTimeout(() => { this.$router.push('/step2'); }, 1000);
         } else if (res.data.data.state === 'registWaitSubmit') {
           setTimeout(() => { this.$router.push('/step4'); }, 1000);
         } else if (res.data.data.state === 'registWaitAudit') {
           setTimeout(() => { this.$router.push('/step5'); }, 1000);
         } else if (res.data.data.state === 'registUnPass') {
-          setTimeout(() => { this.$router.push('/step51'); }, 1000);
+          setTimeout(() => { this.$router.push('/step4'); }, 1000);
         } else {
           setTimeout(() => { this.$router.push('/index'); }, 1000);
         }

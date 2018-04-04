@@ -1,7 +1,5 @@
 <template>
   <div>
-    <v-head></v-head>
-    <v-lmenu></v-lmenu>
     <div class="bs-example">
       <span class="t_nav">&#12288;&#12288;申报官列表</span>
       <br/>
@@ -19,47 +17,36 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td style="color: #ac2925;">Otto <span class="glyphicon glyphicon-question-sign"></span></td>
-              <td>@mdo</td>
-              <td>@mdo</td>
-              <td><a>查看</a> <a>删除</a> <a>修改</a></td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-              <td>@fat</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Larry</td>
-              <td>the Bird</td>
-              <td>@twitter</td>
-              <td>@twitter</td>
-              <td>@mdo</td>
+            <tr v-for="item of lists">
+              <th scope="row">{{item.name}}</th>
+              <td>{{item.tellphone}}</td>
+              <td style="color: #ac2925;">{{item.state}} <span class="glyphicon glyphicon-question-sign"></span>{{item.reason}}</td>
+              <td>{{item.createtime}}</td>
+              <td>{{item.score}}</td>
+              <td>
+                <router-link to="/officerdetail">查看</router-link>
+                <a>删除</a> 
+                <router-link to="/addOfficer">修改</router-link>
+              </td>
             </tr>
           </tbody>
         </table>
+        <v-pagination :page="pages" @nextPage="search"></v-pagination>
+        <div style="clear: both;"></div>
     </div>
   </div>
 </template>
 
 <script>
-import vhead from '@/components/header';
-import lmenu from '@/components/leftMenu';
-import upload from '@/components/upload';
-import bigImg from '@/components/bigImg';
+import pagination from '@/components/pagination';
 
 export default {
   name: 'search',
   data() {
     return {
       showImg: false,
+      lists: [],
+      pages: 0,
     };
   },
   methods: {
@@ -70,12 +57,35 @@ export default {
     viewImg() {
       this.showImg = false;
     },
+    search() {
+      this.lists = [
+        {
+          id: '1',
+          name: '张三',
+          tellphone: '13888888888',
+          state: 'type:',
+          reason: '原因',
+          createtime: '13880000',
+          score: '100',
+        },
+        {
+          id: '2',
+          name: '李四',
+          tellphone: '13888888888',
+          state: '通过',
+          reason: '原因',
+          createtime: '13880000',
+          score: '未考试',
+        },
+      ];
+      this.pages = 10;
+    },
   },
   components: {
-    'v-head': vhead,
-    'v-lmenu': lmenu,
-    'v-upload': upload,
-    'v-bigimg': bigImg,
+    'v-pagination': pagination,
+  },
+  mounted() {
+    this.search();
   },
 };
 </script>

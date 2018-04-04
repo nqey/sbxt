@@ -1,7 +1,5 @@
 <template>
   <div>
-    <v-head></v-head>
-    <v-lmenu></v-lmenu>
     <div class="bs-example">
       <span class="t_nav">&#12288;&#12288;企业详情</span>
       <br/>
@@ -12,26 +10,26 @@
             <label class="label_height">企业全称：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-            <p class="label_height">四川新中华搜信息技术有限公司</p>
+            <p class="label_height">{{name}}</p>
         </div>
         <div class="form-group col-sm-1 txr">
             <label class="label_height">企业负责人：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-            <p class="label_height">企业负责人XXX</p>
+            <p class="label_height">{{declarer}}</p>
         </div>
         <v-bigimg v-if="showImg" @hideViewImg="viewImg" :imgSrc="imgSrc"></v-bigimg>
         <div class="form-group col-sm-1 txr">
             <label class="label_height">手机号码：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-            <p class="label_height">手机号码XXXX</p>
+            <p class="label_height">{{tellphone}}</p>
         </div>
         <div class="form-group col-sm-1 txr">
             <label class="label_height">身份证号码：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-            <p class="label_height">身份证号码XXXX</p>
+            <p class="label_height">{{id_number}}</p>
         </div>
         <div class="form-group col-sm-1 txr">
           <label class="label_height">身份证照片：</label>
@@ -95,8 +93,6 @@
 </template>
 
 <script>
-import vhead from '@/components/header';
-import lmenu from '@/components/leftMenu';
 import upload from '@/components/upload';
 import bigImg from '@/components/bigImg';
 import abm from '@/assets/img/abm.jpg';
@@ -110,6 +106,22 @@ export default {
       abm,
       jze,
       showImg: false,
+      name: '四川中新华搜信息技术有限公司',
+      declarer: '申报人',
+      tellphone: '13888888888',
+      id_number: '51050318982131313515',
+      id_front_url: 'gfasdf4s24df135asd',
+      id_back_url: 'gfasdf4s24df135asd',
+      license_image_url: 'gfasdf4s24df135asd',
+      production_image_url: 'gfasdf4s24df135asd',
+      capital_image_url: 'gfasdf4s24df135asd',
+      enterprise_survey_image_url: 'gfasdf4s24df135asd',
+      enterprise_charger_survey_image_url: 'gfasdf4s24df135asd',
+      enterprise_shind_image_url: 'gfasdf4s24df135asd',
+      authorization_image_url: 'gfasdf4s24df135asd',
+      other_image_url: 'gfasdf4s24df135asd',
+      state: '未通过',
+      reason: '原因',
     };
   },
   methods: {
@@ -122,8 +134,6 @@ export default {
     },
   },
   components: {
-    'v-head': vhead,
-    'v-lmenu': lmenu,
     'v-upload': upload,
     'v-bigimg': bigImg,
     'v-commonimg': commonimg,

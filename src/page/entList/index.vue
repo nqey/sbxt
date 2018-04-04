@@ -1,31 +1,24 @@
 <template>
   <div>
-    <v-head></v-head>
-    <v-lmenu></v-lmenu>
     <div class="bs-example-search">
       <div class="col-sm-1 txr">
         <label class="label_height">企业名称：</label>
       </div>
       <div class="col-sm-2 ">
-        <input type="text" class="form-control iw200" name="authCode" placeholder="请输入企业名称：">
+        <input type="text" class="form-control iw200" placeholder="请输入企业名称：" v-model="name">
       </div>
       <div class="col-sm-1 txr">
         <label class="label_height">申报人：</label>
       </div>
       <div class="col-sm-2 ">
-        <input type="text" class="form-control iw200" name="authCode" placeholder="请输入申报人">
+        <input type="text" class="form-control iw200" placeholder="请输入申报人" v-model="declarer">
       </div>
       <div class="col-sm-1 txr">
         <label class="label_height">企业状态：</label>
       </div>
       <div class="col-sm-2 ">
-        <select class="form-control">
-	      <option>企业状态</option>
-	      <option>1</option>
-	      <option>2</option>
-	      <option>3</option>
-	      <option>4</option>
-	      <option>5</option>
+      <select class="form-control" v-model="state">
+	      <option v-for="(value, key) of selEntState" :value="key">{{value}}</option>
 	    </select>
       </div>
       <div class="form-group col-sm-3">
@@ -52,50 +45,60 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td style="color: #ac2925;">Otto <span class="glyphicon glyphicon-question-sign"></span></td>
-              <td>@mdo</td>
-              <td>@mdo</td>
-              <td>1111</td>
-              <td><a>查看</a> <a>删除</a> <a>修改</a></td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-              <td>@fat</td>
-              <td>1111</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Larry</td>
-              <td>the Bird</td>
-              <td>@twitter</td>
-              <td>@twitter</td>
-              <td>1111</td>
-              <td>@mdo</td>
+            <tr v-for="item of lists">
+              <th scope="row">{{item.name}}</th>
+              <td style="color: #ac2925;">{{item.state}} <span class="glyphicon glyphicon-question-sign"></span>{{item.reason}}</td>
+              <td>{{item.declarer}}</td>
+              <td>{{item.createtime}}</td>
+              <td>{{item.codeCount}}</td>
+              <td>{{item.amount}}</td>
+              <td>
+                <router-link to="/entListdetail">查看</router-link>
+                <a>删除</a> 
+                <router-link to="/entListedit">修改</router-link>
+              </td>
             </tr>
           </tbody>
         </table>
+        <v-pagination :page="pages" @nextPage="search"></v-pagination>
+        <div style="clear: both;"></div>
     </div>
   </div>
 </template>
 
 <script>
-import vhead from '@/components/header';
-import lmenu from '@/components/leftMenu';
 import upload from '@/components/upload';
 import bigImg from '@/components/bigImg';
+import pagination from '@/components/pagination';
 
 export default {
-  name: 'search',
+  name: 'entList',
   data() {
     return {
       showImg: false,
+      lists: [],
+      name: '',
+      declarer: '',
+      state: '',
+      page: 1,
+      row: 20,
+      pages: 0,
+      selEntState: {
+        waitPending: '待初审',
+        waitUnPending: '初审未通过',
+        waitPended: '初审通过',
+        waitAudit: '待审核',
+        unPass: '未通过',
+        pass: '已通过',
+        wait: '待支付',
+        pending: '待初审',
+        collectting: '待认证官上门采集',
+        confirmFailed: '初审未通过',
+        reject2: '认证官采集未通过',
+        pending2: '待复审',
+        confirm2Failed: '复审未通过',
+        passed: '通过审核',
+      },
     };
   },
   methods: {
@@ -106,12 +109,39 @@ export default {
     viewImg() {
       this.showImg = false;
     },
+    search() {
+      this.lists = [
+        {
+          id: '1',
+          name: '四川中新华搜信息技术有限公司',
+          state: '审核未通过',
+          reason: '原因',
+          declarer: '申报人',
+          createtime: '2018-02-27',
+          codeCount: '15000000',
+          amount: '10000',
+        },
+        {
+          id: '2',
+          name: '四川中新华搜信息技术有限公司',
+          state: '审核未通过',
+          reason: '原因',
+          declarer: '申报人',
+          createtime: '2018-02-27',
+          codeCount: '150(万)',
+          amount: '10000',
+        },
+      ];
+      this.pages = 10;
+    },
   },
   components: {
-    'v-head': vhead,
-    'v-lmenu': lmenu,
     'v-upload': upload,
     'v-bigimg': bigImg,
+    'v-pagination': pagination,
+  },
+  mounted() {
+    this.search();
   },
 };
 </script>
@@ -135,7 +165,6 @@ export default {
     padding: 35px 30px;
     position: relative;
 }
-
 .bs-example-search {
     position: relative;
     top: 120px;

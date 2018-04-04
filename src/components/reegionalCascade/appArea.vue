@@ -1,10 +1,10 @@
 <template>
   <div class="form-group">
-    <select class='form-control' @change="queryCity" v-model="province">
+    <select v-show="provinces.length > 0" class='form-control' @change="queryCity" v-model="province">
       <option value="0">请选择省份</option>
       <option v-for="item in provinces" :value="item.id">{{item.name}}</option>
     </select>
-    <select class='form-control' @change="queryPlaces" v-model="city">
+    <select v-show="citys.length > 0" class='form-control' @change="queryPlaces" v-model="city">
       <option value="0">请选择市</option>
       <option v-for="item in citys" :value="item.id">{{item.name}}</option>
     </select>
@@ -52,9 +52,7 @@ export default {
       // let api = `${DECLARE_AREALIMIT_AREACODE}${this.province}${this.city}`;
       //   const res = await this.$xhr('get', api);
       this.rmplaces = 5;
-      this.$emit('acceptData', {
-        applyAddress: `${this.province}${this.city}`,
-      });
+      this.$emit('acceptData', `${this.province}${this.city}`);
     },
   },
   mounted() {

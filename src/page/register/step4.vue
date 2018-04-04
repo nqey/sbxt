@@ -1,6 +1,7 @@
 <template>
   <div>
     <v-registerhead :step="4"></v-registerhead>
+    <v-errinfo :errMsg="errMsg"></v-errinfo>
     <div>
       <div class="col-sm-12 container">
         <div class="col-sm-12 bs-example">
@@ -19,7 +20,7 @@
                 <small class="info label_height">请认真填写每一必填项，再上传完整的尽职调查表</small>
                 <br/>
                 <br/>
-                <v-upload @acceptImgSrc="bigimg" @acceptData="setSurveyImageUrl" uploadid="upload1"></v-upload>
+                <v-upload :imgUrl="surveyImageUrl" @acceptImgSrc="bigimg" @acceptData="setSurveyImageUrl" uploadid="upload1"></v-upload>
               </div>
               <v-bigimg v-if="showImg" @hideViewImg="viewImg" :imgSrc="imgSrc"></v-bigimg>
               <div class="form-group col-sm-4 txr">
@@ -32,7 +33,7 @@
                 <small class="info label_height">请上传完整的承诺公函</small>
                 <br/>
                 <br/>
-                <v-upload @acceptImgSrc="bigimg" @acceptData="setLetterImageUrl" uploadid="upload2"></v-upload>
+                 <v-idcardupload uploadid="upload2" :imgUrl="letterImageUrl" text="上传图片" @acceptImgSrc="bigimg" @acceptData="setLetterImageUrl"></v-idcardupload>
               </div>
               <div class="form-group col-sm-4 txr">
                   <label class="label_height"><span class="info">*</span> 负责人尽职调查表：</label>
@@ -44,7 +45,7 @@
                 <small class="info label_height">请认真填写每一必填项，再上传完整的尽职调查表</small>
                 <br/>
                 <br/>
-                <v-upload @acceptImgSrc="bigimg" @acceptData="setChargerSurveyImageUrl" uploadid="upload3"></v-upload>
+                <v-upload :imgUrl="chargerSurveyImageUrl" @acceptImgSrc="bigimg" @acceptData="setChargerSurveyImageUrl" uploadid="upload3"></v-upload>
               </div>
               <div class="form-group col-sm-4 txr">
                   <label class="label_height"><span class="info">*</span> 负责人承诺公函：</label>
@@ -56,7 +57,7 @@
                 <small class="info label_height">请上传完整的承诺公函</small>
                 <br/>
                 <br/>
-                <v-upload @acceptImgSrc="bigimg" @acceptData="setChargerImageUrl" uploadid="upload4"></v-upload>
+                <v-idcardupload uploadid="upload4" :imgUrl="chargerImageUrl" text="上传图片" @acceptImgSrc="bigimg" @acceptData="setChargerImageUrl"></v-idcardupload>
               </div>
               <div class="form-group col-sm-4 txr">
                   <label class="label_height"><span class="info">*</span> 企业工商营业执照：</label>
@@ -67,7 +68,7 @@
                 <small class="info2 label_height">格式要求：上次加盖企业公章的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
                 <br/>
                 <br/>
-                <v-upload @acceptImgSrc="bigimg" @acceptData="setCommerceImageUrl" uploadid="upload5"></v-upload>
+                <v-idcardupload uploadid="upload5" text="上传图片" :imgUrl="commerceImageUrl" @acceptImgSrc="bigimg" @acceptData="setCommerceImageUrl"></v-idcardupload>
               </div>
               <div class="form-group col-sm-4 txr">
                   <label class="label_height"> 其他补充材料：</label>
@@ -78,7 +79,7 @@
                 <small class="info2 label_height">支持格式：jpg、bmp、png、gif格式照片，大小不超过2M，最多5张。</small>
                 <br/>
                 <br/>
-                <v-upload @acceptImgSrc="bigimg" @acceptData="setOtherImageUrl" uploadid="upload6"></v-upload>
+                <v-upload :imgUrl="otherImageUrl" @acceptImgSrc="bigimg" @acceptData="setOtherImageUrl" uploadid="upload6"></v-upload>
               </div>
               <div class="form-group col-sm-4 txr">
               </div>
@@ -95,10 +96,13 @@
 
 <script>
 import upload from '@/components/upload';
+import idCardUpload from '@/components/upload/idCardUpload';
 import geoarea from '@/components/reegionalCascade/geoArea';
 import registerHead from '@/components/registerHead';
 import bigImg from '@/components/bigImg';
 import apparea from '@/components/reegionalCascade/appArea';
+import rules from '@/config/rules';
+import errInfo from '@/components/errInfo';
 
 export default {
   name: 'step4',
@@ -113,14 +117,13 @@ export default {
       imgSrc: '',
       isShowCard: false,
       isShowName: false,
-      obj: {
-        surveyImageUrl: [],
-        letterImageUrl: [],
-        chargerSurveyImageUrl: [],
-        chargerImageUrl: [],
-        commerceImageUrl: [],
-        otherImageUrl: [],
-      },
+      surveyImageUrl: '',
+      letterImageUrl: '',
+      chargerSurveyImageUrl: '',
+      chargerImageUrl: '',
+      commerceImageUrl: '',
+      otherImageUrl: '',
+      errMsg: [],
     };
   },
   components: {
@@ -129,36 +132,79 @@ export default {
     'v-registerhead': registerHead,
     'v-bigimg': bigImg,
     'v-apparea': apparea,
+    'v-idcardupload': idCardUpload,
+    'v-errinfo': errInfo,
   },
   methods: {
+    validate() {
+      this.errMsg = [];
+      //  申报机构尽职调查表
+      if (this.surveyImageUrl === '') {
+        this.errMsg.push(`${rules.upload}${rules.surveyImageUrl}`);
+      }
+      //  申报机构承诺公函
+      if (this.letterImageUrl === '') {
+        this.errMsg.push(`${rules.upload}${rules.letterImageUrl}`);
+      }
+      //  负责人尽职调查表
+      if (this.chargerSurveyImageUrl === '') {
+        this.errMsg.push(`${rules.upload}${rules.chargerSurveyImageUrl}`);
+      }
+      //  负责人承诺公函
+      if (this.chargerImageUrl === '') {
+        this.errMsg.push(`${rules.upload}${rules.chargerImageUrl}`);
+      }
+      //  企业工商营业执照
+      if (this.commerceImageUrl === '') {
+        this.errMsg.push(`${rules.upload}${rules.commerceImageUrl}`);
+      }
+      //  其他补充材料
+      if (this.otherImageUrl === '') {
+        this.errMsg.push(`${rules.upload}${rules.otherImageUrl}`);
+      }
+    },
     bigimg(src) {
       this.imgSrc = src;
       this.showImg = true;
     },
     viewImg() {
-      this.obj.showImg = false;
+      this.showImg = false;
     },
     setSurveyImageUrl(d) {
-      this.obj.surveyImageUrl = d;
+      this.surveyImageUrl = d;
     },
     setLetterImageUrl(d) {
-      this.obj.letterImageUrl = d;
+      this.letterImageUrl = d;
     },
     setChargerSurveyImageUrl(d) {
-      this.obj.chargerSurveyImageUrl = d;
+      this.chargerSurveyImageUrl = d;
     },
     setChargerImageUrl(d) {
-      this.obj.chargerImageUrl = d;
+      this.chargerImageUrl = d;
     },
     setCommerceImageUrl(d) {
-      this.obj.commerceImageUrl = d;
+      this.commerceImageUrl = d;
     },
     setOtherImageUrl(d) {
-      this.obj.otherImageUrl = d;
+      this.otherImageUrl = d;
     },
     subimit() {
-      this.$router.push('/step5');
+      this.validate();
+      const obj = {};
+      obj.surveyImageUrl = this.surveyImageUrl;
+      obj.letterImageUrl = this.letterImageUrl;
+      obj.chargerSurveyImageUrl = this.chargerSurveyImageUrl;
+      obj.chargerImageUrl = this.chargerImageUrl;
+      obj.commerceImageUrl = this.commerceImageUrl;
+      obj.otherImageUrl = this.otherImageUrl;
+      if (this.errMsg.length === 0) {
+        this.$router.push('/step5');
+      }
     },
+  },
+  mounted() {
+    // const res = await this.$xhr('post', DECLARE_LOGIN_DO_ADDRESS, data);
+    this.errMsg.push('您的身份证号码与你的真实姓名不匹配，需要重新提交');
   },
 };
 </script>

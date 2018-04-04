@@ -7,7 +7,7 @@
       <br/>
       <ul>
         <li class="news" v-for="(item, index) of news">
-          <router-link :to="'/sysMsgDetail/'+item.id">{{item.title}}</router-link>
+          <router-link :to="'/index/detail/'+item.id">{{item.title}}</router-link>
           <span class="news_new" v-show="index < 3">new</span>
           <span class="news_time">{{item.pushTime}}</span>
         </li>

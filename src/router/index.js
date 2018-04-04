@@ -17,6 +17,7 @@ const step5 = r => require.ensure([], (require) => { r(require('@/page/register/
 const repassword = r => require.ensure([], (require) => { r(require('@/page/repassword')); }, 'repassword');
 const pwmsg = r => require.ensure([], (require) => { r(require('@/page/repassword/msg')); }, 'pwmsg');
 const index = r => require.ensure([], (require) => { r(require('@/page/index')); }, 'index');
+const indexdetail = r => require.ensure([], (require) => { r(require('@/page/index/detail')); }, 'indexdetail');
 const addOfficer = r => require.ensure([], (require) => { r(require('@/page/officer')); }, 'addOfficer');
 const officermsg = r => require.ensure([], (require) => { r(require('@/page/officer/msg')); }, 'officermsg');
 const officerlist = r => require.ensure([], (require) => { r(require('@/page/officer/list')); }, 'officerlist');
@@ -65,6 +66,11 @@ export default new Router({
       path: '/index',
       name: 'index',
       component: index,
+    },
+    {
+      path: '/index/detail/:id',
+      name: 'indexdetail',
+      component: indexdetail,
     },
     {
       path: '/recommendlist',

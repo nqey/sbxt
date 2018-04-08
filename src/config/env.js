@@ -4,7 +4,7 @@ const test = (() => {
   } else if (/cpsdb.com/.test(window.location.hostname)) {
     return 'online';
   }
-  return 'local';
+  return 'online';
 })();
 const LOCAL_URL = '.test.com';
 const ENTERPRISE_BASE_URL = (() => {
@@ -24,7 +24,7 @@ const DECLARE_BASE_URL = (() => {
     case 'test':
       return '//dec.lh-xm.com/';
     case 'online':
-      return '//dec.cpsdb.com/';
+      return '//dec.cpsdb77.com/';
     default :
       return location.hostname.indexOf(LOCAL_URL) >= 0
         ? `//cps${LOCAL_URL}/declare/`
@@ -46,7 +46,7 @@ const DOMAIN = (() => {
     case 'test':
       return 'lh-xm.com';
     case 'online':
-      return 'cpsdb.com';
+      return 'cpsdb77.com';
     default :
       return location.hostname.indexOf(LOCAL_URL) >= 0 ? LOCAL_URL : location.hostname;
   }
@@ -75,11 +75,11 @@ const ENTERPRISE_QUERY_DECLAREORG_ADDRESS = `${ENTERPRISE_BASE_URL}sbxt/query/de
 // 查询申报机构数接口地址
 const ENTERPRISE_QUERY_COUNT_ADDRESS = `${ENTERPRISE_BASE_URL}sbxt/query/count`;
 // 申报机构注册
-const DECLARE_ORGANIZ = `${DECLARE_BASE_URL}publics/organiz`;
+const DECLARE_POST_ORGANIZ = `${DECLARE_BASE_URL}publics/organiz`;
 // 登录
 const DECLARE_LOGIN = `${DECLARE_BASE_URL}publics/login`;
 // 获取注册验证码 + {type}/{cellphone}
-const DECLARE_VALIDATECODE = `${DECLARE_BASE_URL}publics/validatecode/`;
+const DECLARE_GET_VALIDATECODE = `${DECLARE_BASE_URL}publics/validatecode/`;
 // 通用图片上传
 const DECLARE_POST_UPLOAD = `${ENTERPRISE_BASE_URL}publics/file/upload`;
 // 获取地区树
@@ -201,9 +201,9 @@ export {
   CHECKNUMBER,
   ENTERPRISE_TYPE,
   ENTERPRISE_QUERY_COUNT_ADDRESS,
-  DECLARE_ORGANIZ,
+  DECLARE_POST_ORGANIZ,
   DECLARE_LOGIN,
-  DECLARE_VALIDATECODE,
+  DECLARE_GET_VALIDATECODE,
   DECLARE_POST_UPLOAD,
   DECLARE_GET_AREA_TREE,
   DECLARE_RECOMMEND_ORGANIZ,

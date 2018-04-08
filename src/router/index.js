@@ -14,8 +14,8 @@ const step3 = r => require.ensure([], (require) => { r(require('@/page/register/
 const step31 = r => require.ensure([], (require) => { r(require('@/page/register/step3_1')); }, 'step31');
 const step4 = r => require.ensure([], (require) => { r(require('@/page/register/step4')); }, 'step4');
 const step5 = r => require.ensure([], (require) => { r(require('@/page/register/step5')); }, 'step5');
-const repassword = r => require.ensure([], (require) => { r(require('@/page/repassword')); }, 'repassword');
-const pwmsg = r => require.ensure([], (require) => { r(require('@/page/repassword/msg')); }, 'pwmsg');
+const repassword = r => require.ensure([], (require) => { r(require('@/page/register/repassword')); }, 'repassword');
+const pwmsg = r => require.ensure([], (require) => { r(require('@/page/register/rePasswordMsg')); }, 'pwmsg');
 const index = r => require.ensure([], (require) => { r(require('@/page/index')); }, 'index');
 const indexdetail = r => require.ensure([], (require) => { r(require('@/page/index/detail')); }, 'indexdetail');
 const addOfficer = r => require.ensure([], (require) => { r(require('@/page/officer')); }, 'addOfficer');
@@ -108,7 +108,7 @@ export default new Router({
       component: addOfficer,
     },
     {
-      path: '/officermsg',
+      path: '/officer/messeag',
       name: 'officermsg',
       component: officermsg,
     },
@@ -123,12 +123,12 @@ export default new Router({
       component: officerdetail,
     },
     {
-      path: '/repassword',
+      path: '/password/reset',
       name: 'repassword',
       component: repassword,
     },
     {
-      path: '/pwmsg',
+      path: '/password/reset/msg',
       name: 'pwmsg',
       component: pwmsg,
     },

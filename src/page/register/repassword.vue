@@ -1,11 +1,12 @@
 <template>
   <div>
-    <v-registerhead :step="1"></v-registerhead>
+    <v-registerhead></v-registerhead>
+    <v-errinfo :errMsg="errMsg"></v-errinfo>
     <div>
       <div class="col-sm-12 container">
         <div class="col-sm-12 bs-example">
           <div class="col-sm-12 txc">
-            <h2>注册帐号</h2>
+            <h2>修改密码</h2>
             <p>* 每一个手机号码仅能生成一个帐号</p>
           </div>
           <div class="col-sm-12" style="position: relative;height: 370px;">
@@ -13,75 +14,129 @@
               <div class="jg">
                 <small class="sfts">作为登录帐号，请填写未被其他人或企业注册的手机号码</small>
                 <span class="fts">手机号码　</span>
-                <input type="text" class="loginI" v-model="cellphone"></input>
-              </div>
-              <div class="jg">
-                <small class="sfts">字母、数字或者英文符号、最短8位、区分大小写</small>
-                <span class="fts">输入密码　</span> <input type="password" class="loginI" v-model="password"></input>
-              </div>
-              <div class="jg">
-                <small class="sfts">请再次输入密码</small>
-                <span class="fts">确认密码　</span> <input type="password" class="loginI" v-model="repassword"></input>
+                <input type="text" class="loginI" v-model="cellphone" @blur="validate"></input>
               </div>
               <div class="jg">
                 <span class="fts">验 证 码　</span> <input type="text" class="loginI" v-model="code"></input>
-                <button class="btn hqyzm">获取验证码</button>
+                <button v-show="show" class="btn hqyzm"  @click="getCode">获取验证码</button>
+                <button v-show="!show" class="btn hqyzm">{{count}} s</button>
+              </div>
+              <div class="jg">
+                <small class="sfts">密码必须包含大小写字母和数字的组合，不能使用特殊字符，长度在8-10之间</small>
+                <span class="fts">输入密码　</span> <input type="password" class="loginI" v-model="password" @blur="validate"></input>
+              </div>
+              <div class="jg">
+                <small class="sfts">请再次输入密码</small>
+                <span class="fts">确认密码　</span> <input type="password" class="loginI" v-model="repassword"  @blur="validate"></input>
               </div>
   `          </div>
           </div>
           <div class="col-sm-12 txc">
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" id="blankCheckbox" value="option1" aria-label="..."><span style="line-height: 20px">我同意并遵守<a>《CPS申报机构公共业务平台服务协议》</a></span>
-              </label>
-            </div>
             <br/>
-            <button class="btn js-ajax-submit" @click="submit">注册</button>
+            <button class="btn js-ajax-submit" @click="submit">确认修改</button>
             <br/>
             <br/>
-            <p>已有申报机构公共业务平台帐号? <router-link to="/login">立即登录</router-link></p>
+            <router-link to="/login">返回首页</router-link>
           </div>
         </div>
       </div>
     </div>
+   
   </div>
 </template>
 
 <script>
-import registerHead from '@/components/registerHead';
+import registerHead from '@/components/registerHead/head';
+import errInfo from '@/components/info/error';
+import rules from '@/config/rules';
+import { DECLARE_GET_VALIDATECODE } from '@/config/env';
 
 export default {
   name: 'step1',
-  props: {
-    value: {
-      type: String,
-    },
-  },
   data() {
     return {
       cellphone: '',
       password: '',
       repassword: '',
       code: '',
+      errMsg: [],
+      show: true,
+      count: '',
+      timer: null,
     };
   },
   components: {
     'v-registerhead': registerHead,
+    'v-errinfo': errInfo,
   },
   methods: {
-    search() {
-
-    },
-    submit() {
-      if (this.password !== this.repassword) {
-        // alert('密码不一致');
+    validate() {
+      this.errMsg = [];
+      // 手机号码验证
+      if (this.cellphone !== '' && !rules.mPattern.pattern.test(this.cellphone)) {
+        this.errMsg.push(rules.mPattern.message);
       }
-      const param = {};
-      param.cellphone = this.cellphone;
-      param.password = this.password;
-      param.repassword = this.repassword;
-      param.code = this.code;
-      this.$router.push('/step11');
+      // 密码强度验证
+      if (this.password !== '' && !rules.pPattern.pattern.test(this.password)) {
+        this.errMsg.push(rules.pPattern.message);
+      }
+      // 密码再输入验证
+      if (this.password !== this.repassword) {
+        this.errMsg.push(rules.iPwMsg);
+      }
+    },
+    validate2() {
+      this.validate();
+      // 手机号码验证
+      if (this.cellphone === '') {
+        this.errMsg.push(`${rules.nonEmpty}${rules.phone}`);
+      }
+      // 密码强度验证
+      if (this.password === '') {
+        this.errMsg.push(`${rules.nonEmpty}${rules.password}`);
+      }
+      // 验证码验证
+      if (this.code === '') {
+        this.errMsg.push(`${rules.nonEmpty}${rules.validatecode}`);
+      }
+    },
+    async getCode() {
+      // 手机号码验证
+      if (!rules.mPattern.pattern.test(this.cellphone)) {
+        this.errMsg.push(rules.mPattern.message);
+        return;
+      }
+      const TIME_COUNT = 60;
+      if (!this.timer) {
+        this.count = TIME_COUNT;
+        this.show = false;
+        this.timer = setInterval(() => {
+          if (this.count > 0 && this.count <= TIME_COUNT) {
+            this.count -= 1;
+          } else {
+            this.show = true;
+            clearInterval(this.timer);
+            this.timer = null;
+          }
+        }, 1000);
+      }
+      const res = await this.$xhr('get', `${DECLARE_GET_VALIDATECODE}regiset/${this.cellphone}`);
+      if (!res.data.success) {
+        console.log(res);
+        this.errMsg.push(res.data.message);
+      }
+    },
+    async submit() {
+      this.validate2();
+      if (this.errMsg.length === 0) {
+        const param = {};
+        param.cellphone = this.cellphone;
+        param.password = this.password;
+        param.repassword = this.repassword;
+        param.code = this.code;
+        // const res = await this.$xhr('post', DECLARE_ORGANIZ, param);
+        this.$router.push('/password/reset/msg');
+      }
     },
   },
 };
@@ -161,4 +216,5 @@ export default {
 .jg {
   position: relative;height: 100px;
 }
+
 </style>

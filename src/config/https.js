@@ -9,9 +9,10 @@
 // }
 
 import axios from 'axios';
-import { Message } from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
+// import { Message } from 'element-ui';
+// import 'element-ui/lib/theme-chalk/index.css';
 import { toFormData, toRmEmpty } from '@/config/utils';
+import Message from '@/components/info/alert';
 
 // 表示跨域请求时是否需要使用凭证
 axios.defaults.withCredentials = true;
@@ -62,7 +63,9 @@ const checkStatus = (res) => {
 const checkCode = (res) => {
   if (res.data && res.data.message && (!res.data.success || res.status === -404)) {
     // 对请求错误做些什么
-    Message.error(res.data.message);
+    const errMsg = [];
+    errMsg.push(res.data.message);
+    Message.error({ errMsg });
   }
   return res;
 };

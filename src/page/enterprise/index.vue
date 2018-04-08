@@ -143,7 +143,7 @@
 import upload from '@/components/upload';
 import bigImg from '@/components/bigImg';
 import idcardupload from '@/components/upload/idCardUpload';
-import errInfo from '@/components/errInfo';
+import errInfo from '@/components/info/error';
 
 export default {
   name: 'search',

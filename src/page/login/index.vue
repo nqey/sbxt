@@ -55,12 +55,12 @@
                 <div class="col-sm-6">
                     <div class="checkbox">
                       <label>
-                        <input type="checkbox" value="">记住帐号
+                        <input type="checkbox" value="" @click="jzzh">记住帐号
                       </label>
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <a style="line-height: 40px">忘记密码？</a>
+                    <router-link to="/password/reset"><span style="line-height: 40px">忘记密码？</span></router-link>
                 </div>
             </div>
             <div id="login_btn_wraper">
@@ -143,7 +143,7 @@
 </template>
 
 <script>
-import { setCookie } from '@/config/cookie';
+import { setCookie, getCookie } from '@/config/cookie';
 import logo from '@/assets/img/logo.png';
 import zhs from '@/assets/img/ZHS.png';
 import sbxt from '@/assets/img/sbxt.png';
@@ -152,15 +152,10 @@ import ssjglzx from '@/assets/img/ssjglzx.png';
 import waveTop from '@/assets/img/wave-top.png';
 import waveMiddle from '@/assets/img/wave-mid.png';
 import waveBottom from '@/assets/img/wave-bot.png';
-import { CHECKNUMBER, DOMAIN, DECLARE_LOGIN_DO_ADDRESS } from '@/config/env';
+import { CHECKNUMBER, DOMAIN, DECLARE_LOGIN } from '@/config/env';
 
 export default {
   name: 'login',
-  props: {
-    value: {
-      type: String,
-    },
-  },
   data() {
     return {
       username: '',
@@ -191,6 +186,9 @@ export default {
     };
   },
   methods: {
+    init() {
+      this.username = getCookie('username');
+    },
     async login() {
       const data = {
         username: this.username,
@@ -198,7 +196,7 @@ export default {
         checknumber: this.checknumber,
       };
       this.lo = '正在登录...';
-      const res = await this.$xhr('post', DECLARE_LOGIN_DO_ADDRESS, data);
+      const res = await this.$xhr('post', DECLARE_LOGIN, data);
       if (res.data.code === 0) {
         setCookie('username', this.username, 1000 * 60);
         setCookie('token', res.data.data.token, 1000 * 60);
@@ -228,6 +226,12 @@ export default {
     yzm() {
       this.yzx = `${CHECKNUMBER}${new Date().getTime()}&domain=${DOMAIN}`;
     },
+    jzzh() {
+      setCookie('username', this.username, 1000 * 60);
+    },
+  },
+  mounted() {
+    this.init();
   },
 };
 </script>

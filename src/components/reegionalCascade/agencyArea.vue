@@ -17,7 +17,7 @@
 </template>
 
 <script>
-// import { DECLARE_GET_AREA_TREE } from '@/config/env';
+import { DECLARE_GET_AREA_TREE } from '@/config/env';
 
 export default {
   name: 'geoArea',
@@ -35,12 +35,13 @@ export default {
   },
   components: {},
   methods: {
-    // async getAreaTree() {
-    //   const res = await this.$xhr('get', DECLARE_GET_AREA_TREE);
+    async getAreaTree() {
+      const res = await this.$xhr('get', DECLARE_GET_AREA_TREE);
+      console.log(res);
       // if (res.data.code === 0) {
       // } else {
       // }
-    // },
+    },
     queryCity() {
       this.citys = [];
       this.towns = [];
@@ -70,6 +71,7 @@ export default {
     },
   },
   mounted() {
+    this.getAreaTree();
     this.provinces = [{
       id: '1',
       name: '四川省1',

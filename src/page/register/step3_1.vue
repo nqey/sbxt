@@ -81,7 +81,7 @@ import geoarea from '@/components/reegionalCascade/geoArea';
 import registerHead from '@/components/registerHead';
 import bigImg from '@/components/bigImg';
 import apparea from '@/components/reegionalCascade/appArea';
-import errInfo from '@/components/errInfo';
+import errInfo from '@/components/info/error';
 import rules from '@/config/rules';
 // import { DECLARE_GET_BASEINFO, DECLARE_RECOMMEND_ORGANIZ } from '@/config/env';
 

@@ -102,7 +102,7 @@ import registerHead from '@/components/registerHead';
 import bigImg from '@/components/bigImg';
 import apparea from '@/components/reegionalCascade/appArea';
 import rules from '@/config/rules';
-import errInfo from '@/components/errInfo';
+import errInfo from '@/components/info/error';
 
 export default {
   name: 'step4',

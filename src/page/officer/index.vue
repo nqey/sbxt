@@ -18,14 +18,15 @@
             <label class="label_height"><span class="info">*</span> 手机号码：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-            <input type="text" class="form-control iw600" placeholder="请输入手机号码" v-model="cellphone">
+            <input type="text" class="form-control iw600" placeholder="请输入手机号码" v-model="cellphone" @blur="validate">
     		<br/>
     		<br/>
     		&#12288;<small class="areafc">该手机号必须是申报官真实手机号码，每一个手机号码只能添加一名申报官。</small>
     		<br/>
     		<br/>
     		    <input type="text" class="form-control iw" placeholder="请输入验证码" v-model="code"></input>
-            <button class="btn hqyzm">获取验证码</button>
+            <button v-show="show" class="btn hqyzm"  @click="getCode">获取验证码</button>
+            <button v-show="!show" class="btn hqyzm">{{count}} s</button>
         </div>
         <div class="form-group col-sm-1 txr">
             <label class="label_height"><span class="info">*</span> 寸 照：</label>
@@ -42,7 +43,7 @@
                 <label class="label_height"><span class="info">*</span> 身份证号码：</label>
          </div>
 	     <div class="form-group col-sm-11 imb">
-	            <input type="text" class="form-control iw600" placeholder="请输入身份证号码" v-model="idNumber">
+	            <input type="text" class="form-control iw600" placeholder="请输入身份证号码" v-model="idNumber" @blur="validate">
 	    		<br/>
 	    		<br/>
 	    		&#12288;<small class="areafc">申报官真实有效身份证号码，每一个身份证号只能添加一名申报官。</small>
@@ -99,7 +100,7 @@
 import upload from '@/components/upload';
 import idcardupload from '@/components/upload/idCardUpload';
 import bigImg from '@/components/bigImg';
-import errInfo from '@/components/errInfo';
+import errInfo from '@/components/info/error';
 import rules from '@/config/rules';
 // { DECLARE_GET_BASEINFO } from '@/config/env';
 
@@ -118,6 +119,9 @@ export default {
       letterImageUrl: '',
       showImg: false,
       errMsg: [],
+      show: true,
+      count: '',
+      timer: null,
     };
   },
   methods: {
@@ -126,6 +130,49 @@ export default {
       // 手机号码验证
       if (this.cellphone !== '' && !rules.mPattern.pattern.test(this.cellphone)) {
         this.errMsg.push(rules.mPattern.message);
+      }
+      // 身份证号码
+      if (this.idNumber !== '' && !rules.cP.pattern.test(this.idNumber)) {
+        this.errMsg.push(rules.cP.message);
+      }
+    },
+    validate2() {
+      this.validate();
+      // 手机号码验证
+      if (this.cellphone === '') {
+        this.errMsg.push(`${rules.nonEmpty}${rules.phone}`);
+      }
+      // 姓 名
+      if (this.name === '') {
+        this.errMsg.push(`${rules.nonEmpty}${rules.name}`);
+      }
+      // 验证码验证
+      if (this.code === '') {
+        this.errMsg.push(`${rules.nonEmpty}${rules.validatecode}`);
+      }
+      //  寸 照
+      if (this.portrait === '') {
+        this.errMsg.push(`${rules.nonEmpty}${rules.portrait}`);
+      }
+      //  身份证号码
+      if (this.idNumber === '') {
+        this.errMsg.push(`${rules.nonEmpty}${rules.idNumber}`);
+      }
+      // 身份证照片正面
+      if (this.idFrontUrl === '') {
+        this.errMsg.push(`${rules.upload}${rules.idFrontUrl}`);
+      }
+      // 身份证照片背面
+      if (this.idBackUrl === '') {
+        this.errMsg.push(`${rules.upload}${rules.idBackUrl}`);
+      }
+      // 尽职调查表
+      if (this.idBackUrl === '') {
+        this.errMsg.push(`${rules.upload}${rules.surveyImageUrl}`);
+      }
+      // 承诺公函
+      if (this.idBackUrl === '') {
+        this.errMsg.push(`${rules.upload}${rules.letterImageUrl}`);
       }
     },
     bigimg(src) {
@@ -150,7 +197,27 @@ export default {
     setLetterImageUrl(d) {
       this.letterImageUrl = d;
     },
+    async getCode() {
+      const TIME_COUNT = 60;
+      if (!this.timer) {
+        this.count = TIME_COUNT;
+        this.show = false;
+        this.timer = setInterval(() => {
+          if (this.count > 0 && this.count <= TIME_COUNT) {
+            this.count -= 1;
+          } else {
+            this.show = true;
+            clearInterval(this.timer);
+            this.timer = null;
+          }
+        }, 1000);
+      }
+      // const res = await this.$xhr('get', `${DECLARE_VALIDATECODE}/regiset/${this.cellphone}`);
+      // if (res.data.code === 0) {
+      // }
+    },
     submit() {
+      this.validate2();
       const obj = {};
       obj.name = this.name;
       obj.code = this.code;
@@ -161,8 +228,9 @@ export default {
       obj.surveyImageUrl = this.surveyImageUrl;
       obj.letterImageUrl = this.letterImageUrl;
       obj.portrait = this.portrait;
-      this.$router.push('/officermsg');
-      // console.log(this.obj);
+      if (this.errMsg.length === 0) {
+        this.$router.push('/officer/messeag');
+      }
     },
   },
   components: {

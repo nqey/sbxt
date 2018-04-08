@@ -26,7 +26,7 @@
               <td>
                 <router-link to="/officerdetail">查看</router-link>
                 <a>删除</a> 
-                <router-link to="/addOfficer">修改</router-link>
+                <router-link to="/officerdetail">修改</router-link>
               </td>
             </tr>
           </tbody>

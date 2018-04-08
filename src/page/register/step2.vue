@@ -81,7 +81,7 @@ import geoarea from '@/components/reegionalCascade/geoArea';
 import registerHead from '@/components/registerHead';
 import bigImg from '@/components/bigImg';
 import apparea from '@/components/reegionalCascade/appArea';
-import errInfo from '@/components/errInfo';
+import errInfo from '@/components/info/error';
 import rules from '@/config/rules';
 // { DECLARE_PUT_BASEINFO, DECLARE_RECOMMEND_ORGANIZ, DECLARE_GET_BASEINFO } from '@/config/env';
 
@@ -228,7 +228,7 @@ export default {
   },
   mounted() {
     // const res = await this.$xhr('post', DECLARE_LOGIN_DO_ADDRESS, data);
-    this.errMsg.push('您的身份证号码与你的真实姓名不匹配，需要重新提交');
+    // this.errMsg.push('您的身份证号码与你的真实姓名不匹配，需要重新提交');
   },
 };
 </script>

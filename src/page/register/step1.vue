@@ -53,9 +53,9 @@
 
 <script>
 import registerHead from '@/components/registerHead';
-import errInfo from '@/components/errInfo';
+import errInfo from '@/components/info/error';
 import rules from '@/config/rules';
-// import { DECLARE_VALIDATECODE, DECLARE_ORGANIZ } from '@/config/env';
+import { DECLARE_GET_VALIDATECODE, DECLARE_POST_ORGANIZ } from '@/config/env';
 
 export default {
   name: 'step1',
@@ -112,6 +112,11 @@ export default {
       }
     },
     async getCode() {
+      // 手机号码验证
+      if (!rules.mPattern.pattern.test(this.cellphone)) {
+        this.errMsg.push(rules.mPattern.message);
+        return;
+      }
       const TIME_COUNT = 60;
       if (!this.timer) {
         this.count = TIME_COUNT;
@@ -126,20 +131,20 @@ export default {
           }
         }, 1000);
       }
-      // const res = await this.$xhr('get', `${DECLARE_VALIDATECODE}/regiset/${this.cellphone}`);
-      // if (res.data.code === 0) {
-      // }
+      await this.$xhr('get', `${DECLARE_GET_VALIDATECODE}regist/${this.cellphone}`);
     },
     async submit() {
       this.validate2();
       if (this.errMsg.length === 0) {
         const param = {};
-        param.cellphone = this.cellphone;
+        param.username = this.cellphone;
         param.password = this.password;
         param.repassword = this.repassword;
         param.code = this.code;
-        // const res = await this.$xhr('post', DECLARE_ORGANIZ, param);
-        this.$router.push('/step11');
+        const res = await this.$xhr('post', DECLARE_POST_ORGANIZ, param);
+        if (res.data.success) {
+          this.$router.push('/step11');
+        }
       }
     },
   },

@@ -14,15 +14,35 @@
           <img :src="cz"></img>
         </div>
         <div class="form-group col-sm-11 imb">
-            <h4 style="display: inline-block;">{{name}}</h4>
-             &#12288;<span class="glyphicon glyphicon-edit"></span>
+            <div v-show="isShowName">
+              <span class="label_height"> 用户名：{{name}}&#12288;&#12288;</span>
+              <span class="glyphicon glyphicon-edit" @click="editName"></span>
+            </div>
+            <div v-show="!isShowName">
+              用户名：<input type="text" class="form-control iw"  placeholder="请输入用户名" v-model="name">
+              <span class="glyphicon glyphicon-floppy-saved" @click="editName"></span>
+            </div>
             <br/>
             <br/>
-            <span>手机号码：{{tellphone}}</span>
-            &#12288;<span class="glyphicon glyphicon-edit"></span>
+            <div v-show="isShowtell">
+              <span class="label_height">手机号码：{{tellphone}}&#12288;&#12288;</span>
+              <span class="glyphicon glyphicon-edit" @click="editTell"></span>
+            </div>
+            <div v-show="!isShowtell">
+              手机号码：<input type="text" class="form-control iw"  placeholder="请输入手机号码" v-model="tellphone">
+              <span class="glyphicon glyphicon-floppy-saved" @click="editTell"></span>
+            </div>
             <br/>
             <br/>
-            <span>身份证号：{{idNumber}}   &#12288;<span class="glyphicon glyphicon-edit"></span>&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;考试分数：<span class="cscore">{{score}}</span>分</span>
+            <span v-show="isShowNumber">
+              <span class="label_height"> 身份证号：{{idNumber}}&#12288;&#12288;</span>
+              <span class="glyphicon glyphicon-edit" @click="editNumber"></span>
+            </span>
+            <span v-show="!isShowNumber">
+              身份证号：<input type="text" class="form-control iw"  placeholder="请输入身份证号" v-model="idNumber">
+              <span class="glyphicon glyphicon-floppy-saved" @click="editNumber"></span>
+            </span>
+            &#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;考试分数：<span class="cscore">{{score}}</span>分</span>
         </div>
         <div class="clearfix"></div>
         <br/>
@@ -89,6 +109,9 @@ export default {
       surveyImageUrl: 'gfasdf4s24df135asd',
       letterImageUrl: 'gfasdf4s24df135asd',
       state: '审核未通过',
+      isShowtell: true,
+      isShowName: true,
+      isShowNumber: true,
     };
   },
   methods: {
@@ -98,6 +121,15 @@ export default {
     },
     viewImg() {
       this.showImg = false;
+    },
+    editTell() {
+      this.isShowtell = !this.isShowtell;
+    },
+    editName() {
+      this.isShowName = !this.isShowName;
+    },
+    editNumber() {
+      this.isShowNumber = !this.isShowNumber;
     },
   },
   components: {

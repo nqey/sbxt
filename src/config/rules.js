@@ -58,6 +58,9 @@ export default {
   chargerImageUrl: '负责人承诺公函',
   commerceImageUrl: '企业工商营业执照',
   otherImageUrl: '其他补充材料',
+  portrait: '寸照',
+  surveyImageUrl: '尽职调查表',
+  letterImageUrl: '承诺公函',
   // URL正则
   // urlP: /^((https?|ftp|file):\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/,
   // IPv4地址正则

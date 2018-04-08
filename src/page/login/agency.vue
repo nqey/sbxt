@@ -3,16 +3,17 @@
     <v-lhead ></v-lhead>
     <div class="col-sm-12 container">
       <div class="col-sm-12 bs-example">
-        <span class="t_nav"><router-link to="/login">&#12288;首页</router-link>&#12288;>&#12288;申报机构</span>
+        <span class="t_nav">&#12288;{{title}}</span>
         <small>&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;联系申报机构请拨打 400-666-6666</small>
         <br/>
         <br/>
         <br/>
         <div class="form-inline clearfix">
-          <div class="col-sm-5">
-           <v-agencyarea @acceptData="makeData"></v-agencyarea>
+          <div class="col-sm-6">
+           <v-agencyarea @acceptData="setLiveAddress"></v-agencyarea>
+           <input type="text" class="form-control" placeholder="请输入机构名称或负责人" v-model="name">
          </div>
-          <div class="col-sm-7">
+          <div class="col-sm-6">
             <div class="input-group">
                <button class="btn ss" @click="search">搜索</button>
             </div>
@@ -20,51 +21,51 @@
         </div>
          
         <br/>
-        <table class="table">
-          <thead>
-            <tr>
-              <th>序号</th>
-              <th>机构名称</th>
-              <th>负责人</th>
-              <th>负责区域</th>
-              <th>地址</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="item of resData">
-              <th scope="row">{{item.id}}</th>
-              <td>{{item.name}}</td>
-              <td>{{item.charger}}</td>
-              <td>{{item.chargeAddress}}</td>
-              <td>{{item.address}}</td>
-            </tr>
-          </tbody>
-        </table>
-        <v-pagination :page="pages" @nextPage="search"></v-pagination>
+        <div v-show="resData.length > 0">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>序号</th>
+                <th>机构名称</th>
+                <th>负责人</th>
+                <th>负责区域</th>
+                <th>地址</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="item of resData">
+                <th scope="row">{{item.id}}</th>
+                <td>{{item.name}}</td>
+                <td>{{item.charger}}</td>
+                <td>{{item.chargeAddress}}</td>
+                <td>{{item.address}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <v-pagination :page="pages" @nextPage="search"></v-pagination>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import logo from '@/assets/img/logo.png';
 import pagination from '@/components/pagination';
 import lhead from '@/components/registerHead/lhead';
-import agencyArea from '@/components/reegionalCascade/agencyArea';
+import agencyArea from '@/components/reegionalCascade/geoArea';
+import { DECLARE_GET_DECLARE_ORGANIZ, DECLARE_GET_DECLARE_FWZX, DECLARE_GET_DECLARE_FWZX_COUNT } from '@/config/env';
 
 export default {
   name: 'agency',
-  props: {
-    value: {
-      type: String,
-    },
-  },
   data() {
     return {
-      logo,
+      title: '',
+      areaCode: '',
+      api: '',
+      apiC: '',
+      name: '',
       pages: 1,
       rows: 20,
-      obj: [],
       resData: [],
     };
   },
@@ -74,50 +75,38 @@ export default {
     'v-agencyarea': agencyArea,
   },
   methods: {
-    search() {
-      // console.log(this.obj);
+    async search() {
+      const param = {};
+      param.areaCode = this.areaCode;
+      param.name = this.name;
+      const res = await this.$xhr('get', this.api, param);
+      if (res.data.success) {
+        this.resData = res.data.data;
+      }
+
+      const resC = await this.$xhr('get', this.apiC, param);
+      if (resC.data.success) {
+        this.resData = res.data.data;
+      }
       this.pages = 10;
-      this.resData = [
-        {
-          id: '001',
-          name: '北京申报机构',
-          charger: '曾艳',
-          chargeAddress: '四川成都',
-          address: '海港广场15座',
-        },
-        {
-          id: '002',
-          name: '北京申报机构',
-          charger: '曾艳',
-          chargeAddress: '四川成都',
-          address: '海港广场15座',
-        },
-        {
-          id: '003',
-          name: '北京申报机构',
-          charger: '曾艳',
-          chargeAddress: '四川成都',
-          address: '海港广场15座',
-        },
-        {
-          id: '004',
-          name: '北京申报机构',
-          charger: '曾艳',
-          chargeAddress: '四川成都',
-          address: '海港广场15座',
-        },
-        {
-          id: '005',
-          name: '北京申报机构',
-          charger: '曾艳',
-          chargeAddress: '四川成都',
-          address: '海港广场15座',
-        },
-      ];
     },
-    makeData(d) {
-      this.obj = Object.assign(this.obj, d);
+    setLiveAddress(d) {
+      this.areaCode = d;
     },
+  },
+  mounted() {
+    if (this.$route.params.type === '1') {
+      this.title = '申报机构';
+      this.api = DECLARE_GET_DECLARE_ORGANIZ;
+    } else if (this.$route.params.type === '2') {
+      this.title = '市级管理中心';
+      this.api = DECLARE_GET_DECLARE_FWZX;
+      this.apiC = DECLARE_GET_DECLARE_FWZX_COUNT;
+    } else if (this.$route.params.type === '3') {
+      this.title = '省级服务中心';
+      this.api = DECLARE_GET_DECLARE_ORGANIZ;
+      this.apiC = DECLARE_GET_DECLARE_FWZX_COUNT;
+    }
   },
 };
 </script>

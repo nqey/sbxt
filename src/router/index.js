@@ -148,7 +148,7 @@ export default new Router({
       component: sysMsgDetail,
     },
     {
-      path: '/agency',
+      path: '/agency/:type',
       name: 'agency',
       component: agency,
     },

@@ -122,7 +122,7 @@ export default {
       }
       const res = await this.$xhr('get', `${DECLARE_GET_VALIDATECODE}regiset/${this.cellphone}`);
       if (!res.data.success) {
-        console.log(res);
+        // console.log(res);
         this.errMsg.push(res.data.message);
       }
     },

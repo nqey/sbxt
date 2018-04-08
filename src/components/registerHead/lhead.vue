@@ -3,12 +3,12 @@
       <div class="col-sm-12 step_head">
         <img :src="logo" class="step_title_logo"></img>
         <h3 class="step_title">CPS 申报机构自主管理平台</h3>
-        <button class="btn dl">登录</button>
+        <router-link to="/login"><button class="btn dl">登录</button></router-link>
       </div>
       <div class="col-sm-12 sq">
         <div>
           <h3>没有账号的，可申请成为CPS申报机构</h3>
-          <button class="btn ljsq">立即申请</button>
+          <router-link to="/step1"><button class="btn ljsq">立即申请</button></router-link>
         </div>
       </div>
     </div>

@@ -8,7 +8,6 @@ Vue.directive('qcvalidate', {
     // 离开焦点时验证
     el.addEventListener('blur', () => {
       if (!rules[b.value.p].pattern.test(el.value)) {
-        console.log(rules[b.value.p].message);
       }
     });
   },

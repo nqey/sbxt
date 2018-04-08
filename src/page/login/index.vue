@@ -95,7 +95,7 @@
             <p>申报机构</p>
             <p>邀约并协助生产型企业完成申报工作，对 企业讲解中国商品诚信数据库，让企业充 分了解入库的必要性。</p>
             <br/>
-            <router-link to="/agency"><button class="btn ckxq">查看详情</button></router-link>
+            <router-link to="/agency/1"><button class="btn ckxq">查看详情</button></router-link>
       </div>
        <div  class="col-sm-2 seeDetails">
             <div class="seeDetailsLogo2">
@@ -106,7 +106,7 @@
             <p>市级管理中心</p>
             <p>邀约并协助生产型企业完成申报工作，对 企业讲解中国商品诚信数据库，让企业充 分了解入库的必要性，并管理当市企业。</p>
             <br/>
-            <button class="btn ckxq">查看详情</button>
+            <router-link to="/agency/2"><button class="btn ckxq">查看详情</button></router-link>
       </div>
 
       <div  class="col-sm-2 seeDetails">
@@ -118,7 +118,7 @@
         <p>省级服务中心</p>
         <p>邀约并协助生产型企业完成申报工作，对 企业讲解中国商品诚信数据库，让企业充 分了解入库的必要性，并管理当省企业。</p>
         <br/>
-        <button class="btn ckxq">查看详情</button>
+        <router-link to="/agency/3"><button class="btn ckxq">查看详情</button></router-link>
       </div>
       <div class="col-sm-3"></div>
       <!-- 查看详情 结束 -->

@@ -4,7 +4,7 @@
     <div class="col-sm-12 container">
         <div class="col-sm-12 bs-example">
             <span class="t_nav"><router-link to="/login">&#12288;首页</router-link>&#12288;>&#12288;
-            <router-link to="/sysMsg">系统通知</router-link>&#12288;>&#12288;详情</span>
+            <router-link to="/sys/msg/list">系统通知</router-link>&#12288;>&#12288;详情</span>
     		<br/>
             <br/>
             <br/>
@@ -15,7 +15,7 @@
         		    {{content}}
             </div>
             <div class="col-sm-12" style="padding: 30px;text-align: center;">
-                <router-link to="/sysMsg"><button class="btn fh">返回</button></router-link>
+                <router-link to="/sys/msg/list"><button class="btn fh">返回</button></router-link>
             </div>
     	</div>
     </div>
@@ -23,30 +23,34 @@
 </template>
 
 <script>
-import logo from '@/assets/img/logo.png';
 import lhead from '@/components/registerHead/lhead';
+import { PUBLICS_GET_NOTICES_DETAILS } from '@/config/env';
+import { formatDate } from '@/config/utils';
 
 export default {
-  name: 'noti',
-  props: {
-    value: {
-      type: String,
-    },
-  },
+  name: 'detail',
   components: {
     'v-lhead': lhead,
   },
   data() {
     return {
-      logo,
-      title: '申报机构申请办事指南',
-      content: '本周认证部没有具体工作任务，本人9号10号协助、配合项目部完成数据库培训流程实操演练及细节修正。 11号针对技术培训涉 拷贝',
-      createDate: '2017-12-27',
+      title: '',
+      content: '',
+      createDate: '',
     };
   },
-  methods: {},
+  methods: {
+    async init() {
+      const res = await this.$xhr('get', `${PUBLICS_GET_NOTICES_DETAILS}${this.$route.params.id}`);
+      if (res.data.code === 0) {
+        this.title = res.data.data.title;
+        this.content = res.data.data.content;
+        this.createDate = formatDate(new Date(res.data.data.createTime), 'yyyy-MM-dd');
+      }
+    },
+  },
   mounted() {
-    // console.log(this.$route.params.id);
+    this.init();
   },
 };
 </script>

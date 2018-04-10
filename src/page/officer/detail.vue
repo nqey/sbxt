@@ -1,22 +1,25 @@
 <template>
   <div>
+    <v-errinfo :errMsg="errMsg"></v-errinfo>
     <div class="bs-example">
       <span class="t_nav">&#12288;&#12288;申报官详情</span>
       <br/>
       <br/>
       <br/>
       <div class="form-inline clearfix">
-        <div class="form-group col-sm-12 txc imb">
-            <p class="err"><span class="glyphicon glyphicon-exclamation-sign"></span> 未通过原因:{{reason}}</p>
-        </div>
         <div class="clearfix"></div>
         <div class="form-group col-sm-1 txr">
-          <img :src="cz"></img>
+          <div v-show="$route.params.type === '1'">
+            <img :src="picPortrait"></img>
+          </div>
+          <div v-show="$route.params.type === '2'">
+            <v-reupload2 :imgSrc="portrait" @acceptImgSrc="bigimg" @acceptData="setPortrait" uploadid="up11"></v-reupload2>
+          </div>
         </div>
         <div class="form-group col-sm-11 imb">
             <div v-show="isShowName">
               <span class="label_height"> 用户名：{{name}}&#12288;&#12288;</span>
-              <span class="glyphicon glyphicon-edit" @click="editName"></span>
+              <span v-show="$route.params.type === '2'" class="glyphicon glyphicon-edit" @click="editName"></span>
             </div>
             <div v-show="!isShowName">
               用户名：<input type="text" class="form-control iw"  placeholder="请输入用户名" v-model="name">
@@ -25,24 +28,24 @@
             <br/>
             <br/>
             <div v-show="isShowtell">
-              <span class="label_height">手机号码：{{tellphone}}&#12288;&#12288;</span>
-              <span class="glyphicon glyphicon-edit" @click="editTell"></span>
+              <span class="label_height">手机号码：{{cellphone}}&#12288;&#12288;</span>
+              <span v-show="$route.params.type === '2'" class="glyphicon glyphicon-edit" @click="editTell"></span>
             </div>
             <div v-show="!isShowtell">
-              手机号码：<input type="text" class="form-control iw"  placeholder="请输入手机号码" v-model="tellphone">
+              手机号码：<input type="text" class="form-control iw"  placeholder="请输入手机号码" @blur="validate" v-model="cellphone">
               <span class="glyphicon glyphicon-floppy-saved" @click="editTell"></span>
             </div>
             <br/>
             <br/>
             <span v-show="isShowNumber">
               <span class="label_height"> 身份证号：{{idNumber}}&#12288;&#12288;</span>
-              <span class="glyphicon glyphicon-edit" @click="editNumber"></span>
+              <span v-show="$route.params.type === '2'" class="glyphicon glyphicon-edit" @click="editNumber"></span>
             </span>
             <span v-show="!isShowNumber">
-              身份证号：<input type="text" class="form-control iw"  placeholder="请输入身份证号" v-model="idNumber">
+              身份证号：<input type="text" class="form-control iw"  placeholder="请输入身份证号" @blur="validate" v-model="idNumber">
               <span class="glyphicon glyphicon-floppy-saved" @click="editNumber"></span>
             </span>
-            &#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;考试分数：<span class="cscore">{{score}}</span>分</span>
+            &#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;考试分数：<span class="cscore">{{score}}</span></span>
         </div>
         <div class="clearfix"></div>
         <br/>
@@ -52,10 +55,13 @@
             <label class="label_height">证件照片：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-          <v-reupload :imgSrc="abm" @acceptImgSrc="bigimg" uploadid="reup1"></v-reupload>
-          <v-commonimg :imgSrc="jze" @acceptImgSrc="bigimg"></v-commonimg>
-          <div style="position:absolute;width:100px;height:210px;top:100px;display: inline-block;text-align: center;">
-            <span class="glyphicon glyphicon-exclamation-sign err"></span>
+          <div v-show="$route.params.type === '1'">
+            <v-commonimg :imgSrc="idFrontUrl" @acceptImgSrc="bigimg"></v-commonimg>
+            <v-commonimg :imgSrc="idBackUrl" @acceptImgSrc="bigimg"></v-commonimg>
+          </div>
+          <div v-show="$route.params.type === '2'">
+            <v-idcardupload :imgUrl="idFrontUrl" @acceptImgSrc="bigimg" @acceptData="setFrontUrl" uploadid="up1"></v-idcardupload>
+            <v-idcardupload :imgUrl="idBackUrl" @acceptImgSrc="bigimg" @acceptData="setBackUrl" uploadid="up2"></v-idcardupload>
           </div>
         </div>
         <div class="clearfix"></div>
@@ -64,8 +70,12 @@
               <label class="label_height">尽职调查表：</label>
           </div>
           <div class="form-group col-sm-11 imb">
-            <v-commonimg :imgSrc="abm" @acceptImgSrc="bigimg"></v-commonimg>
-            <v-commonimg :imgSrc="jze" @acceptImgSrc="bigimg"></v-commonimg>
+            <div v-show="$route.params.type === '1'">
+              <v-commonimg :imgSrc="surveyImageUrl" @acceptImgSrc="bigimg"></v-commonimg>
+            </div>
+            <div v-show="$route.params.type === '2'">
+              <v-upload :imgUrl="surveyImageUrl" @acceptImgSrc="bigimg" @acceptData="setSurveyImageUrl" uploadid="up3"></v-upload>
+            </div>
           </div>
         <div class="clearfix"></div>
         <br/>
@@ -73,8 +83,21 @@
               <label class="label_height">承诺公函：</label>
           </div>
           <div class="form-group col-sm-11 imb">
-            <v-commonimg :imgSrc="abm" @acceptImgSrc="bigimg"></v-commonimg>
-            <v-commonimg :imgSrc="jze" @acceptImgSrc="bigimg"></v-commonimg>
+            <div v-show="$route.params.type === '1'">
+              <v-commonimg :imgSrc="letterImageUrl" @acceptImgSrc="bigimg"></v-commonimg>
+            </div>
+            <div v-show="$route.params.type === '2'">
+              <v-idcardupload :imgUrl="letterImageUrl" @acceptImgSrc="bigimg"  @acceptData="setLetterImageUrl" uploadid="up4"></v-idcardupload>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+          <div class="form-group col-sm-1 txr" v-show="$route.params.type === '2'">
+          </div>
+          <div class="form-group col-sm-11 imb" v-show="$route.params.type === '2'">
+              <button @click="submit" class="btn js-ajax-submit">提交</button>
+              <br/>
+              <br/>
+              <p class="areafc">&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#32;申报官信息需审核</p>
           </div>
       </div>
     </div>
@@ -83,38 +106,84 @@
 
 <script>
 import upload from '@/components/upload';
-import reupload from '@/components/upload/reUpload';
+import idcardupload from '@/components/upload/idCardUpload';
+import reupload2 from '@/components/upload/reUpload2';
 import bigImg from '@/components/bigImg';
 import commonimg from '@/components/commonImg';
-import cz from '@/assets/img/cz.jpg';
-import abm from '@/assets/img/abm.jpg';
-import jze from '@/assets/img/jze.jpg';
+import errInfo from '@/components/info/error';
+import rules from '@/config/rules';
+import { DECLARE_GET_DECLARER_DETAILS, IMAGE_SERVER_URL, DECLARE_PUT_DECLARER } from '@/config/env';
 
 export default {
   name: 'officerDetail',
   data() {
     return {
       showImg: false,
-      cz,
-      abm,
-      jze,
-      name: '克里斯塔',
-      tellphone: '13780546859',
-      idNumber: '51018219900805XXXX',
-      reason: '您的身份证号码与你的真实姓名不匹配，需要重新提交。',
-      score: 86,
+      name: '',
+      cellphone: '',
+      idNumber: '',
+      reason: '',
+      score: 0,
       portrait: '',
-      idFrontUrl: 'gfasdf4s24df135asd',
-      idBackUrl: 'gfasdf4s24df135asd',
-      surveyImageUrl: 'gfasdf4s24df135asd',
-      letterImageUrl: 'gfasdf4s24df135asd',
-      state: '审核未通过',
+      picPortrait: '',
+      idFrontUrl: '',
+      idBackUrl: '',
+      surveyImageUrl: '',
+      letterImageUrl: '',
+      state: '',
       isShowtell: true,
       isShowName: true,
       isShowNumber: true,
+      errMsg: [],
     };
   },
   methods: {
+    validate() {
+      this.errMsg = [];
+      // 手机号码验证
+      if (this.cellphone && !rules.mPattern.pattern.test(this.cellphone)) {
+        this.errMsg.push(rules.mPattern.message);
+      }
+      // 身份证号码
+      if (this.idNumber && !rules.cP.pattern.test(this.idNumber)) {
+        this.errMsg.push(rules.cP.message);
+      }
+    },
+    validate2() {
+      this.validate();
+      // 手机号码验证
+      if (!this.cellphone) {
+        this.errMsg.push(`${rules.nonEmpty}${rules.phone}`);
+      }
+      // 姓 名
+      if (!this.name) {
+        this.errMsg.push(`${rules.nonEmpty}${rules.name}`);
+      }
+      //  寸 照
+      if (!this.portrait) {
+        this.errMsg.push(`${rules.nonEmpty}${rules.portrait}`);
+      }
+      //  身份证号码
+      if (!this.idNumber) {
+        this.errMsg.push(`${rules.nonEmpty}${rules.idNumber}`);
+      }
+      // 身份证照片正面
+      if (!this.idFrontUrl) {
+        this.errMsg.push(`${rules.upload}${rules.idFrontUrl}`);
+      }
+      // 身份证照片背面
+      if (!this.idBackUrl) {
+        this.errMsg.push(`${rules.upload}${rules.idBackUrl}`);
+      }
+      // 尽职调查表
+      if (!this.surveyImageUrl) {
+        this.errMsg.push(`${rules.upload}${rules.surveyImageUrl}`);
+      }
+      // 承诺公函
+      if (!this.letterImageUrl) {
+        this.errMsg.push(`${rules.upload}${rules.letterImageUrl}`);
+      }
+    },
     bigimg(src) {
       this.imgSrc = src;
       this.showImg = true;
@@ -131,12 +200,74 @@ export default {
     editNumber() {
       this.isShowNumber = !this.isShowNumber;
     },
+    setFrontUrl(d) {
+      this.idFrontUrl = d;
+    },
+    setBackUrl(d) {
+      this.idBackUrl = d;
+    },
+    setPortrait(d) {
+      this.portrait = d;
+    },
+    setSurveyImageUrl(d) {
+      this.surveyImageUrl = d;
+    },
+    setLetterImageUrl(d) {
+      this.letterImageUrl = d;
+    },
+    async init() {
+      const res = await this.$xhr('get', `${DECLARE_GET_DECLARER_DETAILS}${this.$route.params.id}`);
+      if (res.data.code === 0) {
+        this.name = res.data.data.name;
+        this.cellphone = res.data.data.cellphone;
+        this.idNumber = res.data.data.idNumber;
+        this.reason = res.data.data.reason;
+        if (this.reason) {
+          this.errMsg.push(this.reason);
+        }
+        if (res.data.data.score === -1) {
+          this.score = '未考试';
+        } else {
+          this.score = `${res.data.data.score}分`;
+        }
+        this.picPortrait = `${IMAGE_SERVER_URL}${res.data.data.portrait}`;
+        this.portrait = res.data.data.portrait;
+        this.idFrontUrl = res.data.data.idFrontUrl;
+        this.idBackUrl = res.data.data.idBackUrl;
+        this.surveyImageUrl = res.data.data.surveyImageUrl;
+        this.letterImageUrl = res.data.data.letterImageUrl;
+      }
+    },
+    async submit() {
+      this.validate2();
+      if (this.errMsg.length !== 0) {
+        return;
+      }
+      const param = {};
+      param.name = this.name;
+      param.cellphone = this.cellphone;
+      param.idNumber = this.idNumber;
+      param.idFrontUrl = this.idFrontUrl;
+      param.idBackUrl = this.idBackUrl;
+      param.surveyImageUrl = this.surveyImageUrl;
+      param.letterImageUrl = this.letterImageUrl;
+      param.portrait = this.portrait;
+      const res = await this.$xhr('post', `${DECLARE_PUT_DECLARER}${this.$route.params.id}`, param);
+      if (res.data.code === 0) {
+        this.$router.push('/officer/list');
+      }
+    },
   },
   components: {
-    'v-upload': upload,
     'v-bigimg': bigImg,
     'v-commonimg': commonimg,
-    'v-reupload': reupload,
+    'v-reupload2': reupload2,
+    'v-errinfo': errInfo,
+    'v-upload': upload,
+    'v-idcardupload': idcardupload,
+  },
+  mounted() {
+    this.init();
   },
 };
 </script>
@@ -203,8 +334,5 @@ a {
     margin: auto;
     color:#fff;
     background: rgb(1, 200, 83);
-}
-.clear {
-
 }
 </style>

@@ -26,12 +26,13 @@ const decEnt = r => require.ensure([], (require) => { r(require('@/page/enterpri
 const decEntMsg = r => require.ensure([], (require) => { r(require('@/page/enterprise/msg')); }, 'decEntMsg');
 const entList = r => require.ensure([], (require) => { r(require('@/page/entList')); }, 'entList');
 const entListdetail = r => require.ensure([], (require) => { r(require('@/page/entList/detail')); }, 'entListdetail');
-const entListedit = r => require.ensure([], (require) => { r(require('@/page/entList/edit')); }, 'edit');
-const recommendlist = r => require.ensure([], (require) => { r(require('@/page/recommendlist')); }, 'recommendlist');
+const entListdetailmsg = r => require.ensure([], (require) => { r(require('@/page/entList/msg')); }, 'entListdetailmsg');
+const recommendlist = r => require.ensure([], (require) => { r(require('@/page/recommend/list')); }, 'recommendlist');
 const addUser = r => require.ensure([], (require) => { r(require('@/page/user')); }, 'addUser');
 const userlist = r => require.ensure([], (require) => { r(require('@/page/user/list')); }, 'userlist');
 const userdetail = r => require.ensure([], (require) => { r(require('@/page/user/detail')); }, 'userdetail');
-const useredit = r => require.ensure([], (require) => { r(require('@/page/user/edit')); }, 'useredit');
+const usermsg = r => require.ensure([], (require) => { r(require('@/page/user/msg')); }, 'usermsg');
+const usermsg2 = r => require.ensure([], (require) => { r(require('@/page/user/msg2')); }, 'usermsg2');
 
 Vue.use(Router);
 
@@ -43,24 +44,29 @@ export default new Router({
       component: search,
     },
     {
-      path: '/addUser',
+      path: '/user/add',
       name: 'addUser',
       component: addUser,
     },
     {
-      path: '/userlist',
+      path: '/user/list',
       name: 'userlist',
       component: userlist,
     },
     {
-      path: '/userdetail',
+      path: '/user/detail/:type/:id',
       name: 'userdetail',
       component: userdetail,
     },
     {
-      path: '/useredit',
-      name: 'useredit',
-      component: useredit,
+      path: '/user/msg',
+      name: 'usermsg',
+      component: usermsg,
+    },
+    {
+      path: '/user/msg/2',
+      name: 'usermsg2',
+      component: usermsg2,
     },
     {
       path: '/index',
@@ -73,24 +79,24 @@ export default new Router({
       component: indexdetail,
     },
     {
-      path: '/recommendlist',
+      path: '/recommend/list',
       name: 'recommendlist',
       component: recommendlist,
     },
     {
-      path: '/entListedit',
-      name: 'entListedit',
-      component: entListedit,
-    },
-    {
-      path: '/entList',
+      path: '/ent/list',
       name: 'entList',
       component: entList,
     },
     {
-      path: '/entListdetail',
+      path: '/ent/detail/:type/:id',
       name: 'entListdetail',
       component: entListdetail,
+    },
+    {
+      path: '/ent/detail/msg',
+      name: 'entListdetail',
+      component: entListdetailmsg,
     },
     {
       path: '/decEnt',
@@ -98,12 +104,12 @@ export default new Router({
       component: decEnt,
     },
     {
-      path: '/decEntMsg',
+      path: '/decEnt/messeag',
       name: 'decEntMsg',
       component: decEntMsg,
     },
     {
-      path: '/addOfficer',
+      path: '/officer/add',
       name: 'addOfficer',
       component: addOfficer,
     },
@@ -113,12 +119,12 @@ export default new Router({
       component: officermsg,
     },
     {
-      path: '/officerlist',
+      path: '/officer/list',
       name: 'officerlist',
       component: officerlist,
     },
     {
-      path: '/officerdetail',
+      path: '/officer/detail/:type/:id',
       name: 'officerdetail',
       component: officerdetail,
     },
@@ -138,12 +144,12 @@ export default new Router({
       component: bindEnterprise,
     },
     {
-      path: '/sysMsg',
+      path: '/sys/msg/list',
       name: 'sysMsg',
       component: sysMsg,
     },
     {
-      path: '/sysMsgDetail/:id',
+      path: '/sys/msg/detail/:id',
       name: 'sysMsgDetail',
       component: sysMsgDetail,
     },
@@ -168,7 +174,7 @@ export default new Router({
       component: step11,
     },
     {
-      path: '/step2',
+      path: '/step2/:type',
       name: 'step2',
       component: step2,
     },
@@ -183,7 +189,7 @@ export default new Router({
       component: step31,
     },
     {
-      path: '/step4',
+      path: '/step4/:type',
       name: 'step4',
       component: step4,
     },

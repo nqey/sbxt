@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="bs-example">
-      <span class="t_nav">&#12288;&#12288;申报官列表</span>
+      <span class="t_nav">&#12288;&#12288;推荐列表</span>
       <br/>
       <br/>
       <br/>
@@ -9,98 +9,102 @@
         <table class="table table-bordered">
             <thead>
               <tr>
-                <th>姓名</th>
-                <th>手机号</th>
-                <th>审核状态</th>
-                <th>添加时间</th>
-                <th>考试分数</th>
-                <th>操作</th>
+                <th>机构名称</th>
+                <th>负责人</th>
+                <!-- <th>推荐人</th> -->
+                <th>状态</th>
+                <th>申报时间</th>
+                <th>联系电话</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="item of lists">
                 <td>{{item.name}}</td>
-                <td>{{item.cellphone}}</td>
+                <td>{{item.declarer}}</td>
+                <!-- <td>{{item.recomer}}</td> -->
                 <td v-show="item.reason" style="color: #ac2925;">{{item.state}} <span class="glyphicon glyphicon-question-sign"></span>{{item.reason}}</td>
                 <td v-show="!item.reason">{{item.state}}</td>
                 <td>{{item.createTime}}</td>
-                <td>{{item.score}}</td>
-                <td>
-                  <router-link v-show="item.detailShow" :to="'/officer/detail/1/'+item.id">查看</router-link>
-                  <a v-show="item.deleteShow" @click="deleteOfficer(item.id)">删除</a> 
-                  <router-link v-show="item.eidtShow" :to="'/officer/detail/2/'+item.id">修改</router-link>
-                </td>
+                <td>{{item.tellphone}}</td>
               </tr>
             </tbody>
           </table>
-       </div>
+          <v-pagination :page="pages" @nextPage="search"></v-pagination>
+          <div style="clear: both;"></div>
+        </div>
     </div>
   </div>
 </template>
 
 <script>
-import { DECLARE_GET_DECLARER_LIST, DECLARE_DELETE_DECLARER } from '@/config/env';
+import upload from '@/components/upload';
+import bigImg from '@/components/bigImg';
+import pagination from '@/components/pagination';
+import { DECLARE_GET_RECOMMEND, DECLARE_GET_RECOMMEND_COUNT } from '@/config/env';
 import { formatDate } from '@/config/utils';
 
 export default {
-  name: 'list',
+  name: 'recommendlist',
   data() {
     return {
+      page: 1,
+      rows: 20,
       lists: [],
+      pages: 0,
+      showImg: false,
     };
   },
   methods: {
-    async deleteOfficer(id) {
-      const res = await this.$xhr('post', `${DECLARE_DELETE_DECLARER}${id}`);
-      if (res.data.code === 0) {
-        this.init();
-      }
+    bigimg(src) {
+      this.imgSrc = src;
+      this.showImg = true;
     },
-    async init() {
-      const res = await this.$xhr('get', DECLARE_GET_DECLARER_LIST);
+    viewImg() {
+      this.showImg = false;
+    },
+    async search() {
+      const param = {};
+      param.page = this.page;
+      param.rows = this.rows;
+      const res = await this.$xhr('get', DECLARE_GET_RECOMMEND, param);
       if (res.data.code === 0) {
         this.lists = res.data.data;
         this.lists.forEach((o) => {
-          if (o.score === -1) {
-            o.score = '未考试';
-          }
-          o.deleteShow = false;
-          o.eidtShow = false;
-          o.detailShow = true;
           if (o.state === 'create') {
             o.state = '添加';
           } else if (o.state === 'waitPending') {
             o.state = '待初审';
           } else if (o.state === 'waitUnPending') {
             o.state = '初审未通过';
-            o.eidtShow = true;
-            o.detailShow = false;
           } else if (o.state === 'waitPended') {
             o.state = '初审通过';
           } else if (o.state === 'waitAudit') {
             o.state = '待审核';
           } else if (o.state === 'unpass') {
             o.state = '未通过';
-            o.eidtShow = true;
-            o.detailShow = false;
           } else if (o.state === 'passed') {
             o.state = '已通过';
-            o.deleteShow = true;
           } else if (o.state === 'delete') {
             o.state = '删除中';
-            o.detailShow = false;
           } else if (o.state === 'deleted') {
             o.state = '已删除';
-            o.detailShow = false;
           }
-
           o.createTime = formatDate(new Date(o.createTime), 'yyyy-MM-dd');
         });
       }
+      const res2 = await this.$xhr('get', DECLARE_GET_RECOMMEND_COUNT);
+      if (res2.data.success) {
+        this.pages = Math.ceil(res2.data.data / param.rows);
+      }
     },
   },
+  components: {
+    'v-upload': upload,
+    'v-bigimg': bigImg,
+    'v-pagination': pagination,
+  },
   mounted() {
-    this.init();
+    this.search();
   },
 };
 </script>

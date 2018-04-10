@@ -1,5 +1,5 @@
 <template>
-  <nav class="pull-right">
+  <nav class="txc">
     <ul class="pagination">
       <li><span @click="prePage()">«</span></li>
       <li v-for="(p, i) in pages"><span :class="{active: p.isActive}" @click="setActive(p)">{{p.value}}</span></li>
@@ -90,6 +90,9 @@ export default {
 <style lang="scss" scoped>
 @import '../../assets/css/mixin.scss';
 
+.txc {
+  text-align: center;
+}
 .pagination {
   display: inline-block;
   padding-left: 0;

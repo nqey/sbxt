@@ -1,12 +1,12 @@
 <template>
   <div class="form-group">
     <select v-show="provinces.length > 0" class='form-control' @change="queryCity" v-model="province">
-      <option value="0">请选择省份</option>
-      <option v-for="item in provinces" :value="item.id">{{item.name}}</option>
+      <option value="">请选择省份</option>
+      <option v-for="item in provinces" :value="item.code">{{item.text}}</option>
     </select>
     <select v-show="citys.length > 0" class='form-control' @change="queryPlaces" v-model="city">
-      <option value="0">请选择市</option>
-      <option v-for="item in citys" :value="item.id">{{item.name}}</option>
+      <option value="">请选择市</option>
+      <option v-for="item in citys" :value="item.code">{{item.text}}</option>
     </select>
     <span>剩余名额 <font class="fc">{{rmplaces}}</font></span>
     <br/>
@@ -18,14 +18,15 @@
 </template>
 
 <script>
+import { DECLARE_GET_AREA_TREE, DECLARE_AREALIMIT_AREACODE } from '@/config/env';
 
 export default {
   name: 'appArea',
   props: [],
   data() {
     return {
-      province: '0',
-      city: '0',
+      province: '',
+      city: '',
       provinces: [],
       citys: [],
       rmplaces: 0,
@@ -33,110 +34,41 @@ export default {
   },
   components: {},
   methods: {
-    // async getAreaTree() {
-    //   const res = await this.$xhr('get', DECLARE_GET_AREA_TREE);
-      // if (res.data.code === 0) {
-      // } else {
-      // }
-    // },
+    async getAreaTree() {
+      const res = await this.$xhr('get', DECLARE_GET_AREA_TREE);
+      if (res.data.success) {
+        this.provinces = res.data.data;
+      }
+    },
     queryCity() {
       this.citys = [];
-      this.city = '0';
+      this.city = '';
       this.provinces.forEach((item) => {
-        if (item.id === this.province) {
-          this.citys = item.children;
+        if (item.code === this.province) {
+          this.citys = item.nodes;
         }
       });
     },
-    queryPlaces() {
-      // let api = `${DECLARE_AREALIMIT_AREACODE}${this.province}${this.city}`;
-      //   const res = await this.$xhr('get', api);
-      this.rmplaces = 5;
-      this.$emit('acceptData', `${this.province}${this.city}`);
+    async queryPlaces() {
+      const api = `${DECLARE_AREALIMIT_AREACODE}${this.city}`;
+      const res = await this.$xhr('get', api);
+      if (res.data.success) {
+        this.rmplaces = res.data.data;
+      } else {
+        this.rmplaces = 0;
+      }
+      this.sendData();
+    },
+    sendData() {
+      if (this.city === '') {
+        this.$emit('acceptData', this.province);
+      } else {
+        this.$emit('acceptData', this.city);
+      }
     },
   },
   mounted() {
-    this.provinces = [{
-      id: '1',
-      name: '四川省1',
-      children: [{
-        id: '1',
-        name: '成都市x',
-        children: [{
-          id: '1',
-          name: '双流区x1',
-        },
-        {
-          id: '2',
-          name: '双流区x2',
-        },
-        {
-          id: '3',
-          name: '双流区x3',
-        },
-        ],
-      },
-      {
-        id: '2',
-        name: '成都市x2',
-        children: [{
-          id: '1',
-          name: '双流区x21',
-        },
-        {
-          id: '2',
-          name: '双流区x22',
-        },
-        {
-          id: '3',
-          name: '双流区x23',
-        },
-        ],
-      },
-      {
-        id: '3',
-        name: '成都市x3',
-        children: [{
-          id: '1',
-          name: '双流区x31',
-        },
-        {
-          id: '2',
-          name: '双流区x32',
-        },
-        {
-          id: '3',
-          name: '双流区x33',
-        },
-        ],
-      },
-      ],
-    },
-    {
-      id: '2',
-      name: '四川省2',
-      children: [{
-        id: '1',
-        name: '成都市2',
-        children: [{
-          id: '1',
-          name: '双流区2',
-        }],
-      }],
-    },
-    {
-      id: '3',
-      name: '四川省3',
-      children: [{
-        id: '1',
-        name: '成都市3',
-        children: [{
-          id: '1',
-          name: '双流区3',
-        }],
-      }],
-    },
-    ];
+    this.getAreaTree();
   },
 };
 </script>

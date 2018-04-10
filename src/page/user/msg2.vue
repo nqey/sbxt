@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="bs-example">
-      <span class="t_nav">&#12288;&#12288;添加申报官</span>
+      <span class="t_nav">&#12288;帐号更新</span>
       <br/>
       <br/>
       <br/>
@@ -11,11 +11,10 @@
       </div>
       <br/>
       <br/>
-      <p>添加成功</p>
+      <p>更新成功</p>
       <br/>
       <br/>
-      <router-link to="/officer/add"><button class="btn js-ajax-submit">继续添加</button></router-link>
-      <router-link to="/officer/list"><button class="btn ljsq">返回列表</button></router-link>
+      <router-link to="/user/list"><button class="btn ljsq">返回列表</button></router-link>
       </div>
     </div>
    </div>

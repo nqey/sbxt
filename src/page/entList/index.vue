@@ -11,18 +11,19 @@
         <label class="label_height">申报人：</label>
       </div>
       <div class="col-sm-2 ">
-        <input type="text" class="form-control iw200" placeholder="请输入申报人" v-model="declarer">
+        <input type="text" class="form-control iw200" placeholder="请输入申报人" v-model="charger">
       </div>
       <div class="col-sm-1 txr">
         <label class="label_height">企业状态：</label>
       </div>
       <div class="col-sm-2 ">
       <select class="form-control" v-model="state">
+        <option value="">请选择</option>
 	      <option v-for="(value, key) of selEntState" :value="key">{{value}}</option>
 	    </select>
       </div>
       <div class="form-group col-sm-3">
-        <button class="btn js-ajax-submit">搜索</button>
+        <button class="btn js-ajax-submit" @click="search(1)">搜索</button>
       </div>
     </div>
     <br/>
@@ -32,44 +33,46 @@
       <br/>
       <br/>
       <br/>
-      <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>企业名称</th>
-              <th>状态</th>
-              <th>申报人</th>
-              <th>申报时间</th>
-              <th>生码数量(万)</th>
-              <th>补贴金额 <span class="glyphicon glyphicon-question-sign"></span></th>
-              <th>操作</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="item of lists">
-              <th scope="row">{{item.name}}</th>
-              <td style="color: #ac2925;">{{item.state}} <span class="glyphicon glyphicon-question-sign"></span>{{item.reason}}</td>
-              <td>{{item.declarer}}</td>
-              <td>{{item.createtime}}</td>
-              <td>{{item.codeCount}}</td>
-              <td>{{item.amount}}</td>
-              <td>
-                <router-link to="/entListdetail">查看</router-link>
-                <a>删除</a> 
-                <router-link to="/entListedit">修改</router-link>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <v-pagination :page="pages" @nextPage="search"></v-pagination>
-        <div style="clear: both;"></div>
+      <div v-show="lists.length > 0">
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>企业名称</th>
+                <th>状态</th>
+                <th>申报人</th>
+                <th>申报时间</th>
+                <th>生码数量(万)</th>
+                <th>补贴金额 <span class="glyphicon glyphicon-question-sign"></span></th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="item of lists">
+                <td>{{item.name}}</td>
+                <td v-show="item.reason" style="color: #ac2925;">{{item.state}} <span class="glyphicon glyphicon-question-sign"></span>{{item.reason}}</td>
+                <td v-show="!item.reason">{{item.state}}</td>
+                <td>{{item.charger}}</td>
+                <td>{{item.createtime}}</td>
+                <td>{{item.codeCount}}</td>
+                <td>{{item.amount}}</td>
+                <td>
+                  <router-link v-show="!item.reason" :to="'/ent/detail/1/'+item.id">查看</router-link>
+                  <router-link v-show="item.reason" :to="'/ent/detail/2/'+item.id">修改</router-link>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <v-pagination :page="pages" @nextPage="search"></v-pagination>
+          <div style="clear: both;"></div>
+        </div>
     </div>
   </div>
 </template>
 
 <script>
-import upload from '@/components/upload';
-import bigImg from '@/components/bigImg';
 import pagination from '@/components/pagination';
+import { DECLARE_GET_ENTERPRISE_LIST, DECLARE_GET_ENTERPRISE_COUNT } from '@/config/env';
+import { formatDate } from '@/config/utils';
 
 export default {
   name: 'entList',
@@ -78,10 +81,10 @@ export default {
       showImg: false,
       lists: [],
       name: '',
-      declarer: '',
+      charger: '',
       state: '',
       page: 1,
-      row: 20,
+      rows: 10,
       pages: 0,
       selEntState: {
         waitPending: '待初审',
@@ -102,42 +105,54 @@ export default {
     };
   },
   methods: {
-    bigimg(src) {
-      this.imgSrc = src;
-      this.showImg = true;
-    },
-    viewImg() {
-      this.showImg = false;
-    },
-    search() {
-      this.lists = [
-        {
-          id: '1',
-          name: '四川中新华搜信息技术有限公司',
-          state: '审核未通过',
-          reason: '原因',
-          declarer: '申报人',
-          createtime: '2018-02-27',
-          codeCount: '15000000',
-          amount: '10000',
-        },
-        {
-          id: '2',
-          name: '四川中新华搜信息技术有限公司',
-          state: '审核未通过',
-          reason: '原因',
-          declarer: '申报人',
-          createtime: '2018-02-27',
-          codeCount: '150(万)',
-          amount: '10000',
-        },
-      ];
-      this.pages = 10;
+    async search(page) {
+      const param = {};
+      param.name = this.name;
+      param.charger = this.charger;
+      param.state = this.state;
+      if (!page) {
+        param.page = this.page;
+      } else {
+        param.page = page;
+      }
+      param.rows = this.rows;
+      const res = await this.$xhr('get', DECLARE_GET_ENTERPRISE_LIST, param);
+      if (res.data.code === 0) {
+        this.lists = res.data.data;
+        this.lists.forEach((o) => {
+          if (o.state === 'create') {
+            o.state = '添加';
+          } else if (o.state === 'waitPending') {
+            o.state = '待初审';
+          } else if (o.state === 'waitUnPending') {
+            o.state = '初审未通过';
+          } else if (o.state === 'waitPended') {
+            o.state = '初审通过';
+          } else if (o.state === 'waitAudit') {
+            o.state = '待审核';
+          } else if (o.state === 'unpass') {
+            o.state = '未通过';
+          } else if (o.state === 'passed') {
+            o.state = '已通过';
+          } else if (o.state === 'delete') {
+            o.state = '删除中';
+          } else if (o.state === 'deleted') {
+            o.state = '已删除';
+          }
+          o.createtime = formatDate(new Date(o.createtime), 'yyyy-MM-dd');
+        });
+      }
+      const param2 = {};
+      param2.name = this.name;
+      param2.charger = this.charger;
+      param2.state = this.state;
+      const res2 = await this.$xhr('get', DECLARE_GET_ENTERPRISE_COUNT, param2);
+      if (res2.data.success) {
+        this.pages = Math.ceil(res2.data.data / param.rows);
+      }
     },
   },
   components: {
-    'v-upload': upload,
-    'v-bigimg': bigImg,
     'v-pagination': pagination,
   },
   mounted() {

@@ -17,7 +17,7 @@
             <br/>
           </div>
           <div class="col-sm-12" style="text-align: center;">
-            <router-link to="/step2"><button class="btn js-ajax-submit">下一步</button></router-link>
+            <router-link to="/step2/1"><button class="btn js-ajax-submit">下一步</button></router-link>
           </div>
         </div>
       </div>

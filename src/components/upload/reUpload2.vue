@@ -1,13 +1,12 @@
 <template>
   <div class="pos">
-     <div style="position:absolute; background-color: #716e7f; z-index: 999;width: 350px;height: 210px;opacity: 0.5">
+     <div style="position:absolute; background-color: #716e7f; z-index: 999;width: 120px;height: 110px;opacity: 0.5">
      </div>
      <button class="btn js-ajax-submit" style="left: 0;" @click="fileClick">重新上传</button>
      <img :src="limgSrc" style="max-width: 100%;max-height: 100%;position: absolute;left: 0;"></img>
      <div style="width: 18px;height: 18px;position: absolute;right: 0px;bottom: 0px;background-color: #646a7f;color: #fff;text-align: center;z-index: 999;">
        <span  class="glyphicon glyphicon-resize-full" @click="bigImg"></span>
      </div>
-     
      <input @change="fileChange($event)" type="file" :id="uploadid" multiple style="display: none"/>
   </div>
 </template>
@@ -72,7 +71,7 @@ export default {
 
 .pos {
   position: relative;display: inline-block;
-  width: 350px;height: 210px;
+  width: 120px;height: 110px;
 }
 .btn {
     display: inline-block;
@@ -100,8 +99,8 @@ export default {
     border-color: rgba(255,255,255,0.7);
 }
 .js-ajax-submit {
-    width: 150px;
-    margin: 27%;
+    width: 120px;
+    margin-top: 28%;
     color:#fff;
     background: rgb(1, 200, 83);
     z-index: 1000;

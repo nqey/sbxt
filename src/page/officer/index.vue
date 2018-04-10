@@ -102,7 +102,7 @@ import idcardupload from '@/components/upload/idCardUpload';
 import bigImg from '@/components/bigImg';
 import errInfo from '@/components/info/error';
 import rules from '@/config/rules';
-// { DECLARE_GET_BASEINFO } from '@/config/env';
+import { DECLARE_GET_VALIDATECODE, DECLARE_POST_DECLARER } from '@/config/env';
 
 export default {
   name: 'search',
@@ -128,50 +128,50 @@ export default {
     validate() {
       this.errMsg = [];
       // 手机号码验证
-      if (this.cellphone !== '' && !rules.mPattern.pattern.test(this.cellphone)) {
+      if (this.cellphone && !rules.mPattern.pattern.test(this.cellphone)) {
         this.errMsg.push(rules.mPattern.message);
       }
       // 身份证号码
-      if (this.idNumber !== '' && !rules.cP.pattern.test(this.idNumber)) {
+      if (this.idNumber && !rules.cP.pattern.test(this.idNumber)) {
         this.errMsg.push(rules.cP.message);
       }
     },
     validate2() {
       this.validate();
       // 手机号码验证
-      if (this.cellphone === '') {
+      if (!this.cellphone) {
         this.errMsg.push(`${rules.nonEmpty}${rules.phone}`);
       }
       // 姓 名
-      if (this.name === '') {
+      if (!this.name) {
         this.errMsg.push(`${rules.nonEmpty}${rules.name}`);
       }
       // 验证码验证
-      if (this.code === '') {
+      if (!this.code) {
         this.errMsg.push(`${rules.nonEmpty}${rules.validatecode}`);
       }
       //  寸 照
-      if (this.portrait === '') {
+      if (!this.portrait) {
         this.errMsg.push(`${rules.nonEmpty}${rules.portrait}`);
       }
       //  身份证号码
-      if (this.idNumber === '') {
+      if (!this.idNumber) {
         this.errMsg.push(`${rules.nonEmpty}${rules.idNumber}`);
       }
       // 身份证照片正面
-      if (this.idFrontUrl === '') {
+      if (!this.idFrontUrl) {
         this.errMsg.push(`${rules.upload}${rules.idFrontUrl}`);
       }
       // 身份证照片背面
-      if (this.idBackUrl === '') {
+      if (!this.idBackUrl) {
         this.errMsg.push(`${rules.upload}${rules.idBackUrl}`);
       }
       // 尽职调查表
-      if (this.idBackUrl === '') {
+      if (!this.surveyImageUrl) {
         this.errMsg.push(`${rules.upload}${rules.surveyImageUrl}`);
       }
       // 承诺公函
-      if (this.idBackUrl === '') {
+      if (!this.letterImageUrl) {
         this.errMsg.push(`${rules.upload}${rules.letterImageUrl}`);
       }
     },
@@ -198,6 +198,12 @@ export default {
       this.letterImageUrl = d;
     },
     async getCode() {
+      this.errMsg = [];
+      // 手机号码验证
+      if (!rules.mPattern.pattern.test(this.cellphone)) {
+        this.errMsg.push(rules.mPattern.message);
+        return;
+      }
       const TIME_COUNT = 60;
       if (!this.timer) {
         this.count = TIME_COUNT;
@@ -212,11 +218,12 @@ export default {
           }
         }, 1000);
       }
-      // const res = await this.$xhr('get', `${DECLARE_VALIDATECODE}/regiset/${this.cellphone}`);
-      // if (res.data.code === 0) {
-      // }
+      const res = await this.$xhr('get', `${DECLARE_GET_VALIDATECODE}addDeclarer/${this.cellphone}`);
+      if (!res.data.code === 0) {
+        this.errMsg.push(res.data.message);
+      }
     },
-    submit() {
+    async submit() {
       this.validate2();
       const obj = {};
       obj.name = this.name;
@@ -228,7 +235,11 @@ export default {
       obj.surveyImageUrl = this.surveyImageUrl;
       obj.letterImageUrl = this.letterImageUrl;
       obj.portrait = this.portrait;
-      if (this.errMsg.length === 0) {
+      if (this.errMsg.length !== 0) {
+        return;
+      }
+      const res = await this.$xhr('post', DECLARE_POST_DECLARER, obj);
+      if (res.data.code === 0) {
         this.$router.push('/officer/messeag');
       }
     },

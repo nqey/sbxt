@@ -55,11 +55,11 @@ export default {
           subItems: [
             {
               name: '添加申报官',
-              link: '/addOfficer',
+              link: '/officer/add',
             },
             {
               name: '申报官列表',
-              link: '/officerlist',
+              link: '/officer/list',
             },
           ],
         },
@@ -72,13 +72,13 @@ export default {
         {
           name: '企业列表',
           haveSub: false,
-          link: '/entList',
+          link: '/ent/list',
           id: 4,
         },
         {
           name: '推荐列表',
           haveSub: false,
-          link: '/recommendList',
+          link: '/recommend/list',
           id: 5,
         },
         {
@@ -89,11 +89,11 @@ export default {
           subItems: [
             {
               name: '添加账户',
-              link: '/addUser',
+              link: '/user/add',
             },
             {
               name: '帐号列表',
-              link: '/userList',
+              link: '/user/list',
             },
           ],
         },

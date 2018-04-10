@@ -9,8 +9,8 @@
         <br/>
         <ul>
           <li class="news" v-for="(item, index) of news">
-            <router-link :to="'/sysMsgDetail/'+item.id">{{item.title}}</router-link>
-            <span class="news_new" v-show="index < 3">new</span>
+            <router-link :to="'/sys/msg/detail/'+item.id">{{item.title}}</router-link>
+            <span class="news_new" v-show="index < 3 && page === 1">new</span>
             <span class="news_time">{{item.pushTime}}</span>
           </li>
         </ul>
@@ -23,9 +23,11 @@
 <script>
 import lhead from '@/components/registerHead/lhead';
 import pagination from '@/components/pagination';
+import { PUBLICS_GET_NOTICES_LISTING, PUBLICS_GET_NOTICES_COUNTS } from '@/config/env';
+import { formatDate } from '@/config/utils';
 
 export default {
-  name: 'sysMsg',
+  name: 'sysmsglist',
   props: {
     value: {
       type: String,
@@ -37,59 +39,33 @@ export default {
   },
   data() {
     return {
+      page: 1,
+      rows: 10,
       pages: 0,
       news: [],
     };
   },
   methods: {
-    search() {
-      this.news = [
-        {
-          title: '申报机构申请办事指南',
-          id: '1',
-          pushTime: '2017-12-27',
-        },
-        {
-          title: '申报机构申请办事指南',
-          id: '2',
-          pushTime: '2017-12-27',
-        },
-        {
-          title: '申报机构申请办事指南',
-          id: '3',
-          pushTime: '2017-12-27',
-        },
-        {
-          title: '申报机构申请办事指南',
-          id: '4',
-          pushTime: '2017-12-27',
-        },
-        {
-          title: '申报机构申请办事指南',
-          id: '5',
-          pushTime: '2017-12-27',
-        },
-        {
-          title: '申报机构申请办事指南',
-          id: '6',
-          pushTime: '2017-12-27',
-        },
-        {
-          title: '申报机构申请办事指南',
-          id: '7',
-          pushTime: '2017-12-27',
-        },
-        {
-          title: '申报机构申请办事指南',
-          id: '8',
-          pushTime: '2017-12-27',
-        },
-      ];
+    async search(page) {
+      const param = {};
+      this.page = page;
+      param.page = this.page;
+      param.rows = this.rows;
+      const res = await this.$xhr('get', PUBLICS_GET_NOTICES_LISTING, param);
+      if (res.data.code === 0) {
+        this.news = res.data.data;
+        this.news.forEach((o) => {
+          o.pushTime = formatDate(new Date(o.createTime), 'yyyy-MM-dd');
+        });
+      }
+      const res2 = await this.$xhr('get', PUBLICS_GET_NOTICES_COUNTS);
+      if (res2.data.success) {
+        this.pages = Math.ceil(res2.data.data / param.rows);
+      }
     },
   },
   mounted() {
     this.search(1);
-    this.pages = 10;
   },
 };
 </script>

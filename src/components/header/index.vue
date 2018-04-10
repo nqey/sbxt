@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     logout() {
-      delCookie('token');
+      delCookie('sb_token');
       this.$router.push('/login');
     },
   },

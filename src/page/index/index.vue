@@ -1,14 +1,14 @@
 <template>
   <div>
     <div class="bs-example">
-      <span class="t_nav">&#12288;&#12288;系统通知</span>
+      <span class="t_nav">&#12288;系统通知</span>
       <br/>
       <br/>
       <br/>
       <ul>
-        <li class="news" v-for="(item, index) of news">
+        <li class="news" v-for="(item, index) of news" style="list-style-type: disc;margin-left: 10px;">
           <router-link :to="'/index/detail/'+item.id">{{item.title}}</router-link>
-          <span class="news_new" v-show="index < 3">new</span>
+          &#12288;<span class="news_new" v-show="index < 3 && page === 1">new</span>
           <span class="news_time">{{item.pushTime}}</span>
         </li>
         <li></li>
@@ -21,59 +21,36 @@
 
 <script>
 import pagination from '@/components/pagination';
+import { PUBLICS_GET_NOTICES_LISTING, PUBLICS_GET_NOTICES_COUNTS } from '@/config/env';
+import { formatDate } from '@/config/utils';
 
 export default {
-  name: 'search',
+  name: 'index',
   data() {
     return {
+      page: 1,
+      rows: 10,
       pages: 0,
       news: [],
     };
   },
   methods: {
-    search() {
-      this.news = [
-        {
-          title: '申报机构申请办事指南',
-          id: '1',
-          pushTime: '2017-12-27',
-        },
-        {
-          title: '申报机构申请办事指南',
-          id: '2',
-          pushTime: '2017-12-27',
-        },
-        {
-          title: '申报机构申请办事指南',
-          id: '3',
-          pushTime: '2017-12-27',
-        },
-        {
-          title: '申报机构申请办事指南',
-          id: '4',
-          pushTime: '2017-12-27',
-        },
-        {
-          title: '申报机构申请办事指南',
-          id: '5',
-          pushTime: '2017-12-27',
-        },
-        {
-          title: '申报机构申请办事指南',
-          id: '6',
-          pushTime: '2017-12-27',
-        },
-        {
-          title: '申报机构申请办事指南',
-          id: '7',
-          pushTime: '2017-12-27',
-        },
-        {
-          title: '申报机构申请办事指南',
-          id: '8',
-          pushTime: '2017-12-27',
-        },
-      ];
+    async search(page) {
+      const param = {};
+      this.page = page;
+      param.page = this.page;
+      param.rows = this.rows;
+      const res = await this.$xhr('get', PUBLICS_GET_NOTICES_LISTING, param);
+      if (res.data.code === 0) {
+        this.news = res.data.data;
+        this.news.forEach((o) => {
+          o.pushTime = formatDate(new Date(o.createTime), 'yyyy-MM-dd');
+        });
+      }
+      const res2 = await this.$xhr('get', PUBLICS_GET_NOTICES_COUNTS);
+      if (res2.data.success) {
+        this.pages = Math.ceil(res2.data.data / param.rows);
+      }
     },
   },
   components: {
@@ -81,7 +58,6 @@ export default {
   },
   mounted() {
     this.search(1);
-    this.pages = 10;
   },
 };
 </script>
@@ -108,7 +84,6 @@ export default {
 .t_nav {
   border-left: #4786ff solid 3px;
   margin-left: -30px;
-  /*font-weight: bold;*/
   font-size: 18px;
 }
 a {

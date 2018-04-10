@@ -30,7 +30,7 @@
             <label class="label_height"><span class="info">*</span> 手机号码：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-            <input type="text" class="form-control iw600" placeholder="请输入手机号码" v-model="cellphone">
+            <input type="text" class="form-control iw600" placeholder="请输入手机号码" v-model="cellphone" @blur="validate">
     		<br/>
     		<br/>
     		&#12288;<small class="areafc">该号码必须是企业法人本人手机号码</small>
@@ -39,7 +39,7 @@
                 <label class="label_height"><span class="info">*</span> 身份证号码：</label>
          </div>
 	     <div class="form-group col-sm-11 imb">
-	            <input type="text" class="form-control iw600" placeholder="请输入身份证号码" v-model="idNumber">
+	            <input type="text" class="form-control iw600" placeholder="请输入身份证号码" v-model="idNumber" @blur="validate">
 	    		<br/>
 	    		<br/>
 	    		&#12288;<small class="areafc">申报官真实有效身份证号码，每一个身份证号只能添加一名申报官。</small>
@@ -52,8 +52,8 @@
             <p></p>
             <small class="info label_height">请上传本人真实身份证，否则审核不通过。</small>
             <div class="clearfix"></div>
-            <v-idcardupload uploadid="upload2" text="上传正面" @acceptData="frontUrl"></v-idcardupload>
-            <v-idcardupload uploadid="upload3" text="上传背面" @acceptData="backUrl"></v-idcardupload>
+            <v-idcardupload uploadid="upload1" text="上传正面" @acceptImgSrc="bigimg" @acceptData="frontUrl"></v-idcardupload>
+            <v-idcardupload uploadid="upload2" text="上传背面" @acceptImgSrc="bigimg" @acceptData="backUrl"></v-idcardupload>
         </div>
           <div class="form-group col-sm-1 txr">
               <label class="label_height"><span class="info">*</span> 营业执照：</label>
@@ -61,7 +61,7 @@
           <div class="form-group col-sm-11 imb">
             <p class="label_height">请上次营业执照影印件。支持格式：bmp、jpg、png、gif。照片大小不超过2M。</p>
             <br/>
-            <v-upload @acceptImgSrc="bigimg" @acceptData="setLicenseImageUrl" uploadid="upload1"></v-upload>
+            <v-idcardupload @acceptImgSrc="bigimg" text="上传营业执照" @acceptData="setLicenseImageUrl" uploadid="upload3"></v-idcardupload>
           </div>
           <div class="form-group col-sm-1 txr">
               <label class="label_height"><span class="info">*</span> 生产许可证：</label>
@@ -69,7 +69,19 @@
           <div class="form-group col-sm-11 imb">
             <p class="label_height">请上传生产许可证影印件。支持格式：bmp、jpg、png、gif。照片大小不超过2M。</p>
             <br/>
-            <v-upload @acceptImgSrc="bigimg" @acceptData="setProductionImageUrl" uploadid="upload2"></v-upload>
+            <v-idcardupload @acceptImgSrc="bigimg" text="上传生产许可证" @acceptData="setProductionImageUrl" uploadid="upload4"></v-idcardupload>
+          </div>
+          <div class="form-group col-sm-1 txr">
+              <label class="label_height"><span class="info">*</span> 资金补贴申报表：</label>
+          </div>
+          <div class="form-group col-sm-11 imb">
+            <p class="label_height"><b>下载</b> <a>申报表</a></p>
+            <small class="info2 label_height">文件要求：上传加盖企业公章的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
+            <br/>
+            <small class="info label_height">请认真填写每一必填项，再上传完整的尽职调查表</small>
+            <br/>
+            <br/>
+            <v-upload @acceptImgSrc="bigimg" @acceptData="setCapitalImageUrl" uploadid="upload5"></v-upload>
           </div>
           <div class="form-group col-sm-1 txr">
               <label class="label_height"><span class="info">*</span> 企业尽职调查表：</label>
@@ -81,7 +93,7 @@
             <small class="info label_height">请认真填写每一必填项，再上传完整的尽职调查表</small>
             <br/>
             <br/>
-            <v-upload @acceptImgSrc="bigimg" @acceptData="setCapitalImageUrl" uploadid="upload3"></v-upload>
+            <v-upload @acceptImgSrc="bigimg" @acceptData="setEnterpriseSurveyImageUrl" uploadid="upload6"></v-upload>
           </div>
            <div class="form-group col-sm-1 txr">
               <label class="label_height"><span class="info">*</span> 企业负责人尽职调查表：</label>
@@ -93,7 +105,7 @@
             <small class="info label_height">请认真填写每一必填项，再上传完整的尽职调查表</small>
             <br/>
             <br/>
-            <v-upload @acceptImgSrc="bigimg" @acceptData="setEnterpriseSurveyImageUrl" uploadid="upload4"></v-upload>
+            <v-upload @acceptImgSrc="bigimg" @acceptData="setEnterpriseChargerSurveyImageUrl" uploadid="upload7"></v-upload>
           </div>
            <div class="form-group col-sm-1 txr">
               <label class="label_height"><span class="info">*</span> 企业入库申请函</label>
@@ -105,7 +117,7 @@
             <small class="info label_height">请上传完整的申请函</small>
             <br/>
             <br/>
-            <v-upload @acceptImgSrc="bigimg" @acceptData="setEnterpriseChargerSurveyImageUrl" uploadid="upload5"></v-upload>
+            <v-idcardupload uploadid="upload8" text="上传申请函" @acceptImgSrc="bigimg" @acceptData="setEnterpriseShindImageUrl"></v-idcardupload>
           </div>
           <div class="form-group col-sm-1 txr">
               <label class="label_height"><span class="info">*</span> 授权委托书</label>
@@ -115,7 +127,7 @@
             <small class="info2 label_height">指定代表或者共同委托代理人授权委托书；如企业法人不能亲自办理入库事宜，法人可签订此授权书委托书给指定负责人进行办理。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
             <br/>
             <br/>
-            <v-upload @acceptImgSrc="bigimg" @acceptData="setEnterpriseShindImageUrl" uploadid="upload6"></v-upload>
+            <v-idcardupload uploadid="upload9" text="上传委托书" @acceptImgSrc="bigimg" @acceptData="setAuthorizationImageUrl"></v-idcardupload>
           </div>
           <div class="form-group col-sm-1 txr">
               <label class="label_height"> 其他补充材料：</label>
@@ -124,7 +136,7 @@
             <small class="info2 label_height">企业如有其他补充材料，可上次至此，可增加通过率;例如发明专利、商标等知识产权；各项奖励证书，等级证书，认证证书等；如企业有全国工业生产许可证，安全生产许可证也需上传至此。 </small>
             <br/>
             <br/>
-            <v-upload @acceptImgSrc="bigimg" @acceptData="setOtherImageUrl" uploadid="upload7"></v-upload>
+            <v-upload @acceptImgSrc="bigimg" @acceptData="setOtherImageUrl" uploadid="upload10"></v-upload>
           </div>
           <div class="form-group col-sm-1 txr">
           </div>
@@ -144,6 +156,8 @@ import upload from '@/components/upload';
 import bigImg from '@/components/bigImg';
 import idcardupload from '@/components/upload/idCardUpload';
 import errInfo from '@/components/info/error';
+import rules from '@/config/rules';
+import { DECLARE_POST_ENTERPRISE } from '@/config/env';
 
 export default {
   name: 'search',
@@ -164,9 +178,72 @@ export default {
       enterpriseShindImageUrl: '',
       authorizationImageUrl: '',
       otherImageUrl: '',
+      errMsg: [],
+      timer: '',
     };
   },
   methods: {
+    validate() {
+      const errMsg = [];
+      // 手机号码验证
+      if (this.cellphone !== '' && !rules.mPattern.pattern.test(this.cellphone)) {
+        errMsg.push(rules.mPattern.message);
+      }
+      // 生份证号码验证
+      if (this.idNumber !== '' && !rules.cP.pattern.test(this.idNumber)) {
+        errMsg.push(rules.cP.message);
+      }
+      this.errMsg = [...errMsg];
+    },
+    validate2() {
+      this.validate();
+      const errMsg = [];
+      // 企业全称
+      if (!this.name) {
+        errMsg.push(`${rules.nonEmpty}${rules.enterpriseName}`);
+      }
+      // 企业负责人
+      if (!this.charger) {
+        errMsg.push(`${rules.nonEmpty}${rules.charger}`);
+      }
+      // 手机号码
+      if (!this.cellphone) {
+        errMsg.push(`${rules.nonEmpty}${rules.phone}`);
+      }
+      // 身份证号码
+      if (!this.idNumber) {
+        errMsg.push(`${rules.nonEmpty}${rules.idNumber}`);
+      }
+      // 营业执照
+      if (!this.licenseImageUrl) {
+        errMsg.push(`${rules.nonEmpty}${rules.licenseImageUrl}`);
+      }
+      // 生产许可证
+      if (!this.productionImageUrl) {
+        errMsg.push(`${rules.nonEmpty}${rules.productionImageUrl}`);
+      }
+      // 资金补贴申报表
+      if (!this.capitalImageUrl) {
+        errMsg.push(`${rules.nonEmpty}${rules.capitalImageUrl}`);
+      }
+      // 企业尽职调查表
+      if (!this.enterpriseSurveyImageUrl) {
+        errMsg.push(`${rules.nonEmpty}${rules.enterpriseSurveyImageUrl}`);
+      }
+      // 企业负责人尽职调查表
+      if (!this.enterpriseChargerSurveyImageUrl) {
+        errMsg.push(`${rules.nonEmpty}${rules.enterpriseChargerSurveyImageUrl}`);
+      }
+      // 企业入库申请函
+      if (!this.enterpriseShindImageUrl) {
+        errMsg.push(`${rules.nonEmpty}${rules.enterpriseShindImageUrl}`);
+      }
+      // 授权委托书
+      if (!this.authorizationImageUrl) {
+        errMsg.push(`${rules.nonEmpty}${rules.authorizationImageUrl}`);
+      }
+      this.errMsg = [...this.errMsg, ...errMsg];
+    },
     bigimg(src) {
       this.imgSrc = src;
       this.showImg = true;
@@ -175,37 +252,61 @@ export default {
       this.showImg = false;
     },
     frontUrl(d) {
-      this.obj.idFrontUrl = d;
+      this.idFrontUrl = d;
     },
     backUrl(d) {
-      this.obj.idBackUrl = d;
+      this.idBackUrl = d;
     },
     setLicenseImageUrl(d) {
-      this.obj.licenseImageUrl = d;
+      this.licenseImageUrl = d;
     },
     setProductionImageUrl(d) {
-      this.obj.productionImageUrl = d;
+      this.productionImageUrl = d;
     },
     setCapitalImageUrl(d) {
-      this.obj.capitalImageUrl = d;
+      this.capitalImageUrl = d;
     },
     setEnterpriseSurveyImageUrl(d) {
-      this.obj.enterpriseSurveyImageUrl = d;
+      this.enterpriseSurveyImageUrl = d;
     },
     setEnterpriseChargerSurveyImageUrl(d) {
-      this.obj.enterpriseChargerSurveyImageUrl = d;
+      this.enterpriseChargerSurveyImageUrl = d;
     },
     setEnterpriseShindImageUrl(d) {
-      this.obj.enterpriseShindImageUrl = d;
+      this.enterpriseShindImageUrl = d;
     },
     setAuthorizationImageUrl(d) {
-      this.obj.authorizationImageUrl = d;
+      this.authorizationImageUrl = d;
     },
     setOtherImageUrl(d) {
-      this.obj.otherImageUrl = d;
+      this.otherImageUrl = d;
     },
-    submit() {
-      this.$router.push('/decEntMsg');
+    async submit() {
+      this.validate2();
+      if (this.errMsg.length !== 0) {
+        clearTimeout(this.timer);
+        this.timer = setTimeout(() => { this.errMsg = []; }, 3000);
+        return;
+      }
+      const param = {};
+      param.name = this.name;
+      param.charger = this.charger;
+      param.cellphone = this.cellphone;
+      param.idNumber = this.idNumber;
+      param.idFrontUrl = this.idFrontUrl;
+      param.idBackUrl = this.idBackUrl;
+      param.licenseImageUrl = this.licenseImageUrl;
+      param.productionImageUrl = this.productionImageUrl;
+      param.capitalImageUrl = this.capitalImageUrl;
+      param.enterpriseSurveyImageUrl = this.enterpriseSurveyImageUrl;
+      param.enterpriseChargerSurveyImageUrl = this.enterpriseChargerSurveyImageUrl;
+      param.enterpriseShindImageUrl = this.enterpriseShindImageUrl;
+      param.authorizationImageUrl = this.authorizationImageUrl;
+      param.otherImageUrl = this.otherImageUrl;
+      const res = await this.$xhr('post', DECLARE_POST_ENTERPRISE, param);
+      if (res.data.code === 0) {
+        this.$router.push('/decEnt/messeag');
+      }
     },
   },
   components: {

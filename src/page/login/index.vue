@@ -77,10 +77,10 @@
           <span class="glyphicon glyphicon-volume-up"></span> 系统公告
         </div>
         <div class="col-sm-9">
-          <router-link :to="'/sysMsgDetail/'+sysMsgId">{{sysMsgTitle}}</router-link>
+          <router-link :to="'/sys/msg/detail/'+sysMsgId">{{sysMsgTitle}}</router-link>
         </div>
         <div class="col-sm-2">
-          <router-link to="/sysMsg">更多>></router-link>
+          <router-link to="/sys/msg/list">更多>></router-link>
         </div>
       </div>
       <!-- 公告 结束 -->
@@ -152,7 +152,7 @@ import ssjglzx from '@/assets/img/ssjglzx.png';
 import waveTop from '@/assets/img/wave-top.png';
 import waveMiddle from '@/assets/img/wave-mid.png';
 import waveBottom from '@/assets/img/wave-bot.png';
-import { CHECKNUMBER, DOMAIN, DECLARE_LOGIN } from '@/config/env';
+import { CHECKNUMBER, DOMAIN, DECLARE_LOGIN, PUBLICS_GET_NOTICES_NEWEST } from '@/config/env';
 
 export default {
   name: 'login',
@@ -181,13 +181,18 @@ export default {
       waveBottomd: {
         backgroundImage: `url(${waveBottom})`,
       },
-      sysMsgTitle: '申报机构报名办理指南，请认真阅读 第二批申报机构申报官培训时间安排',
-      sysMsgId: '1',
+      sysMsgTitle: '',
+      sysMsgId: '',
     };
   },
   methods: {
-    init() {
+    async init() {
       this.username = getCookie('username');
+      const res = await this.$xhr('get', PUBLICS_GET_NOTICES_NEWEST);
+      if (res.data.code === 0) {
+        this.sysMsgId = res.data.data.id;
+        this.sysMsgTitle = res.data.data.title;
+      }
     },
     async login() {
       const data = {
@@ -199,23 +204,21 @@ export default {
       const res = await this.$xhr('post', DECLARE_LOGIN, data);
       if (res.data.code === 0) {
         setCookie('username', this.username, 1000 * 60);
-        setCookie('token', res.data.data.token, 1000 * 60);
+        setCookie('sb_token', res.data.data.token, 1000 * 60);
         setCookie('rule', res.data.data.rule, 1000 * 60);
         setCookie('state', res.data.data.state, 1000 * 60);
-        setCookie('state', 'pass', 1000 * 60);
-        // res.data.data.state = 'baseWaitAudit';
         if (res.data.data.state === 'baseWaitSubmit') {
-          setTimeout(() => { this.$router.push('/step2'); }, 1000);
-        } else if (res.data.data.state === 'baseWaitAudit') {
+          setTimeout(() => { this.$router.push('/step2/1'); }, 1000);
+        } else if (res.data.data.state === 'baseWaitPending' || res.data.data.state === 'baseWaitAudit' || res.data.data.state === 'baseWaitPended') {
           setTimeout(() => { this.$router.push('/step3'); }, 1000);
-        } else if (res.data.data.state === 'baseUnAudit') {
-          setTimeout(() => { this.$router.push('/step2'); }, 1000);
+        } else if (res.data.data.state === 'baseWaitUnPending' || res.data.data.state === 'baseUnPass') {
+          setTimeout(() => { this.$router.push('/step2/2'); }, 1000);
         } else if (res.data.data.state === 'registWaitSubmit') {
-          setTimeout(() => { this.$router.push('/step4'); }, 1000);
-        } else if (res.data.data.state === 'registWaitAudit') {
+          setTimeout(() => { this.$router.push('/step4/1'); }, 1000);
+        } else if (res.data.data.state === 'registWaitAudit' || res.data.data.state === 'registWaitPended' || res.data.data.state === 'registWaitPending') {
           setTimeout(() => { this.$router.push('/step5'); }, 1000);
-        } else if (res.data.data.state === 'registUnPass') {
-          setTimeout(() => { this.$router.push('/step4'); }, 1000);
+        } else if (res.data.data.state === 'registUnPass' || res.data.data.state === 'registWaitUnPending') {
+          setTimeout(() => { this.$router.push('/step4/2'); }, 1000);
         } else {
           setTimeout(() => { this.$router.push('/index'); }, 1000);
         }

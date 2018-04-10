@@ -84,7 +84,7 @@
               <div class="form-group col-sm-4 txr">
               </div>
               <div class="form-group col-sm-8 imb">
-                  <button class="btn js-ajax-submit" @click="subimit">提交</button>
+                  <button class="btn js-ajax-submit" @click="submit">提交</button>
               </div>
           </div>
         </div>
@@ -103,6 +103,7 @@ import bigImg from '@/components/bigImg';
 import apparea from '@/components/reegionalCascade/appArea';
 import rules from '@/config/rules';
 import errInfo from '@/components/info/error';
+import { DECLARE_PUT_REGISTINFO, DECLARE_GET_BASEINFO } from '@/config/env';
 
 export default {
   name: 'step4',
@@ -139,28 +140,24 @@ export default {
     validate() {
       this.errMsg = [];
       //  申报机构尽职调查表
-      if (this.surveyImageUrl === '') {
+      if (!this.surveyImageUrl) {
         this.errMsg.push(`${rules.upload}${rules.surveyImageUrl}`);
       }
       //  申报机构承诺公函
-      if (this.letterImageUrl === '') {
+      if (!this.letterImageUrl) {
         this.errMsg.push(`${rules.upload}${rules.letterImageUrl}`);
       }
       //  负责人尽职调查表
-      if (this.chargerSurveyImageUrl === '') {
+      if (!this.chargerSurveyImageUrl) {
         this.errMsg.push(`${rules.upload}${rules.chargerSurveyImageUrl}`);
       }
       //  负责人承诺公函
-      if (this.chargerImageUrl === '') {
+      if (!this.chargerImageUrl) {
         this.errMsg.push(`${rules.upload}${rules.chargerImageUrl}`);
       }
       //  企业工商营业执照
-      if (this.commerceImageUrl === '') {
+      if (!this.commerceImageUrl) {
         this.errMsg.push(`${rules.upload}${rules.commerceImageUrl}`);
-      }
-      //  其他补充材料
-      if (this.otherImageUrl === '') {
-        this.errMsg.push(`${rules.upload}${rules.otherImageUrl}`);
       }
     },
     bigimg(src) {
@@ -188,7 +185,7 @@ export default {
     setOtherImageUrl(d) {
       this.otherImageUrl = d;
     },
-    subimit() {
+    async submit() {
       this.validate();
       const obj = {};
       obj.surveyImageUrl = this.surveyImageUrl;
@@ -197,14 +194,31 @@ export default {
       obj.chargerImageUrl = this.chargerImageUrl;
       obj.commerceImageUrl = this.commerceImageUrl;
       obj.otherImageUrl = this.otherImageUrl;
-      if (this.errMsg.length === 0) {
+      if (this.errMsg.length !== 0) {
+        return;
+      }
+      const res = await this.$xhr('post', DECLARE_PUT_REGISTINFO, obj);
+      if (res.data.code === 0) {
         this.$router.push('/step5');
       }
     },
   },
-  mounted() {
-    // const res = await this.$xhr('post', DECLARE_LOGIN_DO_ADDRESS, data);
-    this.errMsg.push('您的身份证号码与你的真实姓名不匹配，需要重新提交');
+  async mounted() {
+    if (this.$route.params.type === '1') {
+      return;
+    }
+    const res = await this.$xhr('get', DECLARE_GET_BASEINFO);
+    if (res.data.code === 0) {
+      this.surveyImageUrl = res.data.data.surveyImageUrl;
+      this.letterImageUrl = res.data.data.letterImageUrl;
+      this.chargerSurveyImageUrl = res.data.data.chargerSurveyImageUrl;
+      this.chargerImageUrl = res.data.data.chargerImageUrl;
+      this.commerceImageUrl = res.data.data.commerceImageUrl;
+      this.otherImageUrl = res.data.data.otherImageUrl;
+      if (res.data.data.reason) {
+        this.errMsg.push(res.data.data.reason);
+      }
+    }
   },
 };
 </script>

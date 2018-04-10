@@ -5,40 +5,39 @@
       <br/>
       <br/>
       <br/>
-      <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>姓名</th>
-              <th>帐号</th>
-              <th>密码</th>
-              <th>权限</th>
-              <th>操作</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="item of lists">
-              <th scope="row">{{item.name}}</th>
-              <td>{{item.acount}}</td>
-              <td style="color: #ac2925;">{{item.password}} <span class="glyphicon glyphicon-question-sign"></span></td>
-              <td>{{item.role}}</td>
-              <td>
-                <router-link to="/userdetail">查看</router-link>
-                <a>删除</a> 
-                <router-link to="/useredit">修改</router-link>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <v-pagination :page="pages" @nextPage="search"></v-pagination>
-        <div style="clear: both;"></div>
+      <div v-show="lists.length > 0">
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>姓名</th>
+                <th>帐号</th>
+                <!-- <th>密码</th> -->
+                <th>权限</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="item of lists">
+                <td>{{item.declarerName}}</td>
+                <td>{{item.acount}}</td>
+                <!-- <td>{{item.password}}</td> -->
+                <td>{{item.role}}</td>
+                <td>
+                  <router-link :to="'/user/detail/1/'+item.id">查看</router-link>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <v-pagination :page="pages" @nextPage="search"></v-pagination>
+          <div style="clear: both;"></div>
+        </div>
     </div>
   </div>
 </template>
 
 <script>
-import upload from '@/components/upload';
-import bigImg from '@/components/bigImg';
 import pagination from '@/components/pagination';
+import { DECLARE_GET_USER_ACOUNT, DECLARE_GET_USER_ACOUNT_COUNT } from '@/config/env';
 
 export default {
   name: 'userlist',
@@ -46,42 +45,52 @@ export default {
     return {
       showImg: false,
       lists: [],
+      page: 1,
+      rows: 10,
+      pages: 0,
     };
   },
   methods: {
-    bigimg(src) {
-      this.imgSrc = src;
-      this.showImg = true;
-    },
-    viewImg() {
-      this.showImg = false;
-    },
-    search() {
-      this.lists = [
-        {
-          id: '用户id',
-          name: '用户名',
-          acount: '账户',
-          password: '密码',
-          role: '权限',
-        },
-        {
-          id: '用户id',
-          name: '用户名',
-          acount: '账户',
-          password: '密码',
-          role: '权限',
-        },
-      ];
+    async search(page) {
+      const param = {};
+      if (!page) {
+        param.page = this.page;
+      } else {
+        param.page = page;
+      }
+      param.rows = this.rows;
+      const res = await this.$xhr('get', DECLARE_GET_USER_ACOUNT, param);
+      if (res.data.code === 0) {
+        this.lists = res.data.data;
+        this.lists.forEach((o) => {
+          const role = [];
+          if (o.role) {
+            o.role.split(',').forEach((d) => {
+              if (d === '1') {
+                role.push('申报企业');
+              }
+              if (d === '2') {
+                role.push('企业列表');
+              }
+              if (d === '3') {
+                role.push('推荐列表');
+              }
+            });
+            o.role = role.join(',');
+          }
+        });
+      }
+      const res2 = await this.$xhr('get', DECLARE_GET_USER_ACOUNT_COUNT);
+      if (res2.data.success) {
+        this.pages = Math.ceil(res2.data.data / param.rows);
+      }
     },
   },
   components: {
-    'v-upload': upload,
-    'v-bigimg': bigImg,
     'v-pagination': pagination,
   },
   mounted() {
-    this.search();
+    this.search(1);
   },
 };
 </script>

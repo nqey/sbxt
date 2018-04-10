@@ -24,8 +24,8 @@
         </div>
         <div class="form-group col-sm-11 imb">
           <select class="form-control" v-model="declarerId">
-            <option>请选择</option>
-  		      <option v-for="item of targets" value="item.id">{{item.name}}</option>
+            <option value="">请选择</option>
+  		      <option v-for="item of targets" :value="item.id">{{item.name}}</option>
   		    </select>
         </div>
         <div class="form-group col-sm-1 txr">
@@ -49,8 +49,7 @@
 </template>
 
 <script>
-import upload from '@/components/upload';
-import bigImg from '@/components/bigImg';
+import { DECLARE_GET_DECLARER_SIMPLE, DECLARE_POST_USER_ACOUNT } from '@/config/env';
 
 export default {
   name: 'user',
@@ -65,54 +64,32 @@ export default {
       c: '',
       showImg: false,
       targets: [],
-      obj: {},
     };
   },
   methods: {
-    bigimg(src) {
-      this.imgSrc = src;
-      this.showImg = true;
+    async submit() {
+      const param = {};
+      param.name = this.name;
+      param.password = this.password;
+      param.declarerId = this.declarerId;
+      param.function = [];
+      param.function.push(this.a ? 1 : 0);
+      param.function.push(this.b ? 2 : 0);
+      param.function.push(this.c ? 3 : 0);
+      const res = await this.$xhr('post', DECLARE_POST_USER_ACOUNT, param);
+      if (res.data.code === 0) {
+        setTimeout(() => { this.$router.push('/user/msg'); }, 1000);
+      }
     },
-    viewImg() {
-      this.showImg = false;
+    async init() {
+      const res = await this.$xhr('get', DECLARE_GET_DECLARER_SIMPLE);
+      if (res.data.code === 0) {
+        this.targets = res.data.data;
+      }
     },
-    submit() {
-      this.obj.name = this.name;
-      this.obj.password = this.password;
-      this.obj.declarerId = this.declarerId;
-      this.obj.function = [];
-      this.obj.function.push(this.a ? 1 : 0);
-      this.obj.function.push(this.b ? 1 : 0);
-      this.obj.function.push(this.c ? 1 : 0);
-      // console.log(this.obj);
-    },
-    search() {
-      this.targets = [
-        {
-          id: '1',
-          name: '李银',
-        },
-        {
-          id: '2',
-          name: '孔清',
-        },
-        {
-          id: '3',
-          name: '刘超',
-        },
-        {
-          id: '4',
-          name: '张月',
-        },
-      ];
-    },
-  },
-  components: {
-    'v-upload': upload,
-    'v-bigimg': bigImg,
   },
   mounted() {
-    this.search();
+    this.init();
   },
 };
 </script>

@@ -49,7 +49,7 @@
 import registerHead from '@/components/registerHead/head';
 import errInfo from '@/components/info/error';
 import rules from '@/config/rules';
-import { DECLARE_GET_VALIDATECODE } from '@/config/env';
+import { DECLARE_GET_VALIDATECODE, DECLARE_PUT_PASSWORD } from '@/config/env';
 
 export default {
   name: 'step1',
@@ -101,6 +101,7 @@ export default {
       }
     },
     async getCode() {
+      this.errMsg = [];
       // 手机号码验证
       if (!rules.mPattern.pattern.test(this.cellphone)) {
         this.errMsg.push(rules.mPattern.message);
@@ -120,21 +121,23 @@ export default {
           }
         }, 1000);
       }
-      const res = await this.$xhr('get', `${DECLARE_GET_VALIDATECODE}regiset/${this.cellphone}`);
-      if (!res.data.success) {
-        // console.log(res);
+      const res = await this.$xhr('get', `${DECLARE_GET_VALIDATECODE}find/${this.cellphone}`);
+      if (!res.data.code === 0) {
         this.errMsg.push(res.data.message);
       }
     },
     async submit() {
       this.validate2();
-      if (this.errMsg.length === 0) {
-        const param = {};
-        param.cellphone = this.cellphone;
-        param.password = this.password;
-        param.repassword = this.repassword;
-        param.code = this.code;
-        // const res = await this.$xhr('post', DECLARE_ORGANIZ, param);
+      if (this.errMsg.length !== 0) {
+        return;
+      }
+      const param = {};
+      param.cellphone = this.cellphone;
+      param.newPassword = this.password;
+      param.confirmPassword = this.repassword;
+      param.code = this.code;
+      const res = await this.$xhr('post', DECLARE_PUT_PASSWORD, param);
+      if (res.data.code === 0) {
         this.$router.push('/password/reset/msg');
       }
     },

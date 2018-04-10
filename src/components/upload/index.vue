@@ -11,7 +11,7 @@
                 <img :src="del" class="upload_warp_img_div_del" @click="fileDel(index)">
               </div>
               <div class="upload_warp_img_div_bottom" @click="sendImgSrc(item.file.src)">
-                <span class="glyphicon glyphicon-resize-full" ></span>
+                <span class="glyphicon glyphicon-resize-full" style="top: -39px;"></span>
               </div>
               <img :src="item.file.src" >
             </div>
@@ -39,7 +39,7 @@
 import del from '@/assets/img/del.png';
 import upload from '@/assets/img/upload.png';
 import wenjian from '@/assets/img/wenjian.png';
-import { DECLARE_POST_UPLOAD } from '@/config/env';
+import { DECLARE_POST_UPLOAD, IMAGE_SERVER_URL } from '@/config/env';
 
 export default {
   name: 'upload',
@@ -52,6 +52,7 @@ export default {
       imgList: [],
       size: 0,
       showImg: false,
+      isE: true,
       imgSrc: '',
       imgRes: [],
     };
@@ -65,6 +66,7 @@ export default {
       if (!el.target.files[0].size) return;
       this.fileList(el.target);
       this.upFile(el.target.files[0]);
+      this.isE = false;
       el.target.value = '';
     },
     fileList(fileList) {
@@ -168,18 +170,29 @@ export default {
       this.imgRes.push(res.data.data[0]);
       this.$emit('acceptData', this.imgRes.join(','));
     },
+    setImgSrc() {
+      if (this.imgUrl && this.isE) {
+        this.imgSrc = `${IMAGE_SERVER_URL}${this.imgUrl}`;
+        this.showImg = true;
+      }
+      if (this.imgUrl && this.isE) {
+        this.imgUrl.split(',').forEach((f) => {
+          this.imgRes.push(f);
+          const o = {
+            file: {
+              src: `${IMAGE_SERVER_URL}${f}`,
+            },
+          };
+          this.imgList.push(o);
+        });
+      }
+    },
+  },
+  watch: {
+    imgUrl: 'setImgSrc',
   },
   mounted() {
-    if (this.imgUrl) {
-      this.imgUrl.split(',').forEach((f) => {
-        const o = {
-          file: {
-            src: f,
-          },
-        };
-        this.imgList.push(o);
-      });
-    }
+    this.setImgSrc();
   },
 };
 </script>
@@ -208,17 +221,15 @@ export default {
 }
 
 .upload_warp_img_div_bottom {
+  width: 18px;
+  height: 18px;
   position: absolute;
-  bottom: 0;
-  width: 30px;
-  height: 30px;
-  background-color: rgba(0, 0, 0, 0.4);
-  line-height: 35px;
-  text-align: left;
+  right: 0px;
+  bottom: 0px;
+  background-color: #646a7f;
   color: #fff;
-  font-size: 12px;
-  text-indent: 4px;
-  right: 0;
+  text-align: center;
+  z-index: 999;
 }
 
 .upload_warp_img_div_text {

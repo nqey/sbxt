@@ -27,12 +27,12 @@ export default {
   },
   methods: {
     checkLogin() {
-      const arr = ['step', 'login', 'sysMsg', 'agency', 'reset'];
+      const arr = ['step', 'login', 'sys/msg', 'agency', 'reset'];
       this.match(arr);
-      // if (this.showMenu && !getCookie('token')) {
-      //   // 如果没有登录状态则跳转到登录页
-      //   this.$router.push('/login');
-      // }
+      if (this.showMenu && !getCookie('token')) {
+        // 如果没有登录状态则跳转到登录页
+        this.$router.push('/login');
+      }
     },
     match(arr) {
       this.showMenu = arr.every((d) => {

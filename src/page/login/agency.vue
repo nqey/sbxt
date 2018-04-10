@@ -15,7 +15,7 @@
          </div>
           <div class="col-sm-6">
             <div class="input-group">
-               <button class="btn ss" @click="search">搜索</button>
+               <button class="btn ss" @click="search(1)">搜索</button>
             </div>
           </div>
         </div>
@@ -53,7 +53,7 @@
 import pagination from '@/components/pagination';
 import lhead from '@/components/registerHead/lhead';
 import agencyArea from '@/components/reegionalCascade/geoArea';
-import { DECLARE_GET_DECLARE_ORGANIZ, DECLARE_GET_DECLARE_FWZX, DECLARE_GET_DECLARE_FWZX_COUNT } from '@/config/env';
+import { DECLARE_GET_DECLARE_ORGANIZ, DECLARE_GET_DECLARE_ORGANIZ_COUNT, DECLARE_GET_DECLARE_FWZX, DECLARE_GET_DECLARE_FWZX_COUNT } from '@/config/env';
 
 export default {
   name: 'agency',
@@ -64,8 +64,9 @@ export default {
       api: '',
       apiC: '',
       name: '',
-      pages: 1,
-      rows: 20,
+      page: 1,
+      rows: 10,
+      pages: 0,
       resData: [],
     };
   },
@@ -75,20 +76,27 @@ export default {
     'v-agencyarea': agencyArea,
   },
   methods: {
-    async search() {
+    async search(page) {
       const param = {};
       param.areaCode = this.areaCode;
       param.name = this.name;
+      if (!page) {
+        param.page = this.page;
+      } else {
+        param.page = page;
+      }
+      param.rows = this.rows;
       const res = await this.$xhr('get', this.api, param);
-      if (res.data.success) {
+      if (res.data.code === 0) {
         this.resData = res.data.data;
       }
-
-      const resC = await this.$xhr('get', this.apiC, param);
+      const param2 = {};
+      param2.areaCode = this.areaCode;
+      param2.name = this.name;
+      const resC = await this.$xhr('get', this.apiC, param2);
       if (resC.data.success) {
-        this.resData = res.data.data;
+        this.pages = Math.ceil(resC.data.data / this.rows);
       }
-      this.pages = 10;
     },
     setLiveAddress(d) {
       this.areaCode = d;
@@ -98,6 +106,7 @@ export default {
     if (this.$route.params.type === '1') {
       this.title = '申报机构';
       this.api = DECLARE_GET_DECLARE_ORGANIZ;
+      this.apiC = DECLARE_GET_DECLARE_ORGANIZ_COUNT;
     } else if (this.$route.params.type === '2') {
       this.title = '市级管理中心';
       this.api = DECLARE_GET_DECLARE_FWZX;
@@ -107,6 +116,7 @@ export default {
       this.api = DECLARE_GET_DECLARE_ORGANIZ;
       this.apiC = DECLARE_GET_DECLARE_FWZX_COUNT;
     }
+    this.search(1);
   },
 };
 </script>

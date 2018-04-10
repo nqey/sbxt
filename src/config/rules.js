@@ -61,6 +61,14 @@ export default {
   portrait: '寸照',
   surveyImageUrl: '尽职调查表',
   letterImageUrl: '承诺公函',
+  charger: '企业负责人',
+  licenseImageUrl: '营业执照',
+  productionImageUrl: '生产许可证',
+  capitalImageUrl: '资金补贴申报表',
+  enterpriseSurveyImageUrl: '企业尽职调查表',
+  enterpriseChargerSurveyImageUrl: '企业负责人尽职调查表',
+  enterpriseShindImageUrl: '企业入库申请函',
+  authorizationImageUrl: '授权委托书',
   // URL正则
   // urlP: /^((https?|ftp|file):\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/,
   // IPv4地址正则

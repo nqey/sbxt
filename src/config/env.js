@@ -12,7 +12,7 @@ const ENTERPRISE_BASE_URL = (() => {
     case 'test':
       return '//ep.lh-xm.com/';
     case 'online':
-      return '//ep.cpsdb.com/';
+      return '//ep.cpsdb77.com/';
     default :
       return location.hostname.indexOf(LOCAL_URL) >= 0
         ? `//cps${LOCAL_URL}/enterprise/`
@@ -36,7 +36,7 @@ const IMAGE_SERVER_URL = (() => {
     case 'test':
       return '//pic.lh-xm.com/';
     case 'online':
-      return '//pic.cpsdb.com/';
+      return '//pic.cpsdb77.com/';
     default :
       return '//192.168.1.47:9000/';
   }
@@ -83,9 +83,9 @@ const DECLARE_GET_VALIDATECODE = `${DECLARE_BASE_URL}publics/validatecode/`;
 // 通用图片上传
 const DECLARE_POST_UPLOAD = `${ENTERPRISE_BASE_URL}publics/file/upload`;
 // 获取地区树
-const DECLARE_GET_AREA_TREE = `${DECLARE_BASE_URL}publics/area/tree`;
+const DECLARE_GET_AREA_TREE = `${ENTERPRISE_BASE_URL}publics/area/tree`;
 // 选择推荐机构 + {name}
-const DECLARE_RECOMMEND_ORGANIZ = `${DECLARE_BASE_URL}publics/recommend/organiz/`;
+const DECLARE_GET_RECOMMEND_ORGANIZ = `${DECLARE_BASE_URL}publics/recommend/organiz/`;
 // 获取负责区域名额 + {areaCode}
 const DECLARE_AREALIMIT_AREACODE = `${DECLARE_BASE_URL}publics/areaLimit/`;
 // 查询未通过的机构信息
@@ -101,7 +101,7 @@ const DECLARE_PUT_PASSWORD = `${DECLARE_BASE_URL}organiz/password`;
 // 添加申报官
 const DECLARE_POST_DECLARER = `${DECLARE_BASE_URL}organiz/declarer/info`;
 // 更新申报官 + {id}
-const DECLARE_PUT_DECLARER = `${DECLARE_BASE_URL}organiz/declarer`;
+const DECLARE_PUT_DECLARER = `${DECLARE_BASE_URL}organiz/declarer/`;
 // 申报官验证唯一性 + {type}/{value}
 const DECLARE_GET_DECLARER_VALIDATE = `${DECLARE_BASE_URL}organiz/declarer/validate/`;
 // 查询申报官列表
@@ -121,7 +121,7 @@ const DECLARE_GET_ENTERPRISE_LIST = `${DECLARE_BASE_URL}organiz/enterprise/list`
 // 查询企业总条数
 const DECLARE_GET_ENTERPRISE_COUNT = `${DECLARE_BASE_URL}organiz/enterprise/count`;
 // 查询申报企业详情 + id
-const DECLARE_GET_ENTERPRISE_ID = `${DECLARE_BASE_URL}organiz/enterprise/{id}`;
+const DECLARE_GET_ENTERPRISE_ID = `${DECLARE_BASE_URL}organiz/enterprise/`;
 // 查询推荐列表
 const DECLARE_GET_RECOMMEND = `${DECLARE_BASE_URL}organiz/recommend`;
 // 查询推荐列表总条数
@@ -139,7 +139,7 @@ const DECLARE_GET_USER_ACOUNT_COUNT = `${DECLARE_BASE_URL}organiz/user/acount/co
 // 查询账号详情 + {id}
 const DECLARE_GET_USER_ACOUNT_ID = `${DECLARE_BASE_URL}organiz/user/acount/`;
 // 删除账号 + {id}
-const DECLARE_DELETE_USER_ACOUNT_ID = `${DECLARE_BASE_URL}organiz/user/acount/`;
+const DECLARE_DELETE_USER_ACOUNT_ID = `${DECLARE_BASE_URL}organiz/user/delete/`;
 // 查询申报机构列表
 const DECLARE_GET_DECLARE_ORGANIZ = `${DECLARE_BASE_URL}publics/declare/organiz`;
 // 查询账号列表总数
@@ -188,6 +188,15 @@ const PLATFORM_PUT_DECLARER_ENTERPRISE_AUDIT = `${DECLARE_BASE_URL}platform/decl
 const PLATFORM_GET_DECLARER_EXAMINATION = `${DECLARE_BASE_URL}publics/declarer/examination`;
 // 根据考生的id更新考生的总分数;
 const PLATFORM_POST_DECLARER_SCORE = `${DECLARE_BASE_URL}platform/declarer/score`;
+// ================================公告===================================================
+// 最新显示在页面上的信息
+const PUBLICS_GET_NOTICES_NEWEST = `${DECLARE_BASE_URL}/publics/notices/newest`;
+// 系统公告的详情 + {id}
+const PUBLICS_GET_NOTICES_DETAILS = `${DECLARE_BASE_URL}/publics/notices/details/`;
+// 动态条件查询下的系统公告的分页内容列表
+const PUBLICS_GET_NOTICES_LISTING = `${DECLARE_BASE_URL}/publics/notices/listing`;
+// 动态条件查询下的系统公告的分页内容列表
+const PUBLICS_GET_NOTICES_COUNTS = `${DECLARE_BASE_URL}/publics/notices/counts`;
 
 export {
   test,
@@ -206,7 +215,7 @@ export {
   DECLARE_GET_VALIDATECODE,
   DECLARE_POST_UPLOAD,
   DECLARE_GET_AREA_TREE,
-  DECLARE_RECOMMEND_ORGANIZ,
+  DECLARE_GET_RECOMMEND_ORGANIZ,
   DECLARE_AREALIMIT_AREACODE,
   DECLARE_UNPASS,
   DECLARE_PUT_BASEINFO,
@@ -257,4 +266,8 @@ export {
   PLATFORM_PUT_DECLARER_ENTERPRISE_AUDIT,
   PLATFORM_GET_DECLARER_EXAMINATION,
   PLATFORM_POST_DECLARER_SCORE,
+  PUBLICS_GET_NOTICES_NEWEST,
+  PUBLICS_GET_NOTICES_DETAILS,
+  PUBLICS_GET_NOTICES_LISTING,
+  PUBLICS_GET_NOTICES_COUNTS,
 };

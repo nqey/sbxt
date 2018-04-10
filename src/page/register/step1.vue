@@ -56,6 +56,7 @@ import registerHead from '@/components/registerHead';
 import errInfo from '@/components/info/error';
 import rules from '@/config/rules';
 import { DECLARE_GET_VALIDATECODE, DECLARE_POST_ORGANIZ } from '@/config/env';
+import { setCookie } from '@/config/cookie';
 
 export default {
   name: 'step1',
@@ -95,15 +96,15 @@ export default {
     validate2() {
       this.validate();
       // 手机号码验证
-      if (this.cellphone === '') {
+      if (!this.cellphone) {
         this.errMsg.push(`${rules.nonEmpty}${rules.phone}`);
       }
       // 密码强度验证
-      if (this.password === '') {
+      if (!this.password) {
         this.errMsg.push(`${rules.nonEmpty}${rules.password}`);
       }
       // 验证码验证
-      if (this.code === '') {
+      if (!this.code) {
         this.errMsg.push(`${rules.nonEmpty}${rules.validatecode}`);
       }
       // 同意验证
@@ -142,7 +143,9 @@ export default {
         param.repassword = this.repassword;
         param.code = this.code;
         const res = await this.$xhr('post', DECLARE_POST_ORGANIZ, param);
-        if (res.data.success) {
+        if (res.data.code === 0) {
+          setCookie('sb_token', res.data.data, 1000 * 60);
+          setCookie('username', param.username, 1000 * 60);
           this.$router.push('/step11');
         }
       }

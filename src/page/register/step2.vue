@@ -34,7 +34,7 @@
                   <label class="label_height">常住地址：</label>
               </div>
               <div class="col-sm-7 imb">
-                  <v-geoarea @acceptData="setLiveAddress"></v-geoarea>
+                  <v-geoarea :areacode="areacode" @acceptData="setLiveAddress"></v-geoarea>
                   <div class='mt'>
                      <input type='text' class='form-control iw' placeholder='请输入详细地址' v-model="address">
                   </div>
@@ -43,14 +43,15 @@
                   <label class="label_height">选择申请区域：</label>
               </div>
               <div class="col-sm-7 imb">
-                  <v-apparea @acceptData="setApplyAddress"></v-apparea>
+                  <span class="label_height" v-show="$route.params.type === '2'">{{ organizAddress }}</span>
+                  <v-apparea v-show="$route.params.type === '1'" @acceptData="setApplyAddress"></v-apparea>&#12288;
               </div>
               <div class="form-group col-sm-5 txr">
                   <label class="label_height">推荐机构：</label>
               </div>
               <div class="form-group col-sm-7 imb">
                   <input type="text" @input="showRecommendName" class="form-control iw600" placeholder="请输入推荐机构" v-model="recommendName">
-                  <div class="bdsug" v-show="isShowRecommendName">
+                  <div class="bdsug" v-show="list.length > 0">
                    <ul>
                     <li v-for="(item, index) of list" @click="setRecommendName(index)">{{item.name}}</li>
                    </ul>
@@ -83,14 +84,13 @@ import bigImg from '@/components/bigImg';
 import apparea from '@/components/reegionalCascade/appArea';
 import errInfo from '@/components/info/error';
 import rules from '@/config/rules';
-// { DECLARE_PUT_BASEINFO, DECLARE_RECOMMEND_ORGANIZ, DECLARE_GET_BASEINFO } from '@/config/env';
+import { DECLARE_PUT_BASEINFO, DECLARE_GET_RECOMMEND_ORGANIZ, DECLARE_GET_BASEINFO } from '@/config/env';
 
 export default {
   name: 'step2',
   data() {
     return {
       showImg: false,
-      isShowRecommendName: false,
       imgSrc: '',
       name: '',
       idNumber: '',
@@ -103,7 +103,8 @@ export default {
       recommendOrgnizId: '',
       recommendOrgnizType: '',
       enterpriseName: '',
-      obj: {},
+      organizAddress: '',
+      areacode: '',
       list: [],
       errMsg: [],
     };
@@ -154,10 +155,10 @@ export default {
       if (this.applyAddress === '') {
         this.errMsg.push(`${rules.select}${rules.applyAddress}`);
       }
-      // 推荐机构验证
-      if (this.recommendOrgnizId === '') {
-        this.errMsg.push(`${rules.nonEmpty}${rules.ecommendOrgniz}`);
-      }
+      // // 推荐机构验证
+      // if (this.recommendOrgnizId === '') {
+      //   this.errMsg.push(`${rules.nonEmpty}${rules.ecommendOrgniz}`);
+      // }
       // 企业全称
       if (this.enterpriseName === '') {
         this.errMsg.push(`${rules.nonEmpty}${rules.enterpriseName}`);
@@ -184,51 +185,63 @@ export default {
     },
     setRecommendName(index) {
       this.recommendName = this.list[index].name;
-      this.isShowRecommendName = false;
       this.recommendOrgnizId = this.list[index].id;
       this.recommendOrgnizType = this.list[index].type;
+      this.list = [];
     },
-    showRecommendName() {
-      // get http todo
-      this.list = [
-        {
-          id: '001',
-          type: '1',
-          name: '四川中新华搜信息技术有限公司1',
-        },
-        {
-          id: '002',
-          type: '2',
-          name: '四川中新华搜信息技术有限公司2',
-        },
-        {
-          id: '003',
-          type: '3',
-          name: '四川中新华搜信息技术有限公司3',
-        },
-      ];
-      this.isShowRecommendName = true;
+    async showRecommendName() {
+      const res = await this.$xhr('get', `${DECLARE_GET_RECOMMEND_ORGANIZ}${this.recommendName}`);
+      if (res.data.code === 0) {
+        this.list = res.data.data;
+      }
     },
-    submit() {
+    async submit() {
       this.validate2();
-      this.obj.name = this.name;
-      this.obj.idNumber = this.idNumber;
-      this.obj.idFrontUrl = this.idFrontUrl;
-      this.obj.idBackUrl = this.idBackUrl;
-      this.obj.recommendOrgnizId = this.recommendOrgnizId;
-      this.obj.recommendOrgnizType = this.recommendOrgnizType;
-      this.obj.enterpriseName = this.enterpriseName;
-      this.obj.liveAddress = this.liveAddress;
-      this.obj.address = this.address;
-      this.obj.applyAddress = this.applyAddress;
-      if (this.errMsg.length === 0) {
+      const param = {};
+      param.name = this.name;
+      param.idNumber = this.idNumber;
+      param.idFrontUrl = this.idFrontUrl;
+      param.idBackUrl = this.idBackUrl;
+      param.recommendOrgnizId = this.recommendOrgnizId;
+      param.recommendOrgnizType = this.recommendOrgnizType;
+      param.enterpriseName = this.enterpriseName;
+      param.liveAddress = this.liveAddress;
+      param.address = this.address;
+      if (this.$route.params.type === '1') {
+        param.applyAddress = this.applyAddress;
+      }
+      if (this.errMsg.length !== 0) {
+        return;
+      }
+      const res = await this.$xhr('post', DECLARE_PUT_BASEINFO, param);
+      if (res.data.code === 0) {
         this.$router.push('/step3');
       }
     },
   },
-  mounted() {
-    // const res = await this.$xhr('post', DECLARE_LOGIN_DO_ADDRESS, data);
-    // this.errMsg.push('您的身份证号码与你的真实姓名不匹配，需要重新提交');
+  async mounted() {
+    if (this.$route.params.type === '1') {
+      return;
+    }
+    const res = await this.$xhr('get', DECLARE_GET_BASEINFO);
+    if (res.data.code === 0) {
+      this.name = res.data.data.name;
+      this.idNumber = res.data.data.idNumber;
+      this.idFrontUrl = res.data.data.idFrontUrl;
+      this.idBackUrl = res.data.data.idBackUrl;
+      this.recommendName = res.data.data.recommentName;
+      this.recommendOrgnizId = res.data.data.recommendOrgnizId;
+      this.recommendOrgnizType = res.data.data.recommendOrgnizType;
+      this.enterpriseName = res.data.data.organizName;
+      this.liveAddress = res.data.data.liveAddress;
+      this.address = res.data.data.address;
+      this.applyAddress = res.data.data.applyAddress;
+      this.organizAddress = res.data.data.organizAddress;
+      this.areacode = `${res.data.data.liveProvice},${res.data.data.liveCity},${res.data.data.liveDistrict}`;
+      if (res.data.data.reason) {
+        this.errMsg.push(res.data.data.reason);
+      }
+    }
   },
 };
 </script>

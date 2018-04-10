@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="bs-example">
-  		<span class="t_nav">&#12288;&#12288;通知详情</span>
+  		<span class="t_nav">&#12288;通知详情</span>
 		<br/>
         <br/>
         <br/>
@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import { PUBLICS_GET_NOTICES_DETAILS } from '@/config/env';
+import { formatDate } from '@/config/utils';
 
 export default {
   name: 'detail',
@@ -30,14 +32,23 @@ export default {
   },
   data() {
     return {
-      title: '申报机构申请办事指南',
-      content: '本周认证部没有具体工作任务，本人9号10号协助、配合项目部完成数据库培训流程实操演练及细节修正。 11号针对技术培训涉 拷贝',
-      createDate: '2017-12-27',
+      title: '',
+      content: '',
+      createDate: '',
     };
   },
-  methods: {},
+  methods: {
+    async init() {
+      const res = await this.$xhr('get', `${PUBLICS_GET_NOTICES_DETAILS}${this.$route.params.id}`);
+      if (res.data.code === 0) {
+        this.title = res.data.data.title;
+        this.content = res.data.data.content;
+        this.createDate = formatDate(new Date(res.data.data.createTime), 'yyyy-MM-dd');
+      }
+    },
+  },
   mounted() {
-    // console.log(this.$route.params.id);
+    this.init();
   },
 };
 </script>

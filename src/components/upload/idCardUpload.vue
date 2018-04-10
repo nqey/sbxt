@@ -24,7 +24,7 @@
 
 <script>
 import upload from '@/assets/img/upload.png';
-import { DECLARE_POST_UPLOAD } from '@/config/env';
+import { DECLARE_POST_UPLOAD, IMAGE_SERVER_URL } from '@/config/env';
 
 
 export default {
@@ -35,8 +35,12 @@ export default {
       upload,
       file: {},
       showImg: false,
+      isE: true,
       imgSrc: '',
     };
+  },
+  watch: {
+    imgUrl: 'setImgSrc',
   },
   methods: {
     fileClick() {
@@ -60,16 +64,20 @@ export default {
       reader.onload = (e) => {
         this.imgSrc = e.target.result;
         this.showImg = true;
+        this.isE = false;
       };
       this.upFile(el.target.files[0]);
       el.target.value = '';
     },
+    setImgSrc() {
+      if (this.imgUrl && this.isE) {
+        this.imgSrc = `${IMAGE_SERVER_URL}${this.imgUrl}`;
+        this.showImg = true;
+      }
+    },
   },
   mounted() {
-    if (this.imgUrl) {
-      this.imgSrc = this.imgUrl;
-      this.showImg = true;
-    }
+    this.setImgSrc();
   },
 };
 </script>
@@ -121,18 +129,15 @@ export default {
   width: 200px;
   text-align: center;
 }
-
 .upload_warp_img_div_bottom {
+  width: 18px;
+  height: 18px;
   position: absolute;
-  bottom: 0;
-  width: 30px;
-  height: 30px;
-  background-color: rgba(0, 0, 0, 0.4);
-  line-height: 35px;
-  text-align: left;
+  right: 0px;
+  bottom: 0px;
+  background-color: #646a7f;
   color: #fff;
-  font-size: 12px;
-  text-indent: 4px;
-  right: 0;
+  text-align: center;
+  z-index: 999;
 }
 </style>

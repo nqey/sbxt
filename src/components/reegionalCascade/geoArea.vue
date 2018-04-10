@@ -2,15 +2,15 @@
   <div class='form-group'>
     <select v-show="provinces.length > 0" class='form-control' @change="queryCity" v-model="province">
       <option value="">请选择省份</option>
-      <option v-for="item in provinces" :value="item.id">{{item.text}}</option>
+      <option v-for="item in provinces" :value="item.code">{{item.text}}</option>
     </select>
     <select v-show="citys.length > 0" class='form-control' @change="queryTown" v-model="city">
       <option value="">请选择市</option>
-      <option v-for="item in citys" :value="item.id">{{item.text}}</option>
+      <option v-for="item in citys" :value="item.code">{{item.text}}</option>
     </select>
     <select v-show="towns.length > 0" class='form-control' v-model="town" @change="sendData">
       <option value="">请选择区/县</option>
-      <option v-for="item in towns" :value="item.id">{{item.text}}</option>
+      <option v-for="item in towns" :value="item.code">{{item.text}}</option>
     </select>
 </div>
 </template>
@@ -20,7 +20,7 @@ import { DECLARE_GET_AREA_TREE } from '@/config/env';
 
 export default {
   name: 'geoArea',
-  props: [],
+  props: ['areacode'],
   data() {
     return {
       province: '',
@@ -30,6 +30,9 @@ export default {
       citys: [],
       towns: [],
     };
+  },
+  watch: {
+    areacode: 'setAreaCode',
   },
   components: {},
   methods: {
@@ -45,7 +48,7 @@ export default {
       this.city = '';
       this.town = '';
       this.provinces.forEach((item) => {
-        if (item.id === this.province) {
+        if (item.code === this.province) {
           this.citys = item.nodes;
         }
       });
@@ -55,14 +58,30 @@ export default {
       this.towns = [];
       this.town = '';
       this.citys.forEach((item) => {
-        if (item.id === this.city) {
+        if (item.code === this.city) {
           this.towns = item.nodes;
         }
       });
       this.sendData();
     },
     sendData() {
-      this.$emit('acceptData', `${this.province}${this.city}${this.town}`);
+      if (this.town === '' && this.city === '') {
+        this.$emit('acceptData', this.province);
+      } else if (this.town === '') {
+        this.$emit('acceptData', this.city);
+      } else {
+        this.$emit('acceptData', this.town);
+      }
+    },
+    setAreaCode() {
+      if (this.areacode) {
+        const a = this.areacode.split(',');
+        this.province = a[0];
+        this.queryCity();
+        this.city = a[1];
+        this.queryTown();
+        this.town = a[2];
+      }
     },
   },
   mounted() {

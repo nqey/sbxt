@@ -97,7 +97,7 @@ const DECLARE_GET_BASEINFO = `${DECLARE_BASE_URL}organiz/baseInfo`;
 // 填表登记
 const DECLARE_PUT_REGISTINFO = `${DECLARE_BASE_URL}organiz/registInfo`;
 // 修改密码
-const DECLARE_PUT_PASSWORD = `${DECLARE_BASE_URL}organiz/password`;
+const DECLARE_PUT_PASSWORD = `${DECLARE_BASE_URL}publics/user/password`;
 // 添加申报官
 const DECLARE_POST_DECLARER = `${DECLARE_BASE_URL}organiz/declarer/info`;
 // 更新申报官 + {id}

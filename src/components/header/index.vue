@@ -5,7 +5,7 @@
       <div class="pull-left">
         <form class="navbar-form navbar-left">
           <div class="form-group">
-            <input type="text" class="form-control header_search" placeholder="搜索">
+            <input type="text" class="form-control header_search" placeholder="搜索" :style="{ background: fdjs }">
           </div>
         </form>
       </div>
@@ -27,6 +27,7 @@
 
 <script>
 import Tx from '@/assets/img/tx.png';
+import fdj from '@/assets/img/fdj.png';
 import { getCookie, delCookie } from '@/config/cookie';
 
 export default {
@@ -35,6 +36,8 @@ export default {
     return {
       username: getCookie('username'),
       tx: Tx,
+      fdj,
+      fdjs: `url(${fdj}) no-repeat 15px`,
     };
   },
   methods: {
@@ -68,7 +71,6 @@ export default {
   @include wh(350px, 40px);
   color: $fc;
   padding: 6px 45px;
-  background: url(/assets/img/fdj.png) no-repeat 15px;
   display: none;
   &::-webkit-input-placeholder {
      color: $fc;

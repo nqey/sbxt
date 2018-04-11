@@ -25,6 +25,13 @@
     		<br/>
     		&#12288;<small class="areafc">企业法人必须是真是姓名，与营业执照上相同</small>
         </div>
+        <div class="form-group col-sm-1 txr">
+            <label class="label_height"><span class="info">*</span> 所在区域：</label>
+        </div>
+        <div class="form-group col-sm-11 imb">
+           <v-geoarea :areacode="areacode" @acceptData="setLiveAddress"></v-geoarea>
+        </div>
+        <div class="clearfix"></div>
         <v-bigimg v-if="showImg" @hideViewImg="viewImg" :imgSrc="imgSrc"></v-bigimg>
         <div class="form-group col-sm-1 txr">
             <label class="label_height"><span class="info">*</span> 手机号码：</label>
@@ -155,6 +162,7 @@
 import upload from '@/components/upload';
 import bigImg from '@/components/bigImg';
 import idcardupload from '@/components/upload/idCardUpload';
+import geoarea from '@/components/reegionalCascade/geoArea';
 import errInfo from '@/components/info/error';
 import rules from '@/config/rules';
 import { DECLARE_POST_ENTERPRISE } from '@/config/env';
@@ -178,6 +186,7 @@ export default {
       enterpriseShindImageUrl: '',
       authorizationImageUrl: '',
       otherImageUrl: '',
+      liveAddress: '',
       errMsg: [],
       timer: '',
     };
@@ -205,6 +214,10 @@ export default {
       // 企业负责人
       if (!this.charger) {
         errMsg.push(`${rules.nonEmpty}${rules.charger}`);
+      }
+      // 常住地址
+      if (this.liveAddress === '') {
+        this.errMsg.push(`${rules.select}${rules.liveAddress}`);
       }
       // 手机号码
       if (!this.cellphone) {
@@ -260,6 +273,9 @@ export default {
     setLicenseImageUrl(d) {
       this.licenseImageUrl = d;
     },
+    setLiveAddress(d) {
+      this.liveAddress = d;
+    },
     setProductionImageUrl(d) {
       this.productionImageUrl = d;
     },
@@ -303,6 +319,7 @@ export default {
       param.enterpriseShindImageUrl = this.enterpriseShindImageUrl;
       param.authorizationImageUrl = this.authorizationImageUrl;
       param.otherImageUrl = this.otherImageUrl;
+      param.areaCode = this.liveAddress;
       const res = await this.$xhr('post', DECLARE_POST_ENTERPRISE, param);
       if (res.data.code === 0) {
         this.$router.push('/decEnt/messeag');
@@ -314,6 +331,7 @@ export default {
     'v-bigimg': bigImg,
     'v-idcardupload': idcardupload,
     'v-errinfo': errInfo,
+    'v-geoarea': geoarea,
   },
 };
 </script>

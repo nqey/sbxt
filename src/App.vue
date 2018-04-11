@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-  	<v-head v-show="showMenu"></v-head>
-    <v-lmenu v-show="showMenu"></v-lmenu>
+  	<v-head v-if="showMenu"></v-head>
+    <v-lmenu v-if="showMenu"></v-lmenu>
     <router-view/>
   </div>
 </template>

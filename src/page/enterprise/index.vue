@@ -25,13 +25,6 @@
     		<br/>
     		&#12288;<small class="areafc">企业法人必须是真是姓名，与营业执照上相同</small>
         </div>
-        <div class="form-group col-sm-1 txr">
-            <label class="label_height"><span class="info">*</span> 所在区域：</label>
-        </div>
-        <div class="form-group col-sm-11 imb">
-           <v-geoarea :areacode="areacode" @acceptData="setLiveAddress"></v-geoarea>
-        </div>
-        <div class="clearfix"></div>
         <v-bigimg v-if="showImg" @hideViewImg="viewImg" :imgSrc="imgSrc"></v-bigimg>
         <div class="form-group col-sm-1 txr">
             <label class="label_height"><span class="info">*</span> 手机号码：</label>
@@ -100,7 +93,7 @@
             <small class="info label_height">请认真填写每一必填项，再上传完整的尽职调查表</small>
             <br/>
             <br/>
-            <v-upload @acceptImgSrc="bigimg" @acceptData="setEnterpriseSurveyImageUrl" uploadid="upload6"></v-upload>
+            <v-upload len="3" @acceptImgSrc="bigimg" @acceptData="setEnterpriseSurveyImageUrl" uploadid="upload6"></v-upload>
           </div>
            <div class="form-group col-sm-1 txr">
               <label class="label_height"><span class="info">*</span> 企业负责人尽职调查表：</label>
@@ -112,7 +105,7 @@
             <small class="info label_height">请认真填写每一必填项，再上传完整的尽职调查表</small>
             <br/>
             <br/>
-            <v-upload @acceptImgSrc="bigimg" @acceptData="setEnterpriseChargerSurveyImageUrl" uploadid="upload7"></v-upload>
+            <v-upload len="3" @acceptImgSrc="bigimg" @acceptData="setEnterpriseChargerSurveyImageUrl" uploadid="upload7"></v-upload>
           </div>
            <div class="form-group col-sm-1 txr">
               <label class="label_height"><span class="info">*</span> 企业入库申请函</label>
@@ -143,7 +136,7 @@
             <small class="info2 label_height">企业如有其他补充材料，可上次至此，可增加通过率;例如发明专利、商标等知识产权；各项奖励证书，等级证书，认证证书等；如企业有全国工业生产许可证，安全生产许可证也需上传至此。 </small>
             <br/>
             <br/>
-            <v-upload @acceptImgSrc="bigimg" @acceptData="setOtherImageUrl" uploadid="upload10"></v-upload>
+            <v-upload len="5" @acceptImgSrc="bigimg" @acceptData="setOtherImageUrl" uploadid="upload10"></v-upload>
           </div>
           <div class="form-group col-sm-1 txr">
           </div>
@@ -162,7 +155,6 @@
 import upload from '@/components/upload';
 import bigImg from '@/components/bigImg';
 import idcardupload from '@/components/upload/idCardUpload';
-import geoarea from '@/components/reegionalCascade/geoArea';
 import errInfo from '@/components/info/error';
 import rules from '@/config/rules';
 import { DECLARE_POST_ENTERPRISE } from '@/config/env';
@@ -186,7 +178,6 @@ export default {
       enterpriseShindImageUrl: '',
       authorizationImageUrl: '',
       otherImageUrl: '',
-      liveAddress: '',
       errMsg: [],
       timer: '',
     };
@@ -273,9 +264,6 @@ export default {
     setLicenseImageUrl(d) {
       this.licenseImageUrl = d;
     },
-    setLiveAddress(d) {
-      this.liveAddress = d;
-    },
     setProductionImageUrl(d) {
       this.productionImageUrl = d;
     },
@@ -319,7 +307,6 @@ export default {
       param.enterpriseShindImageUrl = this.enterpriseShindImageUrl;
       param.authorizationImageUrl = this.authorizationImageUrl;
       param.otherImageUrl = this.otherImageUrl;
-      param.areaCode = this.liveAddress;
       const res = await this.$xhr('post', DECLARE_POST_ENTERPRISE, param);
       if (res.data.code === 0) {
         this.$router.push('/decEnt/messeag');
@@ -331,7 +318,6 @@ export default {
     'v-bigimg': bigImg,
     'v-idcardupload': idcardupload,
     'v-errinfo': errInfo,
-    'v-geoarea': geoarea,
   },
 };
 </script>

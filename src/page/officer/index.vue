@@ -29,6 +29,13 @@
             <button v-show="!show" class="btn hqyzm">{{count}} s</button>
         </div>
         <div class="form-group col-sm-1 txr">
+            <label class="label_height"><span class="info">*</span> 所在区域：</label>
+        </div>
+        <div class="form-group col-sm-11 imb">
+           <v-geoarea @acceptData="setLiveAddress"></v-geoarea>
+        </div>
+        <div class="clearfix"></div>
+        <div class="form-group col-sm-1 txr">
             <label class="label_height"><span class="info">*</span> 寸 照：</label>
         </div>
         <div class="form-group col-sm-11 imb">
@@ -69,7 +76,7 @@
             <small class="info label_height">请认真填写每一必填项，再上传完整的尽职调查表</small>
             <br/>
             <br/>
-            <v-upload @acceptImgSrc="bigimg" @acceptData="setSurveyImageUrl" uploadid="upload4"></v-upload>
+            <v-upload len="3" @acceptImgSrc="bigimg" @acceptData="setSurveyImageUrl" uploadid="upload4"></v-upload>
           </div>
           <div class="form-group col-sm-1 txr">
               <label class="label_height"><span class="info">*</span> 承诺公函：</label>
@@ -103,6 +110,7 @@ import bigImg from '@/components/bigImg';
 import errInfo from '@/components/info/error';
 import rules from '@/config/rules';
 import { DECLARE_GET_VALIDATECODE, DECLARE_POST_DECLARER } from '@/config/env';
+import geoarea from '@/components/reegionalCascade/geoArea';
 
 export default {
   name: 'search',
@@ -117,6 +125,7 @@ export default {
       idBackUrl: '',
       surveyImageUrl: '',
       letterImageUrl: '',
+      liveAddress: '',
       showImg: false,
       errMsg: [],
       show: true,
@@ -188,6 +197,9 @@ export default {
     backUrl(d) {
       this.idBackUrl = d;
     },
+    setLiveAddress(d) {
+      this.liveAddress = d;
+    },
     setPortrait(d) {
       this.portrait = d;
     },
@@ -235,6 +247,7 @@ export default {
       obj.surveyImageUrl = this.surveyImageUrl;
       obj.letterImageUrl = this.letterImageUrl;
       obj.portrait = this.portrait;
+      obj.areaCode = this.liveAddress;
       if (this.errMsg.length !== 0) {
         return;
       }
@@ -249,6 +262,7 @@ export default {
     'v-bigimg': bigImg,
     'v-idcardupload': idcardupload,
     'v-errinfo': errInfo,
+    'v-geoarea': geoarea,
   },
 };
 </script>

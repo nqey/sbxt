@@ -26,7 +26,6 @@
               <span class="glyphicon glyphicon-floppy-saved" @click="editName"></span>
             </div>
             <br/>
-            <br/>
             <div v-show="isShowtell">
               <span class="label_height">手机号码：{{cellphone}}&#12288;&#12288;</span>
               <span v-show="$route.params.type === '2'" class="glyphicon glyphicon-edit" @click="editTell"></span>
@@ -35,6 +34,8 @@
               手机号码：<input type="text" class="form-control iw"  placeholder="请输入手机号码" @blur="validate" v-model="cellphone">
               <span class="glyphicon glyphicon-floppy-saved" @click="editTell"></span>
             </div>
+            <br/>
+            <span class="label_height">所在区域：{{area}}&#12288;&#12288;</span>
             <br/>
             <br/>
             <span v-show="isShowNumber">
@@ -74,7 +75,7 @@
               <v-commonimg :imgSrc="surveyImageUrl" @acceptImgSrc="bigimg"></v-commonimg>
             </div>
             <div v-show="$route.params.type === '2'">
-              <v-upload :imgUrl="surveyImageUrl" @acceptImgSrc="bigimg" @acceptData="setSurveyImageUrl" uploadid="up3"></v-upload>
+              <v-upload len="3" :imgUrl="surveyImageUrl" @acceptImgSrc="bigimg" @acceptData="setSurveyImageUrl" uploadid="up3"></v-upload>
             </div>
           </div>
         <div class="clearfix"></div>
@@ -131,6 +132,7 @@ export default {
       surveyImageUrl: '',
       letterImageUrl: '',
       state: '',
+      area: '',
       isShowtell: true,
       isShowName: true,
       isShowNumber: true,
@@ -236,6 +238,7 @@ export default {
         this.idBackUrl = res.data.data.idBackUrl;
         this.surveyImageUrl = res.data.data.surveyImageUrl;
         this.letterImageUrl = res.data.data.letterImageUrl;
+        this.area = `${res.data.data.provice}-${res.data.data.city}-${res.data.data.district}`;
       }
     },
     async submit() {

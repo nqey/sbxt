@@ -122,7 +122,7 @@
             <v-commonimg :imgSrc="enterpriseSurveyImageUrl" @acceptImgSrc="bigimg"></v-commonimg>
           </div>
           <div v-show="$route.params.type === '2'">
-            <v-upload :imgUrl="enterpriseSurveyImageUrl" @acceptImgSrc="bigimg" @acceptData="setEnterpriseSurveyImageUrl" uploadid="up6"></v-upload>
+            <v-upload len="3" :imgUrl="enterpriseSurveyImageUrl" @acceptImgSrc="bigimg" @acceptData="setEnterpriseSurveyImageUrl" uploadid="up6"></v-upload>
           </div>
         </div>
         <div class="clearfix"></div>
@@ -134,7 +134,7 @@
             <v-commonimg :imgSrc="enterpriseChargerSurveyImageUrl" @acceptImgSrc="bigimg"></v-commonimg>
           </div>
           <div v-show="$route.params.type === '2'">
-            <v-upload :imgUrl="enterpriseChargerSurveyImageUrl" @acceptImgSrc="bigimg" @acceptData="setEnterpriseChargerSurveyImageUrl" uploadid="up7"></v-upload>
+            <v-upload len="3" :imgUrl="enterpriseChargerSurveyImageUrl" @acceptImgSrc="bigimg" @acceptData="setEnterpriseChargerSurveyImageUrl" uploadid="up7"></v-upload>
           </div>
         </div>
         <div class="clearfix"></div>
@@ -170,7 +170,7 @@
             <v-commonimg :imgSrc="otherImageUrl" @acceptImgSrc="bigimg"></v-commonimg>
           </div>
           <div v-show="$route.params.type === '2'">
-            <v-upload :imgUrl="otherImageUrl" @acceptImgSrc="bigimg" @acceptData="setOtherImageUrl" uploadid="up10"></v-upload>
+            <v-upload len="5" :imgUrl="otherImageUrl" @acceptImgSrc="bigimg" @acceptData="setOtherImageUrl" uploadid="up10"></v-upload>
           </div>
         </div>
         <div class="clearfix"></div>

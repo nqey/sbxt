@@ -20,7 +20,7 @@
                 <small class="info label_height">请认真填写每一必填项，再上传完整的尽职调查表</small>
                 <br/>
                 <br/>
-                <v-upload :imgUrl="surveyImageUrl" @acceptImgSrc="bigimg" @acceptData="setSurveyImageUrl" uploadid="upload1"></v-upload>
+                <v-upload len="3" :imgUrl="surveyImageUrl" @acceptImgSrc="bigimg" @acceptData="setSurveyImageUrl" uploadid="upload1"></v-upload>
               </div>
               <v-bigimg v-if="showImg" @hideViewImg="viewImg" :imgSrc="imgSrc"></v-bigimg>
               <div class="form-group col-sm-4 txr">
@@ -45,7 +45,7 @@
                 <small class="info label_height">请认真填写每一必填项，再上传完整的尽职调查表</small>
                 <br/>
                 <br/>
-                <v-upload :imgUrl="chargerSurveyImageUrl" @acceptImgSrc="bigimg" @acceptData="setChargerSurveyImageUrl" uploadid="upload3"></v-upload>
+                <v-upload len="3" :imgUrl="chargerSurveyImageUrl" @acceptImgSrc="bigimg" @acceptData="setChargerSurveyImageUrl" uploadid="upload3"></v-upload>
               </div>
               <div class="form-group col-sm-4 txr">
                   <label class="label_height"><span class="info">*</span> 负责人承诺公函：</label>
@@ -79,7 +79,7 @@
                 <small class="info2 label_height">支持格式：jpg、bmp、png、gif格式照片，大小不超过2M，最多5张。</small>
                 <br/>
                 <br/>
-                <v-upload :imgUrl="otherImageUrl" @acceptImgSrc="bigimg" @acceptData="setOtherImageUrl" uploadid="upload6"></v-upload>
+                <v-upload len="5" :imgUrl="otherImageUrl" @acceptImgSrc="bigimg" @acceptData="setOtherImageUrl" uploadid="upload6"></v-upload>
               </div>
               <div class="form-group col-sm-4 txr">
               </div>

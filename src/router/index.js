@@ -95,7 +95,7 @@ export default new Router({
     },
     {
       path: '/ent/detail/msg',
-      name: 'entListdetail',
+      name: 'entListdetailmsg',
       component: entListdetailmsg,
     },
     {

@@ -26,18 +26,29 @@
                 <br/>
                 <small class="info label_height">请上传本人真实身份证，否则审核不通过。</small>
                 <div class="clearfix"></div>
-                <div class="pull-left" style="width: 200px;margin-right: 30px;">
-                  <v-multiple-upload len="1" uploadid="upload1" title="上传正面" :imgSrc="idFrontUrl" @acceptData="frontUrl"></v-multiple-upload len="1">
+                <div class="pull-left" v-if="$route.params.type === '1'" style="width: 200px;margin-right: 30px;">
+                  <v-multiple-upload len="1" uploadid="upload1" title="上传正面" @acceptData="frontUrl"></v-multiple-upload>
                 </div>
-                <div class="pull-left" style="width: 200px;">
-                  <v-multiple-upload len="1" uploadid="upload2" title="上传背面" :imgSrc="idBackUrl" @acceptData="backUrl"></v-multiple-upload len="1">
+                <div class="pull-left" v-if="$route.params.type === '1'" style="width: 200px;">
+                  <v-multiple-upload len="1" uploadid="upload2" title="上传背面" @acceptData="backUrl"></v-multiple-upload>
+                </div>
+                <div v-if="$route.params.type === '2' && idFrontUrl" class="pull-left" style="width: 200px;margin-right: 30px;">
+                  <v-multiple-upload len="1" uploadid="upload1" title="上传正面" :imgSrc="idFrontUrl" @acceptData="frontUrl"></v-multiple-upload>
+                </div>
+                <div v-if="$route.params.type === '2' && idBackUrl" class="pull-left" style="width: 200px;">
+                  <v-multiple-upload len="1" uploadid="upload2" title="上传背面" :imgSrc="idBackUrl" @acceptData="backUrl"></v-multiple-upload>
                 </div>
               </div>
               <div class="form-group col-sm-5 txr clearfix">
                 <label class="label_height">常住地址：</label>
               </div>
               <div class="col-sm-7 imb">
-                <v-area :areacode="areacode" @acceptData="setLiveAddress"></v-area>
+                <div v-if="$route.params.type === '1'">
+                  <v-area @acceptData="setLiveAddress"></v-area>
+                </div>
+                <div v-if="$route.params.type === '2' && areacode">
+                  <v-area :areacode="areacode" @acceptData="setLiveAddress"></v-area>
+                </div>
                 <div class='mt'>
                   <input type='text' class='form-control iw' placeholder='请输入详细地址' v-model="address">
                 </div>
@@ -213,6 +224,7 @@ export default {
       if (res.data.code === 0) {
         this.$router.push('/step3');
       }
+      this.areaCode = `${res.data.data.proviceCode},${res.data.data.cityCode},${res.data.data.areaCode}`;
     },
   },
   async mounted() {

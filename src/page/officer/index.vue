@@ -1,119 +1,119 @@
 <template>
   <div>
-    <v-errinfo :errMsg="errMsg"></v-errinfo>
+    <v-error-info :errMsg="errMsg"></v-error-info>
     <div class="bs-example">
       <span class="t_nav">&#12288;&#12288;添加申报官</span>
       <br/>
       <br/>
       <br/>
       <div class="form-inline clearfix">
-        <div class="form-group col-sm-1 txr">
-            <label class="label_height"><span class="info">*</span> 姓 名：</label>
+        <div class="form-group col-sm-1 txr clearfix">
+          <label class="label_height"><span class="info">*</span> 姓 名：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-            <input type="text" class="form-control iw600" placeholder="请输入申报官真实姓名" v-model="name">
+          <input type="text" class="form-control iw600" placeholder="请输入申报官真实姓名" v-model="name">
         </div>
-        <v-bigimg v-if="showImg" @hideViewImg="viewImg" :imgSrc="imgSrc"></v-bigimg>
-        <div class="form-group col-sm-1 txr">
-            <label class="label_height"><span class="info">*</span> 手机号码：</label>
+        <div class="form-group col-sm-1 txr clearfix">
+          <label class="label_height"><span class="info">*</span> 手机号码：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-            <input type="text" class="form-control iw600" placeholder="请输入手机号码" v-model="cellphone" @blur="validate">
-    		<br/>
-    		<br/>
-    		&#12288;<small class="areafc">该手机号必须是申报官真实手机号码，每一个手机号码只能添加一名申报官。</small>
-    		<br/>
-    		<br/>
-    		    <input type="text" class="form-control iw" placeholder="请输入验证码" v-model="code"></input>
-            <button v-show="show" class="btn hqyzm"  @click="getCode">获取验证码</button>
-            <button v-show="!show" class="btn hqyzm">{{count}} s</button>
+          <input type="text" class="form-control iw600" placeholder="请输入手机号码" v-model="cellphone" @blur="validate">
+          <br/>
+          <br/>
+          &#12288;<small class="areafc">该手机号必须是申报官真实手机号码，每一个手机号码只能添加一名申报官。</small>
+          <br/>
+          <br/>
+          <input type="text" class="form-control iw" placeholder="请输入验证码" v-model="code"></input>
+          <button v-show="show" class="btn hqyzm"  @click="getCode">获取验证码</button>
+          <button v-show="!show" class="btn hqyzm">{{count}} s</button>
         </div>
-        <div class="form-group col-sm-1 txr">
+        <div class="form-group col-sm-1 txr clearfix">
             <label class="label_height"><span class="info">*</span> 所在区域：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-           <v-geoarea @acceptData="setLiveAddress"></v-geoarea>
+           <v-geo-area @acceptData="setLiveAddress"></v-geo-area>
         </div>
-        <div class="clearfix"></div>
-        <div class="form-group col-sm-1 txr">
-            <label class="label_height"><span class="info">*</span> 寸 照：</label>
-        </div>
-        <div class="form-group col-sm-11 imb">
-            <p class="label_height areafc">请按照示例图拍摄，蓝底、正装寸照；将照片上传至此；支持格式：bmp、jpg、png、gif。 </p>
-            <p class="areafc">照片大小不超过2M。</p>
-            <small class="info label_height">请上传本人真实照，审核会与身份证进行对比，不按照要求上传会导致审核通不过。</small>
-            <br/>
-            <br/>
-            <v-idcardupload text="上传寸照" @acceptImgSrc="bigimg" @acceptData="setPortrait" uploadid="upload1"></v-idcardupload>
-         </div>
-         <div class="form-group col-sm-1 txr">
-                <label class="label_height"><span class="info">*</span> 身份证号码：</label>
-         </div>
-	     <div class="form-group col-sm-11 imb">
-	            <input type="text" class="form-control iw600" placeholder="请输入身份证号码" v-model="idNumber" @blur="validate">
-	    		<br/>
-	    		<br/>
-	    		&#12288;<small class="areafc">申报官真实有效身份证号码，每一个身份证号只能添加一名申报官。</small>
-	      </div>
-	      <div class="form-group col-sm-1 txr">
-            <label class="label_height">身份证照片：</label>
+        <div class="form-group col-sm-1 txr clearfix">
+          <label class="label_height"><span class="info">*</span> 寸 照：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-            <small class="info2 label_height">请按照示例上传证件照片；支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
-            <p></p>
-            <small class="info label_height">请上传本人真实身份证，否则审核不通过。</small>
-            <div class="clearfix"></div>
-            <v-idcardupload uploadid="upload2" text="上传正面" @acceptData="frontUrl"></v-idcardupload>
-            <v-idcardupload uploadid="upload3" text="上传背面" @acceptData="backUrl"></v-idcardupload>
+          <p class="label_height areafc">请按照示例图拍摄，蓝底、正装寸照；将照片上传至此；支持格式：bmp、jpg、png、gif。 </p>
+          <p class="areafc">照片大小不超过2M。</p>
+          <small class="info label_height">请上传本人真实照，审核会与身份证进行对比，不按照要求上传会导致审核通不过。</small>
+          <br/>
+          <br/>
+          <v-multiple-upload len="1" title="上传寸照" @acceptData="setPortrait" uploadid="upload1"></v-multiple-upload len="1">
         </div>
-          <div class="form-group col-sm-1 txr">
-              <label class="label_height"><span class="info">*</span> 尽职调查表：</label>
+        <div class="form-group col-sm-1 txr clearfix">
+          <label class="label_height"><span class="info">*</span> 身份证号码：</label>
+        </div>
+        <div class="form-group col-sm-11 imb">
+          <input type="text" class="form-control iw600" placeholder="请输入身份证号码" v-model="idNumber" @blur="validate">
+          <br/>
+          <br/>
+          &#12288;<small class="areafc">申报官真实有效身份证号码，每一个身份证号只能添加一名申报官。</small>
+        </div>
+        <div class="form-group col-sm-1 txr clearfix">
+          <label class="label_height">身份证照片：</label>
+        </div>
+        <div class="form-group col-sm-11 imb">
+          <small class="info2 label_height">请按照示例上传证件照片；支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
+          <p></p>
+          <small class="info label_height">请上传本人真实身份证，否则审核不通过。</small>
+          <div class="clearfix"></div>
+          <div class="pull-left" style="width: 200px;margin-right: 30px;">
+            <v-multiple-upload len="1" uploadid="upload2" title="上传正面" @acceptData="frontUrl"></v-multiple-upload len="1">
           </div>
-          <div class="form-group col-sm-11 imb">
-            <p class="label_height"><b>下载</b> <a>尽职调查表</a></p>
-            <small class="info2 label_height">文件要求：上传加盖企业公章的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
-            <br/>
-            <small class="info label_height">请认真填写每一必填项，再上传完整的尽职调查表</small>
-            <br/>
-            <br/>
-            <v-upload len="3" @acceptImgSrc="bigimg" @acceptData="setSurveyImageUrl" uploadid="upload4"></v-upload>
+          <div class="pull-left" style="width: 200px;">
+            <v-multiple-upload len="1" uploadid="upload3" title="上传背面" @acceptData="backUrl"></v-multiple-upload len="1">
           </div>
-          <div class="form-group col-sm-1 txr">
-              <label class="label_height"><span class="info">*</span> 承诺公函：</label>
-          </div>
-          <div class="form-group col-sm-11 imb">
-            <p class="label_height"><b>下载</b> <a>承诺公函</a></p>
-            <small class="info2 label_height">文件要求：上传加盖企业公章的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
-            <br/>
-            <small class="info label_height">请上传完整的承诺公函</small>
-            <br/>
-            <br/>
-            <v-idcardupload text="上传图片" @acceptImgSrc="bigimg" @acceptData="setLetterImageUrl" uploadid="upload5"></v-idcardupload>
-          </div>
-          <div class="form-group col-sm-1 txr">
-          </div>
-          <div class="form-group col-sm-11 imb">
-              <button @click="submit" class="btn js-ajax-submit">提交</button>
-              <br/>
-              <br/>
-              <p class="areafc">&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#32;申报官信息需审核</p>
-          </div>
+        </div>
+        <div class="form-group col-sm-1 txr clearfix">
+          <label class="label_height"><span class="info">*</span> 尽职调查表：</label>
+        </div>
+        <div class="form-group col-sm-11 imb">
+          <p class="label_height"><b>下载</b> <a>尽职调查表</a></p>
+          <small class="info2 label_height">文件要求：上传加盖企业公章的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
+          <br/>
+          <small class="info label_height">请认真填写每一必填项，再上传完整的尽职调查表</small>
+          <br/>
+          <br/>
+          <v-multiple-upload len="3" title="上传尽职调查表" @acceptData="setSurveyImageUrl" uploadid="upload4"></v-multiple-upload>
+        </div>
+        <div class="form-group col-sm-1 txr clearfix">
+          <label class="label_height"><span class="info">*</span> 承诺公函：</label>
+        </div>
+        <div class="form-group col-sm-11 imb">
+          <p class="label_height"><b>下载</b> <a>承诺公函</a></p>
+          <small class="info2 label_height">文件要求：上传加盖企业公章的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
+          <br/>
+          <small class="info label_height">请上传完整的承诺公函</small>
+          <br/>
+          <br/>
+          <v-multiple-upload len="1" title="上传承诺公函" @acceptData="setLetterImageUrl" uploadid="upload5"></v-multiple-upload len="1">
+        </div>
+        <div class="form-group col-sm-1 txr clearfix">
+        </div>
+        <div class="form-group col-sm-11 imb">
+          <button @click="submit" class="btn js-ajax-submit">提交</button>
+          <br/>
+          <br/>
+          <p class="areafc">&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#32;申报官信息需审核</p>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import upload from '@/components/upload';
-import idcardupload from '@/components/upload/idCardUpload';
-import bigImg from '@/components/bigImg';
+import multipleUpload from '@/components/upload/multipleUpload';
 import errInfo from '@/components/info/error';
 import rules from '@/config/rules';
 import { DECLARE_GET_VALIDATECODE, DECLARE_POST_DECLARER } from '@/config/env';
-import geoarea from '@/components/reegionalCascade/geoArea';
+import vGeoArea from '@/components/reegionalCascade/geoArea';
 
 export default {
-  name: 'search',
+  name: 'addOfficer',
   data() {
     return {
       name: '',
@@ -184,13 +184,6 @@ export default {
         this.errMsg.push(`${rules.upload}${rules.letterImageUrl}`);
       }
     },
-    bigimg(src) {
-      this.imgSrc = src;
-      this.showImg = true;
-    },
-    viewImg() {
-      this.showImg = false;
-    },
     frontUrl(d) {
       this.idFrontUrl = d;
     },
@@ -253,16 +246,21 @@ export default {
       }
       const res = await this.$xhr('post', DECLARE_POST_DECLARER, obj);
       if (res.data.code === 0) {
-        this.$router.push('/officer/messeag');
+        sessionStorage.setItem('title', '添加申报官');
+        sessionStorage.setItem('content', '添加申报官成功');
+        sessionStorage.setItem('content2', '');
+        sessionStorage.setItem('content3', '');
+        sessionStorage.setItem('alink', '/officer/add');
+        sessionStorage.setItem('blink', '/officer/list');
+        sessionStorage.setItem('clink', '');
+        setTimeout(() => { this.$router.push('/message'); }, 1000);
       }
     },
   },
   components: {
-    'v-upload': upload,
-    'v-bigimg': bigImg,
-    'v-idcardupload': idcardupload,
-    'v-errinfo': errInfo,
-    'v-geoarea': geoarea,
+    'v-multiple-upload': multipleUpload,
+    'v-error-info': errInfo,
+    'v-geo-area': vGeoArea,
   },
 };
 </script>

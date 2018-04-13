@@ -1,26 +1,26 @@
 <template>
   <div id="app">
-  	<v-head v-if="showMenu"></v-head>
-    <v-lmenu v-if="showMenu"></v-lmenu>
+  	<v-top-head v-if="isShowMenu"></v-top-head>
+    <v-left-menu v-if="isShowMenu"></v-left-menu>
     <router-view/>
   </div>
 </template>
 
 <script>
-import vhead from '@/components/header';
-import lmenu from '@/components/leftMenu';
+import vTopHeader from '@/components/header/topHeader';
+import vLeftMenu from '@/components/leftMenu';
 import { getCookie } from '@/config/cookie';
 
 export default {
   name: 'app',
   data() {
     return {
-      showMenu: false,
+      isShowMenu: false,
     };
   },
   components: {
-    'v-head': vhead,
-    'v-lmenu': lmenu,
+    'v-top-head': vTopHeader,
+    'v-left-menu': vLeftMenu,
   },
   watch: {
     $route: 'checkLogin',
@@ -29,13 +29,13 @@ export default {
     checkLogin() {
       const arr = ['step', 'login', 'sys/msg', 'agency', 'reset'];
       this.match(arr);
-      if (this.showMenu && !getCookie('token')) {
+      if (this.isShowMenu && !getCookie('token')) {
         // 如果没有登录状态则跳转到登录页
         this.$router.push('/login');
       }
     },
     match(arr) {
-      this.showMenu = arr.every((d) => {
+      this.isShowMenu = arr.every((d) => {
         const r = !location.hash.match(d);
         return r;
       });

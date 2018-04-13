@@ -18,7 +18,7 @@
 import logo from '@/assets/img/logo.png';
 
 export default {
-  name: 'lhead',
+  name: 'detailHead',
   data() {
     return {
       logo,

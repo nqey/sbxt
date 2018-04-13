@@ -78,7 +78,14 @@ export default {
       param.function.push(this.c ? 3 : 0);
       const res = await this.$xhr('post', DECLARE_POST_USER_ACOUNT, param);
       if (res.data.code === 0) {
-        setTimeout(() => { this.$router.push('/user/msg'); }, 1000);
+        sessionStorage.setItem('title', '添加帐号');
+        sessionStorage.setItem('content', '添加帐号成功');
+        sessionStorage.setItem('content2', '');
+        sessionStorage.setItem('content3', '');
+        sessionStorage.setItem('alink', '');
+        sessionStorage.setItem('blink', '/user/list');
+        sessionStorage.setItem('clink', '');
+        setTimeout(() => { this.$router.push('/message'); }, 1000);
       }
     },
     async init() {

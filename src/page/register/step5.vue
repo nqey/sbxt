@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-registerhead :step="5"></v-registerhead>
+    <v-register-head :step="5"></v-register-head>
     <div class="row">
       <div class="col-sm-12 container">
         <div class="col-sm-12 bs-example content">
@@ -22,7 +22,7 @@
 
 <script>
 import sh from '@/assets/img/sh.png';
-import registerHead from '@/components/registerHead';
+import registerHead from '@/components/header/registerHead';
 
 export default {
   name: 'step5',
@@ -32,7 +32,7 @@ export default {
     };
   },
   components: {
-    'v-registerhead': registerHead,
+    'v-register-head': registerHead,
   },
 };
 </script>

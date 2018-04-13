@@ -31,7 +31,7 @@ import fdj from '@/assets/img/fdj.png';
 import { getCookie, delCookie } from '@/config/cookie';
 
 export default {
-  name: 'mhead',
+  name: 'topHeader',
   data() {
     return {
       username: getCookie('username'),

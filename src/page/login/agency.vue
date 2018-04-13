@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-lhead ></v-lhead>
+    <v-detail-head ></v-detail-head>
     <div class="col-sm-12 container">
       <div class="col-sm-12 bs-example">
         <span class="t_nav">&#12288;{{title}}</span>
@@ -10,7 +10,7 @@
         <br/>
         <div class="form-inline clearfix">
           <div class="col-sm-6">
-           <v-agencyarea @acceptData="setLiveAddress"></v-agencyarea>
+           <v-geo-area @acceptData="setLiveAddress"></v-geo-area>
            <input type="text" class="form-control" placeholder="请输入机构名称或负责人" v-model="name">
          </div>
           <div class="col-sm-6">
@@ -19,7 +19,6 @@
             </div>
           </div>
         </div>
-         
         <br/>
         <div v-show="resData.length > 0">
           <table class="table">
@@ -51,8 +50,8 @@
 
 <script>
 import pagination from '@/components/pagination';
-import lhead from '@/components/registerHead/lhead';
-import agencyArea from '@/components/reegionalCascade/geoArea';
+import detailHead from '@/components/header/detailHead';
+import vGeoArea from '@/components/reegionalCascade/geoArea';
 import { DECLARE_GET_DECLARE_ORGANIZ, DECLARE_GET_DECLARE_ORGANIZ_COUNT, DECLARE_GET_DECLARE_FWZX, DECLARE_GET_DECLARE_FWZX_COUNT } from '@/config/env';
 
 export default {
@@ -72,8 +71,8 @@ export default {
   },
   components: {
     'v-pagination': pagination,
-    'v-lhead': lhead,
-    'v-agencyarea': agencyArea,
+    'v-detail-head': detailHead,
+    'v-geo-area': vGeoArea,
   },
   methods: {
     async search(page) {

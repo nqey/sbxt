@@ -1,80 +1,77 @@
 <template>
   <div>
-    <v-errinfo :errMsg="errMsg"></v-errinfo>
+    <v-error-info :errMsg="errMsg"></v-error-info>
     <div class="bs-example">
-      <span class="t_nav">&#12288;&#12288;企业详情</span>
-      <br/>
-      <br/>
+      <p class="t_nav">&#12288;企业详情</p>
       <br/>
       <div class="form-inline clearfix">
         <div class="form-group col-sm-1 txr">
-            <label class="label_height">企业全称：</label>
+          <label class="label_height">企业全称：</label>
         </div>
         <div class="form-group col-sm-11">
-            <div v-show="isShowName">
-              <span class="label_height">{{name}}&#12288;&#12288;</span>
-              <span v-show="$route.params.type === '2'" class="glyphicon glyphicon-edit" @click="editName"></span>
-            </div>
-            <div v-show="!isShowName">
-              <input type="text" class="form-control iw"  placeholder="请输入企业全称" v-model="name">
-              <span class="glyphicon glyphicon-floppy-saved" @click="editName"></span>
-            </div>
+          <div v-if="$route.params.type === '1'">
+            <span class="label_height">{{name}}&#12288;&#12288;</span>
+          </div>
+          <div v-if="$route.params.type === '2'">
+            <input type="text" class="form-control iw"  placeholder="请输入企业全称" v-model="name">
+          </div>
         </div>
         <div class="clearfix"></div>
         <div class="form-group col-sm-1 txr">
-            <label class="label_height">企业负责人：</label>
+          <label class="label_height">企业负责人：</label>
         </div>
         <div class="form-group col-sm-11">
-            <div v-show="isShowCharger">
-              <span class="label_height">{{charger}}&#12288;&#12288;</span>
-              <span v-show="$route.params.type === '2'" class="glyphicon glyphicon-edit" @click="editCharger"></span>
-            </div>
-            <div v-show="!isShowCharger">
-              <input type="text" class="form-control iw"  placeholder="请输入企业负责人" v-model="charger">
-              <span class="glyphicon glyphicon-floppy-saved" @click="editCharger"></span>
-            </div>
-        </div>
-        <div class="clearfix"></div>
-        <v-bigimg v-if="showImg" @hideViewImg="viewImg" :imgSrc="imgSrc"></v-bigimg>
-        <div class="form-group col-sm-1 txr">
-            <label class="label_height">手机号码：</label>
-        </div>
-        <div class="form-group col-sm-11">
-            <div v-show="isShowtell">
-              <span class="label_height">{{cellphone}}&#12288;&#12288;</span>
-              <span v-show="$route.params.type === '2'" class="glyphicon glyphicon-edit" @click="editTell"></span>
-            </div>
-            <div v-show="!isShowtell">
-              <input type="text" class="form-control iw"  placeholder="请输入手机号码" v-model="cellphone" @blur="validate">
-              <span class="glyphicon glyphicon-floppy-saved" @click="editTell"></span>
-            </div>
+          <div v-if="$route.params.type === '1'">
+            <span class="label_height">{{charger}}&#12288;&#12288;</span>
+          </div>
+          <div v-if="$route.params.type === '2'">
+            <input type="text" class="form-control iw"  placeholder="请输入企业负责人" v-model="charger">
+          </div>
         </div>
         <div class="clearfix"></div>
         <div class="form-group col-sm-1 txr">
-            <label class="label_height">身份证号码：</label>
+          <label class="label_height">手机号码：</label>
+        </div>
+        <div class="form-group col-sm-11">
+          <div v-if="$route.params.type === '1'">
+            <span class="label_height">{{cellphone}}&#12288;&#12288;</span>
+          </div>
+          <div v-if="$route.params.type === '2'">
+            <input type="text" class="form-control iw"  placeholder="请输入手机号码" v-model="cellphone" @blur="validate">
+          </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="form-group col-sm-1 txr">
+          <label class="label_height">身份证号码：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-            <span v-show="isShowNumber">
-              <span class="label_height">{{idNumber}}&#12288;&#12288;</span>
-              <span v-show="$route.params.type === '2'" class="glyphicon glyphicon-edit" @click="editNumber"></span>
-            </span>
-            <span v-show="!isShowNumber">
-              <input type="text" class="form-control iw"  placeholder="请输入身份证号" v-model="idNumber" @blur="validate">
-              <span class="glyphicon glyphicon-floppy-saved" @click="editNumber"></span>
-            </span>
+          <span v-if="$route.params.type === '1'">
+            <span class="label_height">{{idNumber}}&#12288;&#12288;</span>
+          </span>
+          <span v-if="$route.params.type === '2'">
+            <input type="text" class="form-control iw"  placeholder="请输入身份证号" v-model="idNumber" @blur="validate">
+          </span>
         </div>
         <div class="clearfix"></div>
         <div class="form-group col-sm-1 txr">
           <label class="label_height">身份证照片：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-          <div v-show="$route.params.type === '1'">
-            <v-commonimg :imgSrc="idFrontUrl" @acceptImgSrc="bigimg"></v-commonimg>
-            <v-commonimg :imgSrc="idBackUrl" @acceptImgSrc="bigimg"></v-commonimg>
+          <div v-if="$route.params.type === '1'">
+            <div v-if="idFrontUrl" class="pull-left" style="width: 200px;margin-right: 30px;">
+              <v-img :imgSrc="idFrontUrl"></v-img>
+            </div>
+            <div v-if="idBackUrl" class="pull-left" style="width: 200px;">
+              <v-img :imgSrc="idBackUrl"></v-img>
+            </div>
           </div>
-          <div v-show="$route.params.type === '2'">
-            <v-idcardupload :imgUrl="idFrontUrl" text="上传正面" @acceptImgSrc="bigimg" @acceptData="setFrontUrl" uploadid="up1"></v-idcardupload>
-            <v-idcardupload :imgUrl="idBackUrl" text="上传背面" @acceptImgSrc="bigimg" @acceptData="setBackUrl" uploadid="up2"></v-idcardupload>
+          <div v-if="$route.params.type === '2'">
+            <div v-if="idFrontUrl" class="pull-left" style="width: 200px;margin-right: 30px;">
+              <v-multiple-upload len="1" :imgSrc="idFrontUrl" uploadid="upload2" title="上传正面" @acceptData="setFrontUrl"></v-multiple-upload len="1">
+            </div>
+            <div v-if="idBackUrl" class="pull-left" style="width: 200px;">
+              <v-multiple-upload len="1" :imgSrc="idBackUrl" uploadid="upload3" title="上传背面" @acceptData="setBackUrl"></v-multiple-upload len="1">
+            </div>
           </div>
         </div>
         <div class="clearfix"></div>
@@ -82,11 +79,11 @@
           <label class="label_height">营业执照：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-          <div v-show="$route.params.type === '1'">
-            <v-commonimg :imgSrc="licenseImageUrl" @acceptImgSrc="bigimg"></v-commonimg>
+          <div v-if="$route.params.type === '1'">
+            <v-img :imgSrc="licenseImageUrl"></v-img>
           </div>
-          <div v-show="$route.params.type === '2'">
-            <v-idcardupload :imgUrl="licenseImageUrl" text="上传营业执照" @acceptImgSrc="bigimg" @acceptData="setLicenseImageUrl" uploadid="up3"></v-idcardupload>
+          <div v-if="$route.params.type === '2' && licenseImageUrl">
+            <v-multiple-upload len="1" :imgSrc="licenseImageUrl" title="上传营业执照" @acceptData="setLicenseImageUrl" uploadid="up3"></v-multiple-upload len="1">
           </div>
         </div>
         <div class="clearfix"></div>
@@ -94,11 +91,11 @@
           <label class="label_height">生产许可证：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-          <div v-show="$route.params.type === '1'">
-            <v-commonimg :imgSrc="productionImageUrl" @acceptImgSrc="bigimg"></v-commonimg>
+          <div v-if="$route.params.type === '1'">
+            <v-img :imgSrc="productionImageUrl"></v-img>
           </div>
-          <div v-show="$route.params.type === '2'">
-            <v-idcardupload :imgUrl="productionImageUrl" text="上传许可证" @acceptImgSrc="bigimg" @acceptData="setProductionImageUrl" uploadid="up4"></v-idcardupload>
+          <div v-if="$route.params.type === '2' && productionImageUrl">
+            <v-multiple-upload len="1" :imgSrc="productionImageUrl" title="上传许可证" @acceptData="setProductionImageUrl" uploadid="up4"></v-multiple-upload len="1">
           </div>
         </div>
         <div class="clearfix"></div>
@@ -106,11 +103,13 @@
           <label class="label_height">资金补贴申报表：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-          <div v-show="$route.params.type === '1'">
-            <v-commonimg :imgSrc="capitalImageUrl" @acceptImgSrc="bigimg"></v-commonimg>
+          <div v-if="$route.params.type === '1'">
+            <div class="pull-left" v-for="url of capitalImageUrls">
+              <v-img :imgSrc="url"></v-img>
+            </div>
           </div>
-          <div v-show="$route.params.type === '2'">
-            <v-idcardupload :imgUrl="capitalImageUrl" text="上传申报表" @acceptImgSrc="bigimg" @acceptData="setCapitalImageUrl" uploadid="up5"></v-idcardupload>
+          <div v-if="$route.params.type === '2' && capitalImageUrl">
+            <v-multiple-upload len="1" :imgSrc="capitalImageUrl" title="上传申报表" @acceptData="setCapitalImageUrl" uploadid="up5"></v-multiple-upload len="1">
           </div>
         </div>
         <div class="clearfix"></div>
@@ -118,11 +117,13 @@
           <label class="label_height">企业尽职调查表：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-          <div v-show="$route.params.type === '1'">
-            <v-commonimg :imgSrc="enterpriseSurveyImageUrl" @acceptImgSrc="bigimg"></v-commonimg>
+          <div v-if="$route.params.type === '1'">
+            <div class="pull-left" v-for="url of enterpriseSurveyImageUrls">
+              <v-img :imgSrc="url"></v-img>
+            </div>
           </div>
-          <div v-show="$route.params.type === '2'">
-            <v-upload len="3" :imgUrl="enterpriseSurveyImageUrl" @acceptImgSrc="bigimg" @acceptData="setEnterpriseSurveyImageUrl" uploadid="up6"></v-upload>
+          <div v-if="$route.params.type === '2' && enterpriseSurveyImageUrl">
+            <v-multiple-upload len="3" :imgSrc="enterpriseSurveyImageUrl" title="上传调查表" @acceptData="setEnterpriseSurveyImageUrl" uploadid="up6"></v-multiple-upload>
           </div>
         </div>
         <div class="clearfix"></div>
@@ -130,11 +131,13 @@
           <label class="label_height">企业负责人尽职调查表：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-          <div v-show="$route.params.type === '1'">
-            <v-commonimg :imgSrc="enterpriseChargerSurveyImageUrl" @acceptImgSrc="bigimg"></v-commonimg>
+          <div v-if="$route.params.type === '1'">
+            <div class="pull-left" v-for="url of enterpriseChargerSurveyImageUrls">
+              <v-img :imgSrc="url"></v-img>
+            </div>
           </div>
-          <div v-show="$route.params.type === '2'">
-            <v-upload len="3" :imgUrl="enterpriseChargerSurveyImageUrl" @acceptImgSrc="bigimg" @acceptData="setEnterpriseChargerSurveyImageUrl" uploadid="up7"></v-upload>
+          <div v-if="$route.params.type === '2' && enterpriseChargerSurveyImageUrl">
+            <v-multiple-upload len="3" :imgSrc="enterpriseChargerSurveyImageUrl" title="上传调查表" @acceptData="setEnterpriseChargerSurveyImageUrl" uploadid="up7"></v-multiple-upload>
           </div>
         </div>
         <div class="clearfix"></div>
@@ -142,11 +145,11 @@
           <label class="label_height">企业入库申请函：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-          <div v-show="$route.params.type === '1'">
-            <v-commonimg :imgSrc="enterpriseShindImageUrl" @acceptImgSrc="bigimg"></v-commonimg>
+          <div v-if="$route.params.type === '1'">
+            <v-img :imgSrc="enterpriseShindImageUrl"></v-img>
           </div>
-          <div v-show="$route.params.type === '2'">
-            <v-idcardupload :imgUrl="enterpriseShindImageUrl" text="上传申请函" @acceptImgSrc="bigimg" @acceptData="setEnterpriseShindImageUrl" uploadid="up8"></v-idcardupload>
+          <div v-if="$route.params.type === '2' && enterpriseShindImageUrl">
+            <v-multiple-upload len="1" :imgSrc="enterpriseShindImageUrl" title="上传申请函" @acceptData="setEnterpriseShindImageUrl" uploadid="up8"></v-multiple-upload len="1">
           </div>
         </div>
         <div class="clearfix"></div>
@@ -154,11 +157,11 @@
           <label class="label_height">授权委托书：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-          <div v-show="$route.params.type === '1'">
-            <v-commonimg :imgSrc="authorizationImageUrl" @acceptImgSrc="bigimg"></v-commonimg>
+          <div v-if="$route.params.type === '1'">
+            <v-img :imgSrc="authorizationImageUrl"></v-img>
           </div>
-          <div v-show="$route.params.type === '2'">
-            <v-idcardupload :imgUrl="authorizationImageUrl" text="上传委托书" @acceptImgSrc="bigimg" @acceptData="setAuthorizationImageUrl" uploadid="up9"></v-idcardupload>
+          <div v-if="$route.params.type === '2' && authorizationImageUrl">
+            <v-multiple-upload len="1" :imgSrc="authorizationImageUrl" title="上传委托书" @acceptData="setAuthorizationImageUrl" uploadid="up9"></v-multiple-upload len="1">
           </div>
         </div>
         <div class="clearfix"></div>
@@ -166,21 +169,23 @@
           <label class="label_height">其他补充材料：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-          <div v-show="$route.params.type === '1'">
-            <v-commonimg :imgSrc="otherImageUrl" @acceptImgSrc="bigimg"></v-commonimg>
+          <div v-if="$route.params.type === '1'">
+            <div class="pull-left" v-for="url of otherImageUrls">
+              <v-img :imgSrc="url"></v-img>
+            </div>
           </div>
-          <div v-show="$route.params.type === '2'">
-            <v-upload len="5" :imgUrl="otherImageUrl" @acceptImgSrc="bigimg" @acceptData="setOtherImageUrl" uploadid="up10"></v-upload>
+          <div v-if="$route.params.type === '2' && otherImageUrl">
+            <v-multiple-upload len="5" :imgSrc="otherImageUrl" title="上传补充材料" @acceptData="setOtherImageUrl" uploadid="up10"></v-multiple-upload>
           </div>
         </div>
         <div class="clearfix"></div>
-        <div class="form-group col-sm-1 txr" v-show="$route.params.type === '2'">
+        <div class="form-group col-sm-1 txr" v-if="$route.params.type === '2'">
         </div>
-        <div class="form-group col-sm-11 imb" v-show="$route.params.type === '2'">
-            <button class="btn js-ajax-submit" @click="submit">确认</button>
-            <br/>
-            <br/>
-            <p class="areafc">&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#32;申报企业需审核</p>
+        <div class="form-group col-sm-11 imb" v-if="$route.params.type === '2'">
+          <button class="btn js-ajax-submit" @click="submit">确认</button>
+          <br/>
+          <br/>
+          <p class="areafc">&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#32;申报企业需审核</p>
         </div>
       </div>
     </div>
@@ -188,10 +193,8 @@
 </template>
 
 <script>
-import bigImg from '@/components/bigImg';
-import commonimg from '@/components/commonImg';
-import idcardupload from '@/components/upload/idCardUpload';
-import upload from '@/components/upload';
+import vimg from '@/components/img/img';
+import multipleUpload from '@/components/upload/multipleUpload';
 import { DECLARE_GET_ENTERPRISE_ID, DECLARE_PUT_ENTERPRISE } from '@/config/env';
 import errInfo from '@/components/info/error';
 import rules from '@/config/rules';
@@ -200,11 +203,6 @@ export default {
   name: 'detail',
   data() {
     return {
-      isShowName: true,
-      isShowCharger: true,
-      isShowtell: true,
-      isShowNumber: true,
-      showImg: false,
       name: '',
       charger: '',
       cellphone: '',
@@ -214,12 +212,15 @@ export default {
       licenseImageUrl: '',
       productionImageUrl: '',
       capitalImageUrl: '',
+      capitalImageUrls: [],
       enterpriseSurveyImageUrl: '',
       enterpriseSurveyImageUrls: [],
       enterpriseChargerSurveyImageUrl: '',
+      enterpriseChargerSurveyImageUrls: [],
       enterpriseShindImageUrl: '',
       authorizationImageUrl: '',
       otherImageUrl: '',
+      otherImageUrls: [],
       state: '',
       reason: '',
       errMsg: [],
@@ -287,25 +288,6 @@ export default {
       }
       this.errMsg = [...this.errMsg, ...errMsg];
     },
-    bigimg(src) {
-      this.imgSrc = src;
-      this.showImg = true;
-    },
-    viewImg() {
-      this.showImg = false;
-    },
-    editName() {
-      this.isShowName = !this.isShowName;
-    },
-    editCharger() {
-      this.isShowCharger = !this.isShowCharger;
-    },
-    editTell() {
-      this.isShowtell = !this.isShowtell;
-    },
-    editNumber() {
-      this.isShowNumber = !this.isShowNumber;
-    },
     setFrontUrl(d) {
       this.idFrontUrl = d;
     },
@@ -349,14 +331,23 @@ export default {
         this.licenseImageUrl = res.data.data.licenseImageUrl;
         this.productionImageUrl = res.data.data.productionImageUrl;
         this.capitalImageUrl = res.data.data.capitalImageUrl;
+        if (res.data.data.capitalImageUrl) {
+          this.capitalImageUrls = res.data.data.capitalImageUrl.split(',');
+        }
         this.enterpriseSurveyImageUrl = res.data.data.enterpriseSurveyImageUrl;
         if (res.data.data.enterpriseSurveyImageUrl) {
           this.enterpriseSurveyImageUrls = res.data.data.enterpriseSurveyImageUrl.split(',');
         }
         this.enterpriseChargerSurveyImageUrl = res.data.data.enterpriseChargerSurveyImageUrl;
+        if (res.data.data.enterpriseChargerSurveyImageUrl) {
+          this.enterpriseChargerSurveyImageUrls = res.data.data.enterpriseChargerSurveyImageUrl.split(',');
+        }
         this.enterpriseShindImageUrl = res.data.data.enterpriseShindImageUrl;
         this.authorizationImageUrl = res.data.data.authorizationImageUrl;
         this.otherImageUrl = res.data.data.otherImageUrl;
+        if (res.data.data.otherImageUrl) {
+          this.otherImageUrls = res.data.data.otherImageUrl.split(',');
+        }
         this.state = res.data.data.state;
         this.reason = res.data.data.reason;
         if (this.reason) {
@@ -391,16 +382,21 @@ export default {
       param.reason = this.reason;
       const res = await this.$xhr('post', `${DECLARE_PUT_ENTERPRISE}${id}`, param);
       if (res.data.code === 0) {
-        setTimeout(() => { this.$router.push('/ent/detail/msg'); }, 1000);
+        sessionStorage.setItem('title', '更新申报企业');
+        sessionStorage.setItem('content', '更新申报企业成功');
+        sessionStorage.setItem('content2', '');
+        sessionStorage.setItem('content3', '');
+        sessionStorage.setItem('alink', '');
+        sessionStorage.setItem('blink', '/decEnt');
+        sessionStorage.setItem('clink', '');
+        setTimeout(() => { this.$router.push('/message'); }, 1000);
       }
     },
   },
   components: {
-    'v-bigimg': bigImg,
-    'v-commonimg': commonimg,
-    'v-errinfo': errInfo,
-    'v-upload': upload,
-    'v-idcardupload': idcardupload,
+    'v-img': vimg,
+    'v-error-info': errInfo,
+    'v-multiple-upload': multipleUpload,
   },
   mounted() {
     this.init();

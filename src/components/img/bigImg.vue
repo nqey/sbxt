@@ -7,7 +7,7 @@
             <div class="img">
                 <img :src="imgSrc" class="bigimg">
             </div>
-            <span class="glyphicon glyphicon-remove img_div_del" @click="bigImg"></span>
+            <span class="glyphicon glyphicon-remove img_div_del" @click="close"></span>
         </div>
     </transition>
 </template>
@@ -18,9 +18,9 @@ export default {
   props: ['imgSrc'],
 
   methods: {
-    bigImg() {
+    close() {
       // 发送事件
-      this.$emit('hideViewImg');
+      this.$emit('hideBigImg');
     },
   },
 };
@@ -67,7 +67,7 @@ export default {
     max-width: 100%;
     max-height: 100%;
     display: block;
-    position: relative;
+    position: fixed;
     left: 0;
     right: 0;
     top: 0;

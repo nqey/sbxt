@@ -1,7 +1,7 @@
 <template>
   <div>
-    <v-registerhead :step="1"></v-registerhead>
-    <v-errinfo :errMsg="errMsg"></v-errinfo>
+    <v-register-head :step="1"></v-register-head>
+    <v-error-info :errMsg="errMsg"></v-error-info>
     <div>
       <div class="col-sm-12 container">
         <div class="col-sm-12 bs-example">
@@ -47,12 +47,11 @@
         </div>
       </div>
     </div>
-   
   </div>
 </template>
 
 <script>
-import registerHead from '@/components/registerHead';
+import registerHead from '@/components/header/registerHead';
 import errInfo from '@/components/info/error';
 import rules from '@/config/rules';
 import { DECLARE_GET_VALIDATECODE, DECLARE_POST_ORGANIZ } from '@/config/env';
@@ -74,8 +73,8 @@ export default {
     };
   },
   components: {
-    'v-registerhead': registerHead,
-    'v-errinfo': errInfo,
+    'v-register-head': registerHead,
+    'v-error-info': errInfo,
   },
   methods: {
     validate() {

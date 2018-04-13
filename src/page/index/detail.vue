@@ -1,21 +1,18 @@
 <template>
-  <div>
-    <div class="bs-example">
-  		<span class="t_nav">&#12288;通知详情</span>
-		<br/>
-        <br/>
-        <br/>
-        <div class="col-sm-12" style="text-align: center;">
-            <h3>{{title}}</h3>
-            <span style="line-height: 60px">{{createDate}}</span>
-    		<br/>
-    		    {{content}}
-        </div>
-        <div class="col-sm-12" style="padding: 30px;text-align: center;">
-            <router-link to="/index"><button class="btn fh">返回</button></router-link>
-        </div>
-        <div style="clear: both;"></div>
-	</div>
+  <div class="bs-example">
+    <P class="t_nav">&#12288;通知详情</P>
+    <br/>
+    <br/>
+    <div class="col-sm-12" style="text-align: center;">
+      <h3>{{title}}</h3>
+      <span style="line-height: 60px">{{createDate}}</span>
+      <br/>
+      {{content}}
+    </div>
+    <div class="col-sm-12" style="padding: 30px;text-align: center;">
+      <router-link to="/index"><button class="btn fh">返回</button></router-link>
+    </div>
+    <div style="clear: both;"></div>
   </div>
 </template>
 
@@ -25,11 +22,6 @@ import { formatDate } from '@/config/utils';
 
 export default {
   name: 'detail',
-  props: {
-    value: {
-      type: String,
-    },
-  },
   data() {
     return {
       title: '',

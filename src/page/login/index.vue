@@ -30,7 +30,7 @@
       <!-- 申报机构logo和说明 结束 -->
       <!-- 登录框 开始 -->
       <div class="col-sm-6" style="position: relative;text-align: center;">
-         <div  class="loginContent">
+        <div  class="loginContent">
           <div class="login">
             <h3 class="loginTitle">CPS申报机构自主管理平台登录</h3>
             <ul>
@@ -52,16 +52,16 @@
               </li>
             </ul>
             <div class="row">
-                <div class="col-sm-6">
-                    <div class="checkbox">
-                      <label>
-                        <input type="checkbox" value="" @click="jzzh">记住帐号
-                      </label>
-                    </div>
+              <div class="col-sm-6">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" value="" @click="jzzh">记住帐号
+                  </label>
                 </div>
-                <div class="col-sm-6">
-                    <router-link to="/password/reset"><span style="line-height: 40px">忘记密码？</span></router-link>
-                </div>
+              </div>
+              <div class="col-sm-6">
+                <router-link to="/password/reset"><span style="line-height: 40px">忘记密码？</span></router-link>
+              </div>
             </div>
             <div id="login_btn_wraper">
               <button id="submit-login" class="btn js-ajax-submit" @click="login">{{lo}}</button>
@@ -72,7 +72,7 @@
       <!-- 登录框 结束 -->
       <!-- 公告 开始 -->
       <div  class="col-sm-2"></div>
-      <div  class="col-sm-10 announcement">
+      <div class="col-sm-10 announcement">
         <div class="col-sm-1">
           <span class="glyphicon glyphicon-volume-up"></span> 系统公告
         </div>
@@ -85,33 +85,32 @@
       </div>
       <!-- 公告 结束 -->
       <!-- 查看详情 开始 -->
-      <div  class="col-sm-3"></div>
-      <div  class="col-sm-2 seeDetails">
-            <div class="seeDetailsLogo1">
-                <img :src="sbxt"></img>
-            </div>
-            <br/>
-            <br/>
-            <p>申报机构</p>
-            <p>邀约并协助生产型企业完成申报工作，对 企业讲解中国商品诚信数据库，让企业充 分了解入库的必要性。</p>
-            <br/>
-            <router-link to="/agency/1"><button class="btn ckxq">查看详情</button></router-link>
+      <div class="col-sm-3"></div>
+      <div class="col-sm-2 seeDetails">
+        <div class="seeDetailsLogo1">
+          <img :src="sbxt"></img>
+        </div>
+        <br/>
+        <br/>
+        <p>申报机构</p>
+        <p>邀约并协助生产型企业完成申报工作，对 企业讲解中国商品诚信数据库，让企业充 分了解入库的必要性。</p>
+        <br/>
+        <router-link to="/agency/1"><button class="btn ckxq">查看详情</button></router-link>
       </div>
-       <div  class="col-sm-2 seeDetails">
-            <div class="seeDetailsLogo2">
-                <img :src="sjglzx"></img>
-            </div>
-            <br/>
-            <br/>
-            <p>市级管理中心</p>
-            <p>邀约并协助生产型企业完成申报工作，对 企业讲解中国商品诚信数据库，让企业充 分了解入库的必要性，并管理当市企业。</p>
-            <br/>
-            <router-link to="/agency/2"><button class="btn ckxq">查看详情</button></router-link>
+      <div class="col-sm-2 seeDetails">
+        <div class="seeDetailsLogo2">
+          <img :src="sjglzx"></img>
+        </div>
+        <br/>
+        <br/>
+        <p>市级管理中心</p>
+        <p>邀约并协助生产型企业完成申报工作，对 企业讲解中国商品诚信数据库，让企业充 分了解入库的必要性，并管理当市企业。</p>
+        <br/>
+        <router-link to="/agency/2"><button class="btn ckxq">查看详情</button></router-link>
       </div>
-
-      <div  class="col-sm-2 seeDetails">
+      <div class="col-sm-2 seeDetails">
         <div class="seeDetailsLogo3">
-            <img :src="ssjglzx"></img>
+          <img :src="ssjglzx"></img>
         </div>
         <br/>
         <br/>
@@ -123,18 +122,17 @@
       <div class="col-sm-3"></div>
       <!-- 查看详情 结束 -->
       <!-- 页脚 开始 -->
-
       <div class="col-sm-12 lFooter">
-          <div class="col-sm-6">
-              <a>关于我们 |</a>
-              <a>服务协议 |</a>
-              <a>联系我们 |</a>
-              <a>官网网站 |</a>
-              <a>企业入库</a>
-          </div>
-          <div class="col-sm-6">
-            <small>版权所有 @中国商品诚信数据库技术服务中心 ALL Rights Reserved 蜀ICP备16015082号-2 </small>
-          </div>
+        <div class="col-sm-6">
+          <a>关于我们 |</a>
+          <a>服务协议 |</a>
+          <a>联系我们 |</a>
+          <a>官网网站 |</a>
+          <a>企业入库</a>
+        </div>
+        <div class="col-sm-6">
+          <small>版权所有 @中国商品诚信数据库技术服务中心 ALL Rights Reserved 蜀ICP备16015082号-2 </small>
+        </div>
       </div>
       <!-- 页脚 结束-->
     </div>

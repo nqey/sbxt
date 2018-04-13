@@ -1,7 +1,7 @@
 <template>
   <div>
-    <v-registerhead></v-registerhead>
-    <v-errinfo :errMsg="errMsg"></v-errinfo>
+    <v-password-head></v-password-head>
+    <v-error-info :errMsg="errMsg"></v-error-info>
     <div>
       <div class="col-sm-12 container">
         <div class="col-sm-12 bs-example">
@@ -41,18 +41,17 @@
         </div>
       </div>
     </div>
-   
   </div>
 </template>
 
 <script>
-import registerHead from '@/components/registerHead/head';
+import vPasswordHead from '@/components/header/passwordHead';
 import errInfo from '@/components/info/error';
 import rules from '@/config/rules';
 import { DECLARE_GET_VALIDATECODE, DECLARE_PUT_PASSWORD } from '@/config/env';
 
 export default {
-  name: 'step1',
+  name: 'resetPw',
   data() {
     return {
       cellphone: '',
@@ -66,8 +65,8 @@ export default {
     };
   },
   components: {
-    'v-registerhead': registerHead,
-    'v-errinfo': errInfo,
+    'v-password-head': vPasswordHead,
+    'v-error-info': errInfo,
   },
   methods: {
     validate() {

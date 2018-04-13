@@ -1,141 +1,142 @@
 <template>
   <div>
-    <v-errinfo :errMsg="errMsg"></v-errinfo>
+    <v-error-info :errMsg="errMsg"></v-error-info>
     <div class="bs-example">
       <span class="t_nav">&#12288;&#12288;申报官详情</span>
       <br/>
       <br/>
       <br/>
       <div class="form-inline clearfix">
-        <div class="clearfix"></div>
-        <div class="form-group col-sm-1 txr">
-          <div v-show="$route.params.type === '1'">
-            <img :src="picPortrait"></img>
+        <div class="form-group col-sm-1 txr clearfix">
+          <div v-if="$route.params.type === '1'">
+            <v-portrait-img :imgSrc="portrait"></v-portrait-img>
           </div>
-          <div v-show="$route.params.type === '2'">
-            <v-reupload2 :imgSrc="portrait" @acceptImgSrc="bigimg" @acceptData="setPortrait" uploadid="up11"></v-reupload2>
+          <div v-if="$route.params.type === '2' && portrait">
+            <v-portrait-upload len="1" title="上传头像" :imgSrc="portrait" @acceptData="setPortrait" uploadid="up11"></v-portrait-upload len="1">
           </div>
         </div>
         <div class="form-group col-sm-11 imb">
-            <div v-show="isShowName">
-              <span class="label_height"> 用户名：{{name}}&#12288;&#12288;</span>
-              <span v-show="$route.params.type === '2'" class="glyphicon glyphicon-edit" @click="editName"></span>
-            </div>
-            <div v-show="!isShowName">
-              用户名：<input type="text" class="form-control iw"  placeholder="请输入用户名" v-model="name">
-              <span class="glyphicon glyphicon-floppy-saved" @click="editName"></span>
-            </div>
-            <br/>
-            <div v-show="isShowtell">
-              <span class="label_height">手机号码：{{cellphone}}&#12288;&#12288;</span>
-              <span v-show="$route.params.type === '2'" class="glyphicon glyphicon-edit" @click="editTell"></span>
-            </div>
-            <div v-show="!isShowtell">
-              手机号码：<input type="text" class="form-control iw"  placeholder="请输入手机号码" @blur="validate" v-model="cellphone">
-              <span class="glyphicon glyphicon-floppy-saved" @click="editTell"></span>
-            </div>
-            <br/>
+          <div v-if="$route.params.type === '1'">
+            <span class="label_height"> 用户名：&#12288;{{name}}&#12288;&#12288;</span>
+          </div>
+          <div v-if="$route.params.type === '2'">
+            用户名：&#12288;<input type="text" class="form-control iw"  placeholder="请输入用户名" v-model="name">
+          </div>
+          <br/>
+          <div v-if="$route.params.type === '1'">
+            <span class="label_height">手机号码：{{cellphone}}&#12288;&#12288;</span>
+          </div>
+          <div v-if="$route.params.type === '2'">
+            手机号码：<input type="text" class="form-control iw"  placeholder="请输入手机号码" @blur="validate" v-model="cellphone">
+          </div>
+          <br/>
+          <div v-if="$route.params.type === '1'">
             <span class="label_height">所在区域：{{area}}&#12288;&#12288;</span>
-            <br/>
-            <br/>
-            <span v-show="isShowNumber">
-              <span class="label_height"> 身份证号：{{idNumber}}&#12288;&#12288;</span>
-              <span v-show="$route.params.type === '2'" class="glyphicon glyphicon-edit" @click="editNumber"></span>
-            </span>
-            <span v-show="!isShowNumber">
-              身份证号：<input type="text" class="form-control iw"  placeholder="请输入身份证号" @blur="validate" v-model="idNumber">
-              <span class="glyphicon glyphicon-floppy-saved" @click="editNumber"></span>
-            </span>
-            &#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;考试分数：<span class="cscore">{{score}}</span></span>
+          </div>
+          <div v-if="$route.params.type === '2'">
+            <span class="label_height">所在区域：</span>
+            <v-geo-area :areacode="areaCode" @acceptData="setLiveAddress"></v-geo-area>
+          </div>
+          <br/>
+          <span v-if="$route.params.type === '1'">
+            <span class="label_height"> 身份证号：{{idNumber}}&#12288;&#12288;</span>
+          </span>
+          <span v-if="$route.params.type === '2'">
+            身份证号：<input type="text" class="form-control iw"  placeholder="请输入身份证号" @blur="validate" v-model="idNumber">
+          </span>
+          &#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;考试分数：<span class="cscore">{{score}}</span></span>
         </div>
-        <div class="clearfix"></div>
         <br/>
         <br/>
-        <v-bigimg v-if="showImg" @hideViewImg="viewImg" :imgSrc="imgSrc"></v-bigimg>
-        <div class="form-group col-sm-1 txr">
-            <label class="label_height">证件照片：</label>
+        <div class="form-group col-sm-1 txr clearfix">
+          <label class="label_height">证件照片：</label>
+        </div>
+        <div class="form-group col-sm-11 imb">
+          <div v-if="$route.params.type === '1'">
+            <div v-if="idFrontUrl" class="pull-left" style="width: 200px;margin-right: 30px;">
+              <v-img :imgSrc="idFrontUrl"></v-img>
+            </div>
+            <div v-if="idBackUrl" class="pull-left" style="width: 200px;">
+              <v-img :imgSrc="idBackUrl"></v-img>
+            </div>
+          </div>
+          <div v-show="$route.params.type === '2'">
+            <div v-if="idFrontUrl" class="pull-left" style="width: 200px;margin-right: 30px;">
+              <v-multiple-upload len="1" :imgSrc="idFrontUrl" uploadid="upload2" title="上传正面" @acceptData="setFrontUrl"></v-multiple-upload len="1">
+            </div>
+            <div v-if="idBackUrl" class="pull-left" style="width: 200px;">
+              <v-multiple-upload len="1" :imgSrc="idBackUrl" uploadid="upload3" title="上传背面" @acceptData="setBackUrl"></v-multiple-upload len="1">
+            </div>
+          </div>
+        </div>
+        <br/>
+        <div class="form-group col-sm-1 txr clearfix">
+          <label class="label_height">尽职调查表：</label>
         </div>
         <div class="form-group col-sm-11 imb">
           <div v-show="$route.params.type === '1'">
-            <v-commonimg :imgSrc="idFrontUrl" @acceptImgSrc="bigimg"></v-commonimg>
-            <v-commonimg :imgSrc="idBackUrl" @acceptImgSrc="bigimg"></v-commonimg>
+            <div class="pull-left" v-for="url of surveyImageUrls">
+              <v-img :imgSrc="url"></v-img>
+            </div>
           </div>
-          <div v-show="$route.params.type === '2'">
-            <v-idcardupload :imgUrl="idFrontUrl" @acceptImgSrc="bigimg" @acceptData="setFrontUrl" uploadid="up1"></v-idcardupload>
-            <v-idcardupload :imgUrl="idBackUrl" @acceptImgSrc="bigimg" @acceptData="setBackUrl" uploadid="up2"></v-idcardupload>
+          <div v-show="$route.params.type === '2'" v-if="surveyImageUrls.length > 0">
+            <v-multiple-upload len="3" :imgSrc="surveyImageUrl" title="上传调查表" @acceptData="setSurveyImageUrl" uploadid="up3"></v-multiple-upload>
           </div>
         </div>
-        <div class="clearfix"></div>
         <br/>
-          <div class="form-group col-sm-1 txr">
-              <label class="label_height">尽职调查表：</label>
+        <div class="form-group col-sm-1 txr clearfix">
+          <label class="label_height">承诺公函：</label>
+        </div>
+        <div class="form-group col-sm-11 imb">
+          <div v-show="$route.params.type === '1'">
+            <v-img :imgSrc="letterImageUrl"></v-img>
           </div>
-          <div class="form-group col-sm-11 imb">
-            <div v-show="$route.params.type === '1'">
-              <v-commonimg :imgSrc="surveyImageUrl" @acceptImgSrc="bigimg"></v-commonimg>
-            </div>
-            <div v-show="$route.params.type === '2'">
-              <v-upload len="3" :imgUrl="surveyImageUrl" @acceptImgSrc="bigimg" @acceptData="setSurveyImageUrl" uploadid="up3"></v-upload>
-            </div>
+          <div v-show="$route.params.type === '2'"  v-if="letterImageUrl">
+            <v-multiple-upload len="1" :imgSrc="letterImageUrl" title="上传承诺公函" @acceptData="setLetterImageUrl" uploadid="up4"></v-multiple-upload len="1">
           </div>
-        <div class="clearfix"></div>
-        <br/>
-          <div class="form-group col-sm-1 txr">
-              <label class="label_height">承诺公函：</label>
-          </div>
-          <div class="form-group col-sm-11 imb">
-            <div v-show="$route.params.type === '1'">
-              <v-commonimg :imgSrc="letterImageUrl" @acceptImgSrc="bigimg"></v-commonimg>
-            </div>
-            <div v-show="$route.params.type === '2'">
-              <v-idcardupload :imgUrl="letterImageUrl" @acceptImgSrc="bigimg"  @acceptData="setLetterImageUrl" uploadid="up4"></v-idcardupload>
-            </div>
-          </div>
-          <div class="clearfix"></div>
-          <div class="form-group col-sm-1 txr" v-show="$route.params.type === '2'">
-          </div>
-          <div class="form-group col-sm-11 imb" v-show="$route.params.type === '2'">
-              <button @click="submit" class="btn js-ajax-submit">提交</button>
-              <br/>
-              <br/>
-              <p class="areafc">&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#32;申报官信息需审核</p>
-          </div>
+        </div>
+        <div class="form-group col-sm-1 txr clearfix" v-show="$route.params.type === '2'">
+        </div>
+        <div class="form-group col-sm-11 imb" v-show="$route.params.type === '2'">
+          <button @click="submit" class="btn js-ajax-submit">提交</button>
+          <br/>
+          <br/>
+          <p class="areafc">&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#32;申报官信息需审核</p>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import upload from '@/components/upload';
-import idcardupload from '@/components/upload/idCardUpload';
-import reupload2 from '@/components/upload/reUpload2';
-import bigImg from '@/components/bigImg';
-import commonimg from '@/components/commonImg';
+import multipleUpload from '@/components/upload/multipleUpload';
+import portraitUpload from '@/components/upload/portraitUpload';
+import vimg from '@/components/img/img';
+import vPortraitImg from '@/components/img/portraitImg';
 import errInfo from '@/components/info/error';
 import rules from '@/config/rules';
-import { DECLARE_GET_DECLARER_DETAILS, IMAGE_SERVER_URL, DECLARE_PUT_DECLARER } from '@/config/env';
+import { DECLARE_GET_DECLARER_DETAILS, DECLARE_PUT_DECLARER } from '@/config/env';
+import vGeoArea from '@/components/reegionalCascade/geoArea';
 
 export default {
   name: 'officerDetail',
   data() {
     return {
-      showImg: false,
       name: '',
       cellphone: '',
       idNumber: '',
       reason: '',
       score: 0,
       portrait: '',
-      picPortrait: '',
       idFrontUrl: '',
       idBackUrl: '',
       surveyImageUrl: '',
+      surveyImageUrls: [],
       letterImageUrl: '',
+      liveAddress: '',
       state: '',
       area: '',
-      isShowtell: true,
-      isShowName: true,
-      isShowNumber: true,
+      areaCode: '',
       errMsg: [],
     };
   },
@@ -186,22 +187,6 @@ export default {
         this.errMsg.push(`${rules.upload}${rules.letterImageUrl}`);
       }
     },
-    bigimg(src) {
-      this.imgSrc = src;
-      this.showImg = true;
-    },
-    viewImg() {
-      this.showImg = false;
-    },
-    editTell() {
-      this.isShowtell = !this.isShowtell;
-    },
-    editName() {
-      this.isShowName = !this.isShowName;
-    },
-    editNumber() {
-      this.isShowNumber = !this.isShowNumber;
-    },
     setFrontUrl(d) {
       this.idFrontUrl = d;
     },
@@ -216,6 +201,10 @@ export default {
     },
     setLetterImageUrl(d) {
       this.letterImageUrl = d;
+    },
+    setLiveAddress(d) {
+      this.areaCodes = d;
+      this.liveAddress = d;
     },
     async init() {
       const res = await this.$xhr('get', `${DECLARE_GET_DECLARER_DETAILS}${this.$route.params.id}`);
@@ -232,11 +221,14 @@ export default {
         } else {
           this.score = `${res.data.data.score}分`;
         }
-        this.picPortrait = `${IMAGE_SERVER_URL}${res.data.data.portrait}`;
         this.portrait = res.data.data.portrait;
         this.idFrontUrl = res.data.data.idFrontUrl;
         this.idBackUrl = res.data.data.idBackUrl;
         this.surveyImageUrl = res.data.data.surveyImageUrl;
+        if (res.data.data.surveyImageUrl) {
+          this.surveyImageUrls = res.data.data.surveyImageUrl.split(',');
+        }
+        this.areaCode = `${res.data.data.proviceCode},${res.data.data.cityCode},${res.data.data.areaCode}`;
         this.letterImageUrl = res.data.data.letterImageUrl;
         this.area = `${res.data.data.provice}-${res.data.data.city}-${res.data.data.district}`;
       }
@@ -255,19 +247,27 @@ export default {
       param.surveyImageUrl = this.surveyImageUrl;
       param.letterImageUrl = this.letterImageUrl;
       param.portrait = this.portrait;
+      param.liveAddress = this.liveAddress;
       const res = await this.$xhr('post', `${DECLARE_PUT_DECLARER}${this.$route.params.id}`, param);
       if (res.data.code === 0) {
-        this.$router.push('/officer/list');
+        sessionStorage.setItem('title', '更新申报官');
+        sessionStorage.setItem('content', '更新申报官成功');
+        sessionStorage.setItem('content2', '');
+        sessionStorage.setItem('content3', '');
+        sessionStorage.setItem('alink', '');
+        sessionStorage.setItem('blink', '/officer/list');
+        sessionStorage.setItem('clink', '');
+        setTimeout(() => { this.$router.push('/message'); }, 1000);
       }
     },
   },
   components: {
-    'v-bigimg': bigImg,
-    'v-commonimg': commonimg,
-    'v-reupload2': reupload2,
-    'v-errinfo': errInfo,
-    'v-upload': upload,
-    'v-idcardupload': idcardupload,
+    'v-img': vimg,
+    'v-error-info': errInfo,
+    'v-multiple-upload': multipleUpload,
+    'v-portrait-upload': portraitUpload,
+    'v-portrait-img': vPortraitImg,
+    'v-geo-area': vGeoArea,
   },
   mounted() {
     this.init();

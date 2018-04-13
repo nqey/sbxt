@@ -1,21 +1,18 @@
 <template>
-  <div>
-    <div class="bs-example">
-      <span class="t_nav">&#12288;系统通知</span>
-      <br/>
-      <br/>
-      <br/>
-      <ul>
-        <li class="news" v-for="(item, index) of news" style="list-style-type: disc;margin-left: 10px;">
-          <router-link :to="'/index/detail/'+item.id">{{item.title}}</router-link>
-          &#12288;<span class="news_new" v-show="index < 3 && page === 1">new</span>
-          <span class="news_time">{{item.pushTime}}</span>
-        </li>
-        <li></li>
-      </ul>
-      <v-pagination :page="pages" @nextPage="search"></v-pagination>
-      <div style="clear: both;"></div>
-    </div>
+  <div class="bs-example">
+    <span class="t_nav">&#12288;系统通知</span>
+    <br/>
+    <br/>
+    <br/>
+    <ul>
+      <li class="news" v-for="(item, index) of news" style="list-style-type: disc;margin-left: 10px;">
+        <router-link :to="'/index/detail/'+item.id">{{item.title}}</router-link>
+        &#12288;<span class="news_new" v-show="index < 3 && page === 1">new</span>
+        <span class="news_time">{{item.pushTime}}</span>
+      </li>
+    </ul>
+    <v-pagination :page="pages" @nextPage="search"></v-pagination>
+    <div style="clear: both;"></div>
   </div>
 </template>
 

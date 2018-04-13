@@ -1,44 +1,40 @@
 <template>
-  <div>
-    <div class="bs-example">
-      <span class="t_nav">&#12288;&#12288;推荐列表</span>
-      <br/>
-      <br/>
-      <br/>
-      <div v-show="lists.length > 0">
-        <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th>机构名称</th>
-                <th>负责人</th>
-                <!-- <th>推荐人</th> -->
-                <th>状态</th>
-                <th>申报时间</th>
-                <th>联系电话</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="item of lists">
-                <td>{{item.name}}</td>
-                <td>{{item.declarer}}</td>
-                <!-- <td>{{item.recomer}}</td> -->
-                <td v-show="item.reason" style="color: #ac2925;">{{item.state}} <span class="glyphicon glyphicon-question-sign"></span>{{item.reason}}</td>
-                <td v-show="!item.reason">{{item.state}}</td>
-                <td>{{item.createTime}}</td>
-                <td>{{item.tellphone}}</td>
-              </tr>
-            </tbody>
-          </table>
-          <v-pagination :page="pages" @nextPage="search"></v-pagination>
-          <div style="clear: both;"></div>
-        </div>
+  <div class="bs-example">
+    <span class="t_nav">&#12288;&#12288;推荐列表</span>
+    <br/>
+    <br/>
+    <br/>
+    <div v-show="lists.length > 0">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>机构名称</th>
+            <th>负责人</th>
+            <!-- <th>推荐人</th> -->
+            <th>状态</th>
+            <th>申报时间</th>
+            <th>联系电话</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item of lists">
+            <td>{{item.name}}</td>
+            <td>{{item.declarer}}</td>
+            <!-- <td>{{item.recomer}}</td> -->
+            <td v-show="item.reason" style="color: #ac2925;">{{item.state}} <span class="glyphicon glyphicon-question-sign"></span>{{item.reason}}</td>
+            <td v-show="!item.reason">{{item.state}}</td>
+            <td>{{item.createTime}}</td>
+            <td>{{item.tellphone}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <v-pagination :page="pages" @nextPage="search"></v-pagination>
+      <div style="clear: both;"></div>
     </div>
   </div>
 </template>
 
 <script>
-import upload from '@/components/upload';
-import bigImg from '@/components/bigImg';
 import pagination from '@/components/pagination';
 import { DECLARE_GET_RECOMMEND, DECLARE_GET_RECOMMEND_COUNT } from '@/config/env';
 import { formatDate } from '@/config/utils';
@@ -55,13 +51,6 @@ export default {
     };
   },
   methods: {
-    bigimg(src) {
-      this.imgSrc = src;
-      this.showImg = true;
-    },
-    viewImg() {
-      this.showImg = false;
-    },
     async search() {
       const param = {};
       param.page = this.page;
@@ -99,8 +88,6 @@ export default {
     },
   },
   components: {
-    'v-upload': upload,
-    'v-bigimg': bigImg,
     'v-pagination': pagination,
   },
   mounted() {

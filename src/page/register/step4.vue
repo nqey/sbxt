@@ -1,117 +1,106 @@
 <template>
   <div>
-    <v-registerhead :step="4"></v-registerhead>
-    <v-errinfo :errMsg="errMsg"></v-errinfo>
+    <v-register-head :step="4"></v-register-head>
+    <v-error-info :errMsg="errMsg"></v-error-info>
     <div>
       <div class="col-sm-12 container">
         <div class="col-sm-12 bs-example">
           <div class="form-inline  clearfix">
-              <div class="form-group col-sm-12 txc imb">
-                <h3>申请材料</h3>
-                <br/>
-              </div>
-              <div class="form-group col-sm-4 txr">
-                  <label class="label_height"><span class="info">*</span> 申报机构尽职调查表：</label>
-              </div>
-              <div class="form-group col-sm-8 imb">
-                <p class="label_height"><b>下载</b> <a>尽职调查表</a></p>
-                <small class="info2 label_height">文件要求：上传加盖企业公章的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
-                <br/>
-                <small class="info label_height">请认真填写每一必填项，再上传完整的尽职调查表</small>
-                <br/>
-                <br/>
-                <v-upload len="3" :imgUrl="surveyImageUrl" @acceptImgSrc="bigimg" @acceptData="setSurveyImageUrl" uploadid="upload1"></v-upload>
-              </div>
-              <v-bigimg v-if="showImg" @hideViewImg="viewImg" :imgSrc="imgSrc"></v-bigimg>
-              <div class="form-group col-sm-4 txr">
-                  <label class="label_height"><span class="info">*</span> 申报机构承诺公函：</label>
-              </div>
-              <div class="form-group col-sm-8 imb">
-                <p class="label_height"><b>下载</b> <a>承诺公函</a></p>
-                <small class="info2 label_height">文件要求：上传加盖企业公章的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
-                <br/>
-                <small class="info label_height">请上传完整的承诺公函</small>
-                <br/>
-                <br/>
-                 <v-idcardupload uploadid="upload2" :imgUrl="letterImageUrl" text="上传图片" @acceptImgSrc="bigimg" @acceptData="setLetterImageUrl"></v-idcardupload>
-              </div>
-              <div class="form-group col-sm-4 txr">
-                  <label class="label_height"><span class="info">*</span> 负责人尽职调查表：</label>
-              </div>
-              <div class="form-group col-sm-8 imb">
-                <p class="label_height"><b>下载</b> <a>尽职调查表</a></p>
-                <small class="info2 label_height">文件要求：上传加盖企业公章的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
-                <br/>
-                <small class="info label_height">请认真填写每一必填项，再上传完整的尽职调查表</small>
-                <br/>
-                <br/>
-                <v-upload len="3" :imgUrl="chargerSurveyImageUrl" @acceptImgSrc="bigimg" @acceptData="setChargerSurveyImageUrl" uploadid="upload3"></v-upload>
-              </div>
-              <div class="form-group col-sm-4 txr">
-                  <label class="label_height"><span class="info">*</span> 负责人承诺公函：</label>
-              </div>
-              <div class="form-group col-sm-8 imb">
-                <p class="label_height"><b>下载</b> <a>承诺公函</a></p>
-                <small class="info2 label_height">文件要求：上传加盖企业公章的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
-                <br/>
-                <small class="info label_height">请上传完整的承诺公函</small>
-                <br/>
-                <br/>
-                <v-idcardupload uploadid="upload4" :imgUrl="chargerImageUrl" text="上传图片" @acceptImgSrc="bigimg" @acceptData="setChargerImageUrl"></v-idcardupload>
-              </div>
-              <div class="form-group col-sm-4 txr">
-                  <label class="label_height"><span class="info">*</span> 企业工商营业执照：</label>
-              </div>
-              <div class="form-group col-sm-8 imb">
-                <small class="info2 label_height">只支持中国大陆工商局或市场监督管理局颁发的工商营业执照，且必须在有效期内，需与之前基本信息中所填企业相同。</small>
-                <br/>
-                <small class="info2 label_height">格式要求：上次加盖企业公章的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
-                <br/>
-                <br/>
-                <v-idcardupload uploadid="upload5" text="上传图片" :imgUrl="commerceImageUrl" @acceptImgSrc="bigimg" @acceptData="setCommerceImageUrl"></v-idcardupload>
-              </div>
-              <div class="form-group col-sm-4 txr">
-                  <label class="label_height"> 其他补充材料：</label>
-              </div>
-              <div class="form-group col-sm-8 imb">
-                <small class="info2 label_height">如果您有国家授予的其他资质材料也可以上传至此，可增加通过率。 </small>
-                <br/>
-                <small class="info2 label_height">支持格式：jpg、bmp、png、gif格式照片，大小不超过2M，最多5张。</small>
-                <br/>
-                <br/>
-                <v-upload len="5" :imgUrl="otherImageUrl" @acceptImgSrc="bigimg" @acceptData="setOtherImageUrl" uploadid="upload6"></v-upload>
-              </div>
-              <div class="form-group col-sm-4 txr">
-              </div>
-              <div class="form-group col-sm-8 imb">
-                  <button class="btn js-ajax-submit" @click="submit">提交</button>
-              </div>
+            <div class="form-group col-sm-12 txc imb">
+              <h3>申请材料</h3>
+              <br/>
+            </div>
+            <div class="form-group col-sm-4 txr">
+              <label class="label_height"><span class="info">*</span> 申报机构尽职调查表：</label>
+            </div>
+            <div class="form-group col-sm-8 imb">
+              <p class="label_height"><b>下载</b> <a>尽职调查表</a></p>
+              <small class="info2 label_height">文件要求：上传加盖企业公章的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
+              <br/>
+              <small class="info label_height">请认真填写每一必填项，再上传完整的尽职调查表</small>
+              <br/>
+              <br/>
+              <v-multiple-upload len="3" :imgSrc="surveyImageUrl" title="上传调查表" @acceptData="setSurveyImageUrl" uploadid="upload1"></v-multiple-upload>
+            </div>
+            <div class="form-group col-sm-4 txr">
+              <label class="label_height"><span class="info">*</span> 申报机构承诺公函：</label>
+            </div>
+            <div class="form-group col-sm-8 imb">
+              <p class="label_height"><b>下载</b> <a>承诺公函</a></p>
+              <small class="info2 label_height">文件要求：上传加盖企业公章的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
+              <br/>
+              <small class="info label_height">请上传完整的承诺公函</small>
+              <br/>
+              <br/>
+              <v-multiple-upload len="1" uploadid="upload2" :imgSrc="letterImageUrl" title="上传承诺公函" @acceptData="setLetterImageUrl"></v-multiple-upload len="1">
+            </div>
+            <div class="form-group col-sm-4 txr">
+              <label class="label_height"><span class="info">*</span> 负责人尽职调查表：</label>
+            </div>
+            <div class="form-group col-sm-8 imb">
+              <p class="label_height"><b>下载</b> <a>尽职调查表</a></p>
+              <small class="info2 label_height">文件要求：上传加盖企业公章的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
+              <br/>
+              <small class="info label_height">请认真填写每一必填项，再上传完整的尽职调查表</small>
+              <br/>
+              <br/>
+              <v-multiple-upload len="3" :imgSrc="chargerSurveyImageUrl" title="上传尽职调查表" @acceptData="setChargerSurveyImageUrl" uploadid="upload3"></v-multiple-upload>
+            </div>
+            <div class="form-group col-sm-4 txr">
+              <label class="label_height"><span class="info">*</span> 负责人承诺公函：</label>
+            </div>
+            <div class="form-group col-sm-8 imb">
+              <p class="label_height"><b>下载</b> <a>承诺公函</a></p>
+              <small class="info2 label_height">文件要求：上传加盖企业公章的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
+              <br/>
+              <small class="info label_height">请上传完整的承诺公函</small>
+              <br/>
+              <br/>
+              <v-multiple-upload len="1" uploadid="upload4" :imgSrc="chargerImageUrl" title="上传承诺公函" @acceptData="setChargerImageUrl"></v-multiple-upload len="1">
+            </div>
+            <div class="form-group col-sm-4 txr">
+              <label class="label_height"><span class="info">*</span> 企业工商营业执照：</label>
+            </div>
+            <div class="form-group col-sm-8 imb">
+              <small class="info2 label_height">只支持中国大陆工商局或市场监督管理局颁发的工商营业执照，且必须在有效期内，需与之前基本信息中所填企业相同。</small>
+              <br/>
+              <small class="info2 label_height">格式要求：上次加盖企业公章的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
+              <br/>
+              <br/>
+              <v-multiple-upload len="1" uploadid="upload5" title="上传营业执照" :imgSrc="commerceImageUrl" @acceptData="setCommerceImageUrl"></v-multiple-upload len="1">
+            </div>
+            <div class="form-group col-sm-4 txr">
+              <label class="label_height"> 其他补充材料：</label>
+            </div>
+            <div class="form-group col-sm-8 imb">
+              <small class="info2 label_height">如果您有国家授予的其他资质材料也可以上传至此，可增加通过率。 </small>
+              <br/>
+              <small class="info2 label_height">支持格式：jpg、bmp、png、gif格式照片，大小不超过2M，最多5张。</small>
+              <br/>
+              <br/>
+              <v-multiple-upload len="5" :imgSrc="otherImageUrl" title="上传补充材料" @acceptData="setOtherImageUrl" uploadid="upload6"></v-multiple-upload>
+            </div>
+            <div class="form-group col-sm-4 txr">
+            </div>
+            <div class="form-group col-sm-8 imb">
+              <button class="btn js-ajax-submit" @click="submit">提交</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
-import upload from '@/components/upload';
-import idCardUpload from '@/components/upload/idCardUpload';
-import geoarea from '@/components/reegionalCascade/geoArea';
-import registerHead from '@/components/registerHead';
-import bigImg from '@/components/bigImg';
-import apparea from '@/components/reegionalCascade/appArea';
+import multipleUpload from '@/components/upload/multipleUpload';
+import registerHead from '@/components/header/registerHead';
 import rules from '@/config/rules';
 import errInfo from '@/components/info/error';
 import { DECLARE_PUT_REGISTINFO, DECLARE_GET_BASEINFO } from '@/config/env';
 
 export default {
   name: 'step4',
-  props: {
-    value: {
-      type: String,
-    },
-  },
   data() {
     return {
       showImg: false,
@@ -128,13 +117,9 @@ export default {
     };
   },
   components: {
-    'v-upload': upload,
-    'v-geoarea': geoarea,
-    'v-registerhead': registerHead,
-    'v-bigimg': bigImg,
-    'v-apparea': apparea,
-    'v-idcardupload': idCardUpload,
-    'v-errinfo': errInfo,
+    'v-multiple-upload': multipleUpload,
+    'v-register-head': registerHead,
+    'v-error-info': errInfo,
   },
   methods: {
     validate() {
@@ -159,13 +144,6 @@ export default {
       if (!this.commerceImageUrl) {
         this.errMsg.push(`${rules.upload}${rules.commerceImageUrl}`);
       }
-    },
-    bigimg(src) {
-      this.imgSrc = src;
-      this.showImg = true;
-    },
-    viewImg() {
-      this.showImg = false;
     },
     setSurveyImageUrl(d) {
       this.surveyImageUrl = d;

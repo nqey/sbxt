@@ -1,12 +1,12 @@
 <template>
   <div>
-    <v-registerhead :step="1"></v-registerhead>
+    <v-register-head :step="1"></v-register-head>
     <div class="row">
       <div class="col-sm-12" style="padding: 0px 55px;">
         <div class="col-sm-12 bs-example">
           <div class="col-sm-12" style="text-align: center;">
-          <br/>
-          <br/>
+            <br/>
+            <br/>
             <div style="display: inline-block;width: 50px;height: 50px;border-radius: 25px;border: #01c853 1px solid;">
               <span class="glyphicon glyphicon-ok" style="line-height: 50px;font-size: 20px; color:  #01c853"></span>
             </div>
@@ -26,28 +26,12 @@
 </template>
 
 <script>
-import registerHead from '@/components/registerHead';
+import registerHead from '@/components/header/registerHead';
 
 export default {
   name: 'step11',
-  props: {
-    value: {
-      type: String,
-    },
-  },
-  data() {
-    return {
-      pages: 1,
-      rows: 20,
-    };
-  },
   components: {
-    'v-registerhead': registerHead,
-  },
-  methods: {
-    search() {
-
-    },
+    'v-register-head': registerHead,
   },
 };
 </script>

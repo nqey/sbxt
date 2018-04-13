@@ -11,7 +11,7 @@
 import logo from '@/assets/img/logo.png';
 
 export default {
-  name: 'rhead',
+  name: 'passwordHead',
   data() {
     return {
       logo,

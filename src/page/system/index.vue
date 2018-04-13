@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-lhead ></v-lhead>
+    <v-detail-head ></v-detail-head>
     <div class="col-sm-12 container">
       <div class="col-sm-12 bs-example">
         <span class="t_nav"><router-link to="/login">&#12288;首页</router-link>&#12288;>&#12288;系统通知</span>
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import lhead from '@/components/registerHead/lhead';
+import detailHead from '@/components/header/detailHead';
 import pagination from '@/components/pagination';
 import { PUBLICS_GET_NOTICES_LISTING, PUBLICS_GET_NOTICES_COUNTS } from '@/config/env';
 import { formatDate } from '@/config/utils';
@@ -34,7 +34,7 @@ export default {
     },
   },
   components: {
-    'v-lhead': lhead,
+    'v-detail-head': detailHead,
     'v-pagination': pagination,
   },
   data() {

@@ -1,29 +1,45 @@
 <template>
-  <div>
-    <div class="bs-example">
-      <span class="t_nav">&#12288;&#12288;申报官修改</span>
-      <br/>
-      <br/>
-      <br/>
-      <div style="width: 100%;text-align: center;">
+  <div class="bs-example">
+    <span class="t_nav">&#12288;&#12288;{{title}}</span>
+    <br/>
+    <br/>
+    <br/>
+    <div style="width: 100%;text-align: center;">
       <div style="display: inline-block;width: 50px;height: 50px;border-radius: 25px;border: #01c853 1px solid;">
-          <span class="glyphicon glyphicon-ok" style="line-height: 50px;font-size: 20px; color:  #01c853"></span>
+        <span class="glyphicon glyphicon-ok" style="line-height: 50px;font-size: 20px; color:  #01c853"></span>
       </div>
       <br/>
       <br/>
-      <p>修改成功</p>
+      <p>{{content}}</p>
       <br/>
       <br/>
-      <router-link to="/ent/list"><button class="btn ljsq">返回列表</button></router-link>
-      </div>
+      <span v-if="">
+        <p>{{content2}}</p>
+        <p>{{content3}}</p>
+        <br/>
+        <br/>
+      </span>
+      <router-link :to="alink" v-if="alink"><button class="btn js-ajax-submit">继续添加</button></router-link>
+      <router-link :to="blink" v-if="blink"><button class="btn ljsq">返回列表</button></router-link>
+      <router-link :to="clink" v-if="clink"><button class="btn js-ajax-submit">继续申报</button></router-link>
     </div>
-   </div>
+  </div>
 </template>
 
 <script>
 
 export default {
   name: 'msg',
+  data() {
+    return {
+      title: sessionStorage.getItem('title'),
+      content: sessionStorage.getItem('content'),
+      content2: sessionStorage.getItem('content2'),
+      content3: sessionStorage.getItem('content3'),
+      alink: sessionStorage.getItem('alink'),
+      blink: sessionStorage.getItem('blink'),
+    };
+  },
 };
 </script>
 

@@ -1,39 +1,37 @@
 <template>
-  <div>
-    <div class="bs-example">
-      <span class="t_nav">&#12288;&#12288;申报官列表</span>
-      <br/>
-      <br/>
-      <br/>
-      <div v-show="lists.length > 0">
-        <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th>姓名</th>
-                <th>手机号</th>
-                <th>审核状态</th>
-                <th>添加时间</th>
-                <th>考试分数</th>
-                <th>操作</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="item of lists">
-                <td>{{item.name}}</td>
-                <td>{{item.cellphone}}</td>
-                <td v-show="item.reason" style="color: #ac2925;">{{item.state}} <span class="glyphicon glyphicon-question-sign"></span>{{item.reason}}</td>
-                <td v-show="!item.reason">{{item.state}}</td>
-                <td>{{item.createTime}}</td>
-                <td>{{item.score}}</td>
-                <td>
-                  <router-link v-show="item.detailShow" :to="'/officer/detail/1/'+item.id">查看</router-link>
-                  <a v-show="item.deleteShow" @click="deleteOfficer(item.id)">删除</a> 
-                  <router-link v-show="item.eidtShow" :to="'/officer/detail/2/'+item.id">修改</router-link>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-       </div>
+  <div class="bs-example">
+    <span class="t_nav">&#12288;&#12288;申报官列表</span>
+    <br/>
+    <br/>
+    <br/>
+    <div v-show="lists.length > 0">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>姓名</th>
+            <th>手机号</th>
+            <th>审核状态</th>
+            <th>添加时间</th>
+            <th>考试分数</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item of lists">
+            <td>{{item.name}}</td>
+            <td>{{item.cellphone}}</td>
+            <td v-show="item.reason" style="color: #ac2925;">{{item.state}} <span class="glyphicon glyphicon-question-sign"></span>{{item.reason}}</td>
+            <td v-show="!item.reason">{{item.state}}</td>
+            <td>{{item.createTime}}</td>
+            <td>{{item.score}}</td>
+            <td>
+              <router-link v-show="item.detailShow" :to="'/officer/detail/1/'+item.id">查看</router-link>
+              <a v-show="item.deleteShow" @click="deleteOfficer(item.id)">删除</a> 
+              <router-link v-show="item.eidtShow" :to="'/officer/detail/2/'+item.id">修改</router-link>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>

@@ -31,15 +31,13 @@ export default {
       towns: [],
     };
   },
-  watch: {
-    areacode: 'setAreaCode',
-  },
   components: {},
   methods: {
     async getAreaTree() {
       const res = await this.$xhr('get', DECLARE_GET_AREA_TREE);
       if (res.data.success) {
         this.provinces = res.data.data;
+        this.setAreaCode();
       }
     },
     queryCity() {

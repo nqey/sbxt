@@ -2,11 +2,11 @@
   <div>
     <div class="bs-example">
       <span class="t_nav">&#12288;帐号详情</span>
-      <span v-show="$route.params.type === '1'">
+      <span v-if="$route.params.type === '1'">
         <button class="btn btnDelete" @click="mdelete">删除</button>
         <router-link :to="'/user/detail/2/'+$route.params.id"><button class="btn js-ajax-submit">修改</button></router-link>
       </span>
-      <span v-show="$route.params.type === '2'">
+      <span v-if="$route.params.type === '2'">
         <router-link :to="'/user/detail/1/'+$route.params.id"><button class="btn btnDelete" @click="mcancel">取消</button></router-link>
         <button @click="submit" class="btn js-ajax-submit">保存</button>
       </span>
@@ -18,13 +18,11 @@
             <label class="label_height">用户名：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-            <div v-show="isShowName">
+            <div v-if="$route.params.type === '1'">
               <span class="label_height">{{name}}&#12288;&#12288;</span>
-              <span v-show="$route.params.type === '2'" class="glyphicon glyphicon-edit" @click="editName"></span>
             </div>
-            <div v-show="!isShowName">
+            <div v-if="$route.params.type === '2'">
               <input type="text" class="form-control iw"  placeholder="请输入用户名" v-model="name">
-              <span class="glyphicon glyphicon-floppy-saved" @click="editName"></span>
             </div>
         </div>
         <div class="clearfix"></div>
@@ -32,13 +30,11 @@
             <label class="label_height">密码：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-          <div v-show="isShowPassword">
+          <div v-if="$route.params.type === '1'">
             <span class="label_height">{{password}}&#12288;&#12288;</span>
-            <span v-show="$route.params.type === '2'" class="glyphicon glyphicon-edit" @click="editPassword"></span>
           </div>
-          <div v-show="!isShowPassword">
+          <div v-if="$route.params.type === '2'">
             <input type="text" class="form-control iw600"  placeholder="请输入密码" v-model="password">
-            <span class="glyphicon glyphicon-floppy-saved" @click="editPassword"></span>
           </div>
         </div>
         <div class="clearfix"></div>
@@ -46,16 +42,14 @@
             <label class="label_height">选择对象：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-            <div v-show="isShowDeclarer">
+            <div v-if="$route.params.type === '1'">
               <span class="label_height">{{declarer}}&#12288;&#12288;</span>
-              <span v-show="$route.params.type === '2'" class="glyphicon glyphicon-edit" @click="editDeclarer"></span>
             </div>
-            <div v-show="!isShowDeclarer">
+            <div v-if="$route.params.type === '2'">
               <select class="form-control" @change="setDeclarer($event)" v-model="declarerId">
                 <option>请选择</option>
                 <option v-for="item of targets" :value="item.id">{{item.name}}</option>
               </select>
-              <span class="glyphicon glyphicon-floppy-saved" @click="editDeclarer"></span>
             </div>
         </div>
         <div class="clearfix"></div>
@@ -63,12 +57,11 @@
             <label class="label_height">权限功能：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-          <div v-show="isShowrole">
+          <div v-if="$route.params.type === '1'">
             <span class="label_height" v-for="r of role">{{r}}&#12288;&#12288;&#12288;</span>
-            <span v-show="$route.params.type === '2'" class="glyphicon glyphicon-edit" @click="editRole"></span>
           </div>
-          <div v-show="!isShowrole">
-            <input type="checkbox" @change="setRole" v-model="a"/> 企业申报&#12288;&#12288;&#12288;<span class="glyphicon glyphicon-floppy-saved" @click="editRole"></span>
+          <div v-if="$route.params.type === '2'">
+            <input type="checkbox" @change="setRole" v-model="a"/> 企业申报
             <br/>
             <input type="checkbox" @change="setRole" v-model="b"/> 企业列表  
             <br/>
@@ -80,9 +73,9 @@
            <label class="label_height">操作历史：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-           <span  v-show="logs.length <= 0 " class="label_height">无</span>
-           <p v-show="logs.length > 0 " class="label_height"><a>导出</a></p>
-           <table v-show="logs.length > 0 " class="table table-bordered">
+           <span  v-if="logs.length <= 0 " class="label_height">无</span>
+           <p v-if="logs.length > 0 " class="label_height"><a>导出</a></p>
+           <table v-if="logs.length > 0 " class="table table-bordered">
             <thead>
               <tr>
                 <th>操作内容</th>
@@ -111,10 +104,6 @@ export default {
   name: 'userdetail',
   data() {
     return {
-      isShowName: true,
-      isShowPassword: true,
-      isShowrole: true,
-      isShowDeclarer: true,
       id: '',
       declarer: '',
       declarerId: '',
@@ -129,18 +118,6 @@ export default {
     };
   },
   methods: {
-    editName() {
-      this.isShowName = !this.isShowName;
-    },
-    editDeclarer() {
-      this.isShowDeclarer = !this.isShowDeclarer;
-    },
-    editPassword() {
-      this.isShowPassword = !this.isShowPassword;
-    },
-    editRole() {
-      this.isShowrole = !this.isShowrole;
-    },
     mcancel() {
       this.isShowName = true;
       this.isShowDeclarer = true;
@@ -217,7 +194,14 @@ export default {
       param.function.push(this.c ? 3 : 0);
       const res = await this.$xhr('post', `${DECLARE_PUT_USER_ACOUNT}${this.$route.params.id}`, param);
       if (res.data.code === 0) {
-        setTimeout(() => { this.$router.push('/user/msg/2'); }, 1000);
+        sessionStorage.setItem('title', '帐号更新');
+        sessionStorage.setItem('content', '更新成功');
+        sessionStorage.setItem('content2', '');
+        sessionStorage.setItem('content3', '');
+        sessionStorage.setItem('alink', '');
+        sessionStorage.setItem('blink', '/user/list');
+        sessionStorage.setItem('clink', '');
+        setTimeout(() => { this.$router.push('/message'); }, 1000);
       }
     },
   },

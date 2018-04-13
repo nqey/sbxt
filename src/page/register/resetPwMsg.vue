@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-registerhead></v-registerhead>
+    <v-register-head></v-register-head>
     <div class="row">
       <div class="col-sm-12" style="padding: 0px 55px;">
         <div class="col-sm-12 bs-example">
@@ -26,28 +26,12 @@
 </template>
 
 <script>
-import registerHead from '@/components/registerHead/head';
+import vPasswordHead from '@/components/header/passwordHead';
 
 export default {
-  name: 'step11',
-  props: {
-    value: {
-      type: String,
-    },
-  },
-  data() {
-    return {
-      pages: 1,
-      rows: 20,
-    };
-  },
+  name: 'resetPwMsg',
   components: {
-    'v-registerhead': registerHead,
-  },
-  methods: {
-    search() {
-
-    },
+    'v-password-head': vPasswordHead,
   },
 };
 </script>

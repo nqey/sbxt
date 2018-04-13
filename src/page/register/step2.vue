@@ -1,86 +1,87 @@
 <template>
   <div>
-    <v-registerhead :step="2"></v-registerhead>
-    <v-errinfo :errMsg="errMsg"></v-errinfo>
+    <v-register-head :step="2"></v-register-head>
+    <v-error-info :errMsg="errMsg"></v-error-info>
     <div>
       <div class="col-sm-12 container">
         <div class="col-sm-12 bs-example">
           <div class="form-inline clearfix">
-              <div class="form-group col-sm-5 txr">
-                  <label class="label_height">姓 名：</label>
+              <div class="form-group col-sm-5 txr clearfix">
+                <label class="label_height">姓 名：</label>
               </div>
               <div class="form-group col-sm-7 imb">
-                  <input type="text" class="form-control iw" placeholder="请输入姓名" v-model="name">
+                <input type="text" class="form-control iw" placeholder="请输入姓名" v-model="name">
               </div>
-              <div class="form-group col-sm-5 txr">
-                  <label class="label_height">身份证号码：</label>
-              </div>
-              <div class="form-group col-sm-7 imb">
-                  <input type="text" class="form-control iw" placeholder="请输入身份证号码" v-model="idNumber" @blur="validate">
-              </div>
-              <v-bigimg v-if="showImg" @hideViewImg="viewImg" :imgSrc="imgSrc"></v-bigimg>
-              <div class="form-group col-sm-5 txr">
-                  <label class="label_height">身份证照片：</label>
+              <div class="form-group col-sm-5 txr clearfix">
+                <label class="label_height">身份证号码：</label>
               </div>
               <div class="form-group col-sm-7 imb">
-                  <small class="info2 label_height">请按照示例上传证件照片；支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
-                  <p></p>
-                  <small class="info label_height">请上传本人真实身份证，否则审核不通过。</small>
-                  <div class="clearfix"></div>
-                  <v-upload uploadid="upload1" :imgUrl="idFrontUrl" text="上传正面" @acceptImgSrc="bigimg" @acceptData="frontUrl"></v-upload>
-                  <v-upload uploadid="upload2" :imgUrl="idBackUrl" text="上传背面" @acceptImgSrc="bigimg" @acceptData="backUrl"></v-upload>
+                <input type="text" class="form-control iw" placeholder="请输入身份证号码" v-model="idNumber" @blur="validate">
               </div>
-              <div class="form-group col-sm-5 txr">
-                  <label class="label_height">常住地址：</label>
+              <div class="form-group col-sm-5 txr clearfix">
+                <label class="label_height">身份证照片：</label>
+              </div>
+              <div class="form-group col-sm-7 imb">
+                <small class="info2 label_height">请按照示例上传证件照片；支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
+                <br/>
+                <small class="info label_height">请上传本人真实身份证，否则审核不通过。</small>
+                <div class="clearfix"></div>
+                <div class="pull-left" style="width: 200px;margin-right: 30px;">
+                  <v-multiple-upload len="1" uploadid="upload1" title="上传正面" :imgSrc="idFrontUrl" @acceptData="frontUrl"></v-multiple-upload len="1">
+                </div>
+                <div class="pull-left" style="width: 200px;">
+                  <v-multiple-upload len="1" uploadid="upload2" title="上传背面" :imgSrc="idBackUrl" @acceptData="backUrl"></v-multiple-upload len="1">
+                </div>
+              </div>
+              <div class="form-group col-sm-5 txr clearfix">
+                <label class="label_height">常住地址：</label>
               </div>
               <div class="col-sm-7 imb">
-                  <v-geoarea :areacode="areacode" @acceptData="setLiveAddress"></v-geoarea>
-                  <div class='mt'>
-                     <input type='text' class='form-control iw' placeholder='请输入详细地址' v-model="address">
-                  </div>
+                <v-geo-area :areacode="areacode" @acceptData="setLiveAddress"></v-geo-area>
+                <div class='mt'>
+                  <input type='text' class='form-control iw' placeholder='请输入详细地址' v-model="address">
+                </div>
               </div>
-              <div class="form-group col-sm-5 txr">
-                  <label class="label_height">选择申请区域：</label>
+              <div class="form-group col-sm-5 txr clearfix">
+                <label class="label_height">选择申请区域：</label>
               </div>
               <div class="col-sm-7 imb">
-                  <span class="label_height" v-show="$route.params.type === '2'">{{ organizAddress }}</span>
-                  <v-apparea v-show="$route.params.type === '1'" @acceptData="setApplyAddress"></v-apparea>&#12288;
+                <span class="label_height" v-show="$route.params.type === '2'">{{ organizAddress }}</span>
+                <v-app-area v-show="$route.params.type === '1'" @acceptData="setApplyAddress"></v-app-area>&#12288;
               </div>
-              <div class="form-group col-sm-5 txr">
-                  <label class="label_height">推荐机构：</label>
-              </div>
-              <div class="form-group col-sm-7 imb">
-                  <input type="text" @input="showRecommendName" class="form-control iw600" placeholder="请输入推荐机构" v-model="recommendName">
-                  <div class="bdsug" v-show="list.length > 0">
-                   <ul>
-                    <li v-for="(item, index) of list" @click="setRecommendName(index)">{{item.name}}</li>
-                   </ul>
-                 </div>
-              </div>
-              <div class="form-group col-sm-5 txr">
-                  <label class="label_height">企业全称：</label>
+              <div class="form-group col-sm-5 txr clearfix">
+                <label class="label_height">推荐机构：</label>
               </div>
               <div class="form-group col-sm-7 imb">
-                  <input type="text" class="form-control iw600" placeholder="例如:四川中华搜信息技术有限公司" v-model="enterpriseName">
+                <input type="text" @input="showRecommendName" class="form-control iw600" placeholder="请输入推荐机构" v-model="recommendName">
+                <div class="bdsug" v-show="list.length > 0">
+                  <ul>
+                  <li v-for="(item, index) of list" @click="setRecommendName(index)">{{item.name}}</li>
+                  </ul>
+                </div>
               </div>
-              <div class="form-group col-sm-5 txr">
+              <div class="form-group col-sm-5 txr clearfix">
+                <label class="label_height">企业全称：</label>
               </div>
               <div class="form-group col-sm-7 imb">
-                  <button class="btn js-ajax-submit" @click="submit">提交</button>
+                <input type="text" class="form-control iw600" placeholder="例如:四川中华搜信息技术有限公司" v-model="enterpriseName">
+              </div>
+              <div class="form-group col-sm-5 txr clearfix">
+              </div>
+              <div class="form-group col-sm-7 imb">
+                <button class="btn js-ajax-submit" @click="submit">提交</button>
               </div>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
-import upload from '@/components/upload/idCardUpload';
-import geoarea from '@/components/reegionalCascade/geoArea';
-import registerHead from '@/components/registerHead';
-import bigImg from '@/components/bigImg';
+import multipleUpload from '@/components/upload/multipleUpload';
+import vGeoArea from '@/components/reegionalCascade/geoArea';
+import registerHead from '@/components/header/registerHead';
 import apparea from '@/components/reegionalCascade/appArea';
 import errInfo from '@/components/info/error';
 import rules from '@/config/rules';
@@ -110,12 +111,11 @@ export default {
     };
   },
   components: {
-    'v-upload': upload,
-    'v-geoarea': geoarea,
-    'v-registerhead': registerHead,
-    'v-bigimg': bigImg,
-    'v-apparea': apparea,
-    'v-errinfo': errInfo,
+    'v-multiple-upload': multipleUpload,
+    'v-geo-area': vGeoArea,
+    'v-register-head': registerHead,
+    'v-app-area': apparea,
+    'v-error-info': errInfo,
   },
   methods: {
     validate() {
@@ -163,13 +163,6 @@ export default {
       if (this.enterpriseName === '') {
         this.errMsg.push(`${rules.nonEmpty}${rules.enterpriseName}`);
       }
-    },
-    bigimg(src) {
-      this.imgSrc = src;
-      this.showImg = true;
-    },
-    viewImg() {
-      this.showImg = false;
     },
     frontUrl(d) {
       this.idFrontUrl = d;

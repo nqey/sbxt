@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-lhead ></v-lhead>
+    <v-detail-head ></v-detail-head>
     <div class="col-sm-12 container">
         <div class="col-sm-12 bs-example">
             <span class="t_nav"><router-link to="/login">&#12288;首页</router-link>&#12288;>&#12288;
@@ -23,14 +23,14 @@
 </template>
 
 <script>
-import lhead from '@/components/registerHead/lhead';
+import detailHead from '@/components/header/detailHead';
 import { PUBLICS_GET_NOTICES_DETAILS } from '@/config/env';
 import { formatDate } from '@/config/utils';
 
 export default {
   name: 'detail',
   components: {
-    'v-lhead': lhead,
+    'v-detail-head': detailHead,
   },
   data() {
     return {

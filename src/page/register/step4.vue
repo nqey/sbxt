@@ -20,7 +20,12 @@
               <small class="info label_height">请认真填写每一必填项，再上传完整的尽职调查表</small>
               <br/>
               <br/>
-              <v-multiple-upload len="3" :imgSrc="surveyImageUrl" title="上传调查表" @acceptData="setSurveyImageUrl" uploadid="upload1"></v-multiple-upload>
+              <div v-if="$route.params.type === '1'">
+                <v-multiple-upload len="3" title="上传调查表" @acceptData="setSurveyImageUrl" uploadid="upload1"></v-multiple-upload>
+              </div>
+              <div v-if="$route.params.type === '2' && surveyImageUrl">
+                <v-multiple-upload len="3" :imgSrc="surveyImageUrl" title="上传调查表" @acceptData="setSurveyImageUrl" uploadid="upload1"></v-multiple-upload>
+              </div>
             </div>
             <div class="form-group col-sm-4 txr">
               <label class="label_height"><span class="info">*</span> 申报机构承诺公函：</label>
@@ -32,7 +37,12 @@
               <small class="info label_height">请上传完整的承诺公函</small>
               <br/>
               <br/>
-              <v-multiple-upload len="1" uploadid="upload2" :imgSrc="letterImageUrl" title="上传承诺公函" @acceptData="setLetterImageUrl"></v-multiple-upload len="1">
+              <div v-if="$route.params.type === '1'">
+                <v-multiple-upload len="1" uploadid="upload2" title="上传承诺公函" @acceptData="setLetterImageUrl"></v-multiple-upload>
+              </div>
+              <div v-if="$route.params.type === '2' && letterImageUrl">
+                <v-multiple-upload len="1" uploadid="upload2" :imgSrc="letterImageUrl" title="上传承诺公函" @acceptData="setLetterImageUrl"></v-multiple-upload>
+              </div>
             </div>
             <div class="form-group col-sm-4 txr">
               <label class="label_height"><span class="info">*</span> 负责人尽职调查表：</label>
@@ -44,7 +54,12 @@
               <small class="info label_height">请认真填写每一必填项，再上传完整的尽职调查表</small>
               <br/>
               <br/>
-              <v-multiple-upload len="3" :imgSrc="chargerSurveyImageUrl" title="上传尽职调查表" @acceptData="setChargerSurveyImageUrl" uploadid="upload3"></v-multiple-upload>
+              <div v-if="$route.params.type === '1'">
+                <v-multiple-upload len="3" :imgSrc="chargerSurveyImageUrl" title="上传尽职调查表" @acceptData="setChargerSurveyImageUrl" uploadid="upload3"></v-multiple-upload>
+              </div>
+              <div v-if="$route.params.type === '2' && chargerSurveyImageUrl">
+                <v-multiple-upload len="3" :imgSrc="chargerSurveyImageUrl" title="上传尽职调查表" @acceptData="setChargerSurveyImageUrl" uploadid="upload3"></v-multiple-upload>
+              </div>
             </div>
             <div class="form-group col-sm-4 txr">
               <label class="label_height"><span class="info">*</span> 负责人承诺公函：</label>
@@ -56,7 +71,12 @@
               <small class="info label_height">请上传完整的承诺公函</small>
               <br/>
               <br/>
-              <v-multiple-upload len="1" uploadid="upload4" :imgSrc="chargerImageUrl" title="上传承诺公函" @acceptData="setChargerImageUrl"></v-multiple-upload len="1">
+              <div v-if="$route.params.type === '1'">
+                <v-multiple-upload len="1" uploadid="upload4" :imgSrc="chargerImageUrl" title="上传承诺公函" @acceptData="setChargerImageUrl"></v-multiple-upload>
+              </div>
+              <div v-if="$route.params.type === '2' && chargerImageUrl">
+                <v-multiple-upload len="1" uploadid="upload4" :imgSrc="chargerImageUrl" title="上传承诺公函" @acceptData="setChargerImageUrl"></v-multiple-upload>
+              </div>
             </div>
             <div class="form-group col-sm-4 txr">
               <label class="label_height"><span class="info">*</span> 企业工商营业执照：</label>
@@ -67,7 +87,12 @@
               <small class="info2 label_height">格式要求：上次加盖企业公章的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
               <br/>
               <br/>
-              <v-multiple-upload len="1" uploadid="upload5" title="上传营业执照" :imgSrc="commerceImageUrl" @acceptData="setCommerceImageUrl"></v-multiple-upload len="1">
+              <div v-if="$route.params.type === '1'">
+                <v-multiple-upload len="1" uploadid="upload5" title="上传营业执照" @acceptData="setCommerceImageUrl"></v-multiple-upload>
+              </div>
+              <div v-if="$route.params.type === '2' && commerceImageUrl">
+                <v-multiple-upload len="1" uploadid="upload5" title="上传营业执照" :imgSrc="commerceImageUrl" @acceptData="setCommerceImageUrl"></v-multiple-upload>
+              </div>
             </div>
             <div class="form-group col-sm-4 txr">
               <label class="label_height"> 其他补充材料：</label>
@@ -78,7 +103,12 @@
               <small class="info2 label_height">支持格式：jpg、bmp、png、gif格式照片，大小不超过2M，最多5张。</small>
               <br/>
               <br/>
-              <v-multiple-upload len="5" :imgSrc="otherImageUrl" title="上传补充材料" @acceptData="setOtherImageUrl" uploadid="upload6"></v-multiple-upload>
+              <div v-if="$route.params.type === '1'">
+                <v-multiple-upload len="5" title="上传补充材料" @acceptData="setOtherImageUrl" uploadid="upload6"></v-multiple-upload>
+              </div>
+              <div v-if="$route.params.type === '2' && otherImageUrl">
+                <v-multiple-upload len="5" :imgSrc="otherImageUrl" title="上传补充材料" @acceptData="setOtherImageUrl" uploadid="upload6"></v-multiple-upload>
+              </div>
             </div>
             <div class="form-group col-sm-4 txr">
             </div>

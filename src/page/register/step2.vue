@@ -26,17 +26,21 @@
                 <br/>
                 <small class="info label_height">请上传本人真实身份证，否则审核不通过。</small>
                 <div class="clearfix"></div>
-                <div class="pull-left" v-if="$route.params.type === '1'" style="width: 200px;margin-right: 30px;">
-                  <v-multiple-upload len="1" uploadid="upload1" title="上传正面" @acceptData="frontUrl"></v-multiple-upload>
+                <div v-show="$route.params.type === '1'">
+                  <div class="pull-left" style="width: 200px;margin-right: 30px;">
+                    <v-multiple-upload len="1" uploadid="upload1" title="上传正面" @acceptData="frontUrl"></v-multiple-upload>
+                  </div>
+                  <div class="pull-left" style="width: 200px;">
+                    <v-multiple-upload len="1" uploadid="upload2" title="上传背面" @acceptData="backUrl"></v-multiple-upload>
+                  </div>
                 </div>
-                <div class="pull-left" v-if="$route.params.type === '1'" style="width: 200px;">
-                  <v-multiple-upload len="1" uploadid="upload2" title="上传背面" @acceptData="backUrl"></v-multiple-upload>
-                </div>
-                <div v-if="$route.params.type === '2' && idFrontUrl" class="pull-left" style="width: 200px;margin-right: 30px;">
-                  <v-multiple-upload len="1" uploadid="upload1" title="上传正面" :imgSrc="idFrontUrl" @acceptData="frontUrl"></v-multiple-upload>
-                </div>
-                <div v-if="$route.params.type === '2' && idBackUrl" class="pull-left" style="width: 200px;">
-                  <v-multiple-upload len="1" uploadid="upload2" title="上传背面" :imgSrc="idBackUrl" @acceptData="backUrl"></v-multiple-upload>
+                <div v-show="$route.params.type === '2'">
+                  <div v-if="idFrontUrl" class="pull-left" style="width: 200px;margin-right: 30px;">
+                    <v-multiple-upload len="1" :imgSrc="idFrontUrl" uploadid="upload2" title="上传正面" @acceptData="setFrontUrl"></v-multiple-upload>
+                  </div>
+                  <div v-if="idBackUrl" class="pull-left" style="width: 200px;">
+                    <v-multiple-upload len="1" :imgSrc="idBackUrl" uploadid="upload3" title="上传背面" @acceptData="setBackUrl"></v-multiple-upload>
+                  </div>
                 </div>
               </div>
               <div class="form-group col-sm-5 txr clearfix">

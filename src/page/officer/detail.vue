@@ -62,10 +62,10 @@
           </div>
           <div v-show="$route.params.type === '2'">
             <div v-if="idFrontUrl" class="pull-left" style="width: 200px;margin-right: 30px;">
-              <v-multiple-upload len="1" :imgSrc="idFrontUrl" uploadid="upload2" title="上传正面" @acceptData="setFrontUrl"></v-multiple-upload len="1">
+              <v-multiple-upload len="1" :imgSrc="idFrontUrl" uploadid="upload2" title="上传正面" @acceptData="setFrontUrl"></v-multiple-upload>
             </div>
             <div v-if="idBackUrl" class="pull-left" style="width: 200px;">
-              <v-multiple-upload len="1" :imgSrc="idBackUrl" uploadid="upload3" title="上传背面" @acceptData="setBackUrl"></v-multiple-upload len="1">
+              <v-multiple-upload len="1" :imgSrc="idBackUrl" uploadid="upload3" title="上传背面" @acceptData="setBackUrl"></v-multiple-upload>
             </div>
           </div>
         </div>
@@ -92,7 +92,7 @@
             <v-img :imgSrc="letterImageUrl"></v-img>
           </div>
           <div v-show="$route.params.type === '2'"  v-if="letterImageUrl">
-            <v-multiple-upload len="1" :imgSrc="letterImageUrl" title="上传承诺公函" @acceptData="setLetterImageUrl" uploadid="up4"></v-multiple-upload len="1">
+            <v-multiple-upload len="1" :imgSrc="letterImageUrl" title="上传承诺公函" @acceptData="setLetterImageUrl" uploadid="up4"></v-multiple-upload>
           </div>
         </div>
         <div class="form-group col-sm-1 txr clearfix" v-show="$route.params.type === '2'">

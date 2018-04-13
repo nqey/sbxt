@@ -51,10 +51,10 @@
           <small class="info label_height">请上传本人真实身份证，否则审核不通过。</small>
           <div class="clearfix"></div>
           <div class="pull-left" style="width: 200px;margin-right: 30px;">
-            <v-multiple-upload len="1" uploadid="upload1" title="上传正面" @acceptData="frontUrl"></v-multiple-upload len="1">
+            <v-multiple-upload len="1" uploadid="upload1" title="上传正面" @acceptData="frontUrl"></v-multiple-upload>
           </div>
           <div class="pull-left" style="width: 200px;">
-            <v-multiple-upload len="1" uploadid="upload2" title="上传背面" @acceptData="backUrl"></v-multiple-upload len="1">
+            <v-multiple-upload len="1" uploadid="upload2" title="上传背面" @acceptData="backUrl"></v-multiple-upload>
           </div>
         </div>
         <div class="form-group col-sm-1 txr clearfix">
@@ -63,7 +63,7 @@
         <div class="form-group col-sm-11 imb">
           <p class="label_height">请上次营业执照影印件。支持格式：bmp、jpg、png、gif。照片大小不超过2M。</p>
           <br/>
-          <v-multiple-upload len="1" title="上传营业执照" @acceptData="setLicenseImageUrl" uploadid="upload3"></v-multiple-upload len="1">
+          <v-multiple-upload len="1" title="上传营业执照" @acceptData="setLicenseImageUrl" uploadid="upload3"></v-multiple-upload>
         </div>
         <div class="form-group col-sm-1 txr clearfix">
           <label class="label_height"><span class="info">*</span> 生产许可证：</label>
@@ -71,7 +71,7 @@
         <div class="form-group col-sm-11 imb">
           <p class="label_height">请上传生产许可证影印件。支持格式：bmp、jpg、png、gif。照片大小不超过2M。</p>
           <br/>
-          <v-multiple-upload len="1" title="上传生产许可证" @acceptData="setProductionImageUrl" uploadid="upload4"></v-multiple-upload len="1">
+          <v-multiple-upload len="1" title="上传生产许可证" @acceptData="setProductionImageUrl" uploadid="upload4"></v-multiple-upload>
         </div>
         <div class="form-group col-sm-1 txr clearfix">
           <label class="label_height"><span class="info">*</span> 资金补贴申报表：</label>
@@ -119,7 +119,7 @@
           <small class="info label_height">请上传完整的申请函</small>
           <br/>
           <br/>
-          <v-multiple-upload len="1" title="上传申请函" uploadid="upload8" text="上传申请函" @acceptData="setEnterpriseShindImageUrl"></v-multiple-upload len="1">
+          <v-multiple-upload len="1" title="上传申请函" uploadid="upload8" text="上传申请函" @acceptData="setEnterpriseShindImageUrl"></v-multiple-upload>
         </div>
         <div class="form-group col-sm-1 txr clearfix">
           <label class="label_height"><span class="info">*</span> 授权委托书</label>
@@ -129,7 +129,7 @@
           <small class="info2 label_height">指定代表或者共同委托代理人授权委托书；如企业法人不能亲自办理入库事宜，法人可签订此授权书委托书给指定负责人进行办理。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
           <br/>
           <br/>
-          <v-multiple-upload len="1" uploadid="upload9" title="上传委托书" @acceptData="setAuthorizationImageUrl"></v-multiple-upload len="1">
+          <v-multiple-upload len="1" uploadid="upload9" title="上传委托书" @acceptData="setAuthorizationImageUrl"></v-multiple-upload>
         </div>
         <div class="form-group col-sm-1 txr clearfix">
           <label class="label_height"> 其他补充材料：</label>

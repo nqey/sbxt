@@ -42,7 +42,7 @@
           <small class="info label_height">请上传本人真实照，审核会与身份证进行对比，不按照要求上传会导致审核通不过。</small>
           <br/>
           <br/>
-          <v-multiple-upload len="1" title="上传寸照" @acceptData="setPortrait" uploadid="upload1"></v-multiple-upload len="1">
+          <v-multiple-upload len="1" title="上传寸照" @acceptData="setPortrait" uploadid="upload1"></v-multiple-upload>
         </div>
         <div class="form-group col-sm-1 txr clearfix">
           <label class="label_height"><span class="info">*</span> 身份证号码：</label>
@@ -62,10 +62,10 @@
           <small class="info label_height">请上传本人真实身份证，否则审核不通过。</small>
           <div class="clearfix"></div>
           <div class="pull-left" style="width: 200px;margin-right: 30px;">
-            <v-multiple-upload len="1" uploadid="upload2" title="上传正面" @acceptData="frontUrl"></v-multiple-upload len="1">
+            <v-multiple-upload len="1" uploadid="upload2" title="上传正面" @acceptData="frontUrl"></v-multiple-upload>
           </div>
           <div class="pull-left" style="width: 200px;">
-            <v-multiple-upload len="1" uploadid="upload3" title="上传背面" @acceptData="backUrl"></v-multiple-upload len="1">
+            <v-multiple-upload len="1" uploadid="upload3" title="上传背面" @acceptData="backUrl"></v-multiple-upload>
           </div>
         </div>
         <div class="form-group col-sm-1 txr clearfix">
@@ -90,7 +90,7 @@
           <small class="info label_height">请上传完整的承诺公函</small>
           <br/>
           <br/>
-          <v-multiple-upload len="1" title="上传承诺公函" @acceptData="setLetterImageUrl" uploadid="upload5"></v-multiple-upload len="1">
+          <v-multiple-upload len="1" title="上传承诺公函" @acceptData="setLetterImageUrl" uploadid="upload5"></v-multiple-upload>
         </div>
         <div class="form-group col-sm-1 txr clearfix">
         </div>

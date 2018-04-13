@@ -67,10 +67,10 @@
           </div>
           <div v-if="$route.params.type === '2'">
             <div v-if="idFrontUrl" class="pull-left" style="width: 200px;margin-right: 30px;">
-              <v-multiple-upload len="1" :imgSrc="idFrontUrl" uploadid="upload2" title="上传正面" @acceptData="setFrontUrl"></v-multiple-upload len="1">
+              <v-multiple-upload len="1" :imgSrc="idFrontUrl" uploadid="upload2" title="上传正面" @acceptData="setFrontUrl"></v-multiple-upload>
             </div>
             <div v-if="idBackUrl" class="pull-left" style="width: 200px;">
-              <v-multiple-upload len="1" :imgSrc="idBackUrl" uploadid="upload3" title="上传背面" @acceptData="setBackUrl"></v-multiple-upload len="1">
+              <v-multiple-upload len="1" :imgSrc="idBackUrl" uploadid="upload3" title="上传背面" @acceptData="setBackUrl"></v-multiple-upload>
             </div>
           </div>
         </div>
@@ -83,7 +83,7 @@
             <v-img :imgSrc="licenseImageUrl"></v-img>
           </div>
           <div v-if="$route.params.type === '2' && licenseImageUrl">
-            <v-multiple-upload len="1" :imgSrc="licenseImageUrl" title="上传营业执照" @acceptData="setLicenseImageUrl" uploadid="up3"></v-multiple-upload len="1">
+            <v-multiple-upload len="1" :imgSrc="licenseImageUrl" title="上传营业执照" @acceptData="setLicenseImageUrl" uploadid="up3"></v-multiple-upload>
           </div>
         </div>
         <div class="clearfix"></div>
@@ -95,7 +95,7 @@
             <v-img :imgSrc="productionImageUrl"></v-img>
           </div>
           <div v-if="$route.params.type === '2' && productionImageUrl">
-            <v-multiple-upload len="1" :imgSrc="productionImageUrl" title="上传许可证" @acceptData="setProductionImageUrl" uploadid="up4"></v-multiple-upload len="1">
+            <v-multiple-upload len="1" :imgSrc="productionImageUrl" title="上传许可证" @acceptData="setProductionImageUrl" uploadid="up4"></v-multiple-upload>
           </div>
         </div>
         <div class="clearfix"></div>
@@ -109,7 +109,7 @@
             </div>
           </div>
           <div v-if="$route.params.type === '2' && capitalImageUrl">
-            <v-multiple-upload len="1" :imgSrc="capitalImageUrl" title="上传申报表" @acceptData="setCapitalImageUrl" uploadid="up5"></v-multiple-upload len="1">
+            <v-multiple-upload len="1" :imgSrc="capitalImageUrl" title="上传申报表" @acceptData="setCapitalImageUrl" uploadid="up5"></v-multiple-upload>
           </div>
         </div>
         <div class="clearfix"></div>
@@ -149,7 +149,7 @@
             <v-img :imgSrc="enterpriseShindImageUrl"></v-img>
           </div>
           <div v-if="$route.params.type === '2' && enterpriseShindImageUrl">
-            <v-multiple-upload len="1" :imgSrc="enterpriseShindImageUrl" title="上传申请函" @acceptData="setEnterpriseShindImageUrl" uploadid="up8"></v-multiple-upload len="1">
+            <v-multiple-upload len="1" :imgSrc="enterpriseShindImageUrl" title="上传申请函" @acceptData="setEnterpriseShindImageUrl" uploadid="up8"></v-multiple-upload>
           </div>
         </div>
         <div class="clearfix"></div>
@@ -161,7 +161,7 @@
             <v-img :imgSrc="authorizationImageUrl"></v-img>
           </div>
           <div v-if="$route.params.type === '2' && authorizationImageUrl">
-            <v-multiple-upload len="1" :imgSrc="authorizationImageUrl" title="上传委托书" @acceptData="setAuthorizationImageUrl" uploadid="up9"></v-multiple-upload len="1">
+            <v-multiple-upload len="1" :imgSrc="authorizationImageUrl" title="上传委托书" @acceptData="setAuthorizationImageUrl" uploadid="up9"></v-multiple-upload>
           </div>
         </div>
         <div class="clearfix"></div>

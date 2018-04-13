@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="bs-example">
-      <span class="t_nav">&#12288;&#12288;添加帐号</span>
+      <span class="t_nav">&#12288;添加帐号</span>
       <br/>
       <br/>
       <br/>

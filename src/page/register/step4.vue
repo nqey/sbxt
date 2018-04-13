@@ -114,6 +114,7 @@ export default {
       commerceImageUrl: '',
       otherImageUrl: '',
       errMsg: [],
+      infoTimer: null,
     };
   },
   components: {
@@ -173,6 +174,8 @@ export default {
       obj.commerceImageUrl = this.commerceImageUrl;
       obj.otherImageUrl = this.otherImageUrl;
       if (this.errMsg.length !== 0) {
+        clearTimeout(this.infoTimer);
+        this.infoTimer = setTimeout(() => { this.errMsg = []; }, 3000);
         return;
       }
       const res = await this.$xhr('post', DECLARE_PUT_REGISTINFO, obj);

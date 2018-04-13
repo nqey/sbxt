@@ -29,7 +29,7 @@
     <br/>
     <br/>
     <div class="bs-example">
-      <span class="t_nav">&#12288;&#12288;企业列表</span>
+      <span class="t_nav">&#12288;企业列表</span>
       <br/>
       <br/>
       <br/>

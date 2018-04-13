@@ -379,7 +379,6 @@ export default {
       param.authorizationImageUrl = this.authorizationImageUrl;
       param.otherImageUrl = this.otherImageUrl;
       param.state = this.state;
-      param.reason = this.reason;
       const res = await this.$xhr('post', `${DECLARE_PUT_ENTERPRISE}${id}`, param);
       if (res.data.code === 0) {
         sessionStorage.setItem('title', '更新申报企业');

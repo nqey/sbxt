@@ -1,6 +1,6 @@
 <template>
   <div class="bs-example">
-    <span class="t_nav">&#12288;&#12288;申报官列表</span>
+    <span class="t_nav">&#12288;申报官列表</span>
     <br/>
     <br/>
     <br/>

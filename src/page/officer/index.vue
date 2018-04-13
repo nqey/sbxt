@@ -2,7 +2,7 @@
   <div>
     <v-error-info :errMsg="errMsg"></v-error-info>
     <div class="bs-example">
-      <span class="t_nav">&#12288;&#12288;添加申报官</span>
+      <span class="t_nav">&#12288;添加申报官</span>
       <br/>
       <br/>
       <br/>
@@ -131,6 +131,7 @@ export default {
       show: true,
       count: '',
       timer: null,
+      infoTimer: null,
     };
   },
   methods: {
@@ -242,6 +243,8 @@ export default {
       obj.portrait = this.portrait;
       obj.areaCode = this.liveAddress;
       if (this.errMsg.length !== 0) {
+        clearTimeout(this.infoTimer);
+        this.infoTimer = setTimeout(() => { this.errMsg = []; }, 3000);
         return;
       }
       const res = await this.$xhr('post', DECLARE_POST_DECLARER, obj);

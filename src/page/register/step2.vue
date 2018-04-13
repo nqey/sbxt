@@ -108,6 +108,7 @@ export default {
       areacode: '',
       list: [],
       errMsg: [],
+      infoTimer: null,
     };
   },
   components: {
@@ -204,6 +205,8 @@ export default {
         param.applyAddress = this.applyAddress;
       }
       if (this.errMsg.length !== 0) {
+        clearTimeout(this.infoTimer);
+        this.infoTimer = setTimeout(() => { this.errMsg = []; }, 3000);
         return;
       }
       const res = await this.$xhr('post', DECLARE_PUT_BASEINFO, param);

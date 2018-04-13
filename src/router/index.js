@@ -14,6 +14,7 @@ const step3 = r => require.ensure([], (require) => { r(require('@/page/register/
 const step4 = r => require.ensure([], (require) => { r(require('@/page/register/step4')); }, 'step4');
 const step5 = r => require.ensure([], (require) => { r(require('@/page/register/step5')); }, 'step5');
 const resetPw = r => require.ensure([], (require) => { r(require('@/page/register/resetPw')); }, 'resetPw');
+const resetPwMsg = r => require.ensure([], (require) => { r(require('@/page/register/resetPwMsg')); }, 'resetPwMsg');
 const index = r => require.ensure([], (require) => { r(require('@/page/index')); }, 'index');
 const indexdetail = r => require.ensure([], (require) => { r(require('@/page/index/detail')); }, 'indexdetail');
 const addOfficer = r => require.ensure([], (require) => { r(require('@/page/officer')); }, 'addOfficer');
@@ -101,6 +102,11 @@ export default new Router({
       path: '/password/reset',
       name: 'resetPw',
       component: resetPw,
+    },
+    {
+      path: '/password/reset/msg',
+      name: 'resetPwMsg',
+      component: resetPwMsg,
     },
     {
       path: '/bindEnterprise',

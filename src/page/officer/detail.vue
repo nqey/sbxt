@@ -2,7 +2,7 @@
   <div>
     <v-error-info :errMsg="errMsg"></v-error-info>
     <div class="bs-example">
-      <span class="t_nav">&#12288;&#12288;申报官详情</span>
+      <span class="t_nav">&#12288;申报官详情</span>
       <br/>
       <br/>
       <br/>
@@ -138,6 +138,7 @@ export default {
       area: '',
       areaCode: '',
       errMsg: [],
+      infoTimer: null,
     };
   },
   methods: {
@@ -236,6 +237,8 @@ export default {
     async submit() {
       this.validate2();
       if (this.errMsg.length !== 0) {
+        clearTimeout(this.infoTimer);
+        this.infoTimer = setTimeout(() => { this.errMsg = []; }, 3000);
         return;
       }
       const param = {};

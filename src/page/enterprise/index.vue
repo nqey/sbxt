@@ -2,7 +2,7 @@
   <div>
     <v-error-info :errMsg="errMsg"></v-error-info>
     <div class="bs-example">
-      <div class="t_nav">&#12288;&#12288;申报企业</div>
+      <div class="t_nav">&#12288;申报企业</div>
       <br/>
       <br/>
       <div class="form-inline clearfix">
@@ -281,7 +281,7 @@ export default {
       this.validate2();
       if (this.errMsg.length !== 0) {
         clearTimeout(this.timer);
-        this.timer = setTimeout(() => { this.errMsg = []; }, 3000);
+        this.timer = setTimeout(() => { this.errMsg = []; }, 5000);
         return;
       }
       const param = {};

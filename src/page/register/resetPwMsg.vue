@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-register-head></v-register-head>
+    <v-password-head></v-password-head>
     <div class="row">
       <div class="col-sm-12" style="padding: 0px 55px;">
         <div class="col-sm-12 bs-example">

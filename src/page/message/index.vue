@@ -1,6 +1,6 @@
 <template>
   <div class="bs-example">
-    <span class="t_nav">&#12288;&#12288;{{title}}</span>
+    <span class="t_nav">&#12288;{{title}}</span>
     <br/>
     <br/>
     <br/>

@@ -62,6 +62,7 @@ export default {
       show: true,
       count: '',
       timer: null,
+      infoTimer: null,
     };
   },
   components: {
@@ -128,6 +129,8 @@ export default {
     async submit() {
       this.validate2();
       if (this.errMsg.length !== 0) {
+        clearTimeout(this.infoTimer);
+        this.infoTimer = setTimeout(() => { this.errMsg = []; }, 3000);
         return;
       }
       const param = {};

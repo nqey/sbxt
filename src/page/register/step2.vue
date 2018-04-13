@@ -37,7 +37,7 @@
                 <label class="label_height">常住地址：</label>
               </div>
               <div class="col-sm-7 imb">
-                <v-geo-area :areacode="areacode" @acceptData="setLiveAddress"></v-geo-area>
+                <v-area :areacode="areacode" @acceptData="setLiveAddress"></v-area>
                 <div class='mt'>
                   <input type='text' class='form-control iw' placeholder='请输入详细地址' v-model="address">
                 </div>
@@ -47,7 +47,7 @@
               </div>
               <div class="col-sm-7 imb">
                 <span class="label_height" v-show="$route.params.type === '2'">{{ organizAddress }}</span>
-                <v-app-area v-show="$route.params.type === '1'" @acceptData="setApplyAddress"></v-app-area>&#12288;
+                <v-apply-area v-show="$route.params.type === '1'" @acceptData="setApplyAddress"></v-apply-area>&#12288;
               </div>
               <div class="form-group col-sm-5 txr clearfix">
                 <label class="label_height">推荐机构：</label>
@@ -80,9 +80,9 @@
 
 <script>
 import multipleUpload from '@/components/upload/multipleUpload';
-import vGeoArea from '@/components/reegionalCascade/geoArea';
+import area from '@/components/area/area';
 import registerHead from '@/components/header/registerHead';
-import apparea from '@/components/reegionalCascade/appArea';
+import applyArea from '@/components/area/applyArea';
 import errInfo from '@/components/info/error';
 import rules from '@/config/rules';
 import { DECLARE_PUT_BASEINFO, DECLARE_GET_RECOMMEND_ORGANIZ, DECLARE_GET_BASEINFO } from '@/config/env';
@@ -113,9 +113,9 @@ export default {
   },
   components: {
     'v-multiple-upload': multipleUpload,
-    'v-geo-area': vGeoArea,
+    'v-area': area,
     'v-register-head': registerHead,
-    'v-app-area': apparea,
+    'v-apply-area': applyArea,
     'v-error-info': errInfo,
   },
   methods: {

@@ -35,7 +35,7 @@ import Logo from '@/assets/img/logo.png';
 import { getCookie, delCookie } from '@/config/cookie';
 
 export default {
-  name: 'lmenu',
+  name: 'leftMenu',
   data() {
     return {
       username: getCookie('username'),

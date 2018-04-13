@@ -21,7 +21,7 @@
 import { DECLARE_GET_AREA_TREE, DECLARE_AREALIMIT_AREACODE } from '@/config/env';
 
 export default {
-  name: 'appArea',
+  name: 'applyArea',
   props: [],
   data() {
     return {

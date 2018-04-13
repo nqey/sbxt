@@ -35,7 +35,7 @@
           </div>
           <div v-if="$route.params.type === '2'">
             <span class="label_height">所在区域：</span>
-            <v-geo-area :areacode="areaCode" @acceptData="setLiveAddress"></v-geo-area>
+            <v-area :areacode="areaCode" @acceptData="setLiveAddress"></v-area>
           </div>
           <br/>
           <span v-if="$route.params.type === '1'">
@@ -116,7 +116,7 @@ import vPortraitImg from '@/components/img/portraitImg';
 import errInfo from '@/components/info/error';
 import rules from '@/config/rules';
 import { DECLARE_GET_DECLARER_DETAILS, DECLARE_PUT_DECLARER } from '@/config/env';
-import vGeoArea from '@/components/reegionalCascade/geoArea';
+import area from '@/components/area/area';
 
 export default {
   name: 'officerDetail',
@@ -270,7 +270,7 @@ export default {
     'v-multiple-upload': multipleUpload,
     'v-portrait-upload': portraitUpload,
     'v-portrait-img': vPortraitImg,
-    'v-geo-area': vGeoArea,
+    'v-area': area,
   },
   mounted() {
     this.init();

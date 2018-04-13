@@ -31,7 +31,7 @@
             <label class="label_height"><span class="info">*</span> 所在区域：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-           <v-geo-area @acceptData="setLiveAddress"></v-geo-area>
+           <v-area @acceptData="setLiveAddress"></v-area>
         </div>
         <div class="form-group col-sm-1 txr clearfix">
           <label class="label_height"><span class="info">*</span> 寸 照：</label>
@@ -110,7 +110,7 @@ import multipleUpload from '@/components/upload/multipleUpload';
 import errInfo from '@/components/info/error';
 import rules from '@/config/rules';
 import { DECLARE_GET_VALIDATECODE, DECLARE_POST_DECLARER } from '@/config/env';
-import vGeoArea from '@/components/reegionalCascade/geoArea';
+import area from '@/components/area/area';
 
 export default {
   name: 'addOfficer',
@@ -263,7 +263,7 @@ export default {
   components: {
     'v-multiple-upload': multipleUpload,
     'v-error-info': errInfo,
-    'v-geo-area': vGeoArea,
+    'v-area': area,
   },
 };
 </script>

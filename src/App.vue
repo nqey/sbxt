@@ -8,7 +8,7 @@
 
 <script>
 import vTopHeader from '@/components/header/topHeader';
-import vLeftMenu from '@/components/leftMenu';
+import vLeftMenu from '@/components/menu/leftMenu';
 import { getCookie } from '@/config/cookie';
 
 export default {

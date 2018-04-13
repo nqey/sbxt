@@ -10,7 +10,7 @@
         <br/>
         <div class="form-inline clearfix">
           <div class="col-sm-6">
-           <v-geo-area @acceptData="setLiveAddress"></v-geo-area>
+           <v-area @acceptData="setLiveAddress"></v-area>
            <input type="text" class="form-control" placeholder="请输入机构名称或负责人" v-model="name">
          </div>
           <div class="col-sm-6">
@@ -51,7 +51,7 @@
 <script>
 import pagination from '@/components/pagination';
 import detailHead from '@/components/header/detailHead';
-import vGeoArea from '@/components/reegionalCascade/geoArea';
+import area from '@/components/area/area';
 import { DECLARE_GET_DECLARE_ORGANIZ, DECLARE_GET_DECLARE_ORGANIZ_COUNT, DECLARE_GET_DECLARE_FWZX, DECLARE_GET_DECLARE_FWZX_COUNT } from '@/config/env';
 
 export default {
@@ -72,7 +72,7 @@ export default {
   components: {
     'v-pagination': pagination,
     'v-detail-head': detailHead,
-    'v-geo-area': vGeoArea,
+    'v-area': area,
   },
   methods: {
     async search(page) {

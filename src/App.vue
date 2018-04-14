@@ -15,7 +15,7 @@ export default {
   name: 'app',
   data() {
     return {
-      isShowMenu: true,
+      isShowMenu: false,
     };
   },
   components: {
@@ -23,7 +23,7 @@ export default {
     'v-left-menu': vLeftMenu,
   },
   watch: {
-    // $route: 'checkLogin',
+    $route: 'checkLogin',
   },
   methods: {
     checkLogin() {

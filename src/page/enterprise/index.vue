@@ -219,6 +219,14 @@ export default {
       if (!this.idNumber) {
         errMsg.push(`${rules.nonEmpty}${rules.idNumber}`);
       }
+      // 身份证照片正面
+      if (!this.idFrontUrl) {
+        this.errMsg.push(`${rules.upload}${rules.idFrontUrl}`);
+      }
+      // 身份证照片背面
+      if (!this.idBackUrl) {
+        this.errMsg.push(`${rules.upload}${rules.idBackUrl}`);
+      }
       // 营业执照
       if (!this.licenseImageUrl) {
         errMsg.push(`${rules.nonEmpty}${rules.licenseImageUrl}`);

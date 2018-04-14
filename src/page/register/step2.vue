@@ -22,37 +22,22 @@
                 <label class="label_height">身份证照片：</label>
               </div>
               <div class="form-group col-sm-7 imb">
-                <small class="info2 label_height">请按照示例上传证件照片；支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
+                <small class="callout label_height">请按照示例上传证件照片；支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
                 <br/>
-                <small class="info label_height">请上传本人真实身份证，否则审核不通过。</small>
+                <small class="callout-red label_height">请上传本人真实身份证，否则审核不通过。</small>
                 <div class="clearfix"></div>
-                <div v-show="$route.params.type === '1'">
-                  <div class="pull-left" style="width: 200px;margin-right: 30px;">
-                    <v-multiple-upload len="1" uploadid="upload1" title="上传正面" @acceptData="frontUrl"></v-multiple-upload>
-                  </div>
-                  <div class="pull-left" style="width: 200px;">
-                    <v-multiple-upload len="1" uploadid="upload2" title="上传背面" @acceptData="backUrl"></v-multiple-upload>
-                  </div>
+                <div class="pull-left" style="width: 200px;margin-right: 30px;">
+                  <v-multiple-upload len="1" :imgSrc="initFrontUrl" uploadid="upload2" title="上传正面" @acceptData="frontUrl"></v-multiple-upload>
                 </div>
-                <div v-show="$route.params.type === '2'">
-                  <div v-if="idFrontUrl" class="pull-left" style="width: 200px;margin-right: 30px;">
-                    <v-multiple-upload len="1" :imgSrc="idFrontUrl" uploadid="upload2" title="上传正面" @acceptData="setFrontUrl"></v-multiple-upload>
-                  </div>
-                  <div v-if="idBackUrl" class="pull-left" style="width: 200px;">
-                    <v-multiple-upload len="1" :imgSrc="idBackUrl" uploadid="upload3" title="上传背面" @acceptData="setBackUrl"></v-multiple-upload>
-                  </div>
+                <div class="pull-left" style="width: 200px;">
+                  <v-multiple-upload len="1" :imgSrc="initBackUrl" uploadid="upload3" title="上传背面" @acceptData="backUrl"></v-multiple-upload>
                 </div>
               </div>
               <div class="form-group col-sm-5 txr clearfix">
                 <label class="label_height">常住地址：</label>
               </div>
               <div class="col-sm-7 imb">
-                <div v-if="$route.params.type === '1'">
-                  <v-area @acceptData="setLiveAddress"></v-area>
-                </div>
-                <div v-if="$route.params.type === '2' && areacode">
-                  <v-area :areacode="areacode" @acceptData="setLiveAddress"></v-area>
-                </div>
+                <v-area :areacode="areacode" @acceptData="setLiveAddress"></v-area>
                 <div class='mt'>
                   <input type='text' class='form-control iw' placeholder='请输入详细地址' v-model="address">
                 </div>
@@ -79,12 +64,16 @@
                 <label class="label_height">企业全称：</label>
               </div>
               <div class="form-group col-sm-7 imb">
-                <input type="text" class="form-control iw600" placeholder="例如:四川中华搜信息技术有限公司" v-model="enterpriseName">
+                <input type="text" class="form-control iw600" placeholder="请输入您的企业主体全称；例如：四川中新华搜信息技术有限公司；" v-model="enterpriseName">
+                <br/>
+                <br/>
+                <small style="color: #999">申请申报机构必须是以公司的名义进行申请，拒绝个人申请。</small>
               </div>
               <div class="form-group col-sm-5 txr clearfix">
               </div>
               <div class="form-group col-sm-7 imb">
-                <button class="btn js-ajax-submit" @click="submit">提交</button>
+                <button v-show="isShowSubmit" type="button" class="btn btn-success" @click="submit">提交</button>
+                <button v-show="!isShowSubmit" type="button" class="btn btn-success" disabled>提交</button>
               </div>
           </div>
         </div>
@@ -111,7 +100,9 @@ export default {
       name: '',
       idNumber: '',
       idFrontUrl: '',
+      initFrontUrl: '',
       idBackUrl: '',
+      initBackUrl: '',
       address: '',
       liveAddress: '',
       applyAddress: '',
@@ -121,6 +112,7 @@ export default {
       enterpriseName: '',
       organizAddress: '',
       areacode: '',
+      isShowSubmit: true,
       list: [],
       errMsg: [],
       infoTimer: null,
@@ -224,11 +216,13 @@ export default {
         this.infoTimer = setTimeout(() => { this.errMsg = []; }, 3000);
         return;
       }
+      this.isShowSubmit = !this.isShowSubmit;
       const res = await this.$xhr('post', DECLARE_PUT_BASEINFO, param);
       if (res.data.code === 0) {
         this.$router.push('/step3');
+      } else {
+        this.isShowSubmit = !this.isShowSubmit;
       }
-      this.areaCode = `${res.data.data.proviceCode},${res.data.data.cityCode},${res.data.data.areaCode}`;
     },
   },
   async mounted() {
@@ -241,6 +235,8 @@ export default {
       this.idNumber = res.data.data.idNumber;
       this.idFrontUrl = res.data.data.idFrontUrl;
       this.idBackUrl = res.data.data.idBackUrl;
+      this.initFrontUrl = res.data.data.idFrontUrl;
+      this.initBackUrl = res.data.data.idBackUrl;
       this.recommendName = res.data.data.recommentName;
       this.recommendOrgnizId = res.data.data.recommendOrgnizId;
       this.recommendOrgnizType = res.data.data.recommendOrgnizType;
@@ -283,76 +279,14 @@ export default {
 .bdsug li:hover {
   background-color: #888;
 }
-.info {
-  color: #ac2925;
-}
-.info2 {
-  color: #999;
-}
-.container {
-  padding: 0px 55px;
-}
-.txr {
-  text-align: right;
-}
-.txc {
-  text-align: center;
-}
 .iw {
   width: 300px;
 }
 .iw600 {
   width: 600px;
 }
-.label_height {
-  line-height: 35px;
-}
 .imb {
   margin-bottom: 30px;
-}
-.bs-example {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    -webkit-border-top-left-radius: 4px;
-    -webkit-border-top-right-radius: 4px;
-    -moz-border-radius-topleft: 4px;
-    -moz-border-radius-topright: 4px;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    margin: 15px 0;
-    padding: 60px 30px;
-    position: relative;
-}
-.btn {
-    display: inline-block;
-    padding: 6px 12px;
-    margin-bottom: 0;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.42857143;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-image: none;
-    border: 1px solid transparent;
-    border-radius: 25px;
-    color: #fff;
-    width: 180px;
-    background-color: rgba(73,43,253,0);
-    border-color: rgba(255,255,255,0.7);
-}
-.js-ajax-submit {
-    width: 350px;
-    margin: auto;
-    color:#fff;
-    background: rgb(1, 200, 83);
 }
 .mt {
   margin-top: 30px;

@@ -41,6 +41,9 @@ export default {
       imgRes: [],
     };
   },
+  watch: {
+    imgSrc: 'setImgSrc',
+  },
   methods: {
     fileClick() {
       document.getElementById(this.uploadid).click();
@@ -66,7 +69,7 @@ export default {
     },
     fileDel(index) {
       this.imgRes.splice(index, 1);
-      this.$emit('acceptData', this.imgRes);
+      this.$emit('acceptData', this.imgRes.length === 0 ? '' : this.imgRes.join(','));
     },
     showBigImg(url) {
       this.bigImgUrl = this.serverurl + url;
@@ -83,9 +86,6 @@ export default {
   },
   components: {
     'v-big-img': vBigImg,
-  },
-  mounted() {
-    this.setImgSrc();
   },
 };
 </script>

@@ -11,38 +11,38 @@
         </div>
         <div class="form-group col-sm-11 imb">
           <input type="text" class="form-control iw600" placeholder="请输入企业全称" v-model="name">
-    		  <br/>
-    		  <br/>
-    		  &#12288;<small class="areafc">例如：四川新中华搜信息技术有限公司</small>
+          <br/>
+          <br/>
+          &#12288;<small class="areafc">例如：四川新中华搜信息技术有限公司</small>
         </div>
         <div class="form-group col-sm-1 txr clearfix">
           <label class="label_height"><span class="info">*</span> 企业负责人：</label>
         </div>
         <div class="form-group col-sm-11 imb">
           <input type="text" class="form-control iw600" placeholder="请输入真实姓名" v-model="charger">
-    		  <br/>
-    		  <br/>
-    		  &#12288;<small class="areafc">企业法人必须是真是姓名，与营业执照上相同</small>
+          <br/>
+          <br/>
+          &#12288;<small class="areafc">企业法人必须是真是姓名，与营业执照上相同</small>
         </div>
         <div class="form-group col-sm-1 txr clearfix">
           <label class="label_height"><span class="info">*</span> 手机号码：</label>
         </div>
         <div class="form-group col-sm-11 imb ">
           <input type="text" class="form-control iw600" placeholder="请输入手机号码" v-model="cellphone" @blur="validate">
-    		  <br/>
-    		  <br/>
-    		  &#12288;<small class="areafc">该号码必须是企业法人本人手机号码</small>
+          <br/>
+          <br/>
+          &#12288;<small class="areafc">该号码必须是企业法人本人手机号码</small>
         </div>
         <div class="form-group col-sm-1 txr clearfix">
           <label class="label_height"><span class="info">*</span> 身份证号码：</label>
         </div>
-	      <div class="form-group col-sm-11 imb">
-	        <input type="text" class="form-control iw600" placeholder="请输入身份证号码" v-model="idNumber" @blur="validate">
-	    		<br/>
-	    		<br/>
-	    		&#12288;<small class="areafc">申报官真实有效身份证号码，每一个身份证号只能添加一名申报官。</small>
-	      </div>
-	      <div class="form-group col-sm-1 txr clearfix">
+        <div class="form-group col-sm-11 imb">
+          <input type="text" class="form-control iw600" placeholder="请输入身份证号码" v-model="idNumber" @blur="validate">
+          <br/>
+          <br/>
+          &#12288;<small class="areafc">申报官真实有效身份证号码，每一个身份证号只能添加一名申报官。</small>
+        </div>
+        <div class="form-group col-sm-1 txr clearfix">
           <label class="label_height">身份证照片：</label>
         </div>
         <div class="form-group col-sm-11 imb">
@@ -51,10 +51,10 @@
           <small class="info label_height">请上传本人真实身份证，否则审核不通过。</small>
           <div class="clearfix"></div>
           <div class="pull-left" style="width: 200px;margin-right: 30px;">
-            <v-multiple-upload len="1" uploadid="upload1" title="上传正面" @acceptData="frontUrl"></v-multiple-upload>
+            <v-multiple-upload len="1" :imgSrc="initIdFrontUrl" uploadid="upload1" title="上传正面" @acceptData="frontUrl"></v-multiple-upload>
           </div>
           <div class="pull-left" style="width: 200px;">
-            <v-multiple-upload len="1" uploadid="upload2" title="上传背面" @acceptData="backUrl"></v-multiple-upload>
+            <v-multiple-upload len="1" :imgSrc="initIdBackUrl" uploadid="upload2" title="上传背面" @acceptData="backUrl"></v-multiple-upload>
           </div>
         </div>
         <div class="form-group col-sm-1 txr clearfix">
@@ -63,7 +63,7 @@
         <div class="form-group col-sm-11 imb">
           <p class="label_height">请上次营业执照影印件。支持格式：bmp、jpg、png、gif。照片大小不超过2M。</p>
           <br/>
-          <v-multiple-upload len="1" title="上传营业执照" @acceptData="setLicenseImageUrl" uploadid="upload3"></v-multiple-upload>
+          <v-multiple-upload len="1" :imgSrc="initLicenseImageUrl" title="上传营业执照" @acceptData="setLicenseImageUrl" uploadid="upload3"></v-multiple-upload>
         </div>
         <div class="form-group col-sm-1 txr clearfix">
           <label class="label_height"><span class="info">*</span> 生产许可证：</label>
@@ -71,7 +71,7 @@
         <div class="form-group col-sm-11 imb">
           <p class="label_height">请上传生产许可证影印件。支持格式：bmp、jpg、png、gif。照片大小不超过2M。</p>
           <br/>
-          <v-multiple-upload len="1" title="上传生产许可证" @acceptData="setProductionImageUrl" uploadid="upload4"></v-multiple-upload>
+          <v-multiple-upload len="1" :imgSrc="initProductionImageUrl" title="上传生产许可证" @acceptData="setProductionImageUrl" uploadid="upload4"></v-multiple-upload>
         </div>
         <div class="form-group col-sm-1 txr clearfix">
           <label class="label_height"><span class="info">*</span> 资金补贴申报表：</label>
@@ -83,7 +83,7 @@
           <small class="info label_height">请认真填写每一必填项，再上传完整的尽职调查表</small>
           <br/>
           <br/>
-          <v-multiple-upload len="3" title="上传申报表" @acceptData="setCapitalImageUrl" uploadid="upload5"></v-multiple-upload>
+          <v-multiple-upload len="3" :imgSrc="initCapitalImageUrl" title="上传申报表" @acceptData="setCapitalImageUrl" uploadid="upload5"></v-multiple-upload>
         </div>
         <div class="form-group col-sm-1 txr clearfix">
           <label class="label_height"><span class="info">*</span> 企业尽职调查表：</label>
@@ -95,7 +95,7 @@
           <small class="info label_height">请认真填写每一必填项，再上传完整的尽职调查表</small>
           <br/>
           <br/>
-          <v-multiple-upload len="3" title="上传调查表" @acceptData="setEnterpriseSurveyImageUrl" uploadid="upload6"></v-multiple-upload>
+          <v-multiple-upload len="3" :imgSrc="initEnterpriseSurveyImageUrl" title="上传调查表" @acceptData="setEnterpriseSurveyImageUrl" uploadid="upload6"></v-multiple-upload>
         </div>
         <div class="form-group col-sm-1 txr clearfix">
           <label class="label_height"><span class="info">*</span> 企业负责人尽职调查表：</label>
@@ -107,7 +107,7 @@
           <small class="info label_height">请认真填写每一必填项，再上传完整的尽职调查表</small>
           <br/>
           <br/>
-          <v-multiple-upload len="3" title="上传调查表" @acceptData="setEnterpriseChargerSurveyImageUrl" uploadid="upload7"></v-multiple-upload>
+          <v-multiple-upload len="3" :imgSrc="initEnterpriseChargerSurveyImageUrl" title="上传调查表" @acceptData="setEnterpriseChargerSurveyImageUrl" uploadid="upload7"></v-multiple-upload>
         </div>
         <div class="form-group col-sm-1 txr clearfix">
           <label class="label_height"><span class="info">*</span> 企业入库申请函</label>
@@ -119,7 +119,7 @@
           <small class="info label_height">请上传完整的申请函</small>
           <br/>
           <br/>
-          <v-multiple-upload len="1" title="上传申请函" uploadid="upload8" text="上传申请函" @acceptData="setEnterpriseShindImageUrl"></v-multiple-upload>
+          <v-multiple-upload len="1" :imgSrc="initEnterpriseShindImageUrl" title="上传申请函" uploadid="upload8" text="上传申请函" @acceptData="setEnterpriseShindImageUrl"></v-multiple-upload>
         </div>
         <div class="form-group col-sm-1 txr clearfix">
           <label class="label_height"><span class="info">*</span> 授权委托书</label>
@@ -129,7 +129,7 @@
           <small class="info2 label_height">指定代表或者共同委托代理人授权委托书；如企业法人不能亲自办理入库事宜，法人可签订此授权书委托书给指定负责人进行办理。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
           <br/>
           <br/>
-          <v-multiple-upload len="1" uploadid="upload9" title="上传委托书" @acceptData="setAuthorizationImageUrl"></v-multiple-upload>
+          <v-multiple-upload len="1" :imgSrc="initAuthorizationImageUrl" uploadid="upload9" title="上传委托书" @acceptData="setAuthorizationImageUrl"></v-multiple-upload>
         </div>
         <div class="form-group col-sm-1 txr clearfix">
           <label class="label_height"> 其他补充材料：</label>
@@ -138,7 +138,7 @@
           <small class="info2 label_height">企业如有其他补充材料，可上次至此，可增加通过率;例如发明专利、商标等知识产权；各项奖励证书，等级证书，认证证书等；如企业有全国工业生产许可证，安全生产许可证也需上传至此。 </small>
           <br/>
           <br/>
-          <v-multiple-upload len="5" title="上传补充材料" @acceptData="setOtherImageUrl" uploadid="upload10"></v-multiple-upload>
+          <v-multiple-upload len="5" :imgSrc="initOtherImageUrl" title="上传补充材料" @acceptData="setOtherImageUrl" uploadid="upload10"></v-multiple-upload>
         </div>
         <div class="form-group col-sm-1 txr clearfix"></div>
         <div class="form-group col-sm-11 imb">
@@ -157,10 +157,10 @@
 import multipleUpload from '@/components/upload/multipleUpload';
 import errInfo from '@/components/info/error';
 import rules from '@/config/rules';
-import { DECLARE_POST_ENTERPRISE } from '@/config/env';
+import { DECLARE_GET_ENTERPRISE_ID, DECLARE_PUT_ENTERPRISE } from '@/config/env';
 
 export default {
-  name: 'enterprise',
+  name: 'edit',
   data() {
     return {
       showImg: false,
@@ -179,11 +179,56 @@ export default {
       enterpriseShindImageUrl: '',
       authorizationImageUrl: '',
       otherImageUrl: '',
+      initIdFrontUrl: '',
+      initIdBackUrl: '',
+      initLicenseImageUrl: '',
+      initProductionImageUrl: '',
+      initEnterpriseShindImageUrl: '',
+      initAuthorizationImageUrl: '',
+      initCapitalImageUrl: '',
+      initEnterpriseSurveyImageUrl: '',
+      initEnterpriseChargerSurveyImageUrl: '',
+      initOtherImageUrl: '',
       errMsg: [],
       timer: '',
     };
   },
   methods: {
+    async init() {
+      const id = this.$route.params.id;
+      const res = await this.$xhr('get', `${DECLARE_GET_ENTERPRISE_ID}${id}`);
+      if (res.data.code === 0) {
+        this.name = res.data.data.name;
+        this.charger = res.data.data.charger;
+        this.cellphone = res.data.data.cellphone;
+        this.idNumber = res.data.data.idNumber;
+        this.capitalImageUrl = res.data.data.capitalImageUrl;
+        this.enterpriseSurveyImageUrl = res.data.data.enterpriseSurveyImageUrl;
+        this.enterpriseChargerSurveyImageUrl = res.data.data.enterpriseChargerSurveyImageUrl;
+        this.otherImageUrl = res.data.data.otherImageUrl;
+        this.idFrontUrl = res.data.data.idFrontUrl;
+        this.idBackUrl = res.data.data.idBackUrl;
+        this.licenseImageUrl = res.data.data.licenseImageUrl;
+        this.productionImageUrl = res.data.data.productionImageUrl;
+        this.enterpriseShindImageUrl = res.data.data.enterpriseShindImageUrl;
+        this.authorizationImageUrl = res.data.data.authorizationImageUrl;
+        this.initIdFrontUrl = res.data.data.idFrontUrl;
+        this.initIdBackUrl = res.data.data.idBackUrl;
+        this.initLicenseImageUrl = res.data.data.licenseImageUrl;
+        this.initProductionImageUrl = res.data.data.productionImageUrl;
+        this.initEnterpriseShindImageUrl = res.data.data.enterpriseShindImageUrl;
+        this.initAuthorizationImageUrl = res.data.data.authorizationImageUrl;
+        this.initCapitalImageUrl = res.data.data.capitalImageUrl;
+        this.initEnterpriseSurveyImageUrl = res.data.data.enterpriseSurveyImageUrl;
+        this.initEnterpriseChargerSurveyImageUrl = res.data.data.enterpriseChargerSurveyImageUrl;
+        this.initOtherImageUrl = res.data.data.otherImageUrl;
+        this.state = res.data.data.state;
+        this.reason = res.data.data.reason;
+        if (this.reason) {
+          this.errMsg.push(this.reason);
+        }
+      }
+    },
     validate() {
       const errMsg = [];
       // 手机号码验证
@@ -283,9 +328,10 @@ export default {
       this.validate2();
       if (this.errMsg.length !== 0) {
         clearTimeout(this.timer);
-        this.timer = setTimeout(() => { this.errMsg = []; }, 5000);
+        this.timer = setTimeout(() => { this.errMsg = []; }, 3000);
         return;
       }
+      const id = this.$route.params.id;
       const param = {};
       param.name = this.name;
       param.charger = this.charger;
@@ -301,16 +347,17 @@ export default {
       param.enterpriseShindImageUrl = this.enterpriseShindImageUrl;
       param.authorizationImageUrl = this.authorizationImageUrl;
       param.otherImageUrl = this.otherImageUrl;
-      const res = await this.$xhr('post', DECLARE_POST_ENTERPRISE, param);
+      param.state = this.state;
       this.isShowSubmit = !this.isShowSubmit;
+      const res = await this.$xhr('post', `${DECLARE_PUT_ENTERPRISE}${id}`, param);
       if (res.data.code === 0) {
-        sessionStorage.setItem('title', '添加申报企业');
-        sessionStorage.setItem('content', '企业申报提交成功');
-        sessionStorage.setItem('content2', '审核时长3个工作日以内，企业审核状态可在企业列表查看');
-        sessionStorage.setItem('content3', '审核结果将以短信的方式发送至企业法人手机');
+        sessionStorage.setItem('title', '更新申报企业');
+        sessionStorage.setItem('content', '更新申报企业成功');
+        sessionStorage.setItem('content2', '');
+        sessionStorage.setItem('content3', '');
         sessionStorage.setItem('alink', '');
-        sessionStorage.setItem('blink', '');
-        sessionStorage.setItem('clink', '/decEnt');
+        sessionStorage.setItem('blink', '/decEnt');
+        sessionStorage.setItem('clink', '');
         this.$router.push('/message');
       } else {
         this.isShowSubmit = !this.isShowSubmit;
@@ -320,6 +367,9 @@ export default {
   components: {
     'v-multiple-upload': multipleUpload,
     'v-error-info': errInfo,
+  },
+  mounted() {
+    this.init();
   },
 };
 </script>

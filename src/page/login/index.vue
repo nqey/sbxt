@@ -206,19 +206,19 @@ export default {
         setCookie('rule', res.data.data.rule, 1000 * 60);
         setCookie('state', res.data.data.state, 1000 * 60);
         if (res.data.data.state === 'baseWaitSubmit') {
-          setTimeout(() => { this.$router.push('/step2/1'); }, 1000);
+          this.$router.push('/step2/1');
         } else if (res.data.data.state === 'baseWaitPending' || res.data.data.state === 'baseWaitAudit' || res.data.data.state === 'baseWaitPended') {
-          setTimeout(() => { this.$router.push('/step3'); }, 1000);
+          this.$router.push('/step3');
         } else if (res.data.data.state === 'baseWaitUnPending' || res.data.data.state === 'baseUnPass') {
-          setTimeout(() => { this.$router.push('/step2/2'); }, 1000);
+          this.$router.push('/step2/2');
         } else if (res.data.data.state === 'registWaitSubmit') {
-          setTimeout(() => { this.$router.push('/step4/1'); }, 1000);
+          this.$router.push('/step4/1');
         } else if (res.data.data.state === 'registWaitAudit' || res.data.data.state === 'registWaitPended' || res.data.data.state === 'registWaitPending') {
-          setTimeout(() => { this.$router.push('/step5'); }, 1000);
+          this.$router.push('/step5');
         } else if (res.data.data.state === 'registUnPass' || res.data.data.state === 'registWaitUnPending') {
-          setTimeout(() => { this.$router.push('/step4/2'); }, 1000);
+          this.$router.push('/step4/2');
         } else {
-          setTimeout(() => { this.$router.push('/index'); }, 1000);
+          this.$router.push('/index');
         }
       } else {
         this.lo = '登录';

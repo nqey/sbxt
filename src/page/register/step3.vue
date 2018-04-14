@@ -38,22 +38,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.bs-example {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    -webkit-border-top-left-radius: 4px;
-    -webkit-border-top-right-radius: 4px;
-    -moz-border-radius-topleft: 4px;
-    -moz-border-radius-topright: 4px;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    margin: 15px 0;
-    padding: 60px 30px;
-    position: relative;
-}
-.container {
-  padding: 0px 55px;
-}
 .content {
   text-align: center;font-size: 18px;
 }

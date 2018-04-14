@@ -56,8 +56,8 @@
                 <td>{{item.codeCount}}</td>
                 <td>{{item.amount}}</td>
                 <td>
-                  <router-link v-show="!item.reason" :to="'/ent/detail/1/'+item.id">查看</router-link>
-                  <router-link v-show="item.reason" :to="'/ent/detail/2/'+item.id">修改</router-link>
+                  <router-link v-show="!item.reason" :to="'/ent/detail/'+item.id">查看</router-link>
+                  <router-link v-show="item.reason" :to="'/decEnt/edit/'+item.id">修改</router-link>
                 </td>
               </tr>
             </tbody>

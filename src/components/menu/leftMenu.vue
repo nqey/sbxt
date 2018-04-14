@@ -55,7 +55,7 @@ export default {
           subItems: [
             {
               name: '添加申报官',
-              link: '/officer/add',
+              link: '/officer/entry',
             },
             {
               name: '申报官列表',
@@ -66,7 +66,7 @@ export default {
         {
           name: '申报企业',
           haveSub: false,
-          link: '/decEnt',
+          link: '/decEnt/entry',
           id: 3,
         },
         {
@@ -89,7 +89,7 @@ export default {
           subItems: [
             {
               name: '添加账户',
-              link: '/user/add',
+              link: '/user/entry',
             },
             {
               name: '帐号列表',

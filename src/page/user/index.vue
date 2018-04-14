@@ -1,49 +1,46 @@
 <template>
-  <div>
-    <div class="bs-example">
-      <span class="t_nav">&#12288;添加帐号</span>
-      <br/>
-      <br/>
-      <br/>
-        
-      <div class="form-inline clearfix">
-        <div class="form-group col-sm-1 txr">
-            <label class="label_height">用户名：</label>
-        </div>
-        <div class="form-group col-sm-11 imb">
-            <input type="text" class="form-control iw600"  placeholder="请输入用户名" v-model="name">
-        </div>
-        <div class="form-group col-sm-1 txr">
-            <label class="label_height">密码：</label>
-        </div>
-        <div class="form-group col-sm-11 imb">
-            <input type="text" class="form-control iw600"  placeholder="请输入密码" v-model="password">
-        </div>
-        <div class="form-group col-sm-1 txr">
-            <label class="label_height">选择对象：</label>
-        </div>
-        <div class="form-group col-sm-11 imb">
-          <select class="form-control" v-model="declarerId">
-            <option value="">请选择</option>
-  		      <option v-for="item of targets" :value="item.id">{{item.name}}</option>
-  		    </select>
-        </div>
-        <div class="form-group col-sm-1 txr">
-            <label class="label_height">选择功能：</label>
-        </div>
-        <div class="form-group col-sm-11 imb">
-            <input type="checkbox" v-model="a"/> 企业申报  
-            <br/>
-            <input type="checkbox" v-model="b"/> 企业列表  
-            <br/>
-            <input type="checkbox" v-model="c"/> 推荐列表  
-        </div>
-          <div class="form-group col-sm-1 txr">
-          </div>
-          <div class="form-group col-sm-11 imb">
-              <button class="btn js-ajax-submit" @click="submit">添加</button>
-          </div>
+  <div class="bs-example">
+    <p class="t_nav">&#12288;添加帐号</p>
+    <br/>
+    <br/>
+    <div class="form-inline clearfix">
+      <div class="form-group col-sm-1 txr">
+          <label class="label_height">用户名：</label>
       </div>
+      <div class="form-group col-sm-11 imb">
+          <input type="text" class="form-control iw600"  placeholder="请输入用户名" v-model="name">
+      </div>
+      <div class="form-group col-sm-1 txr">
+          <label class="label_height">密码：</label>
+      </div>
+      <div class="form-group col-sm-11 imb">
+          <input type="text" class="form-control iw600"  placeholder="请输入密码" v-model="password">
+      </div>
+      <div class="form-group col-sm-1 txr">
+          <label class="label_height">选择对象：</label>
+      </div>
+      <div class="form-group col-sm-11 imb">
+        <select class="form-control" v-model="declarerId">
+          <option value="">请选择</option>
+		      <option v-for="item of targets" :value="item.id">{{item.name}}</option>
+		    </select>
+      </div>
+      <div class="form-group col-sm-1 txr">
+          <label class="label_height">选择功能：</label>
+      </div>
+      <div class="form-group col-sm-11 imb">
+          <input type="checkbox" v-model="a"/> 企业申报  
+          <br/>
+          <input type="checkbox" v-model="b"/> 企业列表  
+          <br/>
+          <input type="checkbox" v-model="c"/> 推荐列表  
+      </div>
+        <div class="form-group col-sm-1 txr">
+        </div>
+        <div class="form-group col-sm-11 imb">
+            <button v-show="isShowSubmit" type="button" class="btn btn-success" @click="submit">添加</button>
+            <button v-show="!isShowSubmit" type="button" class="btn btn-success" disabled>添加</button>
+        </div>
     </div>
   </div>
 </template>
@@ -55,6 +52,7 @@ export default {
   name: 'user',
   data() {
     return {
+      isShowSubmit: true,
       name: '',
       password: '',
       declarerId: '',
@@ -77,6 +75,7 @@ export default {
       param.function.push(this.b ? 2 : 0);
       param.function.push(this.c ? 3 : 0);
       const res = await this.$xhr('post', DECLARE_POST_USER_ACOUNT, param);
+      this.isShowSubmit = !this.isShowSubmit;
       if (res.data.code === 0) {
         sessionStorage.setItem('title', '添加帐号');
         sessionStorage.setItem('content', '添加帐号成功');
@@ -85,7 +84,9 @@ export default {
         sessionStorage.setItem('alink', '');
         sessionStorage.setItem('blink', '/user/list');
         sessionStorage.setItem('clink', '');
-        setTimeout(() => { this.$router.push('/message'); }, 1000);
+        this.$router.push('/message');
+      } else {
+        this.isShowSubmit = !this.isShowSubmit;
       }
     },
     async init() {

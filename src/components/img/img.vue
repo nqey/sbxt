@@ -1,5 +1,5 @@
 <template>
-  <div style="margin-right: 50px;">
+  <div style="margin-right: 20px;">
     <v-big-img v-if="isShowBigImg" :imgSrc="serverurl+imgSrc" @hideBigImg="closeBigImg"></v-big-img>
     <div class="imgW">
        <img :src="serverurl+imgSrc"></img>

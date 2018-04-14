@@ -17,21 +17,13 @@
           <label class="label_height"><span class="info">*</span> 手机号码：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-          <input type="text" class="form-control iw600" placeholder="请输入手机号码" v-model="cellphone" @blur="validate">
-          <br/>
-          <br/>
-          &#12288;<small class="areafc">该手机号必须是申报官真实手机号码，每一个手机号码只能添加一名申报官。</small>
-          <br/>
-          <br/>
-          <input type="text" class="form-control iw" placeholder="请输入验证码" v-model="code"></input>
-          <button v-show="show" class="btn hqyzm"  @click="getCode">获取验证码</button>
-          <button v-show="!show" class="btn hqyzm">{{count}} s</button>
+          <span class="label_height">{{cellphone}}&#12288;&#12288;</span>
         </div>
         <div class="form-group col-sm-1 txr clearfix">
             <label class="label_height"><span class="info">*</span> 所在区域：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-           <v-area @acceptData="setLiveAddress"></v-area>
+           <v-area :areacode="areacode" @acceptData="setLiveAddress"></v-area>
         </div>
         <div class="form-group col-sm-1 txr clearfix">
           <label class="label_height"><span class="info">*</span> 寸 照：</label>
@@ -42,7 +34,7 @@
           <small class="info label_height">请上传本人真实照，审核会与身份证进行对比，不按照要求上传会导致审核通不过。</small>
           <br/>
           <br/>
-          <v-multiple-upload len="1" title="上传寸照" @acceptData="setPortrait" uploadid="upload1"></v-multiple-upload>
+          <v-multiple-upload :imgSrc="initPortrait" len="1" title="上传寸照" @acceptData="setPortrait" uploadid="upload1"></v-multiple-upload>
         </div>
         <div class="form-group col-sm-1 txr clearfix">
           <label class="label_height"><span class="info">*</span> 身份证号码：</label>
@@ -62,10 +54,10 @@
           <small class="info label_height">请上传本人真实身份证，否则审核不通过。</small>
           <div class="clearfix"></div>
           <div class="pull-left" style="width: 200px;margin-right: 30px;">
-            <v-multiple-upload len="1" uploadid="upload2" title="上传正面" @acceptData="frontUrl"></v-multiple-upload>
+            <v-multiple-upload len="1" :imgSrc="initIdFrontUrl" uploadid="upload2" title="上传正面" @acceptData="setFrontUrl"></v-multiple-upload>
           </div>
           <div class="pull-left" style="width: 200px;">
-            <v-multiple-upload len="1" uploadid="upload3" title="上传背面" @acceptData="backUrl"></v-multiple-upload>
+            <v-multiple-upload len="1" :imgSrc="idBackUrl" uploadid="upload3" title="上传背面" @acceptData="setBackUrl"></v-multiple-upload>
           </div>
         </div>
         <div class="form-group col-sm-1 txr clearfix">
@@ -78,7 +70,7 @@
           <small class="info label_height">请认真填写每一必填项，再上传完整的尽职调查表</small>
           <br/>
           <br/>
-          <v-multiple-upload len="3" title="上传尽职调查表" @acceptData="setSurveyImageUrl" uploadid="upload4"></v-multiple-upload>
+          <v-multiple-upload len="3" :imgSrc="initSurveyImageUrl" title="上传尽职调查表" @acceptData="setSurveyImageUrl" uploadid="upload4"></v-multiple-upload>
         </div>
         <div class="form-group col-sm-1 txr clearfix">
           <label class="label_height"><span class="info">*</span> 承诺公函：</label>
@@ -90,7 +82,7 @@
           <small class="info label_height">请上传完整的承诺公函</small>
           <br/>
           <br/>
-          <v-multiple-upload len="1" title="上传承诺公函" @acceptData="setLetterImageUrl" uploadid="upload5"></v-multiple-upload>
+          <v-multiple-upload len="1" :imgSrc="initLetterImageUrl" title="上传承诺公函" @acceptData="setLetterImageUrl" uploadid="upload5"></v-multiple-upload>
         </div>
         <div class="form-group col-sm-1 txr clearfix">
         </div>
@@ -108,31 +100,39 @@
 
 <script>
 import multipleUpload from '@/components/upload/multipleUpload';
+import portraitUpload from '@/components/upload/portraitUpload';
+import vimg from '@/components/img/img';
+import vPortraitImg from '@/components/img/portraitImg';
 import errInfo from '@/components/info/error';
 import rules from '@/config/rules';
-import { DECLARE_GET_VALIDATECODE, DECLARE_POST_DECLARER } from '@/config/env';
+import { DECLARE_GET_DECLARER_DETAILS, DECLARE_PUT_DECLARER } from '@/config/env';
 import area from '@/components/area/area';
 
 export default {
-  name: 'addOfficer',
+  name: 'officerDetail',
   data() {
     return {
       isShowSubmit: true,
       name: '',
       cellphone: '',
-      code: '',
-      portrait: '',
       idNumber: '',
+      reason: '',
+      score: 0,
+      portrait: '',
       idFrontUrl: '',
       idBackUrl: '',
       surveyImageUrl: '',
       letterImageUrl: '',
+      initIdFrontUrl: '',
+      initIdBackUrl: '',
+      initSurveyImageUrl: '',
+      initLetterImageUrl: '',
+      initPortrait: '',
       liveAddress: '',
-      showImg: false,
+      state: '',
+      area: '',
+      areacode: '',
       errMsg: [],
-      show: true,
-      count: '',
-      timer: null,
       infoTimer: null,
     };
   },
@@ -157,10 +157,6 @@ export default {
       // 姓 名
       if (!this.name) {
         this.errMsg.push(`${rules.nonEmpty}${rules.name}`);
-      }
-      // 验证码验证
-      if (!this.code) {
-        this.errMsg.push(`${rules.nonEmpty}${rules.validatecode}`);
       }
       //  寸 照
       if (!this.portrait) {
@@ -191,14 +187,11 @@ export default {
         this.errMsg.push(`${rules.select}所在区域`);
       }
     },
-    frontUrl(d) {
+    setFrontUrl(d) {
       this.idFrontUrl = d;
     },
-    backUrl(d) {
+    setBackUrl(d) {
       this.idBackUrl = d;
-    },
-    setLiveAddress(d) {
-      this.liveAddress = d;
     },
     setPortrait(d) {
       this.portrait = d;
@@ -209,58 +202,64 @@ export default {
     setLetterImageUrl(d) {
       this.letterImageUrl = d;
     },
-    async getCode() {
-      this.errMsg = [];
-      // 手机号码验证
-      if (!rules.mPattern.pattern.test(this.cellphone)) {
-        this.errMsg.push(rules.mPattern.message);
-        return;
-      }
-      const TIME_COUNT = 60;
-      if (!this.timer) {
-        this.count = TIME_COUNT;
-        this.show = false;
-        this.timer = setInterval(() => {
-          if (this.count > 0 && this.count <= TIME_COUNT) {
-            this.count -= 1;
-          } else {
-            this.show = true;
-            clearInterval(this.timer);
-            this.timer = null;
-          }
-        }, 1000);
-      }
-      const res = await this.$xhr('get', `${DECLARE_GET_VALIDATECODE}addDeclarer/${this.cellphone}`);
-      if (!res.data.code === 0) {
-        this.errMsg.push(res.data.message);
+    setLiveAddress(d) {
+      this.areaCodes = d;
+      this.liveAddress = d;
+    },
+    async init() {
+      const res = await this.$xhr('get', `${DECLARE_GET_DECLARER_DETAILS}${this.$route.params.id}`);
+      if (res.data.code === 0) {
+        this.name = res.data.data.name;
+        this.cellphone = res.data.data.cellphone;
+        this.idNumber = res.data.data.idNumber;
+        this.reason = res.data.data.reason;
+        if (this.reason) {
+          this.errMsg.push(this.reason);
+        }
+        if (res.data.data.score === -1) {
+          this.score = '未考试';
+        } else {
+          this.score = `${res.data.data.score}分`;
+        }
+        this.portrait = res.data.data.portrait;
+        this.idFrontUrl = res.data.data.idFrontUrl;
+        this.idBackUrl = res.data.data.idBackUrl;
+        this.surveyImageUrl = res.data.data.surveyImageUrl;
+        this.letterImageUrl = res.data.data.letterImageUrl;
+        this.initPortrait = res.data.data.portrait;
+        this.initIdFrontUrl = res.data.data.idFrontUrl;
+        this.initIdBackUrl = res.data.data.idBackUrl;
+        this.initSurveyImageUrl = res.data.data.surveyImageUrl;
+        this.initLetterImageUrl = res.data.data.letterImageUrl;
+        this.areacode = `${res.data.data.proviceCode},${res.data.data.cityCode},${res.data.data.areaCode}`;
+        this.area = `${res.data.data.provice}-${res.data.data.city}-${res.data.data.district}`;
       }
     },
     async submit() {
       this.validate2();
-      const obj = {};
-      obj.name = this.name;
-      obj.code = this.code;
-      obj.cellphone = this.cellphone;
-      obj.idNumber = this.idNumber;
-      obj.idFrontUrl = this.idFrontUrl;
-      obj.idBackUrl = this.idBackUrl;
-      obj.surveyImageUrl = this.surveyImageUrl;
-      obj.letterImageUrl = this.letterImageUrl;
-      obj.portrait = this.portrait;
-      obj.areaCode = this.liveAddress;
       if (this.errMsg.length !== 0) {
         clearTimeout(this.infoTimer);
         this.infoTimer = setTimeout(() => { this.errMsg = []; }, 3000);
         return;
       }
+      const param = {};
+      param.name = this.name;
+      param.cellphone = this.cellphone;
+      param.idNumber = this.idNumber;
+      param.idFrontUrl = this.idFrontUrl;
+      param.idBackUrl = this.idBackUrl;
+      param.surveyImageUrl = this.surveyImageUrl;
+      param.letterImageUrl = this.letterImageUrl;
+      param.portrait = this.portrait;
+      param.liveAddress = this.liveAddress;
       this.isShowSubmit = !this.isShowSubmit;
-      const res = await this.$xhr('post', DECLARE_POST_DECLARER, obj);
+      const res = await this.$xhr('post', `${DECLARE_PUT_DECLARER}${this.$route.params.id}`, param);
       if (res.data.code === 0) {
-        sessionStorage.setItem('title', '添加申报官');
-        sessionStorage.setItem('content', '添加申报官成功');
+        sessionStorage.setItem('title', '更新申报官');
+        sessionStorage.setItem('content', '更新申报官成功');
         sessionStorage.setItem('content2', '');
         sessionStorage.setItem('content3', '');
-        sessionStorage.setItem('alink', '/officer/add');
+        sessionStorage.setItem('alink', '');
         sessionStorage.setItem('blink', '/officer/list');
         sessionStorage.setItem('clink', '');
         this.$router.push('/message');
@@ -270,15 +269,26 @@ export default {
     },
   },
   components: {
-    'v-multiple-upload': multipleUpload,
+    'v-img': vimg,
     'v-error-info': errInfo,
+    'v-multiple-upload': multipleUpload,
+    'v-portrait-upload': portraitUpload,
+    'v-portrait-img': vPortraitImg,
     'v-area': area,
+  },
+  mounted() {
+    this.init();
   },
 };
 </script>
 
 <style lang="scss" scoped>
-
+.err {
+  color: #ac2925;
+}
+.cscore {
+  color: green;font-size: 18px;
+}
 .bs-example {
     position: relative;
     top: 120px;

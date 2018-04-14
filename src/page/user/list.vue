@@ -23,7 +23,7 @@
                 <!-- <td>{{item.password}}</td> -->
                 <td>{{item.role}}</td>
                 <td>
-                  <router-link :to="'/user/detail/1/'+item.id">查看</router-link>
+                  <router-link :to="'/user/detail/'+item.id">查看</router-link>
                 </td>
               </tr>
             </tbody>

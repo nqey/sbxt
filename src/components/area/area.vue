@@ -31,6 +31,9 @@ export default {
       towns: [],
     };
   },
+  watch: {
+    areacode: 'getAreaTree',
+  },
   components: {},
   methods: {
     async getAreaTree() {

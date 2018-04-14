@@ -17,14 +17,17 @@ const resetPw = r => require.ensure([], (require) => { r(require('@/page/registe
 const resetPwMsg = r => require.ensure([], (require) => { r(require('@/page/register/resetPwMsg')); }, 'resetPwMsg');
 const index = r => require.ensure([], (require) => { r(require('@/page/index')); }, 'index');
 const indexdetail = r => require.ensure([], (require) => { r(require('@/page/index/detail')); }, 'indexdetail');
-const addOfficer = r => require.ensure([], (require) => { r(require('@/page/officer')); }, 'addOfficer');
+const officer = r => require.ensure([], (require) => { r(require('@/page/officer')); }, 'officer');
+const officerEdit = r => require.ensure([], (require) => { r(require('@/page/officer/edit')); }, 'officerEdit');
 const officerlist = r => require.ensure([], (require) => { r(require('@/page/officer/list')); }, 'officerlist');
 const officerdetail = r => require.ensure([], (require) => { r(require('@/page/officer/detail')); }, 'officerdetail');
 const decEnt = r => require.ensure([], (require) => { r(require('@/page/enterprise')); }, 'decEnt');
+const decEntEdit = r => require.ensure([], (require) => { r(require('@/page/enterprise/edit')); }, 'decEntEdit');
 const entList = r => require.ensure([], (require) => { r(require('@/page/enterprise/list')); }, 'entList');
 const entListdetail = r => require.ensure([], (require) => { r(require('@/page/enterprise/detail')); }, 'entListdetail');
 const recommendlist = r => require.ensure([], (require) => { r(require('@/page/recommend/list')); }, 'recommendlist');
-const addUser = r => require.ensure([], (require) => { r(require('@/page/user')); }, 'addUser');
+const user = r => require.ensure([], (require) => { r(require('@/page/user')); }, 'user');
+const userEdit = r => require.ensure([], (require) => { r(require('@/page/user/edit')); }, 'userEdit');
 const userlist = r => require.ensure([], (require) => { r(require('@/page/user/list')); }, 'userlist');
 const userdetail = r => require.ensure([], (require) => { r(require('@/page/user/detail')); }, 'userdetail');
 const message = r => require.ensure([], (require) => { r(require('@/page/message')); }, 'message');
@@ -39,9 +42,14 @@ export default new Router({
       component: search,
     },
     {
-      path: '/user/add',
-      name: 'addUser',
-      component: addUser,
+      path: '/user/entry',
+      name: 'user',
+      component: user,
+    },
+    {
+      path: '/user/edit/:id',
+      name: 'userEdit',
+      component: userEdit,
     },
     {
       path: '/user/list',
@@ -49,7 +57,7 @@ export default new Router({
       component: userlist,
     },
     {
-      path: '/user/detail/:type/:id',
+      path: '/user/detail/:id',
       name: 'userdetail',
       component: userdetail,
     },
@@ -74,19 +82,29 @@ export default new Router({
       component: entList,
     },
     {
-      path: '/ent/detail/:type/:id',
+      path: '/ent/detail/:id',
       name: 'entListdetail',
       component: entListdetail,
     },
     {
-      path: '/decEnt',
+      path: '/decEnt/entry',
       name: 'decEnt',
       component: decEnt,
     },
     {
-      path: '/officer/add',
-      name: 'addOfficer',
-      component: addOfficer,
+      path: '/decEnt/edit/:id',
+      name: 'decEntEdit',
+      component: decEntEdit,
+    },
+    {
+      path: '/officer/entry',
+      name: 'officer',
+      component: officer,
+    },
+    {
+      path: '/officer/edit/:id',
+      name: 'officerEdit',
+      component: officerEdit,
     },
     {
       path: '/officer/list',
@@ -94,7 +112,7 @@ export default new Router({
       component: officerlist,
     },
     {
-      path: '/officer/detail/:type/:id',
+      path: '/officer/detail/:id',
       name: 'officerdetail',
       component: officerdetail,
     },

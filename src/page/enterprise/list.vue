@@ -56,8 +56,8 @@
                 <td>{{item.codeCount}}</td>
                 <td>{{item.amount}}</td>
                 <td>
-                  <router-link v-show="!item.reason" :to="'/ent/detail/'+item.id">查看</router-link>
-                  <router-link v-show="item.reason" :to="'/decEnt/edit/'+item.id">修改</router-link>
+                  <router-link v-show="item.detailShow" :to="'/ent/detail/'+item.id">查看</router-link>
+                  <router-link v-show="item.eidtShow" :to="'/decEnt/edit/'+item.id">修改</router-link>
                 </td>
               </tr>
             </tbody>
@@ -101,6 +101,8 @@ export default {
         pending2: '待复审',
         confirm2Failed: '复审未通过',
         passed: '通过审核',
+        delete: '删除中',
+        deleted: '已删除',
       },
     };
   },
@@ -120,20 +122,46 @@ export default {
       if (res.data.code === 0) {
         this.lists = res.data.data;
         this.lists.forEach((o) => {
+          o.eidtShow = false;
+          o.detailShow = true;
           if (o.state === 'create') {
             o.state = '添加';
           } else if (o.state === 'waitPending') {
             o.state = '待初审';
           } else if (o.state === 'waitUnPending') {
+            o.eidtShow = true;
+            o.detailShow = false;
             o.state = '初审未通过';
           } else if (o.state === 'waitPended') {
             o.state = '初审通过';
           } else if (o.state === 'waitAudit') {
             o.state = '待审核';
           } else if (o.state === 'unpass') {
+            o.eidtShow = true;
+            o.detailShow = false;
             o.state = '未通过';
-          } else if (o.state === 'passed') {
+          } else if (o.state === 'pass') {
             o.state = '已通过';
+          } else if (o.state === 'pending') {
+            o.state = '待初审';
+          } else if (o.state === 'collectting') {
+            o.state = '待认证官上门采集';
+          } else if (o.state === 'confirmFailed') {
+            o.eidtShow = true;
+            o.detailShow = false;
+            o.state = '初审未通过';
+          } else if (o.state === 'reject2') {
+            o.eidtShow = true;
+            o.detailShow = false;
+            o.state = '认证官采集未通过';
+          } else if (o.state === 'pending2') {
+            o.state = '待复审';
+          } else if (o.state === 'confirm2Failed') {
+            o.eidtShow = true;
+            o.detailShow = false;
+            o.state = '复审未通过';
+          } else if (o.state === 'passed') {
+            o.state = '通过审核';
           } else if (o.state === 'delete') {
             o.state = '删除中';
           } else if (o.state === 'deleted') {

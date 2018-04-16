@@ -364,7 +364,7 @@ export default {
         sessionStorage.setItem('content2', '');
         sessionStorage.setItem('content3', '');
         sessionStorage.setItem('alink', '');
-        sessionStorage.setItem('blink', '/decEnt');
+        sessionStorage.setItem('blink', '/ent/list');
         sessionStorage.setItem('clink', '');
         this.$router.push('/message');
       } else {

@@ -14,8 +14,8 @@
                 <li v-for="item in items"> 
                     <a v-if="item.haveSub" @click="showToggle(item)">
                       {{item.name}}
-                      <span v-show="!item.isSubShow" class="glyphicon glyphicon-menu-up ms"></span>
-                      <span v-show="item.isSubShow" class="glyphicon glyphicon-menu-down ms"></span>
+                      <span v-show="item.isSubShow" class="glyphicon glyphicon-menu-up ms"></span>
+                      <span v-show="!item.isSubShow" class="glyphicon glyphicon-menu-down ms"></span>
                     </a> 
                     <router-link v-else :to="item.link">{{item.name}}</router-link>
                     <ul v-if="item.haveSub" v-show="item.isSubShow" class="treeview-menu"> 
@@ -38,6 +38,7 @@ export default {
   name: 'leftMenu',
   data() {
     return {
+      rule: [],
       username: getCookie('username'),
       logo: Logo,
       items: [
@@ -64,20 +65,23 @@ export default {
           ],
         },
         {
-          name: '申报企业',
+          name: '企业申报',
           haveSub: false,
+          rule: '1',
           link: '/decEnt/entry',
           id: 3,
         },
         {
           name: '企业列表',
           haveSub: false,
+          rule: '2',
           link: '/ent/list',
           id: 4,
         },
         {
           name: '推荐列表',
           haveSub: false,
+          rule: '3',
           link: '/recommend/list',
           id: 5,
         },
@@ -108,6 +112,19 @@ export default {
     showToggle(item) {
       item.isSubShow = !item.isSubShow;
     },
+  },
+  mounted() {
+    if (getCookie('rule') !== 'undefined') {
+      this.items.splice(this.items.length - 1, 1);
+      this.rule = getCookie('rule');
+      this.items.forEach((o, i) => {
+        if (o.rule) {
+          if (this.rule.indexOf(o.rule) === -1) {
+            this.items.splice(i, 1);
+          }
+        }
+      });
+    }
   },
 };
 </script>

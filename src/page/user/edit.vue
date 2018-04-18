@@ -1,69 +1,72 @@
 <template>
-  <div class="bs-example">
-    <span class="t_nav">&#12288;更新帐号</span>
-   <router-link :to="'/user/detail/'+$route.params.id"><button class="btn btnDelete" @click="mcancel">取消</button></router-link>
-   <button v-show="isShowSubmit" type="button" class="btn js-ajax-submit" @click="submit">添加</button>
-   <button v-show="!isShowSubmit" type="button" class="btn js-ajax-submit" disabled>添加</button>
-    <br/>
-    <br/>
-    <br/>
-    <div class="form-inline clearfix">
-      <div class="form-group col-sm-1 txr">
-          <label class="label_height">用户名：</label>
+  <div>
+    <v-error-info :errMsg="errMsg"></v-error-info>
+    <div class="bs-example">
+     <span class="t_nav">&#12288;更新帐号</span>
+     <router-link :to="'/user/detail/'+$route.params.id"><button class="btn btnDelete" @click="mcancel">取消</button></router-link>
+     <button v-show="isShowSubmit" type="button" class="btn js-ajax-submit" @click="submit">保存</button>
+     <button v-show="!isShowSubmit" type="button" class="btn js-ajax-submit" disabled>添加</button>
+      <br/>
+      <br/>
+      <br/>
+      <div class="form-inline clearfix">
+        <div class="form-group col-sm-1 txr">
+            <label class="label_height">用户名：</label>
+        </div>
+        <div class="form-group col-sm-11 imb">
+            <input type="text" class="form-control iw600"  placeholder="请输入用户名" v-model="name">
+        </div>
+        <div class="clearfix"></div>
+        <div class="form-group col-sm-1 txr">
+            <label class="label_height">密码：</label>
+        </div>
+        <div class="form-group col-sm-11 imb">
+            <input type="text" class="form-control iw600"  placeholder="不输入密码则不更新" v-model="password">
+        </div>
+        <div class="clearfix"></div>
+        <div class="form-group col-sm-1 txr">
+            <label class="label_height">选择对象：</label>
+        </div>
+        <div class="form-group col-sm-11 imb">
+          <select class="form-control" v-model="declarerId">
+            <option value="">请选择</option>
+  	      <option v-for="item of targets" :value="item.id">{{item.name}}</option>
+  	    </select>
+        </div>
+        <div class="clearfix"></div>
+        <div class="form-group col-sm-1 txr">
+            <label class="label_height">选择功能：</label>
+        </div>
+        <div class="form-group col-sm-11 imb">
+            <input type="checkbox" v-model="a"/> 企业申报  
+            <br/>
+            <input type="checkbox" v-model="b"/> 企业列表  
+            <br/>
+            <input type="checkbox" v-model="c"/> 推荐列表  
+        </div>
+        <div class="clearfix"></div>
+  	  <div class="form-group col-sm-1 txr">
+  	    <label class="label_height">操作历史：</label>
+  	  </div>
+  	  <div class="form-group col-sm-11 imb">
+         <span  v-if="logs.length <= 0 " class="label_height">无</span>
+         <p v-if="logs.length > 0 " class="label_height"><a>导出</a></p>
+         <table v-if="logs.length > 0 " class="table table-bordered">
+          <thead>
+            <tr>
+              <th>操作内容</th>
+              <th>时间</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item of logs">
+              <td>{{item.content}}</td>
+              <td>{{item.createTime}}</td>
+            </tr>
+          </tbody>
+        </table>
+  	  </div>
       </div>
-      <div class="form-group col-sm-11 imb">
-          <input type="text" class="form-control iw600"  placeholder="请输入用户名" v-model="name">
-      </div>
-      <div class="clearfix"></div>
-      <div class="form-group col-sm-1 txr">
-          <label class="label_height">密码：</label>
-      </div>
-      <div class="form-group col-sm-11 imb">
-          <input type="text" class="form-control iw600"  placeholder="请输入密码" v-model="password">
-      </div>
-      <div class="clearfix"></div>
-      <div class="form-group col-sm-1 txr">
-          <label class="label_height">选择对象：</label>
-      </div>
-      <div class="form-group col-sm-11 imb">
-        <select class="form-control" v-model="declarerId">
-          <option value="">请选择</option>
-	      <option v-for="item of targets" :value="item.id">{{item.name}}</option>
-	    </select>
-      </div>
-      <div class="clearfix"></div>
-      <div class="form-group col-sm-1 txr">
-          <label class="label_height">选择功能：</label>
-      </div>
-      <div class="form-group col-sm-11 imb">
-          <input type="checkbox" v-model="a"/> 企业申报  
-          <br/>
-          <input type="checkbox" v-model="b"/> 企业列表  
-          <br/>
-          <input type="checkbox" v-model="c"/> 推荐列表  
-      </div>
-      <div class="clearfix"></div>
-	  <div class="form-group col-sm-1 txr">
-	    <label class="label_height">操作历史：</label>
-	  </div>
-	  <div class="form-group col-sm-11 imb">
-       <span  v-if="logs.length <= 0 " class="label_height">无</span>
-       <p v-if="logs.length > 0 " class="label_height"><a>导出</a></p>
-       <table v-if="logs.length > 0 " class="table table-bordered">
-        <thead>
-          <tr>
-            <th>操作内容</th>
-            <th>时间</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item of logs">
-            <td>{{item.content}}</td>
-            <td>{{item.createTime}}</td>
-          </tr>
-        </tbody>
-      </table>
-	  </div>
     </div>
   </div>
 </template>
@@ -71,6 +74,7 @@
 <script>
 import { DECLARE_GET_USER_ACOUNT_ID, DECLARE_GET_DECLARER_SIMPLE, DECLARE_PUT_USER_ACOUNT } from '@/config/env';
 import { formatDate } from '@/config/utils';
+import errInfo from '@/components/info/error';
 
 export default {
   name: 'userdetail',
@@ -85,12 +89,23 @@ export default {
       role: [],
       logs: [],
       targets: [],
+      errMsg: [],
+      infoTimer: null,
       a: false,
       b: false,
       c: false,
     };
   },
   methods: {
+    validate() {
+      this.errMsg = [];
+      if (!this.name) {
+        this.errMsg.push('请输入用户名');
+      }
+      if (!this.declarerId) {
+        this.errMsg.push('请选择对象');
+      }
+    },
     mcancel() {
       this.isShowName = true;
       this.isShowDeclarer = true;
@@ -124,7 +139,7 @@ export default {
         this.declarer = res.data.data.declarer;
         this.declarerId = res.data.data.declarerId;
         this.name = res.data.data.name;
-        this.password = res.data.data.password;
+        // this.password = res.data.data.password;
         this.logs = res.data.data.logs;
         this.logs.forEach((o) => {
           o.createTime = formatDate(new Date(o.createTime), 'yyyy-MM-dd');
@@ -150,6 +165,12 @@ export default {
       }
     },
     async submit() {
+      this.validate();
+      if (this.errMsg.length !== 0) {
+        clearTimeout(this.infoTimer);
+        this.infoTimer = setTimeout(() => { this.errMsg = []; }, 3000);
+        return;
+      }
       const param = {};
       param.id = this.$route.params.id;
       param.name = this.name;
@@ -174,6 +195,9 @@ export default {
         this.isShowSubmit = !this.isShowSubmit;
       }
     },
+  },
+  components: {
+    'v-error-info': errInfo,
   },
   mounted() {
     this.init();

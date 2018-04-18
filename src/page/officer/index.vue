@@ -260,7 +260,7 @@ export default {
         sessionStorage.setItem('content', '添加申报官成功');
         sessionStorage.setItem('content2', '');
         sessionStorage.setItem('content3', '');
-        sessionStorage.setItem('alink', '/officer/add');
+        sessionStorage.setItem('alink', '/officer/entry');
         sessionStorage.setItem('blink', '/officer/list');
         sessionStorage.setItem('clink', '');
         this.$router.push('/message');

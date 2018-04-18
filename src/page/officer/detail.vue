@@ -47,6 +47,12 @@
       <div class="form-group col-sm-11 imb">
         <v-img :imgSrc="letterImageUrl"></v-img>
       </div>
+      <div class="form-group col-sm-1 txr clearfix">
+        <label class="label_height">二维码：</label>
+      </div>
+      <div class="form-group col-sm-11 imb">
+        <img :src="qrCode"></img>
+      </div>
     </div>
   </div>
 </template>
@@ -54,7 +60,7 @@
 <script>
 import vimg from '@/components/img/img';
 import vPortraitImg from '@/components/img/portraitImg';
-import { DECLARE_GET_DECLARER_DETAILS } from '@/config/env';
+import { DECLARE_GET_DECLARER_DETAILS, DECLARE_QCODE } from '@/config/env';
 
 export default {
   name: 'officerDetail',
@@ -77,6 +83,7 @@ export default {
       areaCode: '',
       errMsg: [],
       infoTimer: null,
+      qrCode: '',
     };
   },
   methods: {
@@ -104,7 +111,8 @@ export default {
         }
         this.areaCode = `${res.data.data.proviceCode},${res.data.data.cityCode},${res.data.data.areaCode}`;
         this.letterImageUrl = res.data.data.letterImageUrl;
-        this.area = `${res.data.data.provice}-${res.data.data.city}-${res.data.data.district}`;
+        this.area = res.data.data.district;
+        this.qrCode = `${DECLARE_QCODE}?id=${this.$route.params.id}`;
       }
     },
   },

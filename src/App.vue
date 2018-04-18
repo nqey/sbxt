@@ -28,6 +28,10 @@ export default {
   methods: {
     checkLogin() {
       const arr = ['step', 'login', 'sys/msg', 'agency', 'reset'];
+      if (location.hash === '#/') {
+        this.$router.push('/login');
+        return;
+      }
       this.match(arr);
       if (this.isShowMenu && !getCookie('token')) {
         // 如果没有登录状态则跳转到登录页

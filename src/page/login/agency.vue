@@ -108,12 +108,12 @@ export default {
       this.apiC = DECLARE_GET_DECLARE_ORGANIZ_COUNT;
     } else if (this.$route.params.type === '2') {
       this.title = '市级管理中心';
-      this.api = DECLARE_GET_DECLARE_FWZX;
-      this.apiC = DECLARE_GET_DECLARE_FWZX_COUNT;
+      this.api = `${DECLARE_GET_DECLARE_FWZX}1`;
+      this.apiC = `${DECLARE_GET_DECLARE_FWZX_COUNT}1`;
     } else if (this.$route.params.type === '3') {
       this.title = '省级服务中心';
-      this.api = DECLARE_GET_DECLARE_ORGANIZ;
-      this.apiC = DECLARE_GET_DECLARE_FWZX_COUNT;
+      this.api = `${DECLARE_GET_DECLARE_FWZX}2`;
+      this.apiC = `${DECLARE_GET_DECLARE_FWZX_COUNT}2`;
     }
     this.search(1);
   },

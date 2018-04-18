@@ -31,6 +31,16 @@ const DECLARE_BASE_URL = (() => {
         : `//${location.hostname}:8080/declare/`;
   }
 })();
+const BASE_URL = (() => {
+  switch (test) {
+    case 'test':
+      return '//dec.lh-xm.com/';
+    case 'online':
+      return '//base.cpsdb77.com/';
+    default :
+      return '//base.cpsdb77.com/';
+  }
+})();
 const IMAGE_SERVER_URL = (() => {
   switch (test) {
     case 'test':
@@ -64,8 +74,10 @@ const ENTERPRISE_TYPE = {
 };
 
 // api
+// 获取二维码
+const DECLARE_QCODE = `${DECLARE_BASE_URL}platform/declarer/qcode.jpg`;
 // 获取图片验证码
-const CHECKNUMBER = `${DECLARE_BASE_URL}publics/checknumber.jpg?t=`;
+const CHECKNUMBER = `${BASE_URL}publics/checknumber.jpg?t=`;
 // 申报机构登录接口地址
 const DECLARE_LOGIN_DO_ADDRESS = `${DECLARE_BASE_URL}publics/login/do`;
 // 绑定申报机构接口地址
@@ -81,9 +93,9 @@ const DECLARE_LOGIN = `${DECLARE_BASE_URL}publics/login`;
 // 获取注册验证码 + {type}/{cellphone}
 const DECLARE_GET_VALIDATECODE = `${DECLARE_BASE_URL}publics/validatecode/`;
 // 通用图片上传
-const DECLARE_POST_UPLOAD = `${ENTERPRISE_BASE_URL}publics/file/upload`;
+const DECLARE_POST_UPLOAD = `${BASE_URL}publics/file/upload`;
 // 获取地区树
-const DECLARE_GET_AREA_TREE = `${ENTERPRISE_BASE_URL}publics/area/tree`;
+const DECLARE_GET_AREA_TREE = `${BASE_URL}publics/area/tree`;
 // 选择推荐机构 + {name}
 const DECLARE_GET_RECOMMEND_ORGANIZ = `${DECLARE_BASE_URL}publics/recommend/organiz/`;
 // 获取负责区域名额 + {areaCode}
@@ -145,16 +157,16 @@ const DECLARE_GET_DECLARE_ORGANIZ = `${DECLARE_BASE_URL}publics/declare/organiz`
 // 查询账号列表总数
 const DECLARE_GET_DECLARE_ORGANIZ_COUNT = `${DECLARE_BASE_URL}publics/declare/organiz/count`;
 // 查询服务中心列表
-const DECLARE_GET_DECLARE_FWZX = `${DECLARE_BASE_URL}publics/declare/fwzx`;
+const DECLARE_GET_DECLARE_FWZX = `${BASE_URL}publics/user/`;
 // 查询服务中心列表总数
-const DECLARE_GET_DECLARE_FWZX_COUNT = `${DECLARE_BASE_URL}publics/declare/fwzx/count`;
+const DECLARE_GET_DECLARE_FWZX_COUNT = `${BASE_URL}publics/user/count/`;
 // ================================服务中心管理后台===================================================
 // 申报机构查询
 const PLATFORM_GET_ORGANIZ_QUERY = `${DECLARE_BASE_URL}platform/organiz/query`;
 // 申报机构分页总条数
 const PLATFORM_GET_ORGANIZ_COUNT = `${DECLARE_BASE_URL}platform/organiz/count`;
 // 申报机构删除 + {id}
-const PLATFORM_DELETE_ORGANIZ = `${DECLARE_BASE_URL}platform/organiz/`;
+const PLATFORM_DELETE_ORGANIZ = `${DECLARE_BASE_URL}platform/organiz/delete/`;
 // 申报机构详情 + {id}
 const PLATFORM_GET_ORGANIZ = `${DECLARE_BASE_URL}platform/organiz/`;
 // 申报机构基本信息审核 + {id}
@@ -166,7 +178,7 @@ const PLATFORM_GET_DECLARER_QUERY = `${DECLARE_BASE_URL}platform/declarer/query`
 // 申报官列表总数
 const PLATFORM_GET_DECLARER_COUNT = `${DECLARE_BASE_URL}platform/declarer/count`;
 // 申报官删除 + {id}
-const PLATFORM_DELETE_DECLARER = `${DECLARE_BASE_URL}platform/declarer/`;
+const PLATFORM_DELETE_DECLARER = `${DECLARE_BASE_URL}platform/declarer/delete/`;
 // 申报官详情 + {id}
 const PLATFORM_GET_DECLARER = `${DECLARE_BASE_URL}platform/declarer/`;
 // 申报官审核 + {id}
@@ -200,6 +212,7 @@ const PUBLICS_GET_NOTICES_COUNTS = `${DECLARE_BASE_URL}/publics/notices/counts`;
 
 export {
   test,
+  DECLARE_QCODE,
   ENTERPRISE_BASE_URL,
   DECLARE_BASE_URL,
   IMAGE_SERVER_URL,

@@ -136,7 +136,7 @@ export default {
             o.state = '初审通过';
           } else if (o.state === 'waitAudit') {
             o.state = '待审核';
-          } else if (o.state === 'unpass') {
+          } else if (o.state === 'unPass') {
             o.eidtShow = true;
             o.detailShow = false;
             o.state = '未通过';

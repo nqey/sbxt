@@ -26,7 +26,7 @@
             <td>{{item.score}}</td>
             <td>
               <router-link v-show="item.detailShow" :to="'/officer/detail/'+item.id">查看</router-link>
-              <router-link v-show="item.deleteShow" to="" @click="deleteOfficer(item.id)">删除</router-link> 
+              <a v-show="item.deleteShow" @click="deleteOfficer(item.id)">删除</a>
               <router-link v-show="item.eidtShow" :to="'/officer/edit/'+item.id">修改</router-link>
             </td>
           </tr>

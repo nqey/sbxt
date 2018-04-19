@@ -26,7 +26,7 @@
             <td>{{item.score}}</td>
             <td>
               <router-link v-show="item.detailShow" :to="'/officer/detail/'+item.id">查看</router-link>
-              <a v-show="item.deleteShow" @click="deleteOfficer(item.id)">删除</a> 
+              <router-link v-show="item.deleteShow" to="" @click="deleteOfficer(item.id)">删除</router-link> 
               <router-link v-show="item.eidtShow" :to="'/officer/edit/'+item.id">修改</router-link>
             </td>
           </tr>
@@ -39,6 +39,7 @@
 <script>
 import { DECLARE_GET_DECLARER_LIST, DECLARE_DELETE_DECLARER } from '@/config/env';
 import { formatDate } from '@/config/utils';
+import { getCookie } from '@/config/cookie';
 
 export default {
   name: 'list',
@@ -55,6 +56,7 @@ export default {
       }
     },
     async init() {
+      const rule = getCookie('rule');
       const res = await this.$xhr('get', DECLARE_GET_DECLARER_LIST);
       if (res.data.code === 0) {
         this.lists = res.data.data;
@@ -83,7 +85,11 @@ export default {
             o.detailShow = false;
           } else if (o.state === 'passed') {
             o.state = '已通过';
-            o.deleteShow = true;
+            if (rule !== 'undefined') {
+              o.deleteShow = false;
+            } else {
+              o.deleteShow = true;
+            }
           } else if (o.state === 'delete') {
             o.state = '删除中';
             o.detailShow = false;
@@ -91,7 +97,6 @@ export default {
             o.state = '已删除';
             o.detailShow = false;
           }
-
           o.createTime = formatDate(new Date(o.createTime), 'yyyy-MM-dd');
         });
       }

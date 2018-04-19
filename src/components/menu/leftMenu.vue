@@ -115,6 +115,7 @@ export default {
   },
   mounted() {
     if (getCookie('rule') !== 'undefined') {
+      this.items[1].subItems.splice(1, 1);
       this.items.splice(this.items.length - 1, 1);
       this.rule = getCookie('rule');
       this.items.forEach((o, i) => {

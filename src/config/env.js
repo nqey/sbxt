@@ -12,7 +12,7 @@ const ENTERPRISE_BASE_URL = (() => {
     case 'test':
       return '//ep.lh-xm.com/';
     case 'online':
-      return '//ep.cpsdb77.com/';
+      return '//ep.cpsdb61.com/';
     default :
       return location.hostname.indexOf(LOCAL_URL) >= 0
         ? `//cps${LOCAL_URL}/enterprise/`
@@ -24,7 +24,7 @@ const DECLARE_BASE_URL = (() => {
     case 'test':
       return '//dec.lh-xm.com/';
     case 'online':
-      return '//dec.cpsdb77.com/';
+      return '//dec.cpsdb61.com/';
     default :
       return location.hostname.indexOf(LOCAL_URL) >= 0
         ? `//cps${LOCAL_URL}/declare/`
@@ -36,9 +36,9 @@ const BASE_URL = (() => {
     case 'test':
       return '//dec.lh-xm.com/';
     case 'online':
-      return '//base.cpsdb77.com/';
+      return '//base.cpsdb61.com/';
     default :
-      return '//base.cpsdb77.com/';
+      return '//base.cpsdb61.com/';
   }
 })();
 const IMAGE_SERVER_URL = (() => {
@@ -46,7 +46,7 @@ const IMAGE_SERVER_URL = (() => {
     case 'test':
       return '//pic.lh-xm.com/';
     case 'online':
-      return '//pic.cpsdb77.com/';
+      return '//pic.cpsdb61.com/';
     default :
       return '//192.168.1.47:9000/';
   }
@@ -56,7 +56,7 @@ const DOMAIN = (() => {
     case 'test':
       return 'lh-xm.com';
     case 'online':
-      return 'cpsdb77.com';
+      return 'cpsdb61.com';
     default :
       return location.hostname.indexOf(LOCAL_URL) >= 0 ? LOCAL_URL : location.hostname;
   }

@@ -67,6 +67,7 @@
 import { DECLARE_GET_USER_ACOUNT_ID, DECLARE_GET_DECLARER_SIMPLE,
  DECLARE_DELETE_USER_ACOUNT_ID } from '@/config/env';
 import { formatDate } from '@/config/utils';
+import { MessageBox } from 'element-ui';
 
 export default {
   name: 'userdetail',
@@ -87,21 +88,30 @@ export default {
     };
   },
   methods: {
-    async submit() {
-      this.isShowSubmit = !this.isShowSubmit;
-      const rest = await this.$xhr('post', `${DECLARE_DELETE_USER_ACOUNT_ID}${this.$route.params.id}`);
-      if (rest.data.success) {
-        sessionStorage.setItem('title', '帐号删除');
-        sessionStorage.setItem('content', '帐号删除成功');
-        sessionStorage.setItem('content2', '');
-        sessionStorage.setItem('content3', '');
-        sessionStorage.setItem('alink', '');
-        sessionStorage.setItem('blink', '/user/list');
-        sessionStorage.setItem('clink', '');
-        this.$router.push('/message');
-      } else {
+    submit() {
+      MessageBox({
+        title: '提示',
+        message: '此操作将永久删除该数据, 是否继续?',
+        showCancelButton: true,
+        showConfirmButton: true,
+        type: 'warning',
+      }).then(async () => {
         this.isShowSubmit = !this.isShowSubmit;
-      }
+        const rest = await this.$xhr('post', `${DECLARE_DELETE_USER_ACOUNT_ID}${this.$route.params.id}`);
+        if (rest.data.success) {
+          sessionStorage.setItem('title', '帐号删除');
+          sessionStorage.setItem('content', '帐号删除成功');
+          sessionStorage.setItem('content2', '');
+          sessionStorage.setItem('content3', '');
+          sessionStorage.setItem('alink', '');
+          sessionStorage.setItem('blink', '/user/list');
+          sessionStorage.setItem('clink', '');
+          this.$router.push('/message');
+        } else {
+          this.isShowSubmit = !this.isShowSubmit;
+        }
+      }).catch(() => {
+      });
     },
     async init() {
       const rest = await this.$xhr('get', DECLARE_GET_DECLARER_SIMPLE);

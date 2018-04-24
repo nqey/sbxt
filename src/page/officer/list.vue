@@ -40,6 +40,7 @@
 import { DECLARE_GET_DECLARER_LIST, DECLARE_DELETE_DECLARER } from '@/config/env';
 import { formatDate } from '@/config/utils';
 import { getCookie } from '@/config/cookie';
+import { MessageBox } from 'element-ui';
 
 export default {
   name: 'list',
@@ -49,11 +50,20 @@ export default {
     };
   },
   methods: {
-    async deleteOfficer(id) {
-      const res = await this.$xhr('post', `${DECLARE_DELETE_DECLARER}${id}`);
-      if (res.data.code === 0) {
-        this.init();
-      }
+    deleteOfficer(id) {
+      MessageBox({
+        title: '提示',
+        message: '此操作将永久删除该数据, 是否继续?',
+        showCancelButton: true,
+        showConfirmButton: true,
+        type: 'warning',
+      }).then(async () => {
+        const res = await this.$xhr('post', `${DECLARE_DELETE_DECLARER}${id}`);
+        if (res.data.code === 0) {
+          this.init();
+        }
+      }).catch(() => {
+      });
     },
     async init() {
       const rule = getCookie('rule');

@@ -2,6 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min';
+import 'element-ui/lib/theme-chalk/index.css';
 import http from '@/config/https';
 
 import Vue from 'vue';

@@ -76,6 +76,9 @@ export default {
       if (!this.name) {
         this.errMsg.push('请输入用户名');
       }
+      if (!this.password) {
+        this.errMsg.push('请输入密码');
+      }
       if (!this.declarerId) {
         this.errMsg.push('请选择对象');
       }

@@ -51,7 +51,7 @@
                 <td>{{item.name}}</td>
                 <td v-show="item.reason" style="color: #ac2925;">{{item.state}} <span class="glyphicon glyphicon-question-sign"></span>{{item.reason}}</td>
                 <td v-show="!item.reason">{{item.state}}</td>
-                <td>{{item.charger}}</td>
+                <td>{{item.declarerName}}</td>
                 <td>{{item.createtime}}</td>
                 <td>{{item.codeCount}}</td>
                 <td>{{item.amount}}</td>

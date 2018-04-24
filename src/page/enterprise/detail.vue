@@ -149,7 +149,7 @@ export default {
       const res = await this.$xhr('get', `${DECLARE_GET_ENTERPRISE_ID}${id}`);
       if (res.data.code === 0) {
         this.name = res.data.data.name;
-        this.charger = res.data.data.organizName;
+        this.charger = res.data.data.charger;
         this.cellphone = res.data.data.cellphone;
         this.idNumber = res.data.data.idNumber;
         this.idFrontUrl = res.data.data.idFrontUrl;

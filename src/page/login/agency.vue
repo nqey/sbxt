@@ -26,18 +26,18 @@
               <tr>
                 <th>序号</th>
                 <th>机构名称</th>
-                <th>负责人</th>
+                <th v-if="$route.params.type !== '3'">负责人</th>
                 <th>负责区域</th>
-                <th>地址</th>
+                <th v-if="$route.params.type !== '3'">地址</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="item of resData">
                 <th scope="row">{{item.id}}</th>
                 <td>{{item.name}}</td>
-                <td>{{item.charger}}</td>
+                <td v-if="$route.params.type !== '3'">{{item.charger}}</td>
                 <td>{{item.chargeAddress}}</td>
-                <td>{{item.address}}</td>
+                <td v-if="$route.params.type !== '3'">{{item.address}}</td>
               </tr>
             </tbody>
           </table>
@@ -108,12 +108,12 @@ export default {
       this.apiC = DECLARE_GET_DECLARE_ORGANIZ_COUNT;
     } else if (this.$route.params.type === '2') {
       this.title = '市级管理中心';
-      this.api = `${DECLARE_GET_DECLARE_FWZX}1`;
+      this.api = `${DECLARE_GET_DECLARE_FWZX}2`;
       this.apiC = `${DECLARE_GET_DECLARE_FWZX_COUNT}1`;
     } else if (this.$route.params.type === '3') {
       this.title = '省级服务中心';
-      this.api = `${DECLARE_GET_DECLARE_FWZX}2`;
-      this.apiC = `${DECLARE_GET_DECLARE_FWZX_COUNT}2`;
+      this.api = `${DECLARE_GET_DECLARE_FWZX}3`;
+      this.apiC = `${DECLARE_GET_DECLARE_FWZX_COUNT}3`;
     }
     this.search(1);
   },

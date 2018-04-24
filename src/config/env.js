@@ -75,7 +75,7 @@ const ENTERPRISE_TYPE = {
 
 // api
 // 获取二维码
-const DECLARE_QCODE = `${DECLARE_BASE_URL}platform/declarer/qcode.jpg`;
+const DECLARE_QCODE = `${DECLARE_BASE_URL}publics/qcode.jpg`;
 // 获取图片验证码
 const CHECKNUMBER = `${BASE_URL}publics/checknumber.jpg?t=`;
 // 申报机构登录接口地址

@@ -4,6 +4,7 @@
     <br/>
     <br/>
     <br/>
+    <span v-if="lists.length === 0">无数据</span>
     <div v-show="lists.length > 0">
       <table class="table table-bordered">
         <thead>

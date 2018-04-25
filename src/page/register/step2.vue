@@ -53,7 +53,7 @@
                 <label class="label_height">推荐机构：</label>
               </div>
               <div class="form-group col-sm-7 imb">
-                <input type="text" @input="showRecommendName" class="form-control iw600" placeholder="请输入推荐机构" v-model="recommendName">
+                <input type="text" @keypress="showRecommendName($event)" @blur="hideRecommend" class="form-control iw600" placeholder="请输入推荐机构" v-model="recommendName">
                 <div class="bdsug" v-show="list.length > 0">
                   <ul>
                   <li v-for="(item, index) of list" @click="setRecommendName(index)">{{item.name}}</li>
@@ -190,10 +190,16 @@ export default {
       this.recommendOrgnizType = this.list[index].type;
       this.list = [];
     },
-    async showRecommendName() {
-      const res = await this.$xhr('get', `${DECLARE_GET_RECOMMEND_ORGANIZ}${this.recommendName}`);
-      if (res.data.code === 0) {
-        this.list = res.data.data;
+    hideRecommend() {
+      setTimeout(() => { this.list = []; }, 500);
+    },
+    async showRecommendName(e) {
+      if (e.keyCode === 13) {
+        this.list = [];
+        const res = await this.$xhr('get', `${DECLARE_GET_RECOMMEND_ORGANIZ}${this.recommendName}`);
+        if (res.data.code === 0) {
+          this.list = res.data.data;
+        }
       }
     },
     async submit() {

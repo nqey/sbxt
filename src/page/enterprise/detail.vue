@@ -1,5 +1,6 @@
 <template>
   <div>
+    <v-error-info :errMsg="errMsg"></v-error-info>
     <div class="bs-example">
       <p class="t_nav">&#12288;企业详情</p>
       <br/>
@@ -12,7 +13,7 @@
         </div>
         <div class="clearfix"></div>
         <div class="form-group col-sm-1 txr">
-          <label class="label_height">企业负责人：</label>
+          <label class="label_height">企业法人：</label>
         </div>
         <div class="form-group col-sm-11">
           <span class="label_height">{{charger}}&#12288;&#12288;</span>
@@ -115,6 +116,7 @@
 <script>
 import vimg from '@/components/img/img';
 import { DECLARE_GET_ENTERPRISE_ID } from '@/config/env';
+import errInfo from '@/components/info/error';
 
 export default {
   name: 'detail',
@@ -184,6 +186,7 @@ export default {
   },
   components: {
     'v-img': vimg,
+    'v-error-info': errInfo,
   },
   mounted() {
     this.init();

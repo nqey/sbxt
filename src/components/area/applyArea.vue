@@ -60,11 +60,7 @@ export default {
       this.sendData();
     },
     sendData() {
-      if (this.city === '') {
-        this.$emit('acceptData', this.province);
-      } else {
-        this.$emit('acceptData', this.city);
-      }
+      this.$emit('acceptData', this.city);
     },
   },
   mounted() {

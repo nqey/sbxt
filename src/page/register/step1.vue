@@ -18,14 +18,14 @@
                 <input type="text" class="form-control input-w-250" v-model="cellphone" @blur="validate"></input>
               </div>
               <div class="jg">
-                <small>密码必须包含大小写字母和数字的组合，不能使用特殊字符，长度在8-10之间</small>
+                <small>不能使用特殊字符，长度在8-10之间</small>
                 <label>输入密码：&#12288;&#12288;</label>
                 <input type="password" class="form-control input-w-250" v-model="password" @blur="validate"></input>
               </div>
               <div class="jg">
                 <small>请再次输入密码</small>
                 <label>确认密码：&#12288;&#12288;</label>
-                <input type="password" class="form-control input-w-250" v-model="repassword"  @blur="validate"></input>
+                <input type="password" class="form-control input-w-250" v-model="repassword"></input>
               </div>
               <div class="jg">
                 <label>验 证 码：&#12288;&#12288;</label>
@@ -93,13 +93,13 @@ export default {
       if (this.password !== '' && !rules.pPattern.pattern.test(this.password)) {
         this.errMsg.push(rules.pPattern.message);
       }
+    },
+    validate2() {
+      this.validate();
       // 密码再输入验证
       if (this.password !== this.repassword) {
         this.errMsg.push(rules.iPwMsg);
       }
-    },
-    validate2() {
-      this.validate();
       // 手机号码验证
       if (!this.cellphone) {
         this.errMsg.push(`${rules.nonEmpty}${rules.phone}`);

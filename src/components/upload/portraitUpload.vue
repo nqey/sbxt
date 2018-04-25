@@ -18,7 +18,7 @@
         <p style="line-height: 20px;">{{title}}</p>
       </div>
     </div>
-    <input @change="fileChange($event)" type="file" :id="uploadid" multiple style="display: none"/>
+    <input @change="fileChange($event)" type="file" :id="uploadid" multiple style="display: none" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg"/>
   </div>
 </template>
 

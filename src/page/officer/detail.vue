@@ -1,57 +1,60 @@
 <template>
-  <div class="bs-example">
-    <span class="t_nav">&#12288;申报官详情</span>
-    <br/>
-    <br/>
-    <br/>
-    <div class="form-inline clearfix">
-      <div class="form-group col-sm-1 txr clearfix">
-        <v-portrait-img :imgSrc="portrait"></v-portrait-img>
-      </div>
-      <div class="form-group col-sm-11 imb">
-        <span class="label_height"> 用户名：&#12288;{{name}}&#12288;&#12288;</span>
-        <br/>
-        <span class="label_height">手机号码：{{cellphone}}&#12288;&#12288;</span>
-        <br/>
-        <span class="label_height">所在区域：{{area}}&#12288;&#12288;</span>
-        <br/>
-        <span class="label_height"> 身份证号：{{idNumber}}&#12288;&#12288;</span>
-        &#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;考试分数：<span class="cscore">{{score}}</span></span>
-      </div>
+  <div>
+    <v-error-info :errMsg="errMsg"></v-error-info>
+    <div class="bs-example">
+      <span class="t_nav">&#12288;申报官详情</span>
       <br/>
       <br/>
-      <div class="form-group col-sm-1 txr clearfix">
-        <label class="label_height">证件照片：</label>
-      </div>
-      <div class="form-group col-sm-11 imb">
-        <div class="pull-left" style="width: 200px;margin-right: 30px;">
-          <v-img :imgSrc="idFrontUrl"></v-img>
+      <br/>
+      <div class="form-inline clearfix">
+        <div class="form-group col-sm-1 txr clearfix">
+          <v-portrait-img :imgSrc="portrait"></v-portrait-img>
         </div>
-        <div class="pull-left" style="width: 200px;">
-          <v-img :imgSrc="idBackUrl"></v-img>
+        <div class="form-group col-sm-11 imb">
+          <span class="label_height"> 用户名：&#12288;{{name}}&#12288;&#12288;</span>
+          <br/>
+          <span class="label_height">手机号码：{{cellphone}}&#12288;&#12288;</span>
+          <br/>
+          <span class="label_height">所在区域：{{area}}&#12288;&#12288;</span>
+          <br/>
+          <span class="label_height"> 身份证号：{{idNumber}}&#12288;&#12288;</span>
+          &#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;考试分数：<span class="cscore">{{score}}</span></span>
         </div>
-      </div>
-      <br/>
-      <div class="form-group col-sm-1 txr clearfix">
-        <label class="label_height">尽职调查表：</label>
-      </div>
-      <div class="form-group col-sm-11 imb">
-        <div class="pull-left" v-for="url of surveyImageUrls">
-          <v-img :imgSrc="url"></v-img>
+        <br/>
+        <br/>
+        <div class="form-group col-sm-1 txr clearfix">
+          <label class="label_height">证件照片：</label>
         </div>
-      </div>
-      <br/>
-      <div class="form-group col-sm-1 txr clearfix">
-        <label class="label_height">承诺公函：</label>
-      </div>
-      <div class="form-group col-sm-11 imb">
-        <v-img :imgSrc="letterImageUrl"></v-img>
-      </div>
-      <div class="form-group col-sm-1 txr clearfix">
-        <label class="label_height">二维码：</label>
-      </div>
-      <div class="form-group col-sm-11 imb">
-        <img :src="qrCode"></img>
+        <div class="form-group col-sm-11 imb">
+          <div class="pull-left" style="width: 200px;margin-right: 30px;">
+            <v-img :imgSrc="idFrontUrl"></v-img>
+          </div>
+          <div class="pull-left" style="width: 200px;">
+            <v-img :imgSrc="idBackUrl"></v-img>
+          </div>
+        </div>
+        <br/>
+        <div class="form-group col-sm-1 txr clearfix">
+          <label class="label_height">尽职调查表：</label>
+        </div>
+        <div class="form-group col-sm-11 imb">
+          <div class="pull-left" v-for="url of surveyImageUrls">
+            <v-img :imgSrc="url"></v-img>
+          </div>
+        </div>
+        <br/>
+        <div class="form-group col-sm-1 txr clearfix">
+          <label class="label_height">承诺公函：</label>
+        </div>
+        <div class="form-group col-sm-11 imb">
+          <v-img :imgSrc="letterImageUrl"></v-img>
+        </div>
+        <div class="form-group col-sm-1 txr clearfix">
+          <label class="label_height">二维码：</label>
+        </div>
+        <div class="form-group col-sm-11 imb">
+          <img :src="qrCode"></img>
+        </div>
       </div>
     </div>
   </div>
@@ -61,6 +64,7 @@
 import vimg from '@/components/img/img';
 import vPortraitImg from '@/components/img/portraitImg';
 import { DECLARE_GET_DECLARER_DETAILS, DECLARE_QCODE } from '@/config/env';
+import errInfo from '@/components/info/error';
 
 export default {
   name: 'officerDetail',
@@ -119,6 +123,7 @@ export default {
   components: {
     'v-img': vimg,
     'v-portrait-img': vPortraitImg,
+    'v-error-info': errInfo,
   },
   mounted() {
     this.init();

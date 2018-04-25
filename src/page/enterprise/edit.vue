@@ -13,10 +13,10 @@
           <input type="text" class="form-control iw600" placeholder="请输入企业全称" v-model="name">
           <br/>
           <br/>
-          &#12288;<small class="areafc">例如：四川新中华搜信息技术有限公司</small>
+          &#12288;<small class="areafc">例如：四川中新华搜信息技术有限公司</small>
         </div>
         <div class="form-group col-sm-1 txr clearfix">
-          <label class="label_height"><span class="info">*</span> 企业负责人：</label>
+          <label class="label_height"><span class="info">*</span> 企业法人：</label>
         </div>
         <div class="form-group col-sm-11 imb">
           <input type="text" class="form-control iw600" placeholder="请输入真实姓名" v-model="charger">
@@ -40,7 +40,7 @@
           <input type="text" class="form-control iw600" placeholder="请输入身份证号码" v-model="idNumber" @blur="validate">
           <br/>
           <br/>
-          &#12288;<small class="areafc">申报官真实有效身份证号码，每一个身份证号只能添加一名申报官。</small>
+          &#12288;<small class="areafc">申报官真实有效的身份证号码，一张身份证只能注册一名申报官。</small>
         </div>
         <div class="form-group col-sm-1 txr clearfix">
           <label class="label_height">身份证照片：</label>
@@ -48,7 +48,7 @@
         <div class="form-group col-sm-11 imb">
           <small class="info2 label_height">请按照示例上传证件照片；支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
           <br/>
-          <small class="info label_height">请上传本人真实身份证，否则审核不通过。</small>
+          <small class="info label_height">请上传企业法人真实身份证，否则审核不通过。</small>
           <div class="clearfix"></div>
           <div class="pull-left" style="width: 200px;margin-right: 30px;">
             <v-multiple-upload len="1" :imgSrc="initIdFrontUrl" uploadid="upload1" title="上传正面" @acceptData="frontUrl"></v-multiple-upload>
@@ -110,7 +110,7 @@
           <v-multiple-upload len="3" :imgSrc="initEnterpriseChargerSurveyImageUrl" title="上传调查表" @acceptData="setEnterpriseChargerSurveyImageUrl" uploadid="upload7"></v-multiple-upload>
         </div>
         <div class="form-group col-sm-1 txr clearfix">
-          <label class="label_height"><span class="info">*</span> 企业入库申请函</label>
+          <label class="label_height"><span class="info">*</span> 企业入库申请函：</label>
         </div>
         <div class="form-group col-sm-11 imb">
           <p class="label_height"><b>下载</b> <a>申请函</a></p>
@@ -122,7 +122,7 @@
           <v-multiple-upload len="1" :imgSrc="initEnterpriseShindImageUrl" title="上传申请函" uploadid="upload8" text="上传申请函" @acceptData="setEnterpriseShindImageUrl"></v-multiple-upload>
         </div>
         <div class="form-group col-sm-1 txr clearfix">
-          <label class="label_height"><span class="info">*</span> 授权委托书</label>
+          <label class="label_height"><span class="info">*</span> 授权委托书：</label>
         </div>
         <div class="form-group col-sm-11 imb">
           <p class="label_height"><b>下载</b> <a>委托书</a></p>
@@ -135,7 +135,7 @@
           <label class="label_height"> 其他补充材料：</label>
         </div>
         <div class="form-group col-sm-11 imb">
-          <small class="info2 label_height">企业如有其他补充材料，可上次至此，可增加通过率;例如发明专利、商标等知识产权；各项奖励证书，等级证书，认证证书等；如企业有全国工业生产许可证，安全生产许可证也需上传至此。 </small>
+          <small class="info2 label_height">企业如有其他补充材料，可上传至此，最多5张，可增加通过率;例如发明专利、商标等知识产权；各项奖励证书，等级证书，认证证书等；如企业有全国工业生产许可证，安全生产许可证也需上传至此。 </small>
           <br/>
           <br/>
           <v-multiple-upload len="5" :imgSrc="initOtherImageUrl" title="上传补充材料" @acceptData="setOtherImageUrl" uploadid="upload10"></v-multiple-upload>

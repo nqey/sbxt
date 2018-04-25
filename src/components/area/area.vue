@@ -66,13 +66,7 @@ export default {
       this.sendData();
     },
     sendData() {
-      if (this.town === '' && this.city === '') {
-        this.$emit('acceptData', this.province);
-      } else if (this.town === '') {
-        this.$emit('acceptData', this.city);
-      } else {
-        this.$emit('acceptData', this.town);
-      }
+      this.$emit('acceptData', this.town);
     },
     setAreaCode() {
       if (this.areacode) {
@@ -82,6 +76,7 @@ export default {
         this.city = a[1];
         this.queryTown();
         this.town = a[2];
+        this.sendData();
       }
     },
   },

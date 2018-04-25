@@ -54,7 +54,7 @@
           &#12288;<small class="areafc">申报官真实有效身份证号码，每一个身份证号只能添加一名申报官。</small>
         </div>
         <div class="form-group col-sm-1 txr clearfix">
-          <label class="label_height">身份证照片：</label>
+          <label class="label_height"><span class="info">*</span>身份证照片：</label>
         </div>
         <div class="form-group col-sm-11 imb">
           <small class="info2 label_height">请按照示例上传证件照片；支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>

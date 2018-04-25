@@ -5,7 +5,7 @@
         <label class="label_height">企业名称：</label>
       </div>
       <div class="col-sm-2 ">
-        <input type="text" class="form-control iw200" placeholder="请输入企业名称：" v-model="name">
+        <input type="text" class="form-control iw200" placeholder="请输入企业名称" v-model="name">
       </div>
       <div class="col-sm-1 txr">
         <label class="label_height">申报人：</label>
@@ -33,6 +33,7 @@
       <br/>
       <br/>
       <br/>
+      <span v-if="lists.length === 0">无数据</span>
       <div v-show="lists.length > 0">
         <table class="table table-bordered">
             <thead>
@@ -49,7 +50,7 @@
             <tbody>
               <tr v-for="item of lists">
                 <td>{{item.name}}</td>
-                <td v-show="item.reason" style="color: #ac2925;">{{item.state}} <span class="glyphicon glyphicon-question-sign"></span>{{item.reason}}</td>
+                <td v-show="item.reason" style="color: #ac2925;">{{selEntState[item.state]}} <span class="glyphicon glyphicon-question-sign"></span>{{item.reason}}</td>
                 <td v-show="!item.reason">{{item.state}}</td>
                 <td>{{item.declarerName}}</td>
                 <td>{{item.createtime}}</td>
@@ -87,22 +88,20 @@ export default {
       rows: 10,
       pages: 0,
       selEntState: {
-        waitPending: '待初审',
-        waitUnPending: '初审未通过',
-        waitPended: '初审通过',
-        waitAudit: '待审核',
-        unPass: '未通过',
-        pass: '已通过',
-        wait: '待支付',
-        pending: '待初审',
+        waitPending: '申报材料待初审',
+        waitUnPending: '申报材料初审未通过',
+        waitPended: '申报材料初审通过',
+        waitAudit: '申报材料待复审',
+        unPass: '申报材料复审未通过',
+        pass: '申报材料复审已通过',
+        wait: '系统服务费待支付',
+        pending: '入库材料待初审',
         collectting: '待认证官上门采集',
-        confirmFailed: '初审未通过',
-        reject2: '认证官采集未通过',
-        pending2: '待复审',
-        confirm2Failed: '复审未通过',
-        passed: '通过审核',
-        delete: '删除中',
-        deleted: '已删除',
+        confirmFailed: '入库材料初审未通过',
+        reject2: '认证官采集未完成',
+        pending2: '认证材料待复审',
+        confirm2Failed: '认证材料复审未通过',
+        passed: '认证材料复审已通过',
       },
     };
   },
@@ -124,48 +123,21 @@ export default {
         this.lists.forEach((o) => {
           o.eidtShow = false;
           o.detailShow = true;
-          if (o.state === 'create') {
-            o.state = '添加';
-          } else if (o.state === 'waitPending') {
-            o.state = '待初审';
-          } else if (o.state === 'waitUnPending') {
+          if (o.state === 'waitUnPending') {
             o.eidtShow = true;
             o.detailShow = false;
-            o.state = '初审未通过';
-          } else if (o.state === 'waitPended') {
-            o.state = '初审通过';
-          } else if (o.state === 'waitAudit') {
-            o.state = '待审核';
           } else if (o.state === 'unPass') {
             o.eidtShow = true;
             o.detailShow = false;
-            o.state = '未通过';
-          } else if (o.state === 'pass') {
-            o.state = '已通过';
-          } else if (o.state === 'pending') {
-            o.state = '待初审';
-          } else if (o.state === 'collectting') {
-            o.state = '待认证官上门采集';
           } else if (o.state === 'confirmFailed') {
             o.eidtShow = true;
             o.detailShow = false;
-            o.state = '初审未通过';
           } else if (o.state === 'reject2') {
             o.eidtShow = true;
             o.detailShow = false;
-            o.state = '认证官采集未通过';
-          } else if (o.state === 'pending2') {
-            o.state = '待复审';
           } else if (o.state === 'confirm2Failed') {
             o.eidtShow = true;
             o.detailShow = false;
-            o.state = '复审未通过';
-          } else if (o.state === 'passed') {
-            o.state = '通过审核';
-          } else if (o.state === 'delete') {
-            o.state = '删除中';
-          } else if (o.state === 'deleted') {
-            o.state = '已删除';
           }
           o.createtime = formatDate(new Date(o.createtime), 'yyyy-MM-dd');
         });

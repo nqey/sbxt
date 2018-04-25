@@ -20,7 +20,7 @@
           <span class="label_height">{{cellphone}}&#12288;&#12288;</span>
         </div>
         <div class="form-group col-sm-1 txr clearfix">
-            <label class="label_height"><span class="info">*</span> 所在区域：</label>
+            <label class="label_height"><span class="info">*</span> 常驻区域：</label>
         </div>
         <div class="form-group col-sm-11 imb">
            <v-area :areacode="areacode" @acceptData="setLiveAddress"></v-area>
@@ -182,9 +182,9 @@ export default {
       if (!this.letterImageUrl) {
         this.errMsg.push(`${rules.upload}${rules.letterImageUrl}`);
       }
-      // 所在区域
+      // 常驻区域
       if (!this.liveAddress) {
-        this.errMsg.push(`${rules.select}所在区域`);
+        this.errMsg.push(`${rules.select}常驻区域`);
       }
     },
     setFrontUrl(d) {

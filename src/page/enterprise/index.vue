@@ -122,7 +122,7 @@
           <v-multiple-upload len="1" title="上传申请函" uploadid="upload8" text="上传申请函" @acceptData="setEnterpriseShindImageUrl"></v-multiple-upload>
         </div>
         <div class="form-group col-sm-1 txr clearfix">
-          <label class="label_height"><span class="info">*</span> 授权委托书：</label>
+          <label class="label_height">授权委托书：</label>
         </div>
         <div class="form-group col-sm-11 imb">
           <p class="label_height"><b>下载</b> <a>委托书</a></p>
@@ -250,10 +250,6 @@ export default {
       // 企业入库申请函
       if (!this.enterpriseShindImageUrl) {
         errMsg.push(`${rules.nonEmpty}${rules.enterpriseShindImageUrl}`);
-      }
-      // 授权委托书
-      if (!this.authorizationImageUrl) {
-        errMsg.push(`${rules.nonEmpty}${rules.authorizationImageUrl}`);
       }
       this.errMsg = [...this.errMsg, ...errMsg];
     },

@@ -3,8 +3,9 @@
     <v-register-head :step="4"></v-register-head>
     <v-error-info :errMsg="errMsg"></v-error-info>
     <div>
-      <div class="col-sm-12 container">
-        <div class="col-sm-12 bs-example">
+      <div class="step_more">
+       <div class="step_chunk">
+          <div class="container">
           <div class="form-inline  clearfix">
             <div class="form-group col-sm-12 txc imb">
               <h3>申请材料</h3>
@@ -14,7 +15,7 @@
               <label class="label_height"><span class="callout-red">*</span> 申报机构尽职调查表：</label>
             </div>
             <div class="form-group col-sm-8 imb">
-              <p class="label_height"><b>下载</b> <a>尽职调查表</a></p>
+              <p class="label_height"><b>下载</b> <a class="fc" download :href="template.sbjgjzdcb">尽职调查表</a></p>
               <small class="callout label_height">文件要求：上传加盖企业公章的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
               <br/>
               <small class="callout-red label_height">请认真填写每一必填项，再上传完整的尽职调查表</small>
@@ -26,7 +27,7 @@
               <label class="label_height"><span class="callout-red">*</span> 申报机构承诺公函：</label>
             </div>
             <div class="form-group col-sm-8 imb">
-              <p class="label_height"><b>下载</b> <a>承诺公函</a></p>
+              <p class="label_height"><b>下载</b> <a class="fc" download :href="template.sbjgcngh">承诺公函</a></p>
               <small class="callout label_height">文件要求：上传加盖企业公章的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
               <br/>
               <small class="callout-red label_height">请上传完整的承诺公函</small>
@@ -38,7 +39,7 @@
               <label class="label_height"><span class="callout-red">*</span> 负责人尽职调查表：</label>
             </div>
             <div class="form-group col-sm-8 imb">
-              <p class="label_height"><b>下载</b> <a>尽职调查表</a></p>
+              <p class="label_height"><b>下载</b> <a download :href="template.sbjgfzrjzdcb">尽职调查表</a></p>
               <small class="callout label_height">文件要求：上传加盖企业公章的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
               <br/>
               <small class="callout-red label_height">请认真填写每一必填项，再上传完整的尽职调查表</small>
@@ -46,18 +47,18 @@
               <br/>
               <v-multiple-upload len="3" :imgSrc="initChargerSurveyImageUrl" title="上传尽职调查表" @acceptData="setChargerSurveyImageUrl" uploadid="upload3"></v-multiple-upload>
             </div>
-            <div class="form-group col-sm-4 txr">
+            <!-- <div class="form-group col-sm-4 txr">
               <label class="label_height"><span class="callout-red">*</span> 负责人承诺公函：</label>
             </div>
             <div class="form-group col-sm-8 imb">
-              <p class="label_height"><b>下载</b> <a>承诺公函</a></p>
+              <p class="label_height"><b>下载</b> <a download :href="template.sbjgfzrjzdcb">承诺公函</a></p>
               <small class="callout label_height">文件要求：上传加盖企业公章的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
               <br/>
               <small class="callout-red label_height">请上传完整的承诺公函</small>
               <br/>
               <br/>
               <v-multiple-upload len="1" uploadid="upload4" :imgSrc="initChargerImageUrl" title="上传承诺公函" @acceptData="setChargerImageUrl"></v-multiple-upload>
-            </div>
+            </div> -->
             <div class="form-group col-sm-4 txr">
               <label class="label_height"><span class="callout-red">*</span> 企业工商营业执照：</label>
             </div>
@@ -83,13 +84,14 @@
             <div class="form-group col-sm-4 txr">
             </div>
             <div class="form-group col-sm-8 imb">
-              <button v-show="isShowSubmit" type="button" class="btn btn-success" @click="submit">提交</button>
-              <button v-show="!isShowSubmit" type="button" class="btn btn-success" disabled>提交</button>
+              <button v-show="isShowSubmit" type="button" class="btn btn-success" style="height: 35px;" @click="submit">提交</button>
+              <button v-show="!isShowSubmit" type="button" class="btn btn-success" style="height: 35px;" disabled>提交</button>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
   </div>
 </template>
 
@@ -98,7 +100,7 @@ import multipleUpload from '@/components/upload/multipleUpload';
 import registerHead from '@/components/header/registerHead';
 import rules from '@/config/rules';
 import errInfo from '@/components/info/error';
-import { DECLARE_PUT_REGISTINFO, DECLARE_GET_BASEINFO } from '@/config/env';
+import { DECLARE_PUT_REGISTINFO, DECLARE_GET_BASEINFO, EXCEL_SERVER_URL } from '@/config/env';
 
 export default {
   name: 'step4',
@@ -123,6 +125,17 @@ export default {
       errMsg: [],
       infoTimer: null,
       isShowSubmit: true,
+      timer: new Date().getTime(),
+      template: {
+        zxbtzjsbb: `${EXCEL_SERVER_URL}/template/zxbtzjsbb.docx`,
+        qysqrkh: `${EXCEL_SERVER_URL}/template/qysqrkh.docx`,
+        zddbhzgtwtdlrsqwts: `${EXCEL_SERVER_URL}/template/zddbhzgtwtdlrsqwts.docx`,
+        sbqyjzdcb: `${EXCEL_SERVER_URL}/template/sbqyjzdcb.docx`,
+        sbqyfzrjzdcb: `${EXCEL_SERVER_URL}/template/sbqyfzrjzdcb.docx`,
+        sbjgjzdcb: `${EXCEL_SERVER_URL}/template/sbjgjzdcb.docx`,
+        sbjgcngh: `${EXCEL_SERVER_URL}/template/sbjgcngh.docx`,
+        sbjgfzrjzdcb: `${EXCEL_SERVER_URL}/template/sbjgfzrjzdcb.docx`,
+      },
     };
   },
   components: {
@@ -146,9 +159,9 @@ export default {
         this.errMsg.push(`${rules.upload}${rules.chargerSurveyImageUrl}`);
       }
       //  负责人承诺公函
-      if (!this.chargerImageUrl) {
-        this.errMsg.push(`${rules.upload}${rules.chargerImageUrl}`);
-      }
+      // if (!this.chargerImageUrl) {
+      //   this.errMsg.push(`${rules.upload}${rules.chargerImageUrl}`);
+      // }
       //  企业工商营业执照
       if (!this.commerceImageUrl) {
         this.errMsg.push(`${rules.upload}${rules.commerceImageUrl}`);
@@ -222,6 +235,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.step_more{padding: 250px 60px 50px;background: #f6f7fb;}
+.step_chunk{ background:#fff; padding: 40px 40px 55px;border-radius: 4px; box-shadow: 0px 20px 20px -20px #ddd;}
+.fc{color: #4786ff; border-bottom: 1px solid #4786ff; margin-left: 10px;}
 .iw {
   width: 300px;
 }
@@ -232,6 +248,6 @@ export default {
   line-height: 25px;
 }
 .imb {
-  margin-bottom: 30px;
+  margin-bottom: 60px;
 }
 </style>

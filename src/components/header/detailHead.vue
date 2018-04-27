@@ -30,31 +30,26 @@ export default {
 <style lang="scss" scoped>
 @import '../../assets/css/mixin.scss';
 .step_head {
-	height: 80px;
-	background-color: #fff;
-	border: 1px solid #D2D2D2;
-	padding: 10px;
+  height: 80px;
+  background-color: #fff;
+  padding: 10px;
   margin: 0;
 }
 .step_title_logo {
-	margin-left: 60px;height: 60px; float: left;
+  margin-left: 60px;height: 60px; float: left;
 }
 .step_title {
-	float: left;margin-left: 20px;line-height: 60px;
+  float: left;margin-left: 20px;line-height: 60px;
 }
-
 .sq {
-  height: 165px;height: 165px;padding: 30px 60px;
+  height: 165px;padding: 30px 60px;background: #f6f7fb;
 }
-
 .sq > div {
   height: 100px;background-color: #4786ff;border-radius: 10px;
 }
-
 .sq > div > h3 {
   float: left;margin-left: 100px;line-height: 64px;color: #fff;line-height: 100px;
 }
-
 .btn {
     display: inline-block;
     padding: 6px 12px;

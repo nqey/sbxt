@@ -70,41 +70,41 @@ export default {
 <style lang="scss" scoped>
 @import '../../assets/css/mixin.scss';
 .step_head {
-	height: 80px;
-	background-color: #fff;
-	border-bottom: 1px solid #D2D2D2;
-	padding: 10px;
+  height: 80px;
+  background-color: #fff;
+  padding: 10px;
   margin: 0;
 }
 .step_title_logo {
-	margin-left: 60px;height: 60px; float: left;
+  margin-left: 60px;height: 60px; float: left;
 }
 .step_title {
-	float: left;margin-left: 20px;line-height: 60px;
+  float: left;margin-left: 20px;line-height: 60px;
 }
 .step_main {
-	height: 165px;height: 165px;padding: 30px 60px;
+  height: 165px;padding: 30px 60px;background: #f6f7fb;
 }
 .step_content {
     height: 100px;background-color: #4786ff;border-radius: 10px;position: relative;
 }
 .stepIcon {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     border-radius: 15px;
     background-color: white;
     text-align: center;
     color: #4786ff;
     display: inline-block;
-    line-height: 30px;
+    line-height: 25px;
+    font-size: 14px;
 }
 .stepFont {
     color: #fff;
-    font-size: 18px;
+    font-size: 15px;
 }
 .step_top {
-	top: 40px;
-	opacity: 0.5;
+  top: 40px;
+  opacity: 0.5;
 }
 .step_selected {
     opacity: 1;

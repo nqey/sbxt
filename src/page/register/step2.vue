@@ -3,25 +3,27 @@
     <v-register-head :step="2"></v-register-head>
     <v-error-info :errMsg="errMsg"></v-error-info>
     <div>
-      <div class="col-sm-12 container">
-        <div class="col-sm-12 bs-example">
+      <div class="step_more">
+       <div class="step_chunk">
+        <div class="container">
+           <div class="col-md-8 col-md-offset-2">
           <div class="form-inline clearfix">
-              <div class="form-group col-sm-5 txr clearfix">
+              <div class="form-group col-sm-3 txr clearfix">
                 <label class="label_height">姓 名：</label>
               </div>
-              <div class="form-group col-sm-7 imb">
+              <div class="form-group col-sm-9 imb">
                 <input type="text" class="form-control iw" placeholder="请输入姓名" v-model="name">
               </div>
-              <div class="form-group col-sm-5 txr clearfix">
+              <div class="form-group col-sm-3 txr clearfix">
                 <label class="label_height">身份证号码：</label>
               </div>
-              <div class="form-group col-sm-7 imb">
+              <div class="form-group col-sm-9 imb">
                 <input type="text" class="form-control iw" placeholder="请输入身份证号码" v-model="idNumber" @blur="validate">
               </div>
-              <div class="form-group col-sm-5 txr clearfix">
+              <div class="form-group col-sm-3 txr clearfix">
                 <label class="label_height">身份证照片：</label>
               </div>
-              <div class="form-group col-sm-7 imb">
+              <div class="form-group col-sm-9 imb">
                 <small class="callout label_height">请按照示例上传证件照片；支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
                 <br/>
                 <small class="callout-red label_height">请上传本人真实身份证，否则审核不通过。</small>
@@ -33,26 +35,26 @@
                   <v-multiple-upload len="1" :imgSrc="initBackUrl" uploadid="upload3" title="上传背面" @acceptData="backUrl"></v-multiple-upload>
                 </div>
               </div>
-              <div class="form-group col-sm-5 txr clearfix">
+              <div class="form-group col-sm-3 txr clearfix">
                 <label class="label_height">常住地址：</label>
               </div>
-              <div class="col-sm-7 imb">
+              <div class="col-sm-9 imb">
                 <v-area :areacode="areacode" @acceptData="setLiveAddress"></v-area>
                 <div class='mt'>
                   <input type='text' class='form-control iw' placeholder='请输入详细地址' v-model="address">
                 </div>
               </div>
-              <div class="form-group col-sm-5 txr clearfix">
+              <div class="form-group col-sm-3 txr clearfix">
                 <label class="label_height">选择申请区域：</label>
               </div>
-              <div class="col-sm-7 imb">
+              <div class="col-sm-9 imb">
                 <span class="label_height" v-show="$route.params.type === '2'">{{ organizAddress }}</span>
                 <v-apply-area v-show="$route.params.type === '1'" @acceptData="setApplyAddress"></v-apply-area>&#12288;
               </div>
-              <div class="form-group col-sm-5 txr clearfix">
+              <div class="form-group col-sm-3 txr clearfix">
                 <label class="label_height">推荐机构：</label>
               </div>
-              <div class="form-group col-sm-7 imb">
+              <div class="form-group col-sm-9 imb">
                 <input type="text" @keypress="showRecommendName($event)" @blur="hideRecommend" class="form-control iw600" placeholder="请输入推荐机构" v-model="recommendName">
                 <div class="bdsug" v-show="list.length > 0">
                   <ul>
@@ -60,26 +62,28 @@
                   </ul>
                 </div>
               </div>
-              <div class="form-group col-sm-5 txr clearfix">
+              <div class="form-group col-sm-3 txr clearfix">
                 <label class="label_height">企业全称：</label>
               </div>
-              <div class="form-group col-sm-7 imb">
+              <div class="form-group col-sm-9 imb">
                 <input type="text" class="form-control iw600" placeholder="请输入您的企业主体全称；例如：四川中新华搜信息技术有限公司；" v-model="enterpriseName">
                 <br/>
                 <br/>
                 <small style="color: #999">申请申报机构必须是以公司的名义进行申请，拒绝个人申请。</small>
               </div>
-              <div class="form-group col-sm-5 txr clearfix">
+              <div class="form-group col-sm-3 txr clearfix">
               </div>
-              <div class="form-group col-sm-7 imb">
-                <button v-show="isShowSubmit" type="button" class="btn btn-success" @click="submit">提交</button>
-                <button v-show="!isShowSubmit" type="button" class="btn btn-success" disabled>提交</button>
+              <div class="form-group col-sm-9 imb">
+                <button v-show="isShowSubmit" type="button" class="btn btn-success" style="height: 35px;" @click="submit">提交</button>
+                <button v-show="!isShowSubmit" type="button" class="btn btn-success" style="height: 35px;" disabled>提交</button>
               </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
+</div>
 </template>
 
 <script>
@@ -261,6 +265,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.step_more{    padding: 250px 60px 50px;background: #f6f7fb;}
+.step_chunk{ background:#fff; padding: 40px 40px 55px;border-radius: 4px; box-shadow: 0px 20px 20px -20px #ddd;}
 .bdsug {
     position: absolute;
     z-index: 1;
@@ -286,10 +292,10 @@ export default {
   background-color: #888;
 }
 .iw {
-  width: 300px;
+  width: 85%;
 }
 .iw600 {
-  width: 600px;
+  width: 85%;
 }
 .imb {
   margin-bottom: 30px;

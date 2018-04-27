@@ -1,62 +1,68 @@
 const test = (() => {
-  if (/lh-xm.com/.test(window.location.hostname) || /test.com/.test(window.location.hostname)) {
-    return 'online';
+  if (/cpsdb61.com/.test(window.location.hostname) || /test.com/.test(window.location.hostname)) {
+    return 'test';
   } else if (/cpsdb.com/.test(window.location.hostname)) {
     return 'online';
   }
-  return 'online';
+  return 'local';
 })();
 const LOCAL_URL = '.test.com';
 const ENTERPRISE_BASE_URL = (() => {
   switch (test) {
     case 'test':
-      return '//ep.lh-xm.com/';
-    case 'online':
       return '//ep.cpsdb61.com/';
+    case 'online':
+      return '//ep.cpsdb.com/';
     default :
-      return location.hostname.indexOf(LOCAL_URL) >= 0
-        ? `//cps${LOCAL_URL}/enterprise/`
-        : `//${location.hostname}:8080/enterprise/`;
+      return location.hostname;
   }
 })();
 const DECLARE_BASE_URL = (() => {
   switch (test) {
     case 'test':
-      return '//dec.lh-xm.com/';
-    case 'online':
       return '//dec.cpsdb61.com/';
+    case 'online':
+      return '//dec.cpsdb.com/';
     default :
-      return location.hostname.indexOf(LOCAL_URL) >= 0
-        ? `//cps${LOCAL_URL}/declare/`
-        : `//${location.hostname}:8080/declare/`;
+      return location.hostname;
   }
 })();
 const BASE_URL = (() => {
   switch (test) {
     case 'test':
-      return '//dec.lh-xm.com/';
+      return '//base.cpsdb61.com/';
     case 'online':
-      return '//base.cpsdb61.com/';
+      return '//base.cpsdb.com/';
     default :
-      return '//base.cpsdb61.com/';
+      return location.hostname;
   }
 })();
 const IMAGE_SERVER_URL = (() => {
   switch (test) {
     case 'test':
-      return '//pic.lh-xm.com/';
-    case 'online':
       return '//pic.cpsdb61.com/';
+    case 'online':
+      return '//pic.cpsdb.com/';
     default :
-      return '//192.168.1.47:9000/';
+      return location.hostname;
+  }
+})();
+const EXCEL_SERVER_URL = (() => {
+  switch (test) {
+    case 'test':
+      return '//sb.cpsdb61.com/';
+    case 'online':
+      return '//mp.cpsdb.com/';
+    default :
+      return location.hostname;
   }
 })();
 const DOMAIN = (() => {
   switch (test) {
     case 'test':
-      return 'lh-xm.com';
-    case 'online':
       return 'cpsdb61.com';
+    case 'online':
+      return 'cpsdb.com';
     default :
       return location.hostname.indexOf(LOCAL_URL) >= 0 ? LOCAL_URL : location.hostname;
   }
@@ -66,10 +72,8 @@ const ENTERPRISE_TYPE = {
   pending: '待初审',
   collectting: '待认证官上门采集',
   confirmFailed: '初审未通过',
-
   pending2: '待复审',
   confirm2Failed: '复审未通过',
-
   passed: '通过审核',
 };
 
@@ -283,4 +287,5 @@ export {
   PUBLICS_GET_NOTICES_DETAILS,
   PUBLICS_GET_NOTICES_LISTING,
   PUBLICS_GET_NOTICES_COUNTS,
+  EXCEL_SERVER_URL,
 };

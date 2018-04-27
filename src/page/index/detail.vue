@@ -1,19 +1,25 @@
 <template>
-  <div class="bs-example">
-    <P class="t_nav">&#12288;通知详情</P>
+  <div class="index_more">
+      <div class="index_chunk">
+       
+        <div class="t_nav">&#12288;通知详情</div>
+        <hr>
     <br/>
     <br/>
-    <div class="col-sm-12" style="text-align: center;">
+    <div class="container text-center">
+      <div class="content">
       <h3>{{title}}</h3>
-      <span style="line-height: 60px">{{createDate}}</span>
-      <br/>
-      {{content}}
-    </div>
-    <div class="col-sm-12" style="padding: 30px;text-align: center;">
+      <span style="color: #888888;font-style: 12px;">{{createDate}}</span>
+      
+      <div style="margin: 20px 0 40px;" v-html="content"></div>
       <router-link to="/index"><button class="btn fh">返回</button></router-link>
     </div>
+
+    </div>
+    
     <div style="clear: both;"></div>
   </div>
+</div>
 </template>
 
 <script>
@@ -46,26 +52,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container {
-  padding: 0px 55px;
-}
-.bs-example {
-    position: relative;
-    top: 120px;
-    left: 275px;
+.index_more{background: #f6f7fb;min-height: 100%;
+    position: absolute;
+    width: 100%;}
+.index_chunk{ 
+position: relative;
+top:120px;
+  left: 19%;
     margin: 0;
-    width: 84%;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    -webkit-border-top-left-radius: 4px;
-    -webkit-border-top-right-radius: 4px;
-    -moz-border-radius-topleft: 4px;
-    -moz-border-radius-topright: 4px;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    padding: 35px 30px;
-    position: relative;
+    width: 78%;background:#fff; padding: 40px 70px 55px;border-radius: 4px; box-shadow: 0px 20px 20px -20px #ddd;}
+.t_nav {
+  border-left: #4786ff solid 3px;
+  font-size: 18px;
 }
+.content{ padding: 40px;
+h3{
+
+margin-bottom: 20px;
+
+  } }
 .btn {
     display: inline-block;
     padding: 6px 12px;
@@ -97,12 +102,7 @@ export default {
     color:#888;
     border-color: #888;
 }
-.t_nav {
-  border-left: #4786ff solid 3px;
-  margin-left: -30px;
-  /*font-weight: bold;*/
-  font-size: 18px;
-}
+
 a {
   text-decoration: none;
 }

@@ -1,34 +1,35 @@
 <template>
   <div>
     <v-error-info :errMsg="errMsg"></v-error-info>
-    <div class="bs-example">
-      <span class="t_nav">&#12288;添加申报官</span>
-      <br/>
-      <br/>
-      <br/>
-      <div class="form-inline clearfix">
-        <div class="form-group col-sm-1 txr clearfix">
+    <div class="index_more">
+      <div class="index_chunk">
+       
+        <div class="t_nav">&#12288;添加申报官</div>
+      <hr>
+     <div class="form-inline clearfix">
+       
+        <div class="form-group col-sm-2 txr clearfix">
           <label class="label_height"><span class="info">*</span> 姓 名：</label>
         </div>
-        <div class="form-group col-sm-11 imb">
+        <div class="form-group col-sm-10 imb">
           <input type="text" class="form-control iw600" placeholder="请输入申报官真实姓名" v-model="name">
         </div>
-        <div class="form-group col-sm-1 txr clearfix">
+        <div class="form-group col-sm-2 txr clearfix">
           <label class="label_height"><span class="info">*</span> 手机号码：</label>
         </div>
-        <div class="form-group col-sm-11 imb">
+        <div class="form-group col-sm-10 imb">
           <span class="label_height">{{cellphone}}&#12288;&#12288;</span>
         </div>
-        <div class="form-group col-sm-1 txr clearfix">
+        <div class="form-group col-sm-2 txr clearfix">
             <label class="label_height"><span class="info">*</span> 常驻区域：</label>
         </div>
-        <div class="form-group col-sm-11 imb">
+        <div class="form-group col-sm-10 imb">
            <v-area :areacode="areacode" @acceptData="setLiveAddress"></v-area>
         </div>
-        <div class="form-group col-sm-1 txr clearfix">
+        <div class="form-group col-sm-2 txr clearfix">
           <label class="label_height"><span class="info">*</span> 寸 照：</label>
         </div>
-        <div class="form-group col-sm-11 imb">
+        <div class="form-group col-sm-10 imb">
           <p class="label_height areafc">请按照示例图拍摄，蓝底、正装寸照；将照片上传至此；支持格式：bmp、jpg、png、gif。 </p>
           <p class="areafc">照片大小不超过2M。</p>
           <small class="info label_height">请上传本人真实照，审核会与身份证进行对比，不按照要求上传会导致审核通不过。</small>
@@ -36,19 +37,19 @@
           <br/>
           <v-multiple-upload :imgSrc="initPortrait" len="1" title="上传寸照" @acceptData="setPortrait" uploadid="upload1"></v-multiple-upload>
         </div>
-        <div class="form-group col-sm-1 txr clearfix">
+        <div class="form-group col-sm-2 txr clearfix">
           <label class="label_height"><span class="info">*</span> 身份证号码：</label>
         </div>
-        <div class="form-group col-sm-11 imb">
+        <div class="form-group col-sm-10 imb">
           <input type="text" class="form-control iw600" placeholder="请输入身份证号码" v-model="idNumber" @blur="validate">
           <br/>
           <br/>
           &#12288;<small class="areafc">申报官真实有效身份证号码，每一个身份证号只能添加一名申报官。</small>
         </div>
-        <div class="form-group col-sm-1 txr clearfix">
+        <div class="form-group col-sm-2 txr clearfix">
           <label class="label_height"><span class="info">*</span>身份证照片：</label>
         </div>
-        <div class="form-group col-sm-11 imb">
+        <div class="form-group col-sm-10 imb">
           <small class="info2 label_height">请按照示例上传证件照片；支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
           <p></p>
           <small class="info label_height">请上传本人真实身份证，否则审核不通过。</small>
@@ -60,11 +61,11 @@
             <v-multiple-upload len="1" :imgSrc="idBackUrl" uploadid="upload3" title="上传背面" @acceptData="setBackUrl"></v-multiple-upload>
           </div>
         </div>
-        <div class="form-group col-sm-1 txr clearfix">
+        <div class="form-group col-sm-2 txr clearfix">
           <label class="label_height"><span class="info">*</span> 尽职调查表：</label>
         </div>
-        <div class="form-group col-sm-11 imb">
-          <p class="label_height"><b>下载</b> <a>尽职调查表</a></p>
+        <div class="form-group col-sm-10 imb">
+          <p class="label_height"><b>下载</b> <a class="fc" download :href="template.sbjgjzdcb">尽职调查表</a></p>
           <small class="info2 label_height">文件要求：上传加盖企业公章的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
           <br/>
           <small class="info label_height">请认真填写每一必填项，再上传完整的尽职调查表</small>
@@ -72,11 +73,11 @@
           <br/>
           <v-multiple-upload len="3" :imgSrc="initSurveyImageUrl" title="上传尽职调查表" @acceptData="setSurveyImageUrl" uploadid="upload4"></v-multiple-upload>
         </div>
-        <div class="form-group col-sm-1 txr clearfix">
+        <div class="form-group col-sm-2 txr clearfix">
           <label class="label_height"><span class="info">*</span> 承诺公函：</label>
         </div>
-        <div class="form-group col-sm-11 imb">
-          <p class="label_height"><b>下载</b> <a>承诺公函</a></p>
+        <div class="form-group col-sm-10 imb">
+          <p class="label_height"><b>下载</b> <a  class="fc" download :href="template.sbjgcngh">承诺公函</a></p>
           <small class="info2 label_height">文件要求：上传加盖企业公章的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
           <br/>
           <small class="info label_height">请上传完整的承诺公函</small>
@@ -84,11 +85,11 @@
           <br/>
           <v-multiple-upload len="1" :imgSrc="initLetterImageUrl" title="上传承诺公函" @acceptData="setLetterImageUrl" uploadid="upload5"></v-multiple-upload>
         </div>
-        <div class="form-group col-sm-1 txr clearfix">
+        <div class="form-group col-sm-2 txr clearfix">
         </div>
-        <div class="form-group col-sm-11 imb">
-          <button v-show="isShowSubmit" type="button" class="btn btn-success" @click="submit">提交</button>
-          <button v-show="!isShowSubmit" type="button" class="btn btn-success" disabled>提交</button>
+        <div class="form-group col-sm-10 imb">
+          <button v-show="isShowSubmit" type="button" class="btn btn-success" @click="submit" style="height: 35px;">提交</button>
+          <button v-show="!isShowSubmit" type="button" class="btn btn-success" disabled style="height: 35px;">提交</button>
           <br/>
           <br/>
           <p class="areafc">&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#32;申报官信息需审核</p>
@@ -96,6 +97,7 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -105,7 +107,7 @@ import vimg from '@/components/img/img';
 import vPortraitImg from '@/components/img/portraitImg';
 import errInfo from '@/components/info/error';
 import rules from '@/config/rules';
-import { DECLARE_GET_DECLARER_DETAILS, DECLARE_PUT_DECLARER } from '@/config/env';
+import { DECLARE_GET_DECLARER_DETAILS, DECLARE_PUT_DECLARER, EXCEL_SERVER_URL } from '@/config/env';
 import area from '@/components/area/area';
 
 export default {
@@ -134,6 +136,16 @@ export default {
       areacode: '',
       errMsg: [],
       infoTimer: null,
+      template: {
+        zxbtzjsbb: `${EXCEL_SERVER_URL}/template/zxbtzjsbb.docx`,
+        qysqrkh: `${EXCEL_SERVER_URL}/template/qysqrkh.docx`,
+        zddbhzgtwtdlrsqwts: `${EXCEL_SERVER_URL}/template/zddbhzgtwtdlrsqwts.docx`,
+        sbqyjzdcb: `${EXCEL_SERVER_URL}/template/sbqyjzdcb.docx`,
+        sbqyfzrjzdcb: `${EXCEL_SERVER_URL}/template/sbqyfzrjzdcb.docx`,
+        sbjgjzdcb: `${EXCEL_SERVER_URL}/template/sbjgjzdcb.docx`,
+        sbjgcngh: `${EXCEL_SERVER_URL}/template/sbjgcngh.docx`,
+        sbjgfzrjzdcb: `${EXCEL_SERVER_URL}/template/sbjgfzrjzdcb.docx`,
+      },
     };
   },
   methods: {
@@ -289,29 +301,22 @@ export default {
 .cscore {
   color: green;font-size: 18px;
 }
-.bs-example {
-    position: relative;
-    top: 120px;
-    left: 275px;
-    margin: 0;
-    width: 84%;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    -webkit-border-top-left-radius: 4px;
-    -webkit-border-top-right-radius: 4px;
-    -moz-border-radius-topleft: 4px;
-    -moz-border-radius-topright: 4px;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    padding: 35px 30px;
-    position: relative;
-}
+.index_more{background: #f6f7fb;
+  height: 100%;
+  padding-bottom: 200px;
+    width: 100%;}
+.index_chunk{ 
+position: relative;
+top:120px;
+left: 19%;
+margin: 0;
+width: 78%;background:#fff; padding: 40px 70px 55px;border-radius: 4px; box-shadow: 0px 20px 20px -20px #ddd;}
+
 .t_nav {
   border-left: #4786ff solid 3px;
-  margin-left: -30px;
-  /*font-weight: bold;*/
   font-size: 18px;
 }
+.form-inline{ margin-top: 60px; }
 a {
   text-decoration: none;
 }
@@ -325,7 +330,7 @@ a {
   width: 300px;
 }
 .iw600 {
-  width: 600px;
+  width: 450px;
 }
 .label_height {
   line-height: 35px;

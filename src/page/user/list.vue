@@ -1,10 +1,8 @@
 <template>
-  <div>
-    <div class="bs-example">
-      <span class="t_nav">&#12288;帐号列表</span>
-      <br/>
-      <br/>
-      <br/>
+  <div class="index_more">
+      <div class="index_chunk">
+    <div class="t_nav">&#12288;帐号列表</div>
+      <hr>
       <span v-if="lists.length === 0">无数据</span>
       <div v-show="lists.length > 0">
         <table class="table table-bordered">
@@ -98,29 +96,23 @@ export default {
 
 <style lang="scss" scoped>
 
-.bs-example {
-    position: relative;
-    top: 120px;
-    left: 275px;
-    margin: 0;
-    width: 84%;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    -webkit-border-top-left-radius: 4px;
-    -webkit-border-top-right-radius: 4px;
-    -moz-border-radius-topleft: 4px;
-    -moz-border-radius-topright: 4px;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    padding: 35px 30px;
-    position: relative;
-}
+.index_more{background: #f6f7fb;
+    position: absolute;
+    height: 100%;
+    width: 100%;}
+.index_chunk{ 
+position: relative;
+top:120px;
+left: 19%;
+margin: 0;
+width: 78%;background:#fff; padding: 40px 70px 55px;border-radius: 4px; box-shadow: 0px 20px 20px -20px #ddd;}
 .t_nav {
   border-left: #4786ff solid 3px;
-  margin-left: -30px;
-  /*font-weight: bold;*/
   font-size: 18px;
 }
+table{ border:1px solid #eee; }
+.table>thead>tr>th{ border-bottom: none; }
+.table>thead>tr>th,.table>tbody>tr>td,.table>tbody>tr>th{ padding: 15px; }
 a {
   text-decoration: none;
 }

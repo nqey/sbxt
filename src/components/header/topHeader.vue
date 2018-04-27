@@ -57,8 +57,8 @@ export default {
   position: fixed;
   z-index: 100;
   background: #fff;
-  border-bottom: 1px solid #D2D2D2;
-  @include wh(100%, 90px);
+  box-shadow: 1px 1px 10px #efefef;
+  @include wh(100%, 80px);
 }
 .header_con {
   position: relative;
@@ -91,7 +91,7 @@ export default {
   right: 160px;
   .tx {
     display: block;
-    margin-top: 10px;
+    margin-top: 5px;
     cursor: pointer;
     img {
       padding-right: 10px;

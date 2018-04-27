@@ -34,7 +34,7 @@ const message = r => require.ensure([], (require) => { r(require('@/page/message
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/search',
@@ -188,3 +188,15 @@ export default new Router({
     },
   ],
 });
+
+router.beforeEach((to, from, next) => {
+  if (to.path === '/') {
+    next({
+      path: '/login',
+    });
+  } else {
+    next();
+  }
+});
+
+export default router;

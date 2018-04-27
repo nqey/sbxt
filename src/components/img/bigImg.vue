@@ -34,6 +34,7 @@ export default {
   font-size: 100px;
   color: #fff;
   z-index: 999;
+      font-size: 30px;
 }
 /*动画*/
 .fade-enter-active,

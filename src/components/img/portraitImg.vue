@@ -1,5 +1,5 @@
 <template>
-  <div style="margin-right: 50px;">
+  <div>
     <v-big-img v-if="isShowBigImg" :imgSrc="serverurl+imgSrc" @hideBigImg="closeBigImg"></v-big-img>
     <div class="imgW">
        <img :src="serverurl+imgSrc"></img>
@@ -38,7 +38,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .imgW {
-  width: 100px;position: relative;
+  position: relative;
   img {
     max-width: 100%;
   }

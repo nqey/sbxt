@@ -1,49 +1,52 @@
 <template>
-  <div>
-    <div class="bs-example">
-      <span class="t_nav">&#12288;帐号详情</span>
+  <div class="index_more">
+      <div class="index_chunk">
+    <div class="t_nav clearfix"><span>&#12288;帐号详情</span><div class="pull-right">
       <button v-show="isShowSubmit" type="button" class="btn btnDelete" @click="submit">删除</button>
       <button v-show="!isShowSubmit" type="button" class="btn btnDelete" disabled>删除</button>
-      <router-link :to="'/user/edit/'+$route.params.id"><button class="btn js-ajax-submit">修改</button></router-link>
+      <router-link :to="'/user/edit/'+$route.params.id"><button class="btn js-ajax-submit">修改</button></router-link></div>
+    </div>
+    <hr>
+      
       <br/>
       <br/>
       <br/>
       <div class="form-inline clearfix">
-        <div class="form-group col-sm-1 txr">
+        <div class="form-group col-sm-2 txr">
             <label class="label_height">用户名：</label>
         </div>
-        <div class="form-group col-sm-11 imb">
+        <div class="form-group col-sm-10 imb">
             <span class="label_height">{{name}}&#12288;&#12288;</span>
         </div>
         <div class="clearfix"></div>
-        <div class="form-group col-sm-1 txr">
+        <div class="form-group col-sm-2 txr">
             <label class="label_height">密码：</label>
         </div>
-        <div class="form-group col-sm-11 imb">
+        <div class="form-group col-sm-10 imb">
           <span class="label_height">{{password}}&#12288;&#12288;</span>
         </div>
         <div class="clearfix"></div>
-        <div class="form-group col-sm-1 txr">
+        <div class="form-group col-sm-2 txr">
             <label class="label_height">选择对象：</label>
         </div>
-        <div class="form-group col-sm-11 imb">
+        <div class="form-group col-sm-10 imb">
             <span class="label_height">{{declarer}}&#12288;&#12288;</span>
         </div>
         <div class="clearfix"></div>
-        <div class="form-group col-sm-1 txr">
+        <div class="form-group col-sm-2 txr">
             <label class="label_height">权限功能：</label>
         </div>
-        <div class="form-group col-sm-11 imb">
+        <div class="form-group col-sm-10 imb">
           <span class="label_height" v-for="r of role">{{r}}&#12288;</span>
         </div>
         <div class="clearfix"></div>
-        <div class="form-group col-sm-1 txr">
+        <div class="form-group col-sm-2 txr">
            <label class="label_height">操作历史：</label>
         </div>
-        <div class="form-group col-sm-11 imb">
+        <div class="form-group col-sm-10 imb">
            <span  v-if="logs.length <= 0 " class="label_height">无</span>
-           <p v-if="logs.length > 0 " class="label_height"><a>导出</a></p>
-           <table v-if="logs.length > 0 " class="table table-bordered">
+           <p v-if="logs.length > 0 " class="label_height"><a class="fc">导出</a></p>
+           <table v-if="logs.length > 0 " class="table">
             <thead>
               <tr>
                 <th>操作内容</th>
@@ -157,30 +160,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.index_more{background: #f6f7fb;
+  height: 100%;
+  padding-bottom: 200px;
+    width: 100%;}
+.index_chunk{ 
+position: relative;
+top:120px;
+left: 19%;
+margin: 0;
+width: 78%;background:#fff; padding: 40px 70px 55px;border-radius: 4px; box-shadow: 0px 20px 20px -20px #ddd;}
 
-.bs-example {
-    position: relative;
-    top: 120px;
-    left: 275px;
-    margin: 0;
-    width: 84%;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    -webkit-border-top-left-radius: 4px;
-    -webkit-border-top-right-radius: 4px;
-    -moz-border-radius-topleft: 4px;
-    -moz-border-radius-topright: 4px;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    padding: 35px 30px;
-    position: relative;
-}
 .t_nav {
   border-left: #4786ff solid 3px;
-  margin-left: -30px;
-  /*font-weight: bold;*/
   font-size: 18px;
 }
+table{ border:1px solid #eee; }
+.table>thead>tr>th{ border-bottom: none; }
+.table>thead>tr>th,.table>tbody>tr>td,.table>tbody>tr>th{ padding: 15px; }
 a {
   text-decoration: none;
 }
@@ -193,8 +190,9 @@ a {
 .iw {
   width: 300px;
 }
+.fc{ border-bottom: 1px solid #4786ff; color: #4786ff; }
 .iw600 {
-  width: 600px;
+  width: 450px;
 }
 .label_height {
   line-height: 35px;

@@ -3,15 +3,16 @@
     <v-register-head :step="1"></v-register-head>
     <v-error-info :errMsg="errMsg"></v-error-info>
     <div>
-      <div class="col-sm-12 container">
-        <div class="col-sm-12 bs-example">
-          <div class="col-sm-12 txc">
+      <div class="step_more">
+       <div class="step_chunk">
+          <div class="txc">
             <h2>注册帐号</h2>
+            
+            <p style="color: #666666; margin-bottom: 20px;">* 每一个手机号码仅能生成一个帐号</p>
             <br/>
-            <p>* 每一个手机号码仅能生成一个帐号</p>
           </div>
-          <div class="col-sm-12" style="position: relative;height: 370px;">
-            <div style="position: relative;width: 400px;margin: 0 auto;">
+          <div class="" style="position: relative;">
+            <div style="position: relative;width: 440px;margin: 0 auto;">
               <div class="jg">
                 <small>作为登录帐号，请填写未被其他人或企业注册的手机号码</small>
                 <label>手机号码：&#12288;&#12288;</label>
@@ -27,15 +28,15 @@
                 <label>确认密码：&#12288;&#12288;</label>
                 <input type="password" class="form-control input-w-250" v-model="repassword"></input>
               </div>
-              <div class="jg">
+              <div>
                 <label>验 证 码：&#12288;&#12288;</label>
-                <input type="text" class="form-control input-w-175 " style="margin-left: 6px;" v-model="code"></input>
-                <button v-show="show" class="btn btn-verification-code"  @click="getCode">获取验证码</button>
-                <button v-show="!show" class="btn btn-verification-code">{{count}} s</button>
+                <input type="text" class="form-control input-w-175 " style="margin-left: 6px; margin-right: 15px;" v-model="code"></input>
+                <button v-show="show" class="btn btn-verification-code" style="height: 35px;"  @click="getCode">获取验证码</button>
+                <button v-show="!show" class="btn btn-verification-code" style="height: 35px;">{{count}} s</button>
               </div>
-  `          </div>
+           </div>
           </div>
-          <div class="col-sm-12 txc">
+          <div class="txc">
             <div class="checkbox">
               <label>
                 <input type="checkbox" id="blankCheckbox" value="option1" aria-label="..." v-model="agree">
@@ -43,16 +44,16 @@
               </label>
             </div>
             <br/>
-            <button v-show="isShowSubmit" type="button" class="btn btn-success" @click="submit">注册</button>
-            <button v-show="!isShowSubmit" type="button" class="btn btn-success" disabled>注册</button>
+            <button v-show="isShowSubmit" type="button" class="btn btn-success" style="height: 35px;" @click="submit">注册</button>
+            <button v-show="!isShowSubmit" type="button" class="btn btn-success" style="height: 35px;" disabled>注册</button>
             <br/>
             <br/>
-            <label>已有申报机构公共业务平台帐号? <router-link to="/login">立即登录</router-link></label>
+            <label style="letter-spacing: 1px;">已有申报机构公共业务平台帐号? <router-link to="/login">立即登录</router-link></label>
           </div>
         </div>
       </div>
     </div>
-  </div>
+ </div>
 </template>
 
 <script>
@@ -163,20 +164,30 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.step_more{    padding: 250px 60px 50px;background: #f6f7fb;}
+.step_chunk{ background:#fff; padding: 40px 40px 55px;border-radius: 4px; box-shadow: 0px 20px 20px -20px #ddd;}
 small {
-  position: absolute;top: 35px;left: 88px;color: #888888;
+  position: absolute;    top: 40px;
+    left: 105px;color: #999999;
 }
 .jg {
-  position: relative;height: 100px;
+  position: relative;height: 90px;
 }
 .input-w-250 {
-  width: 250px;
-  height: 27px;
+  width: 320px;
+  height: 35px;
+  line-height: 35px;
+  border-radius: 20px;
+  background: #f7f7f7; border:none;
   display: inline;
 }
 .input-w-175 {
-  width: 160px;
+  width: 180px;
   height: 27px;
+  height: 35px;
+  line-height: 35px;
+  border-radius: 20px;
+  background: #f7f7f7; border:none;
   display: inline;
 }
 </style>

@@ -184,10 +184,10 @@ export default {
   float: left;
   width: 200px;
   height: 200px;
-  border: 1px dashed #999;
-  border-radius: 4px;
-  cursor: pointer;
-  color: #999;
+  border: 1px solid #e6e3e3;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #d0cbcb;
 }
 
 .upload_warp {
@@ -204,7 +204,7 @@ export default {
 }
 
 .hello {
-  width: 800px;
+  width: auto;
   text-align: center;
 }
 </style>

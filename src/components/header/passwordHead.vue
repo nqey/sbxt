@@ -23,15 +23,14 @@ export default {
 <style lang="scss" scoped>
 @import '../../assets/css/mixin.scss';
 .step_head {
-	height: 80px;
-	background-color: #fff;
-	border-bottom: 1px solid #D2D2D2;
-	padding: 10px;
+  height: 80px;
+  background-color: #fff;
+  padding: 10px;
 }
 .step_title_logo {
-	margin-left: 60px;height: 60px; float: left;
+  margin-left: 60px;height: 60px; float: left;
 }
 .step_title {
-	float: left;margin-left: 20px;line-height: 60px;
+  float: left;margin-left: 20px;line-height: 60px;
 }
 </style>

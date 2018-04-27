@@ -1,19 +1,19 @@
 <template>
-  <div class="bs-example">
-    <span class="t_nav">&#12288;系统通知</span>
-    <br/>
-    <br/>
-    <br/>
+  <div class="index_more">
+      <div class="index_chunk">       
+        <div class="t_nav">&#12288;系统通知</div>
+    <hr>
     <ul>
-      <li class="news" v-for="(item, index) of news" style="list-style-type: disc;margin-left: 10px;">
+      <li class="news" v-for="(item, index) of news">
         <router-link :to="'/index/detail/'+item.id">{{item.title}}</router-link>
-        &#12288;<span class="news_new" v-show="index < 3 && page === 1">new</span>
+        &#12288;<span class="news_new text-uppercase" v-show="index < 3 && page === 1">new</span>
         <span class="news_time">{{item.pushTime}}</span>
       </li>
     </ul>
     <v-pagination :page="pages" @nextPage="search"></v-pagination>
     <div style="clear: both;"></div>
   </div>
+</div>
 </template>
 
 <script>
@@ -60,39 +60,41 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-.bs-example {
-    position: relative;
-    top: 120px;
-    left: 275px;
+.index_more{background: #f6f7fb;min-height: 100%;
+    position: absolute;
+    width: 100%;}
+.index_chunk{ 
+position: relative;
+top:120px;
+  left: 19%;
     margin: 0;
-    width: 84%;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    -webkit-border-top-left-radius: 4px;
-    -webkit-border-top-right-radius: 4px;
-    -moz-border-radius-topleft: 4px;
-    -moz-border-radius-topright: 4px;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    padding: 35px 30px;
-    position: relative;
-}
+    width: 78%;background:#fff; padding: 40px 70px 55px;border-radius: 4px; box-shadow: 0px 20px 20px -20px #ddd;}
 .t_nav {
   border-left: #4786ff solid 3px;
-  margin-left: -30px;
   font-size: 18px;
 }
 a {
   text-decoration: none;
 }
 .news {
-  height: 50px; position: relative;
+      height:55px;
+    line-height:55px;
+    position: relative;
+    list-style-type: disc;
+    margin-left: 15px;
+    a{
+      font-size: 16px;
+    color: #505050;
+  }
 }
 .news_new {
-  display: inline-block;background-color: #fdc5d0;color: #fa607e;
+  background-color: #fdc5d0;color: #fa607e;font-weight: bold;    font-size: 0.1em;
+    padding: 1px 3px;
+    border-radius: 2px;
+    margin-left: 15px;
 }
 .news_time {
-  position: absolute;right: 0
+  position: absolute;right: 0;    color: #888888;
+    font-size: 12px;
 }
 </style>

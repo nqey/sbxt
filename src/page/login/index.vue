@@ -14,15 +14,17 @@
     </div>
     <!-- 波浪特效结束 -->
     <!-- 登录内容开始 -->
+   
     <div class="content">
-      <!-- 左占位2 开始-->
-      <div class="col-sm-2"></div>
-      <!-- 左占位2 结束-->
+      <div class="container">
+        <div class="row clearfix">
       <!-- 申报机构logo和说明 开始 -->
-      <div class="col-sm-4 caption">
+      <div class="col-sm-6 caption">
         <img :src="logo"></img>
-        <h1>CPS 申报机构</h1>
-        <p style="line-height: 25px;">申报机构是依法筛选和推荐符合标准的生产企业，获得<br/>中国商品诚信数据库项目扶持资金补贴，隶属于中国商<br/>品诚信数据库服务中心，忠实执行中国商品诚信数据库<br/>的筛选标准，全心全意为消费者服务。</p>
+        <h2>CPS 申报机构</h2>
+        <p style="line-height: 25px; margin-top: 20px;">
+          申报机构是依法筛选和推荐符合标准的生产企业，使其获<br />
+          得中国商品诚信数据库项目扶持资金补贴，隶属于中国商<br />品诚信数据库服务中心，须忠实执行中国商品诚信数据库<br />的筛选标准、全心全意为消费者服务。</p>
         <br/>
         <br/>
         <router-link to="/step1"><button class="btn">立即申请</button></router-link>
@@ -30,7 +32,7 @@
       <!-- 申报机构logo和说明 结束 -->
       <!-- 登录框 开始 -->
       <div class="col-sm-6" style="position: relative;text-align: center;">
-        <div  class="loginContent">
+        <div  class="loginContent pull-right">
           <div class="login">
             <h3 class="loginTitle">CPS申报机构自主管理平台登录</h3>
             <ul>
@@ -60,7 +62,7 @@
                 </div>
               </div>
               <div class="col-sm-6">
-                <router-link to="/password/reset"><span style="line-height: 40px">忘记密码？</span></router-link>
+                <router-link to="/password/reset"><span style="line-height:40px;font-size:12px;">忘记密码？</span></router-link>
               </div>
             </div>
             <div id="login_btn_wraper">
@@ -69,71 +71,75 @@
           </div>
         </div>
       </div>
+    </div>
+    </div>
       <!-- 登录框 结束 -->
       <!-- 公告 开始 -->
-      <div  class="col-sm-2"></div>
-      <div class="col-sm-10 announcement">
-        <div class="col-sm-1">
-          <span class="glyphicon glyphicon-volume-up"></span> 系统公告
+     <div class="container announcement">
+      <div class="announcement_bj">
+      <div class="row clearfix">
+        <div class="col-sm-2 clearfix">
+          <span class="glyphicon glyphicon-volume-up pull-left" style="color: #4e99ff; font-size: 14px; margin-right: 10px; margin-top: 2px;"></span> 系统公告
         </div>
-        <div class="col-sm-9">
-          <router-link :to="'/sys/msg/detail/'+sysMsgId">{{sysMsgTitle}}</router-link>
+        <div class="col-sm-8">
+          <router-link :to="'/sys/msg/detail/'+sysMsgId" style="color:#464646;">{{sysMsgTitle}}</router-link>
         </div>
-        <div class="col-sm-2">
-          <router-link to="/sys/msg/list">更多>></router-link>
+        <div class="col-sm-2 text-right">
+          <router-link to="/sys/msg/list" style="color: #01c853;">更多<span class="glyphicon glyphicon-menu-right" style="font-size: 12px;"></span></router-link>
         </div>
       </div>
+    </div>
+    </div>
       <!-- 公告 结束 -->
       <!-- 查看详情 开始 -->
-      <div class="col-sm-3"></div>
-      <div class="col-sm-2 seeDetails">
+      <div class="container">
+      <div class="col-sm-4 seeDetails">
         <div class="seeDetailsLogo1">
           <img :src="sbxt"></img>
         </div>
-        <br/>
-        <br/>
-        <p>申报机构</p>
+        
+        <h4>申报机构</h4>
         <p>邀约并协助生产型企业完成申报工作，对 企业讲解中国商品诚信数据库，让企业充 分了解入库的必要性。</p>
-        <br/>
+        
         <router-link to="/agency/1"><button class="btn ckxq">查看详情</button></router-link>
       </div>
-      <div class="col-sm-2 seeDetails">
+      <div class="col-sm-4 seeDetails">
         <div class="seeDetailsLogo2">
           <img :src="sjglzx"></img>
         </div>
-        <br/>
-        <br/>
-        <p>市级管理中心</p>
+       
+        <h4>市级管理中心</h4>
         <p>邀约并协助生产型企业完成申报工作，对 企业讲解中国商品诚信数据库，让企业充 分了解入库的必要性，并管理当市企业。</p>
-        <br/>
+       
         <router-link to="/agency/2"><button class="btn ckxq">查看详情</button></router-link>
       </div>
-      <div class="col-sm-2 seeDetails">
+      <div class="col-sm-4 seeDetails">
         <div class="seeDetailsLogo3">
           <img :src="ssjglzx"></img>
         </div>
-        <br/>
-        <br/>
-        <p>省级服务中心</p>
+        
+        <h4>省级服务中心</h4>
         <p>邀约并协助生产型企业完成申报工作，对 企业讲解中国商品诚信数据库，让企业充 分了解入库的必要性，并管理当省企业。</p>
-        <br/>
+        
         <router-link to="/agency/3"><button class="btn ckxq">查看详情</button></router-link>
       </div>
-      <div class="col-sm-3"></div>
+      </div>
       <!-- 查看详情 结束 -->
       <!-- 页脚 开始 -->
-      <div class="col-sm-12 lFooter">
+      <div class="lFooter">
+      <div class="container">
         <div class="col-sm-6">
-          <a>关于我们 |</a>
-          <a>服务协议 |</a>
-          <a>联系我们 |</a>
-          <a>官网网站 |</a>
+          <a>关于我们</a>
+          <a>服务协议</a>
+          <a>联系我们</a>
+          <a>官网网站</a>
           <a>企业入库</a>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-6 text-right">
           <small>版权所有 @中国商品诚信数据库技术服务中心 ALL Rights Reserved 蜀ICP备16015082号-2 </small>
         </div>
       </div>
+    </div>
       <!-- 页脚 结束-->
     </div>
      <!-- 登录内容结束 -->
@@ -264,7 +270,7 @@ export default {
     position: absolute;
     width: 100%;
     overflow: hidden;
-    height: 500px;
+    height: 560px;
     top: -1px;
     background-image: linear-gradient(to right,  rgb(73,43,253) , rgb(51,141,255)); /* 标准的语法 */
 }
@@ -310,37 +316,40 @@ export default {
     animation: move_wave 15s linear infinite;
 }
 .content {
-  position: absolute;width: 100%;top:40px;height: 400px;z-index: 16;
+  position: absolute;width: 100%;top:70px;height: 400px;z-index: 16;
 }
 .caption {
   color: #fff;
 }
 .loginContent {
-  background: #fff;height: 350px;width: 410px;border-radius: 12px; margin:auto;
+  background: #fff;height: 350px;width: 410px;border-radius: 12px;
 }
 .loginTitle {
-  position: relative;top: 15px;line-height: 50px
+  position: relative;line-height:60px;background:#f5f9fc;border-radius: 12px 12px 0 0;
 }
 .announcement {
-  margin-top: 150px
+  margin-top: 200px
 }
+.announcement_bj{ background: #f5f9fc; padding: 18px 28px;border-radius: 6px;}
 .seeDetails {
-  margin-top: 60px;text-align: center;
+  margin-top: 80px;text-align: center;
+  h4{ color: #505050; margin: 30px 0 20px 0;}
+  p{ padding:0 30px; line-height: 25px; color: #666666;}
 }
 .seeDetailsLogo3 {
   display: inline-block;width: 60px;height: 60px;border-radius: 30px;background-color: #fedfe5;padding-top: 15px;text-align: center;
 }
 .seeDetailsLogo2 {
-  display: inline-block;width: 60px;height: 60px;border-radius: 30px;background-color: #d8e6ff;padding-top: 15px;text-align: center;
+  display: inline-block;width: 60px;height: 60px;border-radius: 30px;background-color: #fff0db;padding-top: 15px;text-align: center;
 }
 .seeDetailsLogo1 {
-  display: inline-block;width: 60px;height: 60px;border-radius: 30px;background-color: #fff0db;padding-top: 15px;text-align: center;
+  display: inline-block;width: 60px;height: 60px;border-radius: 30px;background-color: #d8e6ff;padding-top: 15px;text-align: center;
 }
 .btn {
     display: inline-block;
     padding: 6px 12px;
     margin-bottom: 0;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 400;
     line-height: 1.42857143;
     text-align: center;
@@ -371,7 +380,8 @@ export default {
     font-size: 17px;
 }
 .lFooter {
-  margin-top: 90px;text-align: center;height: 50px;
+  margin-top: 90px;height: 80px; background: #f5f9fc; line-height: 80px;
+  a{ color: #666666;padding-right: 15px}
   small {
     color: rgb(153, 153, 153)
   }
@@ -399,7 +409,7 @@ export default {
     width: 350px;
     margin: auto;
     overflow: hidden;
-    padding: 25px 0;
+    padding: 15px 0;
 }
 .logo_yzm li {
     width: 50%;
@@ -407,11 +417,11 @@ export default {
     border: none !important;
 }
 .logo_yzm {
-    border-bottom: 1px solid #d3d4d4;
+    border-bottom: 1px solid #efefef;
     padding: 0 !important;
 }
 .login li {
-    border-bottom: 1px solid #d3d4d4;
+    border-bottom: 1px solid #efefef;
     height: 50px;
     line-height: 50px;
 }
@@ -430,7 +440,7 @@ export default {
     border: 0 none;
     color: #000000;
     background: transparent;
-    font-size: 17px; 
+    font-size: 14px; 
 }
 .login .input:focus {
     outline: 0 none;
@@ -440,13 +450,14 @@ export default {
 }
 .js-ajax-submit {
     width: 350px;
-    margin: auto;
+    margin:10px auto;
+    padding: 8px;
     color:#fff;
     background: rgb(1, 200, 83);
 }
 .ckxq {
-    width: 150px;
-    margin: auto;
+    width: 130px;
+    margin:20px auto;
     color:rgb(1, 200, 83);
     border-color: rgb(1, 200, 83);
 }

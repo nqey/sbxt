@@ -139,6 +139,7 @@ export default {
   top: 20px;
 }
 .left_menu {
+    width: 15%;
     min-width: 240px;
     position: fixed;
     left: 0;
@@ -149,7 +150,7 @@ export default {
     z-index: 101;
     overflow-y: auto;
     overflow-x: hidden;
-    @include wh(240px, 100%);
+    @include wh(15%, 100%);
     &::-webkit-scrollbar {
         width: 6px;
         height: 6px;
@@ -162,13 +163,11 @@ export default {
     }
 }
 .logo {
-    @include wh(240px, 250px);
+  
     min-width: 240px;
     padding-top: 40px;
     text-align: center;
     display: list-item;
-    /*background: #4063FF;*/
-    position:fixed;
     z-index:102;
     h3 {
         color: #fff;
@@ -179,7 +178,7 @@ export default {
 
 .main-left_nav_list {
     padding: 20px 0 60px 0;
-    margin-top:250px;
+    margin-top: 50px;
 }
 .main-left_nav_list ul li a {
     color: #fff;
@@ -191,7 +190,7 @@ export default {
     padding: 0;
 }
 .sidebar-menu > li > a {
-    padding: 15px;
+    padding:20px 15px;
     display: block;
     color: #fff;
     border-top: 1px solid rgba(0, 0, 0, 0);
@@ -216,9 +215,9 @@ export default {
 .sidebar-menu > li > .treeview-menu {
     background: #472efc;
     margin: 1px 0;
-    padding: 0 20px;
 }
 .sidebar-menu > li > .treeview-menu > li {
+  padding:20px 10px;
     border-bottom: 1px solid #3d66fc;
 }
 .sidebar-menu > li .label, .sidebar-menu > li .badge {
@@ -247,7 +246,7 @@ export default {
 }
 .sidebar-menu .treeview-menu > li {
     margin: 0;
-    padding: 10px 0;
+    padding: 20px 0;
 }
 .sidebar-menu .treeview-menu > li:hover, .sidebar-menu .treeview-menu > li.active {
     background: #3b8fff;

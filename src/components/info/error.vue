@@ -20,9 +20,15 @@ export default {
 .errMsg{
   position: fixed;
   top: 20px;
-  margin: 0 25%;
+  margin: 0 30%;
   text-align: center;
   z-index: 1000;
-  width: 50%;
+  width: 40%;
+  padding: 20px;
+  line-height: 30px;
+}
+.alert-danger{
+  color: red;
+  background: #f5f9fc;
 }
 </style>

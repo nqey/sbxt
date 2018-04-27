@@ -1,16 +1,14 @@
 <template>
   <div>
     <v-detail-head ></v-detail-head>
-    <div class="col-sm-12 container">
-      <div class="col-sm-12 bs-example">
-        <span class="t_nav"><router-link to="/login">&#12288;首页</router-link>&#12288;>&#12288;系统通知</span>
-        <br/>
-        <br/>
-        <br/>
+    <div class="index_more">
+      <div class="index_chunk">
+        <div class="t_nav"><router-link to="/login">&#12288;首页</router-link>&#12288;>&#12288;系统通知</div>
+       <hr>
         <ul>
           <li class="news" v-for="(item, index) of news">
             <router-link :to="'/sys/msg/detail/'+item.id">{{item.title}}</router-link>
-            <span class="news_new" v-show="index < 3 && page === 1">new</span>
+            <span class="news_new text-uppercase" v-show="index < 3 && page === 1">new</span>
             <span class="news_time">{{item.pushTime}}</span>
           </li>
         </ul>
@@ -71,38 +69,34 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container {
-  padding: 0px 55px;
-}
-.bs-example {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    -webkit-border-top-left-radius: 4px;
-    -webkit-border-top-right-radius: 4px;
-    -moz-border-radius-topleft: 4px;
-    -moz-border-radius-topright: 4px;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    margin: 15px 0;
-    padding: 35px 30px;
-    position: relative;
-}
+.index_more{padding: 250px 60px 50px;background: #f6f7fb;}
+.index_chunk{background:#fff; padding: 40px 70px 55px;border-radius: 4px; box-shadow: 0px 20px 20px -20px #ddd;}
 .t_nav {
   border-left: #4786ff solid 3px;
-  margin-left: -30px;
-  /*font-weight: bold;*/
   font-size: 18px;
 }
 a {
   text-decoration: none;
 }
 .news {
-  height: 50px; position: relative;
+  height: 80px;
+  line-height: 80px;
+  position: relative;
+  list-style-type: disc;
+  margin-left: 15px;
+  a{
+    font-size: 16px;
+    color: #505050;
+  }
 }
 .news_new {
-  display: inline-block;background-color: #fdc5d0;color: #fa607e;
+  background-color: #fdc5d0;color: #fa607e;font-weight: bold;    font-size: 0.1em;
+    padding: 1px 3px;
+    border-radius: 2px;
+    margin-left: 15px;
 }
 .news_time {
-  position: absolute;right: 0
+  position: absolute;right: 0;    color: #888888;
+    font-size: 12px;
 }
 </style>

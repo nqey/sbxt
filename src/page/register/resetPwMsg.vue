@@ -1,24 +1,14 @@
 <template>
   <div>
     <v-password-head></v-password-head>
-    <div class="row">
-      <div class="col-sm-12" style="padding: 0px 55px;">
-        <div class="col-sm-12 bs-example">
-          <div class="col-sm-12" style="text-align: center;">
-          <br/>
-          <br/>
-            <div style="display: inline-block;width: 50px;height: 50px;border-radius: 25px;border: #01c853 1px solid;">
+    <div class="step_more">
+       <div class="step_chunk">
+        <div class="text-center step_zccg">
+            <div style="display: inline-block;width: 50px;height: 50px;border-radius: 25px;border: #01c853 1px solid;margin-bottom: 50px;">
               <span class="glyphicon glyphicon-ok" style="line-height: 50px;font-size: 20px; color:  #01c853"></span>
             </div>
-            <br/>
-            <br/>
-            <p>密码修改成功！</p>
-            <br/>
-            <br/>
-            <p>正在返回首页，请 <router-link to="/login">登录</router-link></p>
-            <br/>
-            <br/>
-          </div>
+             <p style="margin-bottom: 100px; font-size:22px ">密码修改成功！</p>
+            <p><b>正在返回首页，请 <router-link to="/login">登录</router-link></b></p>
         </div>
       </div>
     </div>
@@ -37,48 +27,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.bs-example {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    -webkit-border-top-left-radius: 4px;
-    -webkit-border-top-right-radius: 4px;
-    -moz-border-radius-topleft: 4px;
-    -moz-border-radius-topright: 4px;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    margin: 15px 0;
-    padding: 60px 30px;
-    position: relative;
-}
-.btn {
-    display: inline-block;
-    padding: 6px 12px;
-    margin-bottom: 0;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.42857143;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-image: none;
-    border: 1px solid transparent;
-    border-radius: 25px;
-    color: #fff;
-    width: 180px;
-    background-color: rgba(73,43,253,0);
-    border-color: rgba(255,255,255,0.7);
-}
-.js-ajax-submit {
-    width: 350px;
-    margin: auto;
-    color:#fff;
-    background: rgb(1, 200, 83);
-}
+.step_more{padding: 120px 60px 50px;background: #f6f7fb;}
+.step_chunk{background:#fff; padding: 40px 40px 55px;border-radius: 4px; box-shadow: 0px 20px 20px -20px #ddd;}
+.step_zccg{padding: 7% 0;}
 </style>

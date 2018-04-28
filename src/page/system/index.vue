@@ -53,7 +53,7 @@ export default {
       if (res.data.code === 0) {
         this.news = res.data.data;
         this.news.forEach((o) => {
-          o.pushTime = formatDate(new Date(o.createTime), 'yyyy-MM-dd');
+          o.pushTime = formatDate(new Date(o.createTime), 'yyyy-MM-dd hh:mm:ss');
         });
       }
       const res2 = await this.$xhr('get', PUBLICS_GET_NOTICES_COUNTS);

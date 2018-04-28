@@ -16,7 +16,7 @@
             <label class="label_height">密码：</label>
         </div>
         <div class="form-group col-sm-10 imb">
-            <input type="text" class="form-control iw600"  placeholder="请输入密码" v-model="password">
+            <input type="text" class="form-control iw600"  placeholder="不能使用特殊字符，长度在8-10之间" v-model="password" @blur="validate">
         </div>
         <div class="form-group col-sm-2 txr">
             <label class="label_height">选择对象：</label>
@@ -39,7 +39,7 @@
             <input type="checkbox" v-model="b"/> 企业列表  
            </label>
             <label>
-            <input type="checkbox" v-model="c"/> 推荐列表  
+            <input type="checkbox" v-model="c"/> 首页  
           </label>
         </div>
           <div class="form-group col-sm-2 txr">
@@ -57,6 +57,7 @@
 <script>
 import { DECLARE_GET_DECLARER_SIMPLE, DECLARE_POST_USER_ACOUNT } from '@/config/env';
 import errInfo from '@/components/info/error';
+import rules from '@/config/rules';
 
 export default {
   name: 'user',
@@ -79,6 +80,13 @@ export default {
   methods: {
     validate() {
       this.errMsg = [];
+      // 密码强度验证
+      if (this.password !== '' && !rules.pPattern.pattern.test(this.password)) {
+        this.errMsg.push(rules.pPattern.message);
+      }
+    },
+    validate2() {
+      this.validate();
       if (!this.name) {
         this.errMsg.push('请输入用户名');
       }
@@ -90,7 +98,7 @@ export default {
       }
     },
     async submit() {
-      this.validate();
+      this.validate2();
       if (this.errMsg.length !== 0) {
         clearTimeout(this.infoTimer);
         this.infoTimer = setTimeout(() => { this.errMsg = []; }, 3000);

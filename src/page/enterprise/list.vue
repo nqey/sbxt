@@ -114,7 +114,7 @@ export default {
       param.rows = this.rows;
       const res = await this.$xhr('get', DECLARE_GET_ENTERPRISE_LIST, param);
       if (res.data.code === 0) {
-        this.lists = res.data.data;
+        this.lists = res.data.data || [];
         this.lists.forEach((o) => {
           o.eidtShow = false;
           o.detailShow = true;
@@ -134,7 +134,7 @@ export default {
             o.eidtShow = true;
             o.detailShow = false;
           }
-          o.createtime = formatDate(new Date(o.createtime), 'yyyy-MM-dd');
+          o.createtime = formatDate(new Date(o.createtime), 'yyyy-MM-dd hh:mm:ss');
         });
       }
       const param2 = {};

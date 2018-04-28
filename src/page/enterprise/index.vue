@@ -17,7 +17,7 @@
     		  &#12288;<small class="areafc">例如：四川中新华搜信息技术有限公司</small>
         </div>
         <div class="form-group col-sm-2 txr clearfix">
-          <label class="label_height"><span class="info">*</span> 企业负责人：</label>
+          <label class="label_height"><span class="info">*</span> 企业法人：</label>
         </div>
         <div class="form-group col-sm-10 imb">
           <input type="text" class="form-control iw600" placeholder="请输入真实姓名" v-model="charger">
@@ -44,7 +44,7 @@
 	    		&#12288;<small class="areafc">申报官真实有效的身份证号码，一张身份证只能注册一名申报官。</small>
 	      </div>
 	      <div class="form-group col-sm-2 txr clearfix">
-          <label class="label_height">身份证照片：</label>
+          <label class="label_height"><span class="info">*</span>身份证照片：</label>
         </div>
         <div class="form-group col-sm-10 imb">
           <small class="info2 label_height areafc">请按照示例上传证件照片；支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
@@ -62,7 +62,7 @@
           <label class="label_height"><span class="info">*</span> 营业执照：</label>
         </div>
         <div class="form-group col-sm-10 imb">
-          <p class="label_height">请上次营业执照影印件。支持格式：bmp、jpg、png、gif。照片大小不超过2M。</p>
+          <p class="label_height">请上传企业营业执照影印件。支持格式：bmp、jpg、png、gif。照片大小不超过2M。</p>
           <br/>
           <v-multiple-upload len="1" title="上传营业执照" @acceptData="setLicenseImageUrl" uploadid="upload3"></v-multiple-upload>
         </div>
@@ -70,7 +70,7 @@
           <label class="label_height"><span class="info">*</span> 生产许可证：</label>
         </div>
         <div class="form-group col-sm-10 imb">
-          <p class="label_height">请上传生产许可证影印件。支持格式：bmp、jpg、png、gif。照片大小不超过2M。</p>
+          <p class="label_height">请上传企业生产许可证影印件。支持格式：bmp、jpg、png、gif。照片大小不超过2M。</p>
           <br/>
           <v-multiple-upload len="1" title="上传生产许可证" @acceptData="setProductionImageUrl" uploadid="upload4"></v-multiple-upload>
         </div>
@@ -78,10 +78,10 @@
           <label class="label_height"><span class="info">*</span> 资金补贴申报表：</label>
         </div>
         <div class="form-group col-sm-10 imb">
-          <p class="label_height"><b>下载</b> <a download :href="template.zxbtzjsbb">申报表</a></p>
+          <p class="label_height"><b>下载</b> <a download :href="template.zxbtzjsbb" class="fc">申报表</a><img :src="xiazaiIcon"></img></p>
           <small class="info2 label_height">文件要求：上传加盖企业公章的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
           <br/>
-          <small class="info label_height">请认真填写每一必填项，再上传完整的尽职调查表</small>
+          <small class="info label_height">请认真填写每一必填项，再上传完整的资金补贴申报表</small>
           <br/>
           <br/>
           <v-multiple-upload len="3" title="上传申报表" @acceptData="setCapitalImageUrl" uploadid="upload5"></v-multiple-upload>
@@ -90,7 +90,7 @@
           <label class="label_height"><span class="info">*</span> 企业尽职调查表：</label>
         </div>
         <div class="form-group col-sm-10 imb">
-          <p class="label_height"><b>下载</b> <a download :href="template.sbqyjzdcb">尽职调查表</a></p>
+          <p class="label_height"><b>下载</b> <a download :href="template.sbqyjzdcb"  class="fc">尽职调查表</a><img :src="xiazaiIcon"></img></p>
           <small class="info2 label_height">文件要求：上传加盖企业公章的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
           <br/>
           <small class="info label_height">请认真填写每一必填项，再上传完整的尽职调查表</small>
@@ -102,7 +102,7 @@
           <label class="label_height"><span class="info">*</span> 企业负责人尽职调查表：</label>
         </div>
         <div class="form-group col-sm-10 imb">
-          <p class="label_height"><b>下载</b> <a download :href="template.sbqyfzrjzdcb">尽职调查表</a></p>
+          <p class="label_height"><b>下载</b> <a download :href="template.sbqyfzrjzdcb" class="fc">尽职调查表</a><img :src="xiazaiIcon"></img></p>
           <small class="info2 label_height">文件要求：上传加盖企业公章的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
           <br/>
           <small class="info label_height">请认真填写每一必填项，再上传完整的尽职调查表</small>
@@ -114,7 +114,7 @@
           <label class="label_height"><span class="info">*</span> 企业入库申请函：</label>
         </div>
         <div class="form-group col-sm-10 imb">
-          <p class="label_height"><b>下载</b> <a download :href="template.qysqrkh">申请函</a></p>
+          <p class="label_height"><b>下载</b> <a download :href="template.qysqrkh" class="fc">申请函</a><img :src="xiazaiIcon"></img></p>
           <small class="info2 label_height">文件要求：上传加盖企业公章的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
           <br/>
           <small class="info label_height">请上传完整的申请函</small>
@@ -126,7 +126,7 @@
           <label class="label_height">授权委托书：</label>
         </div>
         <div class="form-group col-sm-10 imb">
-          <p class="label_height"><b>下载</b> <a download :href="template.zddbhzgtwtdlrsqwts">委托书</a></p>
+          <p class="label_height"><b>下载</b> <a download :href="template.zddbhzgtwtdlrsqwts" class="fc">委托书</a><img :src="xiazaiIcon"></img></p>
           <small class="info2 label_height">指定代表或者共同委托代理人授权委托书；如企业法人不能亲自办理入库事宜，法人可签订此授权书委托书给指定负责人进行办理。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
           <br/>
           <br/>
@@ -160,6 +160,7 @@ import multipleUpload from '@/components/upload/multipleUpload';
 import errInfo from '@/components/info/error';
 import rules from '@/config/rules';
 import { DECLARE_POST_ENTERPRISE, EXCEL_SERVER_URL } from '@/config/env';
+import xiazaiIcon from '@/assets/img/xiazaiIcon.gif';
 
 export default {
   name: 'enterprise',
@@ -182,6 +183,7 @@ export default {
       authorizationImageUrl: '',
       otherImageUrl: '',
       errMsg: [],
+      xiazaiIcon,
       timer: '',
       template: {
         zxbtzjsbb: `${EXCEL_SERVER_URL}/template/zxbtzjsbb.docx`,
@@ -357,7 +359,7 @@ width: 78%;background:#fff; padding: 40px 70px 55px;border-radius: 4px; box-shad
   font-size: 18px;
 }
 .form-inline{ margin-top: 60px; }
-.fc{color: #4786ff; border-bottom: 1px solid #4786ff;}
+.fc{color: #4786ff; border-bottom: 1px solid #4786ff; margin-right: 10px;}
 .hqyzm{background: #dae7ff;color: #4786ff;}
 a {
   text-decoration: none;

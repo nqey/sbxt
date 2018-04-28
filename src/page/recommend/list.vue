@@ -58,7 +58,7 @@ export default {
       param.rows = this.rows;
       const res = await this.$xhr('get', DECLARE_GET_RECOMMEND, param);
       if (res.data.code === 0) {
-        this.lists = res.data.data;
+        this.lists = res.data.data || [];
         this.lists.forEach((o) => {
           if (o.state === 'create') {
             o.state = '添加';
@@ -79,7 +79,7 @@ export default {
           } else if (o.state === 'deleted') {
             o.state = '已删除';
           }
-          o.createTime = formatDate(new Date(o.createTime), 'yyyy-MM-dd');
+          o.createTime = formatDate(new Date(o.createTime), 'yyyy-MM-dd hh:mm:ss');
         });
       }
       const res2 = await this.$xhr('get', DECLARE_GET_RECOMMEND_COUNT);

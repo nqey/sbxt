@@ -39,6 +39,7 @@ export default {
       content3: sessionStorage.getItem('content3'),
       alink: sessionStorage.getItem('alink'),
       blink: sessionStorage.getItem('blink'),
+      clink: sessionStorage.getItem('clink'),
     };
   },
 };

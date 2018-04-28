@@ -13,7 +13,7 @@
         </div>
         <div class="clearfix"></div>
         <div class="form-group col-sm-2 txr">
-          <label class="label_height">企业负责人：</label>
+          <label class="label_height">企业法人：</label>
         </div>
         <div class="form-group col-sm-10">
           <span class="label_height">{{charger}}&#12288;&#12288;</span>

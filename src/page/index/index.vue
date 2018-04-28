@@ -1,5 +1,5 @@
 <template>
-  <div class="index_more">
+  <div class="index_more" v-if="news.length > 0">
       <div class="index_chunk">       
         <div class="t_nav">&#12288;系统通知</div>
     <hr>
@@ -41,7 +41,7 @@ export default {
       if (res.data.code === 0) {
         this.news = res.data.data;
         this.news.forEach((o) => {
-          o.pushTime = formatDate(new Date(o.createTime), 'yyyy-MM-dd');
+          o.pushTime = formatDate(new Date(o.createTime), 'yyyy-MM-dd hh:mm:ss');
         });
       }
       const res2 = await this.$xhr('get', PUBLICS_GET_NOTICES_COUNTS);
@@ -54,6 +54,8 @@ export default {
     'v-pagination': pagination,
   },
   mounted() {
+    const rule = window.sessionStorage.getItem('rule');
+    if (rule !== 'undefined' && rule.split(',')[2] === '0') return;
     this.search(1);
   },
 };

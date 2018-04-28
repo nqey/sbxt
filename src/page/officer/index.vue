@@ -30,10 +30,13 @@
           <button v-show="!show" class="btn hqyzm">{{count}} s</button>
         </div>
         <div class="form-group col-sm-2 txr clearfix">
-            <label class="label_height"><span class="info">*</span> 常驻区域：</label>
+            <label class="label_height"><span class="info">*</span> 常住区域：</label>
         </div>
         <div class="form-group col-sm-10 imb">
            <v-area @acceptData="setLiveAddress"></v-area>
+           <div class='mt'>
+              <input type='text' class='form-control iw' placeholder='请输入详细地址' v-model="address">
+            </div>
         </div>
         <div class="form-group col-sm-2 txr clearfix">
           <label class="label_height"><span class="info">*</span> 寸 照：</label>
@@ -74,7 +77,7 @@
           <label class="label_height"><span class="info">*</span> 尽职调查表：</label>
         </div>
         <div class="form-group col-sm-10 imb">
-          <p class="label_height"><b>下载</b> <a class="fc" download :href="template.sbjgjzdcb">尽职调查表</a></p>
+          <p class="label_height"><b>下载</b> <a class="fc" download :href="template.sbgjzdcb">尽职调查表</a></p>
           <small class="info2 label_height">文件要求：上传加盖企业公章的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
           <br/>
           <small class="info label_height">请认真填写每一必填项，再上传完整的尽职调查表</small>
@@ -86,7 +89,7 @@
           <label class="label_height"><span class="info">*</span> 承诺公函：</label>
         </div>
         <div class="form-group col-sm-10 imb">
-          <p class="label_height"><b>下载</b> <a class="fc" download :href="template.sbjgcngh">承诺公函</a></p>
+          <p class="label_height"><b>下载</b> <a class="fc" download :href="template.sbgcngh">承诺公函</a></p>
           <small class="info2 label_height">文件要求：上传加盖企业公章的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
           <br/>
           <small class="info label_height">请上传完整的承诺公函</small>
@@ -137,15 +140,10 @@ export default {
       count: '',
       timer: null,
       infoTimer: null,
+      address: null,
       template: {
-        zxbtzjsbb: `${EXCEL_SERVER_URL}/template/zxbtzjsbb.docx`,
-        qysqrkh: `${EXCEL_SERVER_URL}/template/qysqrkh.docx`,
-        zddbhzgtwtdlrsqwts: `${EXCEL_SERVER_URL}/template/zddbhzgtwtdlrsqwts.docx`,
-        sbqyjzdcb: `${EXCEL_SERVER_URL}/template/sbqyjzdcb.docx`,
-        sbqyfzrjzdcb: `${EXCEL_SERVER_URL}/template/sbqyfzrjzdcb.docx`,
-        sbjgjzdcb: `${EXCEL_SERVER_URL}/template/sbjgjzdcb.docx`,
-        sbjgcngh: `${EXCEL_SERVER_URL}/template/sbjgcngh.docx`,
-        sbjgfzrjzdcb: `${EXCEL_SERVER_URL}/template/sbjgfzrjzdcb.docx`,
+        sbgjzdcb: `${EXCEL_SERVER_URL}/template/sbgjzdcb.docx`,
+        sbgcngh: `${EXCEL_SERVER_URL}/template/sbgcngh.docx`,
       },
     };
   },
@@ -202,6 +200,10 @@ export default {
       // 常驻区域
       if (!this.liveAddress) {
         this.errMsg.push(`${rules.select}常驻区域`);
+      }
+      // 常住地址 详细地址
+      if (!this.address) {
+        this.errMsg.push(`${rules.nonEmpty}${rules.address}`);
       }
     },
     frontUrl(d) {
@@ -261,6 +263,7 @@ export default {
       obj.letterImageUrl = this.letterImageUrl;
       obj.portrait = this.portrait;
       obj.areaCode = this.liveAddress;
+      obj.address = this.address;
       if (this.errMsg.length !== 0) {
         clearTimeout(this.infoTimer);
         this.infoTimer = setTimeout(() => { this.errMsg = []; }, 3000);
@@ -343,5 +346,8 @@ a {
     margin: auto;
     color:#fff;
     background: rgb(1, 200, 83);
+}
+.mt {
+  margin-top: 30px;
 }
 </style>

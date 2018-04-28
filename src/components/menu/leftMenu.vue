@@ -32,20 +32,21 @@
 
 <script>
 import Logo from '@/assets/img/logo.png';
-import { getCookie, delCookie } from '@/config/cookie';
+import { delCookie } from '@/config/cookie';
 
 export default {
   name: 'leftMenu',
   data() {
     return {
       rule: [],
-      username: getCookie('username'),
+      username: window.sessionStorage.getItem('username'),
       logo: Logo,
       items: [
         {
           name: '首页',
           haveSub: false,
           link: '/index',
+          rule: '3',
           id: 1,
         },
         {
@@ -81,7 +82,6 @@ export default {
         {
           name: '推荐列表',
           haveSub: false,
-          rule: '3',
           link: '/recommend/list',
           id: 5,
         },
@@ -106,7 +106,8 @@ export default {
   },
   methods: {
     logout() {
-      delCookie('username');
+      delCookie('sb_token');
+      window.sessionStorage.clear();
       this.$router.push('/login');
     },
     showToggle(item) {
@@ -114,17 +115,15 @@ export default {
     },
   },
   mounted() {
-    if (getCookie('rule') !== 'undefined') {
-      this.items.splice(1, 1);
-      this.items.splice(this.items.length - 1, 1);
-      this.rule = getCookie('rule');
-      this.items.forEach((o, i) => {
-        if (o.rule) {
-          if (this.rule.indexOf(o.rule) === -1) {
-            this.items.splice(i, 1);
-          }
+    if (window.sessionStorage.getItem('rule') !== 'undefined') {
+      this.rule = window.sessionStorage.getItem('rule');
+      const rules = [];
+      this.items.forEach((o) => {
+        if (o.rule && this.rule.indexOf(o.rule) !== -1) {
+          rules.push(o);
         }
       });
+      this.items = rules;
     }
   },
 };

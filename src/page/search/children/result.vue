@@ -39,7 +39,7 @@ export default {
       const res = await this.$xhr('get', ENTERPRISE_QUERY_DECLAREORG_ADDRESS, this.params);
       if (res.data.code === 0) {
         this.showTishi = false;
-        this.lists = res.data.data;
+        this.lists = res.data.data || [];
       } else {
         this.tishi = res.data.message;
         this.showTishi = true;

@@ -2,6 +2,7 @@
   <div id="app">
   	<v-top-head v-if="isShowMenu"></v-top-head>
     <v-left-menu v-if="isShowMenu"></v-left-menu>
+    <v-contact></v-contact>
     <router-view/>
   </div>
 </template>
@@ -9,6 +10,7 @@
 <script>
 import vTopHeader from '@/components/header/topHeader';
 import vLeftMenu from '@/components/menu/leftMenu';
+import contact from '@/components/contact';
 import { getCookie } from '@/config/cookie';
 
 export default {
@@ -21,6 +23,7 @@ export default {
   components: {
     'v-top-head': vTopHeader,
     'v-left-menu': vLeftMenu,
+    'v-contact': contact,
   },
   watch: {
     $route: 'checkLogin',

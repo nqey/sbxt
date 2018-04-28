@@ -489,5 +489,4 @@ export default {
     color:rgb(1, 200, 83);
     border-color: rgb(1, 200, 83);
 }
-.ckxq:hover{background:rgb(1, 200, 83); color: #fff;}
 </style>

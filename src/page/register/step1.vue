@@ -152,7 +152,7 @@ export default {
         const res = await this.$xhr('post', DECLARE_POST_ORGANIZ, param);
         if (res.data.code === 0) {
           setCookie('sb_token', res.data.data, 1000 * 60);
-          setCookie('username', param.username, 1000 * 60);
+          window.sessionStorage.setItem('username', param.username);
           this.$router.push('/step11');
         } else {
           this.isShowSubmit = !this.isShowSubmit;

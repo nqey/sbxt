@@ -3,11 +3,12 @@
     <v-error-info :errMsg="errMsg"></v-error-info>
     <div class="index_more">
       <div class="index_chunk">
-       
         <div class="t_nav">&#12288;添加申报官</div>
       <hr>
+      <div v-if="reason" style="text-align: center;color: red;">
+        <span class="glyphicon glyphicon-exclamation-sign"></span> <span style="position: relative;top:-1px;">{{reason}}</span>
+      </div> 
      <div class="form-inline clearfix">
-       
         <div class="form-group col-sm-2 txr clearfix">
           <label class="label_height"><span class="info">*</span> 姓 名：</label>
         </div>
@@ -21,7 +22,7 @@
           <span class="label_height">{{cellphone}}&#12288;&#12288;</span>
         </div>
         <div class="form-group col-sm-2 txr clearfix">
-            <label class="label_height"><span class="info">*</span> 常驻区域：</label>
+            <label class="label_height"><span class="info">*</span> 常住区域：</label>
         </div>
         <div class="form-group col-sm-10 imb">
            <v-area :areacode="areacode" @acceptData="setLiveAddress"></v-area>
@@ -65,7 +66,7 @@
           <label class="label_height"><span class="info">*</span> 尽职调查表：</label>
         </div>
         <div class="form-group col-sm-10 imb">
-          <p class="label_height"><b>下载</b> <a class="fc" download :href="template.sbjgjzdcb">尽职调查表</a></p>
+          <p class="label_height"><b>下载</b> <a class="fc" download :href="template.sbjgjzdcb">尽职调查表</a><img :src="xiazaiIcon"></img></p>
           <small class="info2 label_height">文件要求：上传加盖企业公章的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
           <br/>
           <small class="info label_height">请认真填写每一必填项，再上传完整的尽职调查表</small>
@@ -77,7 +78,7 @@
           <label class="label_height"><span class="info">*</span> 承诺公函：</label>
         </div>
         <div class="form-group col-sm-10 imb">
-          <p class="label_height"><b>下载</b> <a  class="fc" download :href="template.sbjgcngh">承诺公函</a></p>
+          <p class="label_height"><b>下载</b> <a  class="fc" download :href="template.sbjgcngh">承诺公函</a><img :src="xiazaiIcon"></img></p>
           <small class="info2 label_height">文件要求：上传加盖企业公章的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
           <br/>
           <small class="info label_height">请上传完整的承诺公函</small>
@@ -107,6 +108,7 @@ import vimg from '@/components/img/img';
 import vPortraitImg from '@/components/img/portraitImg';
 import errInfo from '@/components/info/error';
 import rules from '@/config/rules';
+import xiazaiIcon from '@/assets/img/xiazaiIcon.gif';
 import { DECLARE_GET_DECLARER_DETAILS, DECLARE_PUT_DECLARER, EXCEL_SERVER_URL } from '@/config/env';
 import area from '@/components/area/area';
 
@@ -136,15 +138,10 @@ export default {
       areacode: '',
       errMsg: [],
       infoTimer: null,
+      xiazaiIcon,
       template: {
-        zxbtzjsbb: `${EXCEL_SERVER_URL}/template/zxbtzjsbb.docx`,
-        qysqrkh: `${EXCEL_SERVER_URL}/template/qysqrkh.docx`,
-        zddbhzgtwtdlrsqwts: `${EXCEL_SERVER_URL}/template/zddbhzgtwtdlrsqwts.docx`,
-        sbqyjzdcb: `${EXCEL_SERVER_URL}/template/sbqyjzdcb.docx`,
-        sbqyfzrjzdcb: `${EXCEL_SERVER_URL}/template/sbqyfzrjzdcb.docx`,
-        sbjgjzdcb: `${EXCEL_SERVER_URL}/template/sbjgjzdcb.docx`,
-        sbjgcngh: `${EXCEL_SERVER_URL}/template/sbjgcngh.docx`,
-        sbjgfzrjzdcb: `${EXCEL_SERVER_URL}/template/sbjgfzrjzdcb.docx`,
+        sbgjzdcb: `${EXCEL_SERVER_URL}/template/sbgjzdcb.docx`,
+        sbgcngh: `${EXCEL_SERVER_URL}/template/sbgcngh.docx`,
       },
     };
   },
@@ -225,9 +222,9 @@ export default {
         this.cellphone = res.data.data.cellphone;
         this.idNumber = res.data.data.idNumber;
         this.reason = res.data.data.reason;
-        if (this.reason) {
-          this.errMsg.push(this.reason);
-        }
+        // if (this.reason) {
+        //   this.errMsg.push(this.reason);
+        // }
         if (res.data.data.score === -1) {
           this.score = '未考试';
         } else {
@@ -317,6 +314,7 @@ width: 78%;background:#fff; padding: 40px 70px 55px;border-radius: 4px; box-shad
   font-size: 18px;
 }
 .form-inline{ margin-top: 60px; }
+.fc{color: #4786ff; border-bottom: 1px solid #4786ff; margin-right: 10px;}
 a {
   text-decoration: none;
 }

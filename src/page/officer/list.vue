@@ -41,7 +41,6 @@
 <script>
 import { DECLARE_GET_DECLARER_LIST, DECLARE_DELETE_DECLARER } from '@/config/env';
 import { formatDate } from '@/config/utils';
-import { getCookie } from '@/config/cookie';
 import { MessageBox } from 'element-ui';
 
 export default {
@@ -68,10 +67,10 @@ export default {
       });
     },
     async init() {
-      const rule = getCookie('rule');
+      const rule = window.sessionStorage.getItem('rule');
       const res = await this.$xhr('get', DECLARE_GET_DECLARER_LIST);
       if (res.data.code === 0) {
-        this.lists = res.data.data;
+        this.lists = res.data.data || [];
         this.lists.forEach((o) => {
           if (o.score === -1) {
             o.score = '未考试';
@@ -109,7 +108,7 @@ export default {
             o.state = '已删除';
             o.detailShow = false;
           }
-          o.createTime = formatDate(new Date(o.createTime), 'yyyy-MM-dd');
+          o.createTime = formatDate(new Date(o.createTime), 'yyyy-MM-dd hh:mm:ss');
         });
       }
     },

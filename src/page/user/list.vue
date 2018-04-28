@@ -60,7 +60,7 @@ export default {
       param.rows = this.rows;
       const res = await this.$xhr('get', DECLARE_GET_USER_ACOUNT, param);
       if (res.data.code === 0) {
-        this.lists = res.data.data;
+        this.lists = res.data.data || [];
         this.lists.forEach((o) => {
           const role = [];
           if (o.role) {
@@ -72,7 +72,7 @@ export default {
                 role.push('企业列表');
               }
               if (d === '3') {
-                role.push('推荐列表');
+                role.push('首页');
               }
             });
             o.role = role.join(',');

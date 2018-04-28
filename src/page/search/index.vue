@@ -51,7 +51,6 @@
 <script>
 import searchrs from '@/page/search/children/result';
 import pagination from '@/components/pagination';
-import { getCookie } from '@/config/cookie';
 import { ENTERPRISE_QUERY_COUNT_ADDRESS } from '@/config/env';
 
 export default {
@@ -77,7 +76,7 @@ export default {
       const o = {};
       o.declareOrgName = this.declareOrgName;
       o.state = this.state;
-      o.declareOrgId = getCookie('declareOrgId');
+      o.declareOrgId = window.sessionStorage.getItem('declareOrgId');
       o.page = page;
       o.rows = this.rows;
       this.params = o;

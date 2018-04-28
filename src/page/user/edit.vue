@@ -25,7 +25,7 @@
             <label class="label_height">密码：</label>
         </div>
         <div class="form-group col-sm-10 imb">
-            <input type="text" class="form-control iw600"  placeholder="不输入密码则不更新" v-model="password">
+            <input type="text" class="form-control iw600"  placeholder="不能使用特殊字符，长度在8-10之间，不输入密码则不更新" v-model="password" @blur="validate">
         </div>
         <div class="clearfix"></div>
         <div class="form-group col-sm-2 txr">
@@ -49,7 +49,7 @@
             <input type="checkbox" v-model="b"/> 企业列表  
            </label>
             <label>
-            <input type="checkbox" v-model="c"/> 推荐列表  
+            <input type="checkbox" v-model="c"/> 首页  
           </label>
         </div>
         <div class="clearfix"></div>
@@ -84,6 +84,7 @@
 import { DECLARE_GET_USER_ACOUNT_ID, DECLARE_GET_DECLARER_SIMPLE, DECLARE_PUT_USER_ACOUNT } from '@/config/env';
 import { formatDate } from '@/config/utils';
 import errInfo from '@/components/info/error';
+import rules from '@/config/rules';
 
 export default {
   name: 'userdetail',
@@ -114,6 +115,10 @@ export default {
       if (!this.declarerId) {
         this.errMsg.push('请选择对象');
       }
+      // 密码强度验证
+      if (this.password !== '' && !rules.pPattern.pattern.test(this.password)) {
+        this.errMsg.push(rules.pPattern.message);
+      }
     },
     mcancel() {
       this.isShowName = true;
@@ -131,7 +136,7 @@ export default {
         this.role.push('企业列表');
       }
       if (this.c) {
-        this.role.push('推荐列表');
+        this.role.push('首页');
       }
     },
     setDeclarer(el) {
@@ -151,7 +156,7 @@ export default {
         // this.password = res.data.data.password;
         this.logs = res.data.data.logs;
         this.logs.forEach((o) => {
-          o.createTime = formatDate(new Date(o.createTime), 'yyyy-MM-dd');
+          o.createTime = formatDate(new Date(o.createTime), 'yyyy-MM-dd hh:mm:ss');
         });
         if (res.data.data.role) {
           const role = [];
@@ -165,7 +170,7 @@ export default {
               this.b = true;
             }
             if (d === '3') {
-              role.push('推荐列表');
+              role.push('首页');
               this.c = true;
             }
           });

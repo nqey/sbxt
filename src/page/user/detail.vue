@@ -130,7 +130,7 @@ export default {
         this.password = res.data.data.password;
         this.logs = res.data.data.logs;
         this.logs.forEach((o) => {
-          o.createTime = formatDate(new Date(o.createTime), 'yyyy-MM-dd');
+          o.createTime = formatDate(new Date(o.createTime), 'yyyy-MM-dd hh:mm:ss');
         });
         if (res.data.data.role) {
           const role = [];
@@ -144,7 +144,7 @@ export default {
               this.b = true;
             }
             if (d === '3') {
-              role.push('推荐列表');
+              role.push('首页');
               this.c = true;
             }
           });

@@ -56,6 +56,9 @@
               </div>
               <div class="form-group col-sm-9 imb">
                 <input type="text" @keypress="showRecommendName($event)" @blur="hideRecommend" class="form-control iw600" placeholder="请输入推荐机构" v-model="recommendName">
+                <br/>
+                <br/>
+                <small class="callout-red label_height">输入内容后回车查询推荐机构</small>
                 <div class="bdsug" v-show="list.length > 0">
                   <ul>
                   <li v-for="(item, index) of list" @click="setRecommendName(index)">{{item.name}}</li>
@@ -215,6 +218,7 @@ export default {
       param.idBackUrl = this.idBackUrl;
       param.recommendOrgnizId = this.recommendOrgnizId;
       param.recommendOrgnizType = this.recommendOrgnizType;
+      param.recommendOrgnizName = this.recommendName;
       param.enterpriseName = this.enterpriseName;
       param.liveAddress = this.liveAddress;
       param.address = this.address;

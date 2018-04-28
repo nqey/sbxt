@@ -28,13 +28,13 @@
 <script>
 import Tx from '@/assets/img/tx.png';
 import fdj from '@/assets/img/fdj.png';
-import { getCookie, delCookie } from '@/config/cookie';
+import { delCookie } from '@/config/cookie';
 
 export default {
   name: 'topHeader',
   data() {
     return {
-      username: getCookie('username'),
+      username: window.sessionStorage.getItem('username'),
       tx: Tx,
       fdj,
       fdjs: `url(${fdj}) no-repeat 15px`,
@@ -43,6 +43,7 @@ export default {
   methods: {
     logout() {
       delCookie('sb_token');
+      window.sessionStorage.clear();
       this.$router.push('/login');
     },
   },

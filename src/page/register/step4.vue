@@ -4,6 +4,9 @@
     <v-error-info :errMsg="errMsg"></v-error-info>
     <div>
       <div class="step_more">
+        <div v-if="reason" style="text-align: center;color: red;">
+          <span class="glyphicon glyphicon-exclamation-sign"></span> <span style="position: relative;top:-1px;">{{reason}}</span>
+        </div>
        <div class="step_chunk">
           <div class="container">
           <div class="form-inline  clearfix">
@@ -128,6 +131,7 @@ export default {
       infoTimer: null,
       isShowSubmit: true,
       timer: new Date().getTime(),
+      reason: null,
       template: {
         zxbtzjsbb: `${EXCEL_SERVER_URL}/template/zxbtzjsbb.docx`,
         qysqrkh: `${EXCEL_SERVER_URL}/template/qysqrkh.docx`,
@@ -228,9 +232,10 @@ export default {
       this.initChargerImageUrl = res.data.data.chargerImageUrl;
       this.initCommerceImageUrl = res.data.data.commerceImageUrl;
       this.initOtherImageUrl = res.data.data.otherImageUrl;
-      if (res.data.data.reason) {
-        this.errMsg.push(res.data.data.reason);
-      }
+      this.reason = res.data.data.reason;
+      // if (res.data.data.reason) {
+      //   this.errMsg.push(res.data.data.reason);
+      // }
     }
   },
 };

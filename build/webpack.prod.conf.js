@@ -68,6 +68,7 @@ const webpackConfig = merge(baseWebpackConfig, {
         : config.build.index,
       template: 'index.html',
       inject: true,
+      // favicon: path.resolve('favicon.ico'),
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -118,7 +119,11 @@ const webpackConfig = merge(baseWebpackConfig, {
         from: path.resolve(__dirname, '../static'),
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
-      }
+      },
+      {
+        from: './favicon.ico',
+        to: path.resolve(__dirname, '../dist/static')
+      },
     ]),
     new webpack.ProvidePlugin({
         jQuery: 'jquery',

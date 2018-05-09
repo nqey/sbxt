@@ -1,8 +1,7 @@
 <template>
  <div class="index_more">
-<v-error-info :errMsg="errMsg"></v-error-info>
-      <div class="index_chunk">
-       
+  <v-error-info :errMsg="errMsg"></v-error-info>
+  <div class="index_chunk">
     <div class="t_nav">&#12288;申报官详情</div>
     <hr>
     <div class="form-inline clearfix">
@@ -12,14 +11,11 @@
       </div>
       <div class="col-sm-1"></div>
       <div class="form-group col-sm-9 imb clearfix">
-        
         <h3 class="label_height"> {{name}}</h3>
         <p class="label_height">手机号码：<span>{{cellphone}}</span></p>
         <p class="label_height">所在区域：<span>{{area}}</span></p>
         <p class="label_height pull-left"> 身份证号：<span>{{idNumber}}</span></p>
         <p class="pull-right">考试分数：<span class="cscore">{{score}}</span></p>
-      
-        
       </div>
     </div>
       <br/>

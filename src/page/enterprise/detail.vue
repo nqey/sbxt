@@ -92,11 +92,11 @@
         <div class="form-group col-sm-10 imb">
           <v-img :imgSrc="enterpriseShindImageUrl"></v-img>
         </div>
-        <div class="clearfix"></div>
-        <div class="form-group col-sm-2 txr">
+        <div class="clearfix" v-show="authorizationImageUrl"></div>
+        <div class="form-group col-sm-2 txr" v-show="authorizationImageUrl">
           <label class="label_height">授权委托书：</label>
         </div>
-        <div class="form-group col-sm-10 imb">
+        <div class="form-group col-sm-10 imb" v-show="authorizationImageUrl">
           <v-img :imgSrc="authorizationImageUrl"></v-img>
         </div>
         <div class="clearfix"></div>

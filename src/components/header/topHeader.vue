@@ -26,16 +26,16 @@
 </template>
 
 <script>
-import Tx from '@/assets/img/tx.png';
 import fdj from '@/assets/img/fdj.png';
+import tx from '@/assets/img/tx.png';
 import { delCookie } from '@/config/cookie';
 
 export default {
   name: 'topHeader',
   data() {
     return {
+      tx,
       username: window.sessionStorage.getItem('username'),
-      tx: Tx,
       fdj,
       fdjs: `url(${fdj}) no-repeat 15px`,
     };

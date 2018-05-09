@@ -4,9 +4,12 @@
     <v-error-info :errMsg="errMsg"></v-error-info>
     <div>
       <div class="step_more">
+        <div v-if="reason" style="text-align: center;color: red;">
+          <span class="glyphicon glyphicon-exclamation-sign"></span> <span style="position: relative;top:-1px;">{{reason}}</span>
+        </div>
        <div class="step_chunk">
         <div class="container">
-           <div class="col-md-8 col-md-offset-2">
+          <div class="col-md-8 col-md-offset-2">
           <div class="form-inline clearfix">
               <div class="form-group col-sm-3 txr clearfix">
                 <label class="label_height">姓 名：</label>
@@ -56,14 +59,14 @@
               </div>
               <div class="form-group col-sm-9 imb">
                 <input type="text" @keypress="showRecommendName($event)" @blur="hideRecommend" class="form-control iw600" placeholder="请输入推荐机构" v-model="recommendName">
-                <br/>
-                <br/>
-                <small class="callout-red label_height">输入内容后回车查询推荐机构</small>
                 <div class="bdsug" v-show="list.length > 0">
                   <ul>
                   <li v-for="(item, index) of list" @click="setRecommendName(index)">{{item.name}}</li>
                   </ul>
                 </div>
+                <br/>
+                <br/>
+                <small class="callout-red label_height">输入内容后回车查询推荐机构</small>
               </div>
               <div class="form-group col-sm-3 txr clearfix">
                 <label class="label_height">企业全称：</label>
@@ -123,6 +126,7 @@ export default {
       list: [],
       errMsg: [],
       infoTimer: null,
+      reason: null,
     };
   },
   components: {
@@ -260,9 +264,10 @@ export default {
       this.applyAddress = res.data.data.applyAddress;
       this.organizAddress = res.data.data.organizAddress;
       this.areacode = `${res.data.data.liveProvice},${res.data.data.liveCity},${res.data.data.liveDistrict}`;
-      if (res.data.data.reason) {
-        this.errMsg.push(res.data.data.reason);
-      }
+      this.reason = res.data.data.reason;
+      // if (res.data.data.reason) {
+      //   this.errMsg.push(res.data.data.reason);
+      // }
     }
   },
 };

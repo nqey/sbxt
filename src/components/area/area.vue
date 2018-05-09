@@ -66,7 +66,7 @@ export default {
       this.sendData();
     },
     sendData() {
-      this.$emit('acceptData', this.town);
+      this.$emit('acceptData', this.town || this.city || this.province);
     },
     setAreaCode() {
       if (this.areacode) {

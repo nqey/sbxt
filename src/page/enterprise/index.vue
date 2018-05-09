@@ -328,7 +328,7 @@ export default {
         sessionStorage.setItem('content3', '审核结果将以短信的方式发送至企业法人手机');
         sessionStorage.setItem('alink', '');
         sessionStorage.setItem('blink', '');
-        sessionStorage.setItem('clink', '/decEnt');
+        sessionStorage.setItem('clink', '/decEnt/entry');
         this.$router.push('/message');
       } else {
         this.isShowSubmit = !this.isShowSubmit;

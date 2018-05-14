@@ -122,7 +122,7 @@ export default {
   background-color: #646a7f;
   color: #fff;
   text-align: center;
-  z-index: 999;
+  /*z-index: 999;*/
 }
 
 .upload_warp_img_div_text {

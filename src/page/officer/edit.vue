@@ -72,7 +72,7 @@
           <small class="info label_height">请认真填写每一必填项，再上传完整的尽职调查表</small>
           <br/>
           <br/>
-          <v-multiple-upload len="3" :imgSrc="initSurveyImageUrl" title="上传尽职调查表" @acceptData="setSurveyImageUrl" uploadid="upload4"></v-multiple-upload>
+          <v-multiple-upload len="5" :imgSrc="initSurveyImageUrl" title="上传尽职调查表" @acceptData="setSurveyImageUrl" uploadid="upload4"></v-multiple-upload>
         </div>
         <div class="form-group col-sm-2 txr clearfix">
           <label class="label_height"><span class="info">*</span> 承诺公函：</label>

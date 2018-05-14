@@ -57,15 +57,15 @@ export default {
       this.queryPlaces();
       this.cityArr = [];
       this.citys = [];
-      if ('120000,110000,310000,500000'.indexOf(this.province) > -1) {
-        this.citys = this.provinces[0].nodes[0].nodes;
-      } else {
-        this.provinces.forEach((item) => {
-          if (item.code === this.province) {
+      this.provinces.forEach((item) => {
+        if (item.code === this.province) {
+          if ('120000,110000,310000,500000'.indexOf(this.province) > -1) {
+            this.citys = item.nodes[0].nodes;
+          } else {
             this.citys = item.nodes;
           }
-        });
-      }
+        }
+      });
       this.addArea();
     },
     async queryPlaces() {

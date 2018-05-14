@@ -24,7 +24,7 @@
               <small class="callout-red label_height">请认真填写每一必填项，再上传完整的尽职调查表</small>
               <br/>
               <br/>
-              <v-multiple-upload len="3" :imgSrc="initSurveyImageUrl" title="上传调查表" @acceptData="setSurveyImageUrl" uploadid="upload1"></v-multiple-upload>
+              <v-multiple-upload len="5" :imgSrc="initSurveyImageUrl" title="上传调查表" @acceptData="setSurveyImageUrl" uploadid="upload1"></v-multiple-upload>
             </div>
             <div class="form-group col-sm-4 txr">
               <label class="label_height"><span class="callout-red">*</span> 申报机构承诺公函：</label>
@@ -48,7 +48,7 @@
               <small class="callout-red label_height">请认真填写每一必填项，再上传完整的尽职调查表</small>
               <br/>
               <br/>
-              <v-multiple-upload len="3" :imgSrc="initChargerSurveyImageUrl" title="上传尽职调查表" @acceptData="setChargerSurveyImageUrl" uploadid="upload3"></v-multiple-upload>
+              <v-multiple-upload len="5" :imgSrc="initChargerSurveyImageUrl" title="上传尽职调查表" @acceptData="setChargerSurveyImageUrl" uploadid="upload3"></v-multiple-upload>
             </div>
             <!-- <div class="form-group col-sm-4 txr">
               <label class="label_height"><span class="callout-red">*</span> 负责人承诺公函：</label>

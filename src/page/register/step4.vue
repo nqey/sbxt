@@ -19,7 +19,7 @@
             </div>
             <div class="form-group col-sm-8 imb">
               <p class="label_height"><b>下载</b> <a class="fc" download :href="template.sbjgjzdcb">尽职调查表</a><img :src="xiazaiIcon"></img></p>
-              <small class="callout label_height">文件要求：上传加盖企业公章的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
+              <small class="callout label_height">文件要求：上传加盖手印的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
               <br/>
               <small class="callout-red label_height">请认真填写每一必填项，再上传完整的尽职调查表</small>
               <br/>
@@ -31,7 +31,7 @@
             </div>
             <div class="form-group col-sm-8 imb">
               <p class="label_height"><b>下载</b> <a class="fc" download :href="template.sbjgcngh">承诺公函</a><img :src="xiazaiIcon"></img></p>
-              <small class="callout label_height">文件要求：上传加盖企业公章的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
+              <small class="callout label_height">文件要求：上传加盖手印的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
               <br/>
               <small class="callout-red label_height">请上传完整的承诺公函</small>
               <br/>
@@ -43,7 +43,7 @@
             </div>
             <div class="form-group col-sm-8 imb">
               <p class="label_height"><b>下载</b> <a download :href="template.sbjgfzrjzdcb" class="fc">尽职调查表</a><img :src="xiazaiIcon"></img></p>
-              <small class="callout label_height">文件要求：上传加盖企业公章的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
+              <small class="callout label_height">文件要求：上传加盖手印的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
               <br/>
               <small class="callout-red label_height">请认真填写每一必填项，再上传完整的尽职调查表</small>
               <br/>
@@ -55,7 +55,7 @@
             </div>
             <div class="form-group col-sm-8 imb">
               <p class="label_height"><b>下载</b> <a download :href="template.sbjgfzrjzdcb">承诺公函</a></p>
-              <small class="callout label_height">文件要求：上传加盖企业公章的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
+              <small class="callout label_height">文件要求：上传加盖手印的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
               <br/>
               <small class="callout-red label_height">请上传完整的承诺公函</small>
               <br/>

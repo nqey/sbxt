@@ -237,8 +237,9 @@ export default {
       if (res.data.code === 0) {
         window.sessionStorage.setItem('username', this.username);
         setCookie('sb_token', res.data.data.token, 1000 * 60);
-        window.sessionStorage.setItem('rule', res.data.data.rule);
+        window.sessionStorage.setItem('type', res.data.data.type);
         window.sessionStorage.setItem('state', res.data.data.state);
+        window.sessionStorage.setItem('recommendId', res.data.data.recommendId);
         if (res.data.data.state === 'baseWaitSubmit') {
           this.$router.push('/step2/1');
         } else if (res.data.data.state === 'baseWaitPending' || res.data.data.state === 'baseWaitAudit' || res.data.data.state === 'baseWaitPended') {

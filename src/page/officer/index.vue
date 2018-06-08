@@ -78,7 +78,7 @@
         </div>
         <div class="form-group col-sm-10 imb">
           <p class="label_height"><b>下载</b> <a class="fc" download :href="template.sbgjzdcb">尽职调查表</a></p>
-          <small class="info2 label_height">文件要求：上传加盖企业公章的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
+          <small class="info2 label_height">文件要求：上传加盖手印的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
           <br/>
           <small class="info label_height">请认真填写每一必填项，再上传完整的尽职调查表</small>
           <br/>
@@ -90,7 +90,7 @@
         </div>
         <div class="form-group col-sm-10 imb">
           <p class="label_height"><b>下载</b> <a class="fc" download :href="template.sbgcngh">承诺公函</a></p>
-          <small class="info2 label_height">文件要求：上传加盖企业公章的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
+          <small class="info2 label_height">文件要求：上传加盖手印的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
           <br/>
           <small class="info label_height">请上传完整的承诺公函</small>
           <br/>

@@ -50,7 +50,7 @@ const IMAGE_SERVER_URL = (() => {
 const EXCEL_SERVER_URL = (() => {
   switch (test) {
     case 'test':
-      return '//sb.cpsdb61.com/';
+      return '//mp.cpsdb61.com/';
     case 'online':
       return '//mp.cpsdb.com/';
     default :
@@ -102,6 +102,10 @@ const DECLARE_POST_UPLOAD = `${BASE_URL}publics/file/upload`;
 const DECLARE_GET_AREA_TREE = `${BASE_URL}publics/area/tree`;
 // 选择推荐机构 + {name}
 const DECLARE_GET_RECOMMEND_ORGANIZ = `${DECLARE_BASE_URL}publics/recommend/organiz/`;
+// 选择推荐申报官 + {name} 申报官单独申请使用
+const DECLARE_GET_RECOMMEND_OFFICER = `${DECLARE_BASE_URL}publics/recommend/declarer/`;
+// 选择推荐申报官 + {ID} 申报官单独申请使用
+const DECLARE_GET_RECOMMEND_OFFICER_ID = `${DECLARE_BASE_URL}publics/declarer/`;
 // 获取负责区域名额 + {areaCode}
 const DECLARE_AREALIMIT_AREACODE = `${DECLARE_BASE_URL}publics/areaLimit/`;
 // 查询未通过的机构信息
@@ -116,6 +120,9 @@ const DECLARE_PUT_REGISTINFO = `${DECLARE_BASE_URL}organiz/registInfo`;
 const DECLARE_PUT_PASSWORD = `${DECLARE_BASE_URL}publics/user/password`;
 // 添加申报官
 const DECLARE_POST_DECLARER = `${DECLARE_BASE_URL}organiz/declarer/info`;
+// 公共申报官注册接口，申报自行注册；
+// 2018年5月22日 14:39:23需求；
+const DECLARE_PUBLICS_POST_DECLARER = `${DECLARE_BASE_URL}publics/declarer/info`;
 // 更新申报官 + {id}
 const DECLARE_PUT_DECLARER = `${DECLARE_BASE_URL}organiz/declarer/`;
 // 申报官验证唯一性 + {type}/{value}
@@ -213,6 +220,9 @@ const PUBLICS_GET_NOTICES_DETAILS = `${DECLARE_BASE_URL}/publics/notices/details
 const PUBLICS_GET_NOTICES_LISTING = `${DECLARE_BASE_URL}/publics/notices/listing`;
 // 动态条件查询下的系统公告的分页内容列表
 const PUBLICS_GET_NOTICES_COUNTS = `${DECLARE_BASE_URL}/publics/notices/counts`;
+// 手机号验证 + {cellphone}
+const PUBLICS_GET_CHECK_CELLPHONE = `${DECLARE_BASE_URL}/publics/get/`;
+
 
 export {
   test,
@@ -233,6 +243,7 @@ export {
   DECLARE_POST_UPLOAD,
   DECLARE_GET_AREA_TREE,
   DECLARE_GET_RECOMMEND_ORGANIZ,
+  DECLARE_GET_RECOMMEND_OFFICER,
   DECLARE_AREALIMIT_AREACODE,
   DECLARE_UNPASS,
   DECLARE_PUT_BASEINFO,
@@ -240,6 +251,7 @@ export {
   DECLARE_PUT_REGISTINFO,
   DECLARE_PUT_PASSWORD,
   DECLARE_POST_DECLARER,
+  DECLARE_PUBLICS_POST_DECLARER,
   DECLARE_PUT_DECLARER,
   DECLARE_GET_DECLARER_VALIDATE,
   DECLARE_GET_DECLARER_LIST,
@@ -288,4 +300,6 @@ export {
   PUBLICS_GET_NOTICES_LISTING,
   PUBLICS_GET_NOTICES_COUNTS,
   EXCEL_SERVER_URL,
+  DECLARE_GET_RECOMMEND_OFFICER_ID,
+  PUBLICS_GET_CHECK_CELLPHONE,
 };

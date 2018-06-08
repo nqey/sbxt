@@ -54,8 +54,6 @@ export default {
     'v-pagination': pagination,
   },
   mounted() {
-    const rule = window.sessionStorage.getItem('rule');
-    if (rule !== 'undefined' && rule.split(',')[2] === '0') return;
     this.search(1);
   },
 };

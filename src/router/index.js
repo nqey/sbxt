@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-const bindEnterprise = r => require.ensure([], (require) => { r(require('@/page/bindEnterprise')); }, 'bindEnterprise');
 const sysMsg = r => require.ensure([], (require) => { r(require('@/page/system')); }, 'sysMsg');
 const sysMsgDetail = r => require.ensure([], (require) => { r(require('@/page/system/detail')); }, 'sysMsgDetail');
 const agency = r => require.ensure([], (require) => { r(require('@/page/login/agency')); }, 'agency');
@@ -26,11 +25,14 @@ const decEntEdit = r => require.ensure([], (require) => { r(require('@/page/ente
 const entList = r => require.ensure([], (require) => { r(require('@/page/enterprise/list')); }, 'entList');
 const entListdetail = r => require.ensure([], (require) => { r(require('@/page/enterprise/detail')); }, 'entListdetail');
 const recommendlist = r => require.ensure([], (require) => { r(require('@/page/recommend/list')); }, 'recommendlist');
+const recommendOfficerList = r => require.ensure([], (require) => { r(require('@/page/recommend/officer/list')); }, 'recommendOfficerList');
 const user = r => require.ensure([], (require) => { r(require('@/page/user')); }, 'user');
 const userEdit = r => require.ensure([], (require) => { r(require('@/page/user/edit')); }, 'userEdit');
 const userlist = r => require.ensure([], (require) => { r(require('@/page/user/list')); }, 'userlist');
 const userdetail = r => require.ensure([], (require) => { r(require('@/page/user/detail')); }, 'userdetail');
 const message = r => require.ensure([], (require) => { r(require('@/page/message')); }, 'message');
+const officerRegister = r => require.ensure([], (require) => { r(require('@/page/officer/register')); }, 'officerRegister');
+const officerRegisterSuccess = r => require.ensure([], (require) => { r(require('@/page/officer/registerSuccess')); }, 'officerRegisterSuccess');
 
 Vue.use(Router);
 
@@ -40,6 +42,16 @@ const router = new Router({
       path: '/search',
       name: 'search',
       component: search,
+    },
+    {
+      path: '/officer/register',
+      name: 'officerRegister',
+      component: officerRegister,
+    },
+    {
+      path: '/officer/registerSuccess',
+      name: 'officerRegisterSuccess',
+      component: officerRegisterSuccess,
     },
     {
       path: '/user/entry',
@@ -75,6 +87,11 @@ const router = new Router({
       path: '/recommend/list',
       name: 'recommendlist',
       component: recommendlist,
+    },
+    {
+      path: '/recommend/officer/list',
+      name: 'recommendOfficerList',
+      component: recommendOfficerList,
     },
     {
       path: '/ent/list',
@@ -125,11 +142,6 @@ const router = new Router({
       path: '/password/reset/msg',
       name: 'resetPwMsg',
       component: resetPwMsg,
-    },
-    {
-      path: '/bindEnterprise',
-      name: 'bindEnterprise',
-      component: bindEnterprise,
     },
     {
       path: '/sys/msg/list',

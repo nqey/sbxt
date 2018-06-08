@@ -1,28 +1,26 @@
 <template>
   <div class="index_more">
       <div class="index_chunk">
-    <div class="t_nav">&#12288;推荐列表</div>
+    <div class="t_nav">&#12288;推荐列表 </div>
+    <div style="width: 100%;text-align: center;">我的推荐码：<b>{{myCode}}</b></div>
     <hr>
 	<span v-if="lists.length === 0">无数据</span>
     <div v-show="lists.length > 0">
       <table class="table">
         <thead>
           <tr>
-            <th>机构名称</th>
-            <th>负责人</th>
-            <th>状态</th>
-            <th>申报时间</th>
-            <th>联系电话</th>
+            <th>姓名</th>
+            <th>电话号码</th>
+            <th>关系</th>
+            <th>注册地址</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="item of lists">
             <td>{{item.name}}</td>
-            <td>{{item.declarer}}</td>
-            <td v-show="item.reason" style="color: #ac2925;">{{status[item.state]}} <span class="glyphicon glyphicon-question-sign"></span>{{item.reason}}</td>
-            <td v-show="!item.reason">{{status[item.state]}}</td>
-            <td>{{item.createTime}}</td>
             <td>{{item.tellphone}}</td>
+            <td>{{status[item.recommendType]}}</td>
+            <td>{{item.address}}</td>
           </tr>
         </tbody>
       </table>
@@ -42,20 +40,14 @@ export default {
   name: 'recommendlist',
   data() {
     return {
+      myCode: null,
       page: 1,
       rows: 20,
       lists: [],
       pages: 0,
       status: {
-        create: '添加',
-        waitPending: '待初审',
-        waitUnPending: '初审未通过',
-        waitPended: '初审通过',
-        waitAudit: '待审核',
-        unpass: '未通过',
-        passed: '已通过',
-        delete: '删除中',
-        deleted: '已删除',
+        1: '直接',
+        2: '间接',
       },
     };
   },
@@ -82,6 +74,7 @@ export default {
     'v-pagination': pagination,
   },
   mounted() {
+    this.myCode = window.sessionStorage.getItem('recommendId');
     this.search();
   },
 };

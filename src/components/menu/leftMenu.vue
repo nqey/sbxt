@@ -9,16 +9,14 @@
     <div class="main-left_nav_list">
         <section class="sidebar">
             <ul class="sidebar-menu">
-<!--                 <li class="treeview"><router-link to="/bindEnterprise">添加</router-link></li>
-                <li class="treeview"><router-link to="/search">搜索</router-link></li> -->
                 <li v-for="item in items"> 
-                    <a v-if="item.haveSub" @click="showToggle(item)">
+                    <a v-if="item.subItems && item.subItems.length>0" @click="item.open = !item.open;">
                       {{item.name}}
-                      <span v-show="item.isSubShow" class="glyphicon glyphicon-menu-up ms"></span>
-                      <span v-show="!item.isSubShow" class="glyphicon glyphicon-menu-down ms"></span>
-                    </a> 
+                      <span class="glyphicon ms" 
+                        :class="{'glyphicon-menu-up': item.open, 'glyphicon-menu-down': !item.open}"></span>
+                    </a>
                     <router-link v-else :to="item.link">{{item.name}}</router-link>
-                    <ul v-if="item.haveSub" v-show="item.isSubShow" class="treeview-menu"> 
+                    <ul v-if="item.subItems && item.subItems.length>0" v-show="item.open" class="treeview-menu"> 
                       <li v-for="subItem in item.subItems"> 
                         <router-link :to="subItem.link">{{subItem.name}}</router-link>
                       </li> 
@@ -32,7 +30,6 @@
 
 <script>
 import Logo from '@/assets/img/logo.png';
-import { delCookie } from '@/config/cookie';
 
 export default {
   name: 'leftMenu',
@@ -44,16 +41,11 @@ export default {
       items: [
         {
           name: '首页',
-          haveSub: false,
           link: '/index',
-          rule: '3',
-          id: 1,
         },
         {
           name: '申报官',
-          isSubShow: false,
-          haveSub: true,
-          id: 2,
+          open: false,
           subItems: [
             {
               name: '添加申报官',
@@ -67,63 +59,25 @@ export default {
         },
         {
           name: '企业申报',
-          haveSub: false,
-          rule: '1',
           link: '/decEnt/entry',
-          id: 3,
         },
         {
           name: '企业列表',
-          haveSub: false,
-          rule: '2',
           link: '/ent/list',
-          id: 4,
         },
         {
           name: '推荐列表',
-          haveSub: false,
           link: '/recommend/list',
-          id: 5,
-        },
-        {
-          name: '权限管理',
-          haveSub: true,
-          isSubShow: false,
-          id: 6,
-          subItems: [
-            {
-              name: '添加账户',
-              link: '/user/entry',
-            },
-            {
-              name: '帐号列表',
-              link: '/user/list',
-            },
-          ],
         },
       ],
     };
   },
-  methods: {
-    logout() {
-      delCookie('sb_token');
-      window.sessionStorage.clear();
-      this.$router.push('/login');
-    },
-    showToggle(item) {
-      item.isSubShow = !item.isSubShow;
-    },
-  },
   mounted() {
-    if (window.sessionStorage.getItem('rule') !== 'undefined') {
-      this.rule = window.sessionStorage.getItem('rule');
-      const rules = [];
-      this.items.forEach((o) => {
-        if (o.rule && this.rule.indexOf(o.rule) !== -1) {
-          rules.push(o);
-        }
-      });
-      this.items = rules;
+    if (window.sessionStorage.getItem('type') === '1') {
+      this.items.splice(1, 1);
+      this.items[this.items.length - 1].link = '/recommend/officer/list';
+    } else {
+      this.items[this.items.length - 1].link = '/recommend/list';
     }
   },
 };
@@ -135,7 +89,7 @@ export default {
 .ms {
   position: absolute;
   right: 35px;
-  top: 20px;
+  top: 25px;
 }
 .left_menu {
     width: 15%;

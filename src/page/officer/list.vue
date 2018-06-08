@@ -67,7 +67,7 @@ export default {
       });
     },
     async init() {
-      const rule = window.sessionStorage.getItem('rule');
+      const type = window.sessionStorage.getItem('type');
       const res = await this.$xhr('get', DECLARE_GET_DECLARER_LIST);
       if (res.data.code === 0) {
         this.lists = res.data.data || [];
@@ -96,7 +96,7 @@ export default {
             o.detailShow = false;
           } else if (o.state === 'passed') {
             o.state = '已通过';
-            if (rule !== 'undefined') {
+            if (type === '1') {
               o.deleteShow = false;
             } else {
               o.deleteShow = true;

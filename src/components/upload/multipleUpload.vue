@@ -7,8 +7,8 @@
           <img :src="del" class="upload_warp_img_div_del" @click="fileDel(index)">
         </div>
         <div class="upload_warp_img_div_bottom"  @click="showBigImg(url)">
-          <span class="glyphicon glyphicon-resize-full" style="top: -39px;"></span>
-        </div>
+          <span class="glyphicon glyphicon-resize-full iii"></span>
+        </div> 
         <img :src="serverurl + url" >
       </div>
     </div>
@@ -93,118 +93,137 @@ export default {
 <style lang="scss" scoped>
 @import '../../assets/css/mixin.scss';
 
-.upload_warp_img_div_del {
-  position: absolute;
-  top: 6px;
-  width: 16px;
-  right: 4px;
+@media (max-width: 768px) {
+  .hello {
+    text-align: center;
+  }
+  .upload_warp_img {
+    border: 1px solid #dcdfe6;
+  }
+  .upload_warp_img_div {
+    position: relative;
+    margin-bottom: 10px;
+  }
+  .upload_warp_img_div_top {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 24px;
+    height: 24px;
+    background-color: rgba(0, 0, 0, 0.4);
+    line-height: 30px;
+    text-align: left;
+    color: #fff;
+    font-size: 12px;
+    text-indent: 4px;
+    border-radius: 12px;
+  }
+  .upload_warp_img_div_del {
+    position: absolute;
+    top: 5px;
+    width: 16px;
+    right: 4px;
+  }
+  .upload_warp_img_div_bottom {
+    display: none;
+  }
+  .iii {top: 0px;}
+  .upload_warp {
+    border: 1px solid #dcdfe6;
+    height: 300px;
+  }
+  .upload_warp_left {
+  }
+  .upload_warp_left img {
+    margin-top: 100px;
+  }
 }
+@media (min-width: 992px) {
+  .upload_warp_img_div_del {
+    position: absolute;
+    top: 6px;
+    width: 16px;
+    right: 4px;
+  }
+  .upload_warp_img_div_top {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 30px;
+    background-color: rgba(0, 0, 0, 0.4);
+    line-height: 30px;
+    text-align: left;
+    color: #fff;
+    font-size: 12px;
+    text-indent: 4px;
+  }
 
-.upload_warp_img_div_top {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 30px;
-  background-color: rgba(0, 0, 0, 0.4);
-  line-height: 30px;
-  text-align: left;
-  color: #fff;
-  font-size: 12px;
-  text-indent: 4px;
-}
+  .upload_warp_img_div_text {
+    white-space: nowrap;
+    width: 80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
-.upload_warp_img_div_bottom {
-  width: 18px;
-  height: 18px;
-  position: absolute;
-  right: 0px;
-  bottom: 0px;
-  background-color: #646a7f;
-  color: #fff;
-  text-align: center;
-  /*z-index: 999;*/
-}
+  .upload_warp_img_div img {
+    max-width: 100%;
+    vertical-align: middle;
+    
+  }
 
-.upload_warp_img_div_text {
-  white-space: nowrap;
-  width: 80%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.upload_warp_img_div img {
-  max-width: 100%;
-  vertical-align: middle;
-}
-
-.upload_warp_img_div {
-  position: relative;
-  width: 200px;
-  margin: 0px 30px 10px 0px;
-  float: left;
-  line-height: 100px;
-  display: table-cell;
-  text-align: center;
-  background-color: #eee;
-  cursor: pointer;
-}
-
-.upload_warp_img {
-  /*border-top: 1px solid #D2D2D2;*/
-  /*padding: 14px 0 0 14px;*/
-  overflow: hidden;
-  float: left;
-}
-
-.upload_warp_text {
-  text-align: left;
-  margin-bottom: 10px;
-  padding-top: 10px;
-  text-indent: 14px;
-  border-top: 1px solid #ccc;
-  font-size: 14px;
-}
-
-.upload_warp_right {
-  float: left;
-  width: 57%;
-  margin-left: 2%;
-  height: 100%;
-  border: 1px dashed #999;
-  border-radius: 4px;
-  line-height: 130px;
-  color: #999;
-}
-
-.upload_warp_left img {
-  margin-top: 40px;
-}
-
-.upload_warp_left {
-  float: left;
-  width: 200px;
-  height: 200px;
-  border: 1px solid #e6e3e3;
+  .hello {
+    width: auto;
+    text-align: center;
+  }
+  .upload_warp_img {
+    overflow: hidden;
+    float: left;
+  }
+  .upload_warp_img_div_bottom {
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    background-color: #646a7f;
+    color: #fff;
+    text-align: center;
+    /*z-index: 999;*/
+  }
+  .upload_warp {
+    /*margin: 14px;*/
+    height: 130px;
+  }
+  .upload {
+    border: 1px solid #ccc;
+    background-color: #fff;
+    width: 650px;
+    box-shadow: 0px 1px 0px #ccc;
     border-radius: 4px;
+  }
+  .upload_warp_left img {
+    margin-top: 40px;
+  }
+  .upload_warp_left {
+    float: left;
+    width: 200px;
+    height: 200px;
+    border: 1px solid #e6e3e3;
+      border-radius: 4px;
+      cursor: pointer;
+      color: #d0cbcb;
+  }
+  .upload_warp_img_div {
+    position: relative;
+    width: 200px;
+    margin: 0px 30px 10px 0px;
+    float: left;
+    line-height: 100px;
+    display: table-cell;
+    text-align: center;
+    background-color: #eee;
     cursor: pointer;
-    color: #d0cbcb;
-}
-
-.upload_warp {
-  /*margin: 14px;*/
-  height: 130px;
-}
-
-.upload {
-  border: 1px solid #ccc;
-  background-color: #fff;
-  width: 650px;
-  box-shadow: 0px 1px 0px #ccc;
-  border-radius: 4px;
-}
-
-.hello {
-  width: auto;
-  text-align: center;
+  }
+  .iii {top: -39px;}
 }
 </style>

@@ -2,54 +2,43 @@
 <template>
   <div>
     <v-error-info :errMsg="errMsg"></v-error-info>
-    <header>
-      <div class="beijin">
-        <div>
-          <p>申报官注册</p>
-        </div>
-      </div>
-      <ul class="scene">
-        <li class="layer" data-depth="0.2"></li>
-      </ul>
+    <header class="scene">
+      <p>申报官注册</p>
     </header>
-    <div>
-      <div class="col-md-6 col-md-offset-3">
-        <div class="form-inline clearfix">
-
-          <div class="form-group col-sm-2 txr">
-            <label class="label_height"><span class="info">*</span> 姓 名：</label>
+    <div style="height: 50px;"></div>
+    <form class="form-horizontal">
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-4 control-label"><span class="info">*</span> 姓 名：</label>
+          <div class="col-xs-12 col-sm-4 imb">
+            <input type="text" class="form-control" placeholder="请输入申报官真实姓名" v-model="name">
           </div>
-          <div class="form-group col-sm-10 imb">
-            <input type="text" class="form-control iw600" placeholder="请输入申报官真实姓名" v-model="name">
-          </div>
-
-          <div class="form-group col-sm-2 txr clearfix">
-            <label class="label_height"><span class="info">*</span> 手机号码：</label>
-          </div>
-          <div class="form-group col-sm-10 imb">
-            <input type="text" class="form-control iw600" placeholder="请输入手机号码" v-model="cellphone" @blur="validate">
-            <br/>
-            <br/>
-            &#12288;<small class="areafc">该手机号必须是申报官真实手机号码，每一个手机号码只能添加一名申报官。</small>
-            <br/>
-            <br/>
-            <input type="text" class="form-control iw" placeholder="请输入验证码" v-model="code"></input>
-            <button v-show="show" class="btn hqyzm" @click="getCode" style="height: 34px;">获取验证码</button>
-            <button v-show="!show" class="btn hqyzm">{{count}} s</button>
-          </div>
-          <div class="form-group col-sm-2 txr clearfix">
-            <label class="label_height"><span class="info">*</span> 常住区域：</label>
-          </div>
-          <div class="form-group col-sm-10 imb">
-            <v-area @acceptData="setLiveAddress"></v-area>
-            <div class='mt'>
-              <input type='text' class='form-control iw' placeholder='请输入详细地址' v-model="address">
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-4 control-label"><span class="info">*</span> 手机号码：</label>
+          <div class="col-xs-12 col-sm-4 imb">
+            <input type="text" class="form-control" placeholder="请输入手机号码" v-model="cellphone" @blur="validate">
+            <small class="areafc" style="line-height: 50px">&#12288;该手机号必须是申报官真实手机号码，每一个手机号码只能添加一名申报官。</small>
+            <div class="row">
+              <div class="col-xs-8 col-sm-8">
+                <input type="text" class="form-control" placeholder="请输入验证码" v-model="code"></input>
+              </div>
+              <div class="col-xs-4 col-sm-4" style="text-align: left;">
+                <button v-show="show" class="btn hqyzm" @click="getCode" style="height: 34px;">获取验证码</button>
+                <button v-show="!show" class="btn hqyzm">{{count}} s</button>
+              </div>
             </div>
           </div>
-          <div class="form-group col-sm-2 txr clearfix">
-            <label class="label_height"><span class="info">*</span> 寸 照：</label>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-4 control-label"><span class="info">*</span> 常住区域：</label>
+          <div class="col-xs-12 col-sm-4 imb">
+            <v-area @acceptData="setLiveAddress"></v-area>
+            <input type='text' class='form-control' placeholder='请输入详细地址' v-model="address">
           </div>
-          <div class="form-group col-sm-10 imb">
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-4 control-label"><span class="info">*</span> 寸 照：</label>
+          <div class="col-xs-12 col-sm-4 imb">
             <p class="label_height areafc">请按照示例图拍摄，蓝底、正装寸照；将照片上传至此；支持格式：bmp、jpg、png、gif。 </p>
             <p class="areafc">照片大小不超过2M。</p>
             <small class="info label_height">请上传本人真实照，审核会与身份证进行对比，不按照要求上传会导致审核通不过。</small>
@@ -57,19 +46,19 @@
             <br/>
             <v-multiple-upload len="1" title="上传寸照" @acceptData="setPortrait" uploadid="upload1"></v-multiple-upload>
           </div>
-          <div class="form-group col-sm-2 txr clearfix">
-            <label class="label_height"><span class="info">*</span> 身份证号码：</label>
-          </div>
-          <div class="form-group col-sm-10 imb">
-            <input type="text" class="form-control iw600" placeholder="请输入身份证号码" v-model="idNumber" @blur="validate">
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-4 control-label"><span class="info">*</span> 身份证号码：</label>
+          <div class="col-xs-12 col-sm-4 imb">
+            <input type="text" class="form-control" placeholder="请输入身份证号码" v-model="idNumber" @blur="validate">
             <br/>
             <br/>
             &#12288;<small class="areafc">申报官真实有效身份证号码，每一个身份证号只能添加一名申报官。</small>
           </div>
-          <div class="form-group col-sm-2 txr clearfix">
-            <label class="label_height"><span class="info">*</span>身份证照片：</label>
-          </div>
-          <div class="form-group col-sm-10 imb">
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-4 control-label"><span class="info">*</span>身份证照片：</label>
+          <div class="col-xs-12 col-sm-4 imb">
             <small class="info2 label_height">请按照示例上传证件照片；支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
             <p></p>
             <small class="info label_height">请上传本人真实身份证，否则审核不通过。</small>
@@ -81,10 +70,10 @@
               <v-multiple-upload len="1" uploadid="upload3" title="上传背面" @acceptData="backUrl"></v-multiple-upload>
             </div>
           </div>
-          <div class="form-group col-sm-2 txr clearfix">
-            <label class="label_height"><span class="info">*</span> 尽职调查表：</label>
-          </div>
-          <div class="form-group col-sm-10 imb">
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-4 control-label"><span class="info">*</span> 尽职调查表：</label>
+          <div class="col-xs-12 col-sm-4 imb">
             <p class="label_height"><b>下载</b> <a class="fc" download :href="template.sbgjzdcb">尽职调查表</a></p>
             <small class="info2 label_height">文件要求：上传加盖手印的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
             <br/>
@@ -94,10 +83,10 @@
             <v-multiple-upload len="5" title="上传尽职调查表" @acceptData="setSurveyImageUrl"
                                uploadid="upload4"></v-multiple-upload>
           </div>
-          <div class="form-group col-sm-2 txr clearfix">
-            <label class="label_height"><span class="info">*</span> 承诺公函：</label>
-          </div>
-          <div class="form-group col-sm-10 imb">
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-4 control-label"><span class="info">*</span> 承诺公函：</label>
+          <div class="col-xs-12 col-sm-4 imb">
             <p class="label_height"><b>下载</b> <a class="fc" download :href="template.sbgcngh">承诺公函</a></p>
             <small class="info2 label_height">文件要求：上传加盖手印的原件照片或扫描件。支持格式：jpg、bmp、png、gif格式照片，大小不超2M。</small>
             <br/>
@@ -107,23 +96,16 @@
             <v-multiple-upload len="1" title="上传承诺公函" @acceptData="setLetterImageUrl"
                                uploadid="upload5"></v-multiple-upload>
           </div>
-          <div class="form-group col-sm-2 txr clearfix">
-            <label class="label_height">推荐码：</label>
-          </div>
-          <div class="form-group col-sm-10 imb">
-            <input type="text" @blur="hideRecommend" class="form-control iw600"
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-4 control-label">推荐码：</label>
+          <div class="col-xs-12 col-sm-4 imb">
+            <input type="text" class="form-control"
                    placeholder="请输入推荐码" v-model="recommendId">
-            <div class="bdsug" v-show="list.length > 0">
-              <ul>
-                <li v-for="(item, index) of list" @click="setRecommendId(index)">{{item.name}}</li>
-              </ul>
-            </div>
-            <br/>
-            <br/>
           </div>
-          <div class="form-group col-sm-2 txr clearfix">
-          </div>
-          <div class="form-group col-sm-10 imb">
+        </div>
+        <div class="form-group">
+          <div class="col-xs-12 col-sm-offset-4 col-sm-4 imb">
             <button v-show="isShowSubmit" type="button" class="btn btn-success" style="height: 35px;" @click="submit">
               提交
             </button>
@@ -134,8 +116,7 @@
             <p class="areafc">&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#32;申报官信息需审核</p>
           </div>
         </div>
-      </div>
-    </div>
+    </form>
   </div>
 </template>
 
@@ -143,7 +124,7 @@
 import multipleUpload from '@/components/upload/multipleUpload';
 import errInfo from '@/components/info/error';
 import rules from '@/config/rules';
-import { DECLARE_GET_VALIDATECODE, DECLARE_PUBLICS_POST_DECLARER, EXCEL_SERVER_URL, DECLARE_GET_RECOMMEND_OFFICER_ID, PUBLICS_GET_CHECK_CELLPHONE } from '@/config/env';
+import { DECLARE_GET_VALIDATECODE, DECLARE_PUBLICS_POST_DECLARER, EXCEL_SERVER_URL, PUBLICS_GET_CHECK_CELLPHONE } from '@/config/env';
 import area from '@/components/area/area';
 
 export default {
@@ -176,26 +157,7 @@ export default {
         sbgjzdcb: `${EXCEL_SERVER_URL}/template/sbgjzdcb.docx`,
         sbgcngh: `${EXCEL_SERVER_URL}/template/sbgcngh.docx`,
       },
-      isSetRecommendId: false,
     };
-  },
-  watch: {
-    async recommendId() {
-      if (!this.isSetRecommendId) {
-        // 将之前选择的删除
-        this.list = [];
-        this.recommendType = null;
-        this.recommendName = null;
-        // 如果输入有内容就去查，没有内容就不去查
-        if (this.recommendId) {
-          const res = await this.$xhr('get', `${DECLARE_GET_RECOMMEND_OFFICER_ID}${this.recommendId}`);
-          if (res.data.success) {
-            this.list = res.data.data;
-          }
-        }
-      }
-      this.isSetRecommendId = false;
-    },
   },
   methods: {
     async validate() {
@@ -259,16 +221,6 @@ export default {
       if (!this.address) {
         this.errMsg.push(`${rules.nonEmpty}${rules.address}`);
       }
-    },
-    setRecommendId(index) {
-      this.recommendName = this.list[index].name;
-      this.recommendId = this.list[index].id;
-      this.recommendType = this.list[index].type;
-      this.list = [];
-      this.isSetRecommendId = true;
-    },
-    hideRecommend() {
-      setTimeout(() => { this.list = []; }, 500);
     },
     frontUrl(d) {
       this.idFrontUrl = d;
@@ -387,94 +339,90 @@ export default {
 .form-inline {
   margin-top: 60px;
 }
-
 .fc {
   color: #4786ff;
   border-bottom: 1px solid #4786ff;
 }
-
 .hqyzm {
   background: #dae7ff;
   color: #4786ff;
 }
-
 a {
   text-decoration: none;
 }
-
 .txr {
   text-align: right;
 }
-
 .txc {
   text-align: center;
 }
 
-.iw {
-  width: 300px;
-}
-
-.iw600 {
-  width: 450px;
-}
-
-.label_height {
-  height: 35px;
-  line-height: 35px;
-}
-
-.imb {
-  margin-bottom: 30px;
-}
 
 .info {
   color: red;
 }
-
 .areafc {
   color: #999;
 }
 
+.scene {
+  width: 100%;
+  color: #fff;
+  font-size: 30px;
+  text-align: center;
+  background: url(../../assets/img/officer_register_banner.jpg);
+}
+.form-control {
+  width: 100%;
+}
 .js-ajax-submit {
   width: 350px;
   margin: auto;
   color: #fff;
   background: rgb(1, 200, 83);
 }
-
-.mt {
-  margin-top: 30px;
+@media (max-width: 768px) {
+  .scene {
+    height: 100px;
+    line-height: 100px;
+  }
+  .form-group {
+    margin-right: 0;
+    margin-left: 0;
+  }
+  .js-ajax-submit {
+    width: auto;
+    margin: auto;
+    color: #fff;
+    background: rgb(1, 200, 83);
+  }
+  .label_height {
+    height: 15px;
+    line-height: 15px;
+  }
+  .mt {
+    margin-top: 10px;
+  }
+  .imb {
+    margin-bottom: 10px;
+  }
 }
-
-.scene {
-  width: 100%;
-  height: 300px;
+@media (min-width: 768px) and (max-width: 991px) {
 }
-
-.scene > li {
-  width: 100%;
-  height: 100%;
-  background: url(../../assets/img/officer_register_banner.jpg);
-}
-
-.beijin {
-  width: 100%;
-  height: 100%;
-  z-index: 100;
-  top: 0;
-  left: 0;
-}
-
-.beijin > div {
-  width: 50%;
-  height: auto;
-  position: absolute;
-  z-index: 20;
-  top: 25%;
-  left: 25%;
-  color: #fff;
-  font-size: 30px;
-  text-align: center;
-  line-height: 48px;
+@media (min-width: 992px) {
+  .scene {
+    height: 300px;
+    line-height: 300px;
+  }
+  .mt {
+    margin-top: 30px;
+  }
+  .imb {
+    margin-bottom: 30px;
+  }
+  .label_height {
+    height: 35px;
+    line-height: 35px;
+  }
 }
 </style>

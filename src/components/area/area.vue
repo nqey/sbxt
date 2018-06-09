@@ -1,18 +1,24 @@
 <template>
   <div class='form-group'>
-    <select v-show="provinces.length > 0" class='form-control' @change="queryCity" v-model="province">
-      <option value="">请选择省份</option>
-      <option v-for="item in provinces" :value="item.code">{{item.text}}</option>
-    </select>
-    <select v-show="citys.length > 0" class='form-control' @change="queryTown" v-model="city">
-      <option value="">请选择市</option>
-      <option v-for="item in citys" :value="item.code">{{item.text}}</option>
-    </select>
-    <select v-show="towns.length > 0" class='form-control' v-model="town" @change="sendData">
-      <option value="">请选择区/县</option>
-      <option v-for="item in towns" :value="item.code">{{item.text}}</option>
-    </select>
-</div>
+    <div class="col-xs-12 col-sm-4 mb">
+      <select v-show="provinces.length > 0" class='form-control' @change="queryCity" v-model="province">
+        <option value="">请选择省份</option>
+        <option v-for="item in provinces" :value="item.code">{{item.text}}</option>
+      </select>
+    </div>
+    <div class="col-xs-12 col-sm-4 mb">
+      <select v-show="citys.length > 0" class='form-control' @change="queryTown" v-model="city">
+        <option value="">请选择市</option>
+        <option v-for="item in citys" :value="item.code">{{item.text}}</option>
+      </select>
+    </div>
+    <div class="col-xs-12 col-sm-4 mb">
+      <select v-show="towns.length > 0" class='form-control' v-model="town" @change="sendData">
+        <option value="">请选择区/县</option>
+        <option v-for="item in towns" :value="item.code">{{item.text}}</option>
+      </select>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -95,5 +101,20 @@ export default {
 
 .mt {
 	margin-top: 30px;
+}
+.form-control {
+  display: inline;
+}
+
+@media (max-width: 768px) {
+  .mb {
+    margin-bottom: 5px; 
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+}
+@media (min-width: 1200px) {
 }
 </style>

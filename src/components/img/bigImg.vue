@@ -7,7 +7,7 @@
             <div class="img">
                 <img :src="imgSrc" class="bigimg">
             </div>
-            <span class="glyphicon glyphicon-remove img_div_del" @click="close"></span>
+            <span class="upload_warp_img_div_top el-icon-error img_div_del" @click="close"></span>
         </div>
     </transition>
 </template>
@@ -31,10 +31,9 @@ export default {
   position: fixed;
   top: 20px;
   right: 20px;
-  font-size: 100px;
   color: #fff;
   z-index: 999;
-      font-size: 30px;
+  font-size: 30px;
 }
 /*动画*/
 .fade-enter-active,

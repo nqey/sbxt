@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="contact">
     <div class="izlrmenu" :style="consults">
       <a class="consult" :style="consults" target="_blank">
         <div class="phones" style="display:none;">400-8822-011</div>
@@ -105,5 +105,16 @@ export default {
     width: 82px;
     background-color: #FFF!important;
     z-index:999;
+}
+@media (max-width: 768px) {
+  .contact {
+    display: none;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+}
+@media (min-width: 1200px) {
 }
 </style>

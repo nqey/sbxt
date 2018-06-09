@@ -33,6 +33,7 @@ const userdetail = r => require.ensure([], (require) => { r(require('@/page/user
 const message = r => require.ensure([], (require) => { r(require('@/page/message')); }, 'message');
 const officerRegister = r => require.ensure([], (require) => { r(require('@/page/officer/register')); }, 'officerRegister');
 const officerRegisterSuccess = r => require.ensure([], (require) => { r(require('@/page/officer/registerSuccess')); }, 'officerRegisterSuccess');
+const registerEl = r => require.ensure([], (require) => { r(require('@/page/officer/registerEl')); }, 'registerEl');
 
 Vue.use(Router);
 
@@ -47,6 +48,11 @@ const router = new Router({
       path: '/officer/register',
       name: 'officerRegister',
       component: officerRegister,
+    },
+    {
+      path: '/officer/registerEl',
+      name: 'registerEl',
+      component: registerEl,
     },
     {
       path: '/officer/registerSuccess',

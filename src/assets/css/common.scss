@@ -4,7 +4,7 @@
   font-family: "微软雅黑", "宋体";
   
 }
-html,body{min-width: 1140px;}
+
 
 img {
   max-width: 100%;
@@ -109,6 +109,13 @@ body {
 }
 
 @media (max-width: 1300px) {
-
-.index_chunk{ left: 270px !important;  }
+  .index_chunk{ left: 270px !important;  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  html,body{min-width: 1140px;}
+}
+@media (min-width: 1200px) {
+  html,body{min-width: 1140px;}
 }

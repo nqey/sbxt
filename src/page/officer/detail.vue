@@ -90,30 +90,30 @@ export default {
   },
   methods: {
     async init() {
-      const res = await this.$xhr('get', `${DECLARE_GET_DECLARER_DETAILS}${this.$route.params.id}`);
-      if (res.data.code === 0) {
-        this.name = res.data.data.name;
-        this.cellphone = res.data.data.cellphone;
-        this.idNumber = res.data.data.idNumber;
-        this.reason = res.data.data.reason;
+      const res = await this.$http.get(`${DECLARE_GET_DECLARER_DETAILS}${this.$route.params.id}`);
+      if (res.success) {
+        this.name = res.data.name;
+        this.cellphone = res.data.cellphone;
+        this.idNumber = res.data.idNumber;
+        this.reason = res.data.reason;
         if (this.reason) {
           this.errMsg.push(this.reason);
         }
-        if (res.data.data.score === -1) {
+        if (res.data.score === -1) {
           this.score = '未考试';
         } else {
-          this.score = `${res.data.data.score}分`;
+          this.score = `${res.data.score}分`;
         }
-        this.portrait = res.data.data.portrait;
-        this.idFrontUrl = res.data.data.idFrontUrl;
-        this.idBackUrl = res.data.data.idBackUrl;
-        this.surveyImageUrl = res.data.data.surveyImageUrl;
-        if (res.data.data.surveyImageUrl) {
-          this.surveyImageUrls = res.data.data.surveyImageUrl.split(',');
+        this.portrait = res.data.portrait;
+        this.idFrontUrl = res.data.idFrontUrl;
+        this.idBackUrl = res.data.idBackUrl;
+        this.surveyImageUrl = res.data.surveyImageUrl;
+        if (res.data.surveyImageUrl) {
+          this.surveyImageUrls = res.data.surveyImageUrl.split(',');
         }
-        this.areaCode = `${res.data.data.proviceCode},${res.data.data.cityCode},${res.data.data.areaCode}`;
-        this.letterImageUrl = res.data.data.letterImageUrl;
-        this.area = res.data.data.district;
+        this.areaCode = `${res.data.proviceCode},${res.data.cityCode},${res.data.areaCode}`;
+        this.letterImageUrl = res.data.letterImageUrl;
+        this.area = res.data.district;
         this.qrCode = `${DECLARE_QCODE}?id=${this.$route.params.id}`;
       }
     },

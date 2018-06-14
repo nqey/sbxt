@@ -32,7 +32,7 @@ export default {
   top: 20px;
   right: 20px;
   color: #fff;
-  z-index: 999;
+  z-index: 1000;
   font-size: 30px;
 }
 /*动画*/

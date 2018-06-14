@@ -112,9 +112,9 @@ export default {
         param.page = page;
       }
       param.rows = this.rows;
-      const res = await this.$xhr('get', DECLARE_GET_ENTERPRISE_LIST, param);
-      if (res.data.code === 0) {
-        this.lists = res.data.data || [];
+      const res = await this.$http.get(DECLARE_GET_ENTERPRISE_LIST, param);
+      if (res.success) {
+        this.lists = res.data || [];
         this.lists.forEach((o) => {
           o.eidtShow = false;
           o.detailShow = true;
@@ -141,9 +141,9 @@ export default {
       param2.name = this.name;
       param2.charger = this.charger;
       param2.state = this.state;
-      const res2 = await this.$xhr('get', DECLARE_GET_ENTERPRISE_COUNT, param2);
-      if (res2.data.success) {
-        this.pages = Math.ceil(res2.data.data / param.rows);
+      const res2 = await this.$http.get(DECLARE_GET_ENTERPRISE_COUNT, param2);
+      if (res2.success) {
+        this.pages = Math.ceil(res2.data / param.rows);
       }
     },
   },

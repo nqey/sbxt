@@ -206,8 +206,8 @@ export default {
         return;
       }
       this.isShowSubmit = !this.isShowSubmit;
-      const res = await this.$xhr('post', DECLARE_PUT_REGISTINFO, obj);
-      if (res.data.code === 0) {
+      const res = await this.$http.post(DECLARE_PUT_REGISTINFO, obj);
+      if (res.success) {
         this.$router.push('/step5');
       } else {
         this.isShowSubmit = !this.isShowSubmit;
@@ -218,23 +218,23 @@ export default {
     if (this.$route.params.type === '1') {
       return;
     }
-    const res = await this.$xhr('get', DECLARE_GET_BASEINFO);
-    if (res.data.code === 0) {
-      this.surveyImageUrl = res.data.data.surveyImageUrl;
-      this.letterImageUrl = res.data.data.letterImageUrl;
-      this.chargerSurveyImageUrl = res.data.data.chargerSurveyImageUrl;
-      this.chargerImageUrl = res.data.data.chargerImageUrl;
-      this.commerceImageUrl = res.data.data.commerceImageUrl;
-      this.otherImageUrl = res.data.data.otherImageUrl;
-      this.initSurveyImageUrl = res.data.data.surveyImageUrl;
-      this.initLetterImageUrl = res.data.data.letterImageUrl;
-      this.initChargerSurveyImageUrl = res.data.data.chargerSurveyImageUrl;
-      this.initChargerImageUrl = res.data.data.chargerImageUrl;
-      this.initCommerceImageUrl = res.data.data.commerceImageUrl;
-      this.initOtherImageUrl = res.data.data.otherImageUrl;
-      this.reason = res.data.data.reason;
-      // if (res.data.data.reason) {
-      //   this.errMsg.push(res.data.data.reason);
+    const res = await this.$http.get(DECLARE_GET_BASEINFO);
+    if (res.success) {
+      this.surveyImageUrl = res.data.surveyImageUrl;
+      this.letterImageUrl = res.data.letterImageUrl;
+      this.chargerSurveyImageUrl = res.data.chargerSurveyImageUrl;
+      this.chargerImageUrl = res.data.chargerImageUrl;
+      this.commerceImageUrl = res.data.commerceImageUrl;
+      this.otherImageUrl = res.data.otherImageUrl;
+      this.initSurveyImageUrl = res.data.surveyImageUrl;
+      this.initLetterImageUrl = res.data.letterImageUrl;
+      this.initChargerSurveyImageUrl = res.data.chargerSurveyImageUrl;
+      this.initChargerImageUrl = res.data.chargerImageUrl;
+      this.initCommerceImageUrl = res.data.commerceImageUrl;
+      this.initOtherImageUrl = res.data.otherImageUrl;
+      this.reason = res.data.reason;
+      // if (res.data.reason) {
+      //   this.errMsg.push(res.data.reason);
       // }
     }
   },

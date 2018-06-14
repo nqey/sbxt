@@ -143,24 +143,24 @@ export default {
       this.declarer = el.target.options[el.target.options.selectedIndex].innerHTML;
     },
     async init() {
-      const rest = await this.$xhr('get', DECLARE_GET_DECLARER_SIMPLE);
+      const rest = await this.$http.get(DECLARE_GET_DECLARER_SIMPLE);
       if (rest.data.success) {
         this.targets = rest.data.data;
       }
-      const res = await this.$xhr('get', `${DECLARE_GET_USER_ACOUNT_ID}${this.$route.params.id}`);
-      if (res.data.code === 0) {
-        this.id = res.data.data.id;
-        this.declarer = res.data.data.declarer;
-        this.declarerId = res.data.data.declarerId;
-        this.name = res.data.data.name;
-        // this.password = res.data.data.password;
-        this.logs = res.data.data.logs;
+      const res = await this.$http.get(`${DECLARE_GET_USER_ACOUNT_ID}${this.$route.params.id}`);
+      if (res.success) {
+        this.id = res.data.id;
+        this.declarer = res.data.declarer;
+        this.declarerId = res.data.declarerId;
+        this.name = res.data.name;
+        // this.password = res.data.password;
+        this.logs = res.data.logs;
         this.logs.forEach((o) => {
           o.createTime = formatDate(new Date(o.createTime), 'yyyy-MM-dd hh:mm:ss');
         });
-        if (res.data.data.role) {
+        if (res.data.role) {
           const role = [];
-          res.data.data.role.split(',').forEach((d) => {
+          res.data.role.split(',').forEach((d) => {
             if (d === '1') {
               role.push('申报企业');
               this.a = true;
@@ -194,9 +194,9 @@ export default {
       param.function.push(this.a ? 1 : 0);
       param.function.push(this.b ? 2 : 0);
       param.function.push(this.c ? 3 : 0);
-      const res = await this.$xhr('post', `${DECLARE_PUT_USER_ACOUNT}${this.$route.params.id}`, param);
+      const res = await this.$http.post(`${DECLARE_PUT_USER_ACOUNT}${this.$route.params.id}`, param);
       this.isShowSubmit = !this.isShowSubmit;
-      if (res.data.code === 0) {
+      if (res.success) {
         sessionStorage.setItem('title', '帐号更新');
         sessionStorage.setItem('content', '更新成功');
         sessionStorage.setItem('content2', '');

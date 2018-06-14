@@ -65,16 +65,16 @@ export default {
         page: page || this.page,
         rows: this.rows,
       };
-      const res = await this.$xhr('get', DECLARE_GET_RECOMMEND, param);
-      if (res.data.code === 0) {
-        this.lists = res.data.data || [];
+      const res = await this.$http.get(DECLARE_GET_RECOMMEND, param);
+      if (res.success) {
+        this.lists = res.data || [];
         this.lists.forEach((o) => {
           o.createTime = formatDate(new Date(o.createTime), 'yyyy-MM-dd hh:mm:ss');
         });
       }
-      const res2 = await this.$xhr('get', DECLARE_GET_RECOMMEND_COUNT);
-      if (res2.data.success) {
-        this.pages = Math.ceil(res2.data.data / param.rows);
+      const res2 = await this.$http.get(DECLARE_GET_RECOMMEND_COUNT);
+      if (res2.success) {
+        this.pages = Math.ceil(res2.data / param.rows);
       }
     },
   },

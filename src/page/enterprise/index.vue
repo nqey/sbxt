@@ -319,9 +319,9 @@ export default {
       param.enterpriseShindImageUrl = this.enterpriseShindImageUrl;
       param.authorizationImageUrl = this.authorizationImageUrl;
       param.otherImageUrl = this.otherImageUrl;
-      const res = await this.$xhr('post', DECLARE_POST_ENTERPRISE, param);
+      const res = await this.$http.post(DECLARE_POST_ENTERPRISE, param);
       this.isShowSubmit = !this.isShowSubmit;
-      if (res.data.code === 0) {
+      if (res.success) {
         sessionStorage.setItem('title', '添加申报企业');
         sessionStorage.setItem('content', '企业申报提交成功');
         sessionStorage.setItem('content2', '审核时长3个工作日以内，企业审核状态可在企业列表查看');

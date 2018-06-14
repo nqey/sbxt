@@ -107,6 +107,9 @@ body {
 .callout {
   color: #999;
 }
+.input-error{
+   border-color: red;
+}
 
 @media (max-width: 1300px) {
   .index_chunk{ left: 270px !important;  }

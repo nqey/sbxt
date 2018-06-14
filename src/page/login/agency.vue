@@ -82,16 +82,16 @@ export default {
         param.page = page;
       }
       param.rows = this.rows;
-      const res = await this.$xhr('get', this.api, param);
-      if (res.data.code === 0) {
-        this.resData = res.data.data;
+      const res = await this.$http.get(this.api, param);
+      if (res.success) {
+        this.resData = res.data;
       }
       const param2 = {};
       param2.areaCode = this.areaCode;
       param2.name = this.name;
-      const resC = await this.$xhr('get', this.apiC, param2);
-      if (resC.data.success) {
-        this.pages = Math.ceil(resC.data.data / this.rows);
+      const resC = await this.$http.get(this.apiC, param2);
+      if (resC.success) {
+        this.pages = Math.ceil(resC.data / this.rows);
       }
     },
     setLiveAddress(d) {

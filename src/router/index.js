@@ -1,40 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-const sysMsg = r => require.ensure([], (require) => { r(require('@/page/system')); }, 'sysMsg');
-const sysMsgDetail = r => require.ensure([], (require) => { r(require('@/page/system/detail')); }, 'sysMsgDetail');
-const agency = r => require.ensure([], (require) => { r(require('@/page/login/agency')); }, 'agency');
-const search = r => require.ensure([], (require) => { r(require('@/page/search')); }, 'search');
-const login = r => require.ensure([], (require) => { r(require('@/page/login')); }, 'login');
-const step1 = r => require.ensure([], (require) => { r(require('@/page/register/step1')); }, 'step1');
-const step11 = r => require.ensure([], (require) => { r(require('@/page/register/step1_1')); }, 'step11');
-const step2 = r => require.ensure([], (require) => { r(require('@/page/register/step2')); }, 'step2');
-const step3 = r => require.ensure([], (require) => { r(require('@/page/register/step3')); }, 'step3');
-const step4 = r => require.ensure([], (require) => { r(require('@/page/register/step4')); }, 'step4');
-const step5 = r => require.ensure([], (require) => { r(require('@/page/register/step5')); }, 'step5');
-const resetPw = r => require.ensure([], (require) => { r(require('@/page/register/resetPw')); }, 'resetPw');
-const resetPwMsg = r => require.ensure([], (require) => { r(require('@/page/register/resetPwMsg')); }, 'resetPwMsg');
-const index = r => require.ensure([], (require) => { r(require('@/page/index')); }, 'index');
-const indexdetail = r => require.ensure([], (require) => { r(require('@/page/index/detail')); }, 'indexdetail');
-const officer = r => require.ensure([], (require) => { r(require('@/page/officer')); }, 'officer');
-const officerEdit = r => require.ensure([], (require) => { r(require('@/page/officer/edit')); }, 'officerEdit');
-const officerlist = r => require.ensure([], (require) => { r(require('@/page/officer/list')); }, 'officerlist');
-const officerdetail = r => require.ensure([], (require) => { r(require('@/page/officer/detail')); }, 'officerdetail');
-const decEnt = r => require.ensure([], (require) => { r(require('@/page/enterprise')); }, 'decEnt');
-const decEntEdit = r => require.ensure([], (require) => { r(require('@/page/enterprise/edit')); }, 'decEntEdit');
-const entList = r => require.ensure([], (require) => { r(require('@/page/enterprise/list')); }, 'entList');
-const entListdetail = r => require.ensure([], (require) => { r(require('@/page/enterprise/detail')); }, 'entListdetail');
-const recommendlist = r => require.ensure([], (require) => { r(require('@/page/recommend/list')); }, 'recommendlist');
-const recommendOfficerList = r => require.ensure([], (require) => { r(require('@/page/recommend/officer/list')); }, 'recommendOfficerList');
-const user = r => require.ensure([], (require) => { r(require('@/page/user')); }, 'user');
-const userEdit = r => require.ensure([], (require) => { r(require('@/page/user/edit')); }, 'userEdit');
-const userlist = r => require.ensure([], (require) => { r(require('@/page/user/list')); }, 'userlist');
-const userdetail = r => require.ensure([], (require) => { r(require('@/page/user/detail')); }, 'userdetail');
-const message = r => require.ensure([], (require) => { r(require('@/page/message')); }, 'message');
-const officerRegister = r => require.ensure([], (require) => { r(require('@/page/officer/register')); }, 'officerRegister');
-const officerRegisterSuccess = r => require.ensure([], (require) => { r(require('@/page/officer/registerSuccess')); }, 'officerRegisterSuccess');
-const registerEl = r => require.ensure([], (require) => { r(require('@/page/officer/registerEl')); }, 'registerEl');
-
 Vue.use(Router);
 
 const router = new Router({
@@ -42,167 +8,222 @@ const router = new Router({
     {
       path: '/search',
       name: 'search',
-      component: search,
+      component: r => require.ensure([], (require) => { r(require('@/page/search')); }, 'search'),
     },
     {
       path: '/officer/register',
       name: 'officerRegister',
-      component: officerRegister,
+      component: r => require.ensure([], (require) => { r(require('@/page/officer/register')); }, 'officerRegister'),
     },
     {
       path: '/officer/registerEl',
       name: 'registerEl',
-      component: registerEl,
+      component: r => require.ensure([], (require) => { r(require('@/page/officer/registerEl')); }, 'registerEl'),
     },
     {
       path: '/officer/registerSuccess',
       name: 'officerRegisterSuccess',
-      component: officerRegisterSuccess,
+      component: r => require.ensure([], (require) => { r(require('@/page/officer/registerSuccess')); }, 'officerRegisterSuccess'),
     },
     {
       path: '/user/entry',
       name: 'user',
-      component: user,
+      component: r => require.ensure([], (require) => { r(require('@/page/user')); }, 'user'),
     },
     {
       path: '/user/edit/:id',
       name: 'userEdit',
-      component: userEdit,
+      component: r => require.ensure([], (require) => { r(require('@/page/user/edit')); }, 'userEdit'),
     },
     {
       path: '/user/list',
       name: 'userlist',
-      component: userlist,
+      component: r => require.ensure([], (require) => { r(require('@/page/user/list')); }, 'userlist'),
     },
     {
       path: '/user/detail/:id',
       name: 'userdetail',
-      component: userdetail,
+      component: r => require.ensure([], (require) => { r(require('@/page/user/detail')); }, 'userdetail'),
     },
     {
       path: '/index',
       name: 'index',
-      component: index,
+      component: r => require.ensure([], (require) => { r(require('@/page/index')); }, 'index'),
     },
     {
       path: '/index/detail/:id',
       name: 'indexdetail',
-      component: indexdetail,
+      component: r => require.ensure([], (require) => { r(require('@/page/index/detail')); }, 'indexdetail'),
     },
     {
       path: '/recommend/list',
       name: 'recommendlist',
-      component: recommendlist,
+      component: r => require.ensure([], (require) => { r(require('@/page/recommend/list')); }, 'recommendlist'),
     },
     {
       path: '/recommend/officer/list',
       name: 'recommendOfficerList',
-      component: recommendOfficerList,
+      component: r => require.ensure([], (require) => { r(require('@/page/recommend/officer/list')); }, 'recommendOfficerList'),
+    },
+    {
+      path: '/recommend/officer/other/:id',
+      name: 'recommendOfficerOther',
+      component: r => require.ensure([], (require) => { r(require('@/page/recommend/officer/other')); }, 'recommendOfficerOther'),
     },
     {
       path: '/ent/list',
       name: 'entList',
-      component: entList,
+      component: r => require.ensure([], (require) => { r(require('@/page/enterprise/list')); }, 'entList'),
     },
     {
       path: '/ent/detail/:id',
       name: 'entListdetail',
-      component: entListdetail,
+      component: r => require.ensure([], (require) => { r(require('@/page/enterprise/detail')); }, 'entListdetail'),
     },
     {
       path: '/decEnt/entry',
       name: 'decEnt',
-      component: decEnt,
+      component: r => require.ensure([], (require) => { r(require('@/page/enterprise')); }, 'decEnt'),
     },
     {
       path: '/decEnt/edit/:id',
       name: 'decEntEdit',
-      component: decEntEdit,
+      component: r => require.ensure([], (require) => { r(require('@/page/enterprise/edit')); }, 'decEntEdit'),
     },
     {
       path: '/officer/entry',
       name: 'officer',
-      component: officer,
+      component: r => require.ensure([], (require) => { r(require('@/page/officer')); }, 'officer'),
     },
     {
       path: '/officer/edit/:id',
       name: 'officerEdit',
-      component: officerEdit,
+      component: r => require.ensure([], (require) => { r(require('@/page/officer/edit')); }, 'officerEdit'),
     },
     {
       path: '/officer/list',
       name: 'officerlist',
-      component: officerlist,
+      component: r => require.ensure([], (require) => { r(require('@/page/officer/list')); }, 'officerlist'),
     },
     {
       path: '/officer/detail/:id',
       name: 'officerdetail',
-      component: officerdetail,
+      component: r => require.ensure([], (require) => { r(require('@/page/officer/detail')); }, 'officerdetail'),
     },
     {
       path: '/password/reset',
       name: 'resetPw',
-      component: resetPw,
+      component: r => require.ensure([], (require) => { r(require('@/page/register/resetPw')); }, 'resetPw'),
     },
     {
       path: '/password/reset/msg',
       name: 'resetPwMsg',
-      component: resetPwMsg,
+      component: r => require.ensure([], (require) => { r(require('@/page/register/resetPwMsg')); }, 'resetPwMsg'),
     },
     {
       path: '/sys/msg/list',
       name: 'sysMsg',
-      component: sysMsg,
+      component: r => require.ensure([], (require) => { r(require('@/page/system')); }, 'sysMsg'),
     },
     {
       path: '/sys/msg/detail/:id',
       name: 'sysMsgDetail',
-      component: sysMsgDetail,
+      component: r => require.ensure([], (require) => { r(require('@/page/system/detail')); }, 'sysMsgDetail'),
     },
     {
       path: '/agency/:type',
       name: 'agency',
-      component: agency,
+      component: r => require.ensure([], (require) => { r(require('@/page/login/agency')); }, 'agency'),
     },
     {
       path: '/login',
       name: 'login',
-      component: login,
+      component: r => require.ensure([], (require) => { r(require('@/page/login')); }, 'login'),
     },
     {
       path: '/step1',
       name: 'step1',
-      component: step1,
+      component: r => require.ensure([], (require) => { r(require('@/page/register/step1')); }, 'step1'),
     },
     {
       path: '/step11',
       name: 'step11',
-      component: step11,
+      component: r => require.ensure([], (require) => { r(require('@/page/register/step1_1')); }, 'step11'),
     },
     {
       path: '/step2/:type',
       name: 'step2',
-      component: step2,
+      component: r => require.ensure([], (require) => { r(require('@/page/register/step2')); }, 'step2'),
     },
     {
       path: '/step3',
       name: 'step3',
-      component: step3,
+      component: r => require.ensure([], (require) => { r(require('@/page/register/step3')); }, 'step3'),
     },
     {
       path: '/step4/:type',
       name: 'step4',
-      component: step4,
+      component: r => require.ensure([], (require) => { r(require('@/page/register/step4')); }, 'step4'),
     },
     {
       path: '/step5',
       name: 'step5',
-      component: step5,
+      component: r => require.ensure([], (require) => { r(require('@/page/register/step5')); }, 'step5'),
     },
     {
       path: '/message',
       name: 'message',
-      component: message,
+      component: r => require.ensure([], (require) => { r(require('@/page/message')); }, 'message'),
+    },
+    {
+      path: '/subsidy/apply_subsidy',
+      name: 'subsidyApplySubsidy',
+      component: r => require.ensure([], require => r(require('@/page/subsidy/apply_subsidy')), 'subsidyApplySubsidy'),
+    },
+    {
+      path: '/subsidy/successful',
+      name: 'subsidySuccessful',
+      component: r => require.ensure([], require => r(require('@/page/subsidy/successful')), 'subsidySuccessful'),
+    },
+    {
+      path: '/subsidy/apply',
+      name: 'subsidyApply',
+      component: r => require.ensure([], require => r(require('@/page/subsidy/apply')), 'subsidyApply'),
+    },
+    {
+      path: '/subsidy/record',
+      name: 'subsidyRecord',
+      component: r => require.ensure([], require => r(require('@/page/subsidy/record')), 'subsidyRecord'),
+    },
+    {
+      path: '/subsidy/list',
+      name: 'subsidyList',
+      component: r => require.ensure([], require => r(require('@/page/subsidy/list')), 'subsidyList'),
+    },
+    {
+      path: '/recommend/apply_subsidy',
+      name: 'subsidyApplySubsidy',
+      component: r => require.ensure([], require => r(require('@/page/recommend/apply_subsidy')), 'recommendApplySubsidy'),
+    },
+    {
+      path: '/recommend/successful',
+      name: 'subsidySuccessful',
+      component: r => require.ensure([], require => r(require('@/page/recommend/successful')), 'recommendSuccessful'),
+    },
+    {
+      path: '/recommend/apply',
+      name: 'subsidyApply',
+      component: r => require.ensure([], require => r(require('@/page/recommend/apply')), 'recommendApply'),
+    },
+    {
+      path: '/recommend/record',
+      name: 'subsidyRecord',
+      component: r => require.ensure([], require => r(require('@/page/recommend/record')), 'recommendRecord'),
+    },
+    {
+      path: '/recommend/detail',
+      name: 'recommenddetail',
+      component: r => require.ensure([], require => r(require('@/page/recommend/detail')), 'recommenddetail'),
     },
   ],
 });

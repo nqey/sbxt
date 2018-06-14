@@ -37,16 +37,16 @@ export default {
       this.page = page;
       param.page = this.page;
       param.rows = this.rows;
-      const res = await this.$xhr('get', PUBLICS_GET_NOTICES_LISTING, param);
-      if (res.data.code === 0) {
-        this.news = res.data.data;
+      const res = await this.$http.get(PUBLICS_GET_NOTICES_LISTING, param);
+      if (res.success) {
+        this.news = res.data;
         this.news.forEach((o) => {
           o.pushTime = formatDate(new Date(o.createTime), 'yyyy-MM-dd hh:mm:ss');
         });
       }
-      const res2 = await this.$xhr('get', PUBLICS_GET_NOTICES_COUNTS);
-      if (res2.data.success) {
-        this.pages = Math.ceil(res2.data.data / param.rows);
+      const res2 = await this.$http.get(PUBLICS_GET_NOTICES_COUNTS);
+      if (res2.success) {
+        this.pages = Math.ceil(res2.data / param.rows);
       }
     },
   },

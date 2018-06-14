@@ -245,8 +245,8 @@ export default {
           }
         }, 1000);
       }
-      const res = await this.$xhr('get', `${DECLARE_GET_VALIDATECODE}addDeclarer/${this.cellphone}`);
-      if (!res.data.code === 0) {
+      const res = await this.$http.get(`${DECLARE_GET_VALIDATECODE}addDeclarer/${this.cellphone}`);
+      if (!res.success) {
         this.errMsg.push(res.data.message);
       }
     },
@@ -270,8 +270,8 @@ export default {
         return;
       }
       this.isShowSubmit = !this.isShowSubmit;
-      const res = await this.$xhr('post', DECLARE_POST_DECLARER, obj);
-      if (res.data.code === 0) {
+      const res = await this.$http.post(DECLARE_POST_DECLARER, obj);
+      if (res.success) {
         sessionStorage.setItem('title', '添加申报官');
         sessionStorage.setItem('content', '添加申报官成功');
         sessionStorage.setItem('content2', '');

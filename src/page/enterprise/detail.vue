@@ -148,36 +148,36 @@ export default {
   methods: {
     async init() {
       const id = this.$route.params.id;
-      const res = await this.$xhr('get', `${DECLARE_GET_ENTERPRISE_ID}${id}`);
-      if (res.data.code === 0) {
-        this.name = res.data.data.name;
-        this.charger = res.data.data.charger;
-        this.cellphone = res.data.data.cellphone;
-        this.idNumber = res.data.data.idNumber;
-        this.idFrontUrl = res.data.data.idFrontUrl;
-        this.idBackUrl = res.data.data.idBackUrl;
-        this.licenseImageUrl = res.data.data.licenseImageUrl;
-        this.productionImageUrl = res.data.data.productionImageUrl;
-        this.capitalImageUrl = res.data.data.capitalImageUrl;
-        if (res.data.data.capitalImageUrl) {
-          this.capitalImageUrls = res.data.data.capitalImageUrl.split(',');
+      const res = await this.$http.get(`${DECLARE_GET_ENTERPRISE_ID}${id}`);
+      if (res.success) {
+        this.name = res.data.name;
+        this.charger = res.data.charger;
+        this.cellphone = res.data.cellphone;
+        this.idNumber = res.data.idNumber;
+        this.idFrontUrl = res.data.idFrontUrl;
+        this.idBackUrl = res.data.idBackUrl;
+        this.licenseImageUrl = res.data.licenseImageUrl;
+        this.productionImageUrl = res.data.productionImageUrl;
+        this.capitalImageUrl = res.data.capitalImageUrl;
+        if (res.data.capitalImageUrl) {
+          this.capitalImageUrls = res.data.capitalImageUrl.split(',');
         }
-        this.enterpriseSurveyImageUrl = res.data.data.enterpriseSurveyImageUrl;
-        if (res.data.data.enterpriseSurveyImageUrl) {
-          this.enterpriseSurveyImageUrls = res.data.data.enterpriseSurveyImageUrl.split(',');
+        this.enterpriseSurveyImageUrl = res.data.enterpriseSurveyImageUrl;
+        if (res.data.enterpriseSurveyImageUrl) {
+          this.enterpriseSurveyImageUrls = res.data.enterpriseSurveyImageUrl.split(',');
         }
-        this.enterpriseChargerSurveyImageUrl = res.data.data.enterpriseChargerSurveyImageUrl;
-        if (res.data.data.enterpriseChargerSurveyImageUrl) {
-          this.enterpriseChargerSurveyImageUrls = res.data.data.enterpriseChargerSurveyImageUrl.split(',');
+        this.enterpriseChargerSurveyImageUrl = res.data.enterpriseChargerSurveyImageUrl;
+        if (res.data.enterpriseChargerSurveyImageUrl) {
+          this.enterpriseChargerSurveyImageUrls = res.data.enterpriseChargerSurveyImageUrl.split(',');
         }
-        this.enterpriseShindImageUrl = res.data.data.enterpriseShindImageUrl;
-        this.authorizationImageUrl = res.data.data.authorizationImageUrl;
-        this.otherImageUrl = res.data.data.otherImageUrl;
-        if (res.data.data.otherImageUrl) {
-          this.otherImageUrls = res.data.data.otherImageUrl.split(',');
+        this.enterpriseShindImageUrl = res.data.enterpriseShindImageUrl;
+        this.authorizationImageUrl = res.data.authorizationImageUrl;
+        this.otherImageUrl = res.data.otherImageUrl;
+        if (res.data.otherImageUrl) {
+          this.otherImageUrls = res.data.otherImageUrl.split(',');
         }
-        this.state = res.data.data.state;
-        this.reason = res.data.data.reason;
+        this.state = res.data.state;
+        this.reason = res.data.reason;
         if (this.reason) {
           this.errMsg.push(this.reason);
         }

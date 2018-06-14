@@ -43,11 +43,11 @@ export default {
   },
   methods: {
     async init() {
-      const res = await this.$xhr('get', `${PUBLICS_GET_NOTICES_DETAILS}${this.$route.params.id}`);
-      if (res.data.code === 0) {
-        this.title = res.data.data.title;
-        this.content = res.data.data.content;
-        this.createDate = formatDate(new Date(res.data.data.createTime), 'yyyy-MM-dd hh:mm:ss');
+      const res = await this.$http.get(`${PUBLICS_GET_NOTICES_DETAILS}${this.$route.params.id}`);
+      if (res.success) {
+        this.title = res.data.title;
+        this.content = res.data.content;
+        this.createDate = formatDate(new Date(res.data.createTime), 'yyyy-MM-dd hh:mm:ss');
       }
     },
   },

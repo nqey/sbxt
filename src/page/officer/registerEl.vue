@@ -19,7 +19,7 @@
         <el-form :model="areaform" :rules="rules" ref="areaform" label-width="100px" class="demo-dynamic" label-position="left">
           <el-form-item label="常住省份" prop="province" class="is-required">
             <el-select
-              v-model="form.province"
+              v-model="areaform.province"
               placeholder="省份"
               @change="queryCity">
               <el-option
@@ -32,7 +32,7 @@
           </el-form-item>
           <el-form-item label="常住市" prop="city" class="is-required">
             <el-select
-              v-model="form.city"
+              v-model="areaform.city"
               placeholder="市"
               @change="queryTown">
               <el-option
@@ -45,8 +45,9 @@
           </el-form-item>
           <el-form-item label="常住区/县" prop="town" class="is-required">
             <el-select
-              v-model="form.town"
-              placeholder="区/县">
+              v-model="areaform.town"
+              placeholder="区/县"
+              @change="setareaCode">
               <el-option
                 v-for="item in towns"
                 :key="item.code"
@@ -60,20 +61,21 @@
           <el-input v-model="form.address" placeholder="请输入详细地址"></el-input>
         </el-form-item>
         <el-form-item label="寸照" prop="portrait">
-          <v-multiple-upload len="1" title="寸照" @acceptData="setPortrait" uploadid="upload1"></v-multiple-upload>
+          <v-multiple-upload  :imgSrc="slz" type="local" len="1" title="寸照" @acceptData="setPortrait" uploadid="upload1"></v-multiple-upload>
         </el-form-item>
         <el-form-item label="身份证号" prop="idNumber">
           <el-input v-model="form.idNumber" placeholder="请输入身份证号码"></el-input>
         </el-form-item>
         <el-form-item label="证件正面" prop="idFrontUrl">
-          <v-multiple-upload len="1" uploadid="upload2" title="身份证正面" @acceptData="setFrontUrl"></v-multiple-upload>
+          <v-multiple-upload :imgSrc="idcar" len="1" uploadid="upload2" title="身份证正面" @acceptData="setFrontUrl"></v-multiple-upload>
         </el-form-item>
         <el-form-item  label="证件背面" prop="idBackUrl">
-          <v-multiple-upload len="1" uploadid="upload3" title="身份证背面" @acceptData="setBackUrl"></v-multiple-upload>
+          <v-multiple-upload :imgSrc="idcar2" len="1" uploadid="upload3" title="身份证背面" @acceptData="setBackUrl"></v-multiple-upload>
         </el-form-item>
         <div class="el-form-item is-required" style="margin-bottom: 0px;">
           <a download :href="template.sbgjzdcb">
             <span class="el-icon-download" style="line-height: 41px;font-size: 25px;"></span>
+            <span style="position: relative;top: -4px;font-size: 12px;">下载、填写、签证、盖章、上传</span>
           </a>
           <label for="address" class="el-form-item__label" style="width: 100px;">尽职调查表</label>
         </div>
@@ -84,6 +86,7 @@
         <div class="el-form-item is-required" style="margin-bottom: 0px;">
           <a download :href="template.sbgcngh">
             <span class="el-icon-download" style="line-height: 41px;font-size: 25px;"></span>
+            <span style="position: relative;top: -4px;font-size: 12px;">下载、填写、签证、盖章、上传</span>
           </a>
           <label for="address" class="el-form-item__label" style="width: 100px;">承诺公函</label>
         </div>
@@ -105,11 +108,16 @@
 import multipleUpload from '@/components/upload/multipleUploadMol';
 import ru from '@/config/rules';
 import { DECLARE_GET_VALIDATECODE, DECLARE_POST_UPLOAD, EXCEL_SERVER_URL, DECLARE_PUBLICS_POST_DECLARER, PUBLICS_GET_CHECK_CELLPHONE, DECLARE_GET_AREA_TREE } from '@/config/env';
-import errInfo from '@/components/info/error';
+import slz from '@/assets/img/slz.jpg';
+import idcar from '@/assets/img/idcar.png';
+import idcar2 from '@/assets/img/idcar-2.png';
 
 export default {
   data() {
     return {
+      idcar,
+      idcar2,
+      slz,
       srvUp: DECLARE_POST_UPLOAD,
       template: {
         sbgjzdcb: `${EXCEL_SERVER_URL}/template/sbgjzdcb.docx`,
@@ -133,7 +141,7 @@ export default {
         name: '',
         cellphone: '',
         code: '',
-        liveAddress: '',
+        areaCode: '',
         address: '',
         portrait: '',
         idNumber: '',
@@ -161,7 +169,7 @@ export default {
         town: [
           { validator: this.validateArea, trigger: 'change' },
         ],
-        liveAddress: [
+        areaCode: [
           { required: true, message: '请输入常住区域', trigger: 'change' },
         ],
         address: [
@@ -194,37 +202,36 @@ export default {
   },
   components: {
     'v-multiple-upload': multipleUpload,
-    'v-error-info': errInfo,
   },
   methods: {
     async getAreaTree() {
-      const res = await this.$xhr('get', DECLARE_GET_AREA_TREE);
-      if (res.data.success) {
-        this.provinces = res.data.data;
+      const res = await this.$http.get(DECLARE_GET_AREA_TREE);
+      if (res.success) {
+        this.provinces = res.data;
       }
     },
     queryCity() {
       this.citys = [];
       this.towns = [];
-      this.form.city = '';
-      this.form.town = '';
+      this.areaform.city = '';
+      this.areaform.town = '';
       this.provinces.forEach((item) => {
-        if (item.code === this.form.province) {
+        if (item.code === this.areaform.province) {
           this.citys = item.nodes;
         }
       });
-      this.form.liveAddress = this.form.town || this.form.city || this.form.province;
+      this.setareaCode();
       this.valiArea();
     },
     queryTown() {
       this.towns = [];
-      this.form.town = '';
+      this.areaform.town = '';
       this.citys.forEach((item) => {
-        if (item.code === this.form.city) {
+        if (item.code === this.areaform.city) {
           this.towns = item.nodes;
         }
       });
-      this.form.liveAddress = this.form.town || this.form.city || this.form.province;
+      this.setareaCode();
       this.valiArea();
     },
     async validatePhone(rule, value, callback) {
@@ -232,18 +239,22 @@ export default {
         callback(new Error(ru.mPattern.message));
         return;
       }
-      await this.$xhr('get', `${PUBLICS_GET_CHECK_CELLPHONE}${this.form.cellphone}`);
+      const res = await this.$http.get(`${PUBLICS_GET_CHECK_CELLPHONE}${this.form.cellphone}`);
+      if (!res.success) {
+        callback(new Error(res.data.message));
+        return;
+      }
       callback();
     },
     validateIdCard(rule, value, callback) {
       if (!ru.cP.pattern.test(value)) {
-        callback(new Error(ru.mPattern.message));
+        callback(new Error(ru.cP.message));
         return;
       }
       callback();
     },
     validateArea(rule, value, callback) {
-      if (!this.form.liveAddress) {
+      if (!this.form.areaCode) {
         callback(new Error('请输入常住区域'));
         return;
       }
@@ -263,8 +274,8 @@ export default {
     setBackUrl(d) {
       this.form.idBackUrl = d;
     },
-    setLiveAddress(d) {
-      this.form.liveAddress = d;
+    setareaCode() {
+      this.form.areaCode = this.areaform.town || this.areaform.city || this.areaform.province;
     },
     setPortrait(d) {
       this.form.portrait = d;
@@ -279,8 +290,8 @@ export default {
       this.valiArea();
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
-          const res = await this.$xhr('post', DECLARE_PUBLICS_POST_DECLARER, this.form);
-          if (res.data.success) {
+          const res = await this.$http.post(DECLARE_PUBLICS_POST_DECLARER, this.form);
+          if (res.success) {
             this.$router.push('/officer/registerSuccess');
           } else {
             this.isShowSubmit = !this.isShowSubmit;
@@ -291,14 +302,14 @@ export default {
       });
     },
     areaHandler(d) {
-      this.form.liveAddress = d;
+      this.form.areaCode = d;
     },
     async sendMsg() {
       if (!this.form.cellphone) return;
       const me = this;
       me.isDisabled = true;
       const interval = window.setInterval(() => {
-        me.buttonName = `（${me.time}秒）后重新发送`;
+        me.buttonName = me.time;
         me.time -= 1;
         if (me.time < 0) {
           me.buttonName = '重新发送';
@@ -307,8 +318,8 @@ export default {
           window.clearInterval(interval);
         }
       }, 1000);
-      const res = await this.$xhr('get', `${DECLARE_GET_VALIDATECODE}addDeclarer/${this.form.cellphone}`);
-      if (!res.data.code === 0) {
+      const res = await this.$http.get(`${DECLARE_GET_VALIDATECODE}addDeclarer/${this.form.cellphone}`);
+      if (!res.success) {
         this.errMsg.push(res.data.message);
       }
     },

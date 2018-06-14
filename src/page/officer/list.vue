@@ -1,7 +1,6 @@
 <template>
   <div class="index_more">
       <div class="index_chunk">
-       
         <div class="t_nav">&#12288;申报官列表</div>
     <hr>
     <span v-if="lists.length === 0">无数据</span>
@@ -59,8 +58,8 @@ export default {
         showConfirmButton: true,
         type: 'warning',
       }).then(async () => {
-        const res = await this.$xhr('post', `${DECLARE_DELETE_DECLARER}${id}`);
-        if (res.data.code === 0) {
+        const res = await this.$http.post(`${DECLARE_DELETE_DECLARER}${id}`);
+        if (res.success) {
           this.init();
         }
       }).catch(() => {
@@ -68,9 +67,9 @@ export default {
     },
     async init() {
       const type = window.sessionStorage.getItem('type');
-      const res = await this.$xhr('get', DECLARE_GET_DECLARER_LIST);
-      if (res.data.code === 0) {
-        this.lists = res.data.data || [];
+      const res = await this.$http.get(DECLARE_GET_DECLARER_LIST);
+      if (res.success) {
+        this.lists = res.data || [];
         this.lists.forEach((o) => {
           if (o.score === -1) {
             o.score = '未考试';

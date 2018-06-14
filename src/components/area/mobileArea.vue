@@ -73,9 +73,9 @@ export default {
   components: {},
   methods: {
     async getAreaTree() {
-      const res = await this.$xhr('get', DECLARE_GET_AREA_TREE);
-      if (res.data.success) {
-        this.provinces = res.data.data;
+      const res = await this.$http.get(DECLARE_GET_AREA_TREE);
+      if (res.success) {
+        this.provinces = res.data;
         this.setAreaCode();
       }
     },

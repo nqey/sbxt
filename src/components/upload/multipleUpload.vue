@@ -60,11 +60,11 @@ export default {
     async upFile(file) {
       const param = new FormData();
       param.append('fileList', file);
-      const res = await this.$xhr('upload', DECLARE_POST_UPLOAD, param);
+      const res = await this.$http.upload(DECLARE_POST_UPLOAD, param);
       if (this.imgRes.length >= this.len) {
         this.imgRes.splice(0, 1);
       }
-      this.imgRes.push(res.data.data[0]);
+      this.imgRes.push(res.data[0]);
       this.$emit('acceptData', this.imgRes.join(','));
     },
     fileDel(index) {

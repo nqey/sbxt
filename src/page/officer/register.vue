@@ -23,8 +23,8 @@
                 <input type="text" class="form-control" placeholder="请输入验证码" v-model="code"></input>
               </div>
               <div class="col-xs-4 col-sm-4" style="text-align: left;">
-                <button v-show="show" class="btn hqyzm" @click="getCode" style="height: 34px;">获取验证码</button>
-                <button v-show="!show" class="btn hqyzm">{{count}} s</button>
+                <button v-show="show" type="button" class="btn hqyzm" @click="getCode" style="height: 34px;">获取验证码</button>
+                <button v-show="!show" type="button" class="btn hqyzm">{{count}} s</button>
               </div>
             </div>
           </div>
@@ -168,7 +168,7 @@ export default {
       }
       // 手机号码验证
       if (this.cellphone) {
-        await this.$xhr('get', `${PUBLICS_GET_CHECK_CELLPHONE}${this.cellphone}`);
+        await this.$http.get(`${PUBLICS_GET_CHECK_CELLPHONE}${this.cellphone}`);
       }
       // 身份证号码
       if (this.idNumber && !rules.cP.pattern.test(this.idNumber)) {
@@ -261,8 +261,8 @@ export default {
           }
         }, 1000);
       }
-      const res = await this.$xhr('get', `${DECLARE_GET_VALIDATECODE}addDeclarer/${this.cellphone}`);
-      if (!res.data.code === 0) {
+      const res = await this.$http.get(`${DECLARE_GET_VALIDATECODE}addDeclarer/${this.cellphone}`);
+      if (!res.success) {
         this.errMsg.push(res.data.message);
       }
     },
@@ -290,8 +290,8 @@ export default {
         return;
       }
       this.isShowSubmit = !this.isShowSubmit;
-      const res = await this.$xhr('post', DECLARE_PUBLICS_POST_DECLARER, obj);
-      if (res.data.success) {
+      const res = await this.$http.post(DECLARE_PUBLICS_POST_DECLARER, obj);
+      if (res.success) {
         this.$router.push('/officer/registerSuccess');
       } else {
         this.isShowSubmit = !this.isShowSubmit;
@@ -302,6 +302,11 @@ export default {
     'v-multiple-upload': multipleUpload,
     'v-error-info': errInfo,
     'v-area': area,
+  },
+  beforeMount() {
+    if ((document.documentElement.clientWidth || document.body.clientWidth) < 768) {
+      this.$router.push('/officer/registerEl');
+    }
   },
 };
 </script>

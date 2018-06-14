@@ -42,9 +42,9 @@ export default {
   components: {},
   methods: {
     async getAreaTree() {
-      const res = await this.$xhr('get', DECLARE_GET_AREA_TREE);
-      if (res.data.success) {
-        this.provinces = res.data.data;
+      const res = await this.$http.get(DECLARE_GET_AREA_TREE);
+      if (res.success) {
+        this.provinces = res.data;
       }
     },
     addArea() {
@@ -70,9 +70,9 @@ export default {
     },
     async queryPlaces() {
       const api = `${DECLARE_AREALIMIT_AREACODE}${this.province}`;
-      const res = await this.$xhr('get', api);
-      if (res.data.success) {
-        this.rmplaces = res.data.data;
+      const res = await this.$http.get(api);
+      if (res.success) {
+        this.rmplaces = res.data;
       } else {
         this.rmplaces = 0;
       }

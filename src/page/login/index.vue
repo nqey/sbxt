@@ -218,10 +218,10 @@ export default {
     },
     async init() {
       this.username = window.sessionStorage.getItem('username');
-      const res = await this.$xhr('get', PUBLICS_GET_NOTICES_NEWEST);
-      if (res.data.code === 0) {
-        this.sysMsgId = res.data.data.id;
-        this.sysMsgTitle = res.data.data.title;
+      const res = await this.$http.get(PUBLICS_GET_NOTICES_NEWEST);
+      if (res.success) {
+        this.sysMsgId = res.data.id;
+        this.sysMsgTitle = res.data.title;
       }
     },
     async login() {
@@ -233,26 +233,28 @@ export default {
         checknumber: this.checknumber,
       };
       this.lo = '正在登录...';
-      const res = await this.$xhr('post', DECLARE_LOGIN, data);
-      if (res.data.code === 0) {
+      const res = await this.$http.post(DECLARE_LOGIN, data);
+
+      if (res.success) {
         window.sessionStorage.setItem('username', this.username);
-        setCookie('sb_token', res.data.data.token, 1000 * 60);
-        window.sessionStorage.setItem('type', res.data.data.type);
-        window.sessionStorage.setItem('state', res.data.data.state);
-        window.sessionStorage.setItem('recommendId', res.data.data.recommendId);
-        if (res.data.data.state === 'baseWaitSubmit') {
+        setCookie('sb_token', res.data.token, 1000 * 60);
+        window.sessionStorage.setItem('type', res.data.type);
+        window.sessionStorage.setItem('state', res.data.state);
+        window.sessionStorage.setItem('recommendId', res.data.recommendId);
+        if (res.data.state === 'baseWaitSubmit') {
           this.$router.push('/step2/1');
-        } else if (res.data.data.state === 'baseWaitPending' || res.data.data.state === 'baseWaitAudit' || res.data.data.state === 'baseWaitPended') {
+        } else if (res.data.state === 'baseWaitPending' || res.data.state === 'baseWaitAudit' || res.data.state === 'baseWaitPended') {
           this.$router.push('/step3');
-        } else if (res.data.data.state === 'baseWaitUnPending' || res.data.data.state === 'baseUnPass') {
+        } else if (res.data.state === 'baseWaitUnPending' || res.data.state === 'baseUnPass') {
           this.$router.push('/step2/2');
-        } else if (res.data.data.state === 'registWaitSubmit') {
+        } else if (res.data.state === 'registWaitSubmit') {
           this.$router.push('/step4/1');
-        } else if (res.data.data.state === 'registWaitAudit' || res.data.data.state === 'registWaitPended' || res.data.data.state === 'registWaitPending') {
+        } else if (res.data.state === 'registWaitAudit' || res.data.state === 'registWaitPended' || res.data.state === 'registWaitPending') {
           this.$router.push('/step5');
-        } else if (res.data.data.state === 'registUnPass' || res.data.data.state === 'registWaitUnPending') {
+        } else if (res.data.state === 'registUnPass' || res.data.state === 'registWaitUnPending') {
           this.$router.push('/step4/2');
         } else {
+          window.console.log(res.data.state);
           this.$router.push('/index');
         }
       } else {

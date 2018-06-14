@@ -30,13 +30,13 @@ export default {
   },
   methods: {
     checkLogin() {
-      const arr = ['step', 'login', 'sys/msg', 'agency', 'reset', 'officer/register', 'officer/registerSuccess'];
+      const arr = ['step', 'login', 'sys/msg', 'agency', 'reset', 'officer/register', 'officer/registerEl', 'officer/registerSuccess'];
       if (location.hash === '#/') {
         this.$router.push('/login');
         return;
       }
       this.match(arr);
-      if (this.isShowMenu && !getCookie('token')) {
+      if (this.isShowMenu && !getCookie('sb_token')) {
         // 如果没有登录状态则跳转到登录页
         this.$router.push('/login');
       }

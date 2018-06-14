@@ -138,7 +138,7 @@ export default {
           }
         }, 1000);
       }
-      await this.$xhr('get', `${DECLARE_GET_VALIDATECODE}regist/${this.cellphone}`);
+      await this.$http.get(`${DECLARE_GET_VALIDATECODE}regist/${this.cellphone}`);
     },
     async submit() {
       this.validate2();
@@ -149,9 +149,9 @@ export default {
         param.repassword = this.repassword;
         param.code = this.code;
         this.isShowSubmit = !this.isShowSubmit;
-        const res = await this.$xhr('post', DECLARE_POST_ORGANIZ, param);
-        if (res.data.code === 0) {
-          setCookie('sb_token', res.data.data, 1000 * 60);
+        const res = await this.$http.post(DECLARE_POST_ORGANIZ, param);
+        if (res.success) {
+          setCookie('sb_token', res.data, 1000 * 60);
           window.sessionStorage.setItem('username', param.username);
           this.$router.push('/step11');
         } else {

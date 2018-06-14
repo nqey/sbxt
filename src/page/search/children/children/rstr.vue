@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { ENTERPRISE_TYPE } from '@/config/env';
+import { ENTERPRISE_TYPE } from '@/config/mapping';
 
 export default {
   name: 'rstr',

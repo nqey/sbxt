@@ -213,34 +213,34 @@ export default {
   methods: {
     async init() {
       const id = this.$route.params.id;
-      const res = await this.$xhr('get', `${DECLARE_GET_ENTERPRISE_ID}${id}`);
-      if (res.data.code === 0) {
-        this.name = res.data.data.name;
-        this.charger = res.data.data.charger;
-        this.cellphone = res.data.data.cellphone;
-        this.idNumber = res.data.data.idNumber;
-        this.capitalImageUrl = res.data.data.capitalImageUrl;
-        this.enterpriseSurveyImageUrl = res.data.data.enterpriseSurveyImageUrl;
-        this.enterpriseChargerSurveyImageUrl = res.data.data.enterpriseChargerSurveyImageUrl;
-        this.otherImageUrl = res.data.data.otherImageUrl;
-        this.idFrontUrl = res.data.data.idFrontUrl;
-        this.idBackUrl = res.data.data.idBackUrl;
-        this.licenseImageUrl = res.data.data.licenseImageUrl;
-        this.productionImageUrl = res.data.data.productionImageUrl;
-        this.enterpriseShindImageUrl = res.data.data.enterpriseShindImageUrl;
-        this.authorizationImageUrl = res.data.data.authorizationImageUrl;
-        this.initIdFrontUrl = res.data.data.idFrontUrl;
-        this.initIdBackUrl = res.data.data.idBackUrl;
-        this.initLicenseImageUrl = res.data.data.licenseImageUrl;
-        this.initProductionImageUrl = res.data.data.productionImageUrl;
-        this.initEnterpriseShindImageUrl = res.data.data.enterpriseShindImageUrl;
-        this.initAuthorizationImageUrl = res.data.data.authorizationImageUrl;
-        this.initCapitalImageUrl = res.data.data.capitalImageUrl;
-        this.initEnterpriseSurveyImageUrl = res.data.data.enterpriseSurveyImageUrl;
-        this.initEnterpriseChargerSurveyImageUrl = res.data.data.enterpriseChargerSurveyImageUrl;
-        this.initOtherImageUrl = res.data.data.otherImageUrl;
-        this.state = res.data.data.state;
-        this.reason = res.data.data.reason;
+      const res = await this.$http.get(`${DECLARE_GET_ENTERPRISE_ID}${id}`);
+      if (res.success) {
+        this.name = res.data.name;
+        this.charger = res.data.charger;
+        this.cellphone = res.data.cellphone;
+        this.idNumber = res.data.idNumber;
+        this.capitalImageUrl = res.data.capitalImageUrl;
+        this.enterpriseSurveyImageUrl = res.data.enterpriseSurveyImageUrl;
+        this.enterpriseChargerSurveyImageUrl = res.data.enterpriseChargerSurveyImageUrl;
+        this.otherImageUrl = res.data.otherImageUrl;
+        this.idFrontUrl = res.data.idFrontUrl;
+        this.idBackUrl = res.data.idBackUrl;
+        this.licenseImageUrl = res.data.licenseImageUrl;
+        this.productionImageUrl = res.data.productionImageUrl;
+        this.enterpriseShindImageUrl = res.data.enterpriseShindImageUrl;
+        this.authorizationImageUrl = res.data.authorizationImageUrl;
+        this.initIdFrontUrl = res.data.idFrontUrl;
+        this.initIdBackUrl = res.data.idBackUrl;
+        this.initLicenseImageUrl = res.data.licenseImageUrl;
+        this.initProductionImageUrl = res.data.productionImageUrl;
+        this.initEnterpriseShindImageUrl = res.data.enterpriseShindImageUrl;
+        this.initAuthorizationImageUrl = res.data.authorizationImageUrl;
+        this.initCapitalImageUrl = res.data.capitalImageUrl;
+        this.initEnterpriseSurveyImageUrl = res.data.enterpriseSurveyImageUrl;
+        this.initEnterpriseChargerSurveyImageUrl = res.data.enterpriseChargerSurveyImageUrl;
+        this.initOtherImageUrl = res.data.otherImageUrl;
+        this.state = res.data.state;
+        this.reason = res.data.reason;
         // if (this.reason) {
         //   this.errMsg.push(this.reason);
         // }
@@ -370,8 +370,8 @@ export default {
       param.otherImageUrl = this.otherImageUrl;
       param.state = this.state;
       this.isShowSubmit = !this.isShowSubmit;
-      const res = await this.$xhr('post', `${DECLARE_PUT_ENTERPRISE}${id}`, param);
-      if (res.data.code === 0) {
+      const res = await this.$http.post(`${DECLARE_PUT_ENTERPRISE}${id}`, param);
+      if (res.success) {
         sessionStorage.setItem('title', '更新申报企业');
         sessionStorage.setItem('content', '更新申报企业成功');
         sessionStorage.setItem('content2', '');

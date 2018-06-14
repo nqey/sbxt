@@ -126,8 +126,8 @@ export default {
           }
         }, 1000);
       }
-      const res = await this.$xhr('get', `${DECLARE_GET_VALIDATECODE}find/${this.cellphone}`);
-      if (!res.data.code === 0) {
+      const res = await this.$http.get(`${DECLARE_GET_VALIDATECODE}find/${this.cellphone}`);
+      if (!res.success) {
         this.errMsg.push(res.data.message);
       }
     },
@@ -144,8 +144,8 @@ export default {
       param.confirmPassword = this.repassword;
       param.code = this.code;
       this.isShowSubmit = !this.isShowSubmit;
-      const res = await this.$xhr('post', DECLARE_PUT_PASSWORD, param);
-      if (res.data.code === 0) {
+      const res = await this.$http.post(DECLARE_PUT_PASSWORD, param);
+      if (res.success) {
         this.$router.push('/password/reset/msg');
       } else {
         this.isShowSubmit = !this.isShowSubmit;

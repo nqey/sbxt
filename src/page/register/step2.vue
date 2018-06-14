@@ -207,9 +207,9 @@ export default {
     async showRecommendName(e) {
       if (e.keyCode === 13) {
         this.list = [];
-        const res = await this.$xhr('get', `${DECLARE_GET_RECOMMEND_ORGANIZ}${this.recommendName}`);
-        if (res.data.code === 0) {
-          this.list = res.data.data;
+        const res = await this.$http.get(`${DECLARE_GET_RECOMMEND_ORGANIZ}${this.recommendName}`);
+        if (res.success) {
+          this.list = res.data;
         }
       }
     },
@@ -235,8 +235,8 @@ export default {
         return;
       }
       this.isShowSubmit = !this.isShowSubmit;
-      const res = await this.$xhr('post', DECLARE_PUT_BASEINFO, param);
-      if (res.data.code === 0) {
+      const res = await this.$http.post(DECLARE_PUT_BASEINFO, param);
+      if (res.success) {
         this.$router.push('/step3');
       } else {
         this.isShowSubmit = !this.isShowSubmit;
@@ -247,26 +247,26 @@ export default {
     if (this.$route.params.type === '1') {
       return;
     }
-    const res = await this.$xhr('get', DECLARE_GET_BASEINFO);
-    if (res.data.code === 0) {
-      this.name = res.data.data.name;
-      this.idNumber = res.data.data.idNumber;
-      this.idFrontUrl = res.data.data.idFrontUrl;
-      this.idBackUrl = res.data.data.idBackUrl;
-      this.initFrontUrl = res.data.data.idFrontUrl;
-      this.initBackUrl = res.data.data.idBackUrl;
-      this.recommendName = res.data.data.recommentName;
-      this.recommendOrgnizId = res.data.data.recommendOrgnizId;
-      this.recommendOrgnizType = res.data.data.recommendOrgnizType;
-      this.enterpriseName = res.data.data.organizName;
-      this.liveAddress = res.data.data.liveAddress;
-      this.address = res.data.data.address;
-      this.applyAddress = res.data.data.applyAddress;
-      this.organizAddress = res.data.data.organizAddress;
-      this.areacode = `${res.data.data.liveProvice},${res.data.data.liveCity},${res.data.data.liveDistrict}`;
-      this.reason = res.data.data.reason;
-      // if (res.data.data.reason) {
-      //   this.errMsg.push(res.data.data.reason);
+    const res = await this.$http.get(DECLARE_GET_BASEINFO);
+    if (res.success) {
+      this.name = res.data.name;
+      this.idNumber = res.data.idNumber;
+      this.idFrontUrl = res.data.idFrontUrl;
+      this.idBackUrl = res.data.idBackUrl;
+      this.initFrontUrl = res.data.idFrontUrl;
+      this.initBackUrl = res.data.idBackUrl;
+      this.recommendName = res.data.recommentName;
+      this.recommendOrgnizId = res.data.recommendOrgnizId;
+      this.recommendOrgnizType = res.data.recommendOrgnizType;
+      this.enterpriseName = res.data.organizName;
+      this.liveAddress = res.data.liveAddress;
+      this.address = res.data.address;
+      this.applyAddress = res.data.applyAddress;
+      this.organizAddress = res.data.organizAddress;
+      this.areacode = `${res.data.liveProvice},${res.data.liveCity},${res.data.liveDistrict}`;
+      this.reason = res.data.reason;
+      // if (res.data.reason) {
+      //   this.errMsg.push(res.data.reason);
       // }
     }
   },

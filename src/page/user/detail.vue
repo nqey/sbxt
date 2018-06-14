@@ -100,7 +100,7 @@ export default {
         type: 'warning',
       }).then(async () => {
         this.isShowSubmit = !this.isShowSubmit;
-        const rest = await this.$xhr('post', `${DECLARE_DELETE_USER_ACOUNT_ID}${this.$route.params.id}`);
+        const rest = await this.$http.post(`${DECLARE_DELETE_USER_ACOUNT_ID}${this.$route.params.id}`);
         if (rest.data.success) {
           sessionStorage.setItem('title', '帐号删除');
           sessionStorage.setItem('content', '帐号删除成功');
@@ -117,24 +117,24 @@ export default {
       });
     },
     async init() {
-      const rest = await this.$xhr('get', DECLARE_GET_DECLARER_SIMPLE);
+      const rest = await this.$http.get(DECLARE_GET_DECLARER_SIMPLE);
       if (rest.data.success) {
         this.targets = rest.data.data;
       }
-      const res = await this.$xhr('get', `${DECLARE_GET_USER_ACOUNT_ID}${this.$route.params.id}`);
-      if (res.data.code === 0) {
-        this.id = res.data.data.id;
-        this.declarer = res.data.data.declarer;
-        this.declarerId = res.data.data.declarerId;
-        this.name = res.data.data.name;
-        this.password = res.data.data.password;
-        this.logs = res.data.data.logs;
+      const res = await this.$http.get(`${DECLARE_GET_USER_ACOUNT_ID}${this.$route.params.id}`);
+      if (res.success) {
+        this.id = res.data.id;
+        this.declarer = res.data.declarer;
+        this.declarerId = res.data.declarerId;
+        this.name = res.data.name;
+        this.password = res.data.password;
+        this.logs = res.data.logs;
         this.logs.forEach((o) => {
           o.createTime = formatDate(new Date(o.createTime), 'yyyy-MM-dd hh:mm:ss');
         });
-        if (res.data.data.role) {
+        if (res.data.role) {
           const role = [];
-          res.data.data.role.split(',').forEach((d) => {
+          res.data.role.split(',').forEach((d) => {
             if (d === '1') {
               role.push('申报企业');
               this.a = true;

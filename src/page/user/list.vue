@@ -58,9 +58,9 @@ export default {
         param.page = page;
       }
       param.rows = this.rows;
-      const res = await this.$xhr('get', DECLARE_GET_USER_ACOUNT, param);
-      if (res.data.code === 0) {
-        this.lists = res.data.data || [];
+      const res = await this.$http.get(DECLARE_GET_USER_ACOUNT, param);
+      if (res.success) {
+        this.lists = res.data || [];
         this.lists.forEach((o) => {
           const role = [];
           if (o.role) {
@@ -79,9 +79,9 @@ export default {
           }
         });
       }
-      const res2 = await this.$xhr('get', DECLARE_GET_USER_ACOUNT_COUNT);
-      if (res2.data.success) {
-        this.pages = Math.ceil(res2.data.data / param.rows);
+      const res2 = await this.$http.get(DECLARE_GET_USER_ACOUNT_COUNT);
+      if (res2.success) {
+        this.pages = Math.ceil(res2.data / param.rows);
       }
     },
   },

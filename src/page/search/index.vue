@@ -80,7 +80,7 @@ export default {
       o.page = page;
       o.rows = this.rows;
       this.params = o;
-      const aPage = await this.$xhr('get', ENTERPRISE_QUERY_COUNT_ADDRESS);
+      const aPage = await this.$http.get(ENTERPRISE_QUERY_COUNT_ADDRESS);
       this.pages = aPage.data.data.count / this.rows;
       this.isPageShow = true;
     },

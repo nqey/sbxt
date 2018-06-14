@@ -1,14 +1,15 @@
 <template>
   <div class="hello">
     <v-big-img v-if="isShowBigImg" :imgSrc="bigImgUrl" @hideBigImg="closeBigImg"></v-big-img>
-    <div class="upload_warp_img" v-show="imgRes.length!=0">
-      <div class="upload_warp_img_div" v-for="(url, index) of imgRes" :style="{ 'margin-bottom': (len>1 ? 10 : 0) + 'px' }">
-        <span class="upload_warp_img_div_top el-icon-error" @click="fileDel(index)"></span>
-        <span class="upload_warp_img_div_bottom el-icon-zoom-in" @click="showBigImg(url)"></span>
-        <img :src="serverurl + url" >
+    <div class="upload_warp_img" v-show="viewImgs.length!=0">
+      <div class="upload_warp_img_div" v-for="(url, index) of viewImgs" :style="{ 'margin-bottom': (len>1 ? 10 : 0) + 'px' }">
+        <span v-if="len > 1" class="upload_warp_img_div_top el-icon-error" @click="fileDel(index)"></span>
+        <span v-if="len > 1" class="upload_warp_img_div_bottom el-icon-zoom-in" @click="showBigImg(url)"></span>
+        <span v-if="len <= 1" class="upload_warp_img_div_top el-icon-zoom-in" @click="showBigImg(url)"></span>
+        <img :src="url" @click="fileClick">
       </div>
     </div>
-    <div class="upload_warp" v-show="imgRes.length < len">
+    <div class="upload_warp" v-show="viewImgs.length < len">
       <div class="upload_warp_left" @click="fileClick">
         <img :src="upload">
         <p style="line-height: 75px;">{{title}}</p>
@@ -34,7 +35,9 @@ export default {
       serverurl: IMAGE_SERVER_URL,
       bigImgUrl: '',
       isShowBigImg: false,
-      imgRes: [],
+      viewImgs: [],
+      acceptData: [],
+      loading: null,
     };
   },
   watch: {
@@ -48,6 +51,13 @@ export default {
       // 判断文件是否存在
       if (!el.target.files[0].size) return;
       const file = el.target.files[0];
+      this.loading = this.$loading({
+        lock: true,
+        text: '',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.7)',
+        target: el.target.parentNode,
+      });
       // 判断是否为图片文件
       if (file.type.indexOf('image') === -1) return;
       this.upFile(file);
@@ -56,19 +66,25 @@ export default {
     async upFile(file) {
       const param = new FormData();
       param.append('fileList', file);
-      const res = await this.$xhr('upload', DECLARE_POST_UPLOAD, param);
-      if (this.imgRes.length >= this.len) {
-        this.imgRes.splice(0, 1);
+      const res = await this.$http.upload(DECLARE_POST_UPLOAD, param);
+      if (res.success) {
+        if (this.viewImgs.length >= this.len) {
+          this.viewImgs.splice(0, 1);
+          this.acceptData.splice(0, 1);
+        }
+        this.viewImgs.push(`${this.serverurl}${res.data[0]}?q=10`);
+        this.acceptData.push(res.data[0]);
+        this.$emit('acceptData', this.acceptData.join(','));
+        this.loading.close();
       }
-      this.imgRes.push(res.data.data[0]);
-      this.$emit('acceptData', this.imgRes.join(','));
     },
     fileDel(index) {
-      this.imgRes.splice(index, 1);
-      this.$emit('acceptData', this.imgRes.length === 0 ? '' : this.imgRes.join(','));
+      this.viewImgs.splice(index, 1);
+      this.acceptData.splice(index, 1);
+      this.$emit('acceptData', this.acceptData.length === 0 ? '' : this.acceptData.join(','));
     },
     showBigImg(url) {
-      this.bigImgUrl = this.serverurl + url;
+      this.bigImgUrl = url.replace('?q=10', '');
       this.isShowBigImg = true;
     },
     closeBigImg() {
@@ -76,12 +92,15 @@ export default {
     },
     setImgSrc() {
       if (this.imgSrc) {
-        this.imgRes = this.imgSrc.split(',');
+        this.viewImgs = [this.imgSrc];
       }
     },
   },
   components: {
     'v-big-img': vBigImg,
+  },
+  mounted() {
+    this.setImgSrc();
   },
 };
 </script>

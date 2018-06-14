@@ -112,9 +112,9 @@ export default {
       param.function.push(this.a ? 1 : 0);
       param.function.push(this.b ? 2 : 0);
       param.function.push(this.c ? 3 : 0);
-      const res = await this.$xhr('post', DECLARE_POST_USER_ACOUNT, param);
+      const res = await this.$http.post(DECLARE_POST_USER_ACOUNT, param);
       this.isShowSubmit = !this.isShowSubmit;
-      if (res.data.code === 0) {
+      if (res.success) {
         sessionStorage.setItem('title', '添加帐号');
         sessionStorage.setItem('content', '添加帐号成功');
         sessionStorage.setItem('content2', '');
@@ -128,9 +128,9 @@ export default {
       }
     },
     async init() {
-      const res = await this.$xhr('get', DECLARE_GET_DECLARER_SIMPLE);
-      if (res.data.code === 0) {
-        this.targets = res.data.data;
+      const res = await this.$http.get(DECLARE_GET_DECLARER_SIMPLE);
+      if (res.success) {
+        this.targets = res.data;
       }
     },
   },

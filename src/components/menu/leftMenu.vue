@@ -58,16 +58,64 @@ export default {
           ],
         },
         {
-          name: '企业申报',
-          link: '/decEnt/entry',
-        },
-        {
-          name: '企业列表',
-          link: '/ent/list',
-        },
-        {
           name: '推荐列表',
           link: '/recommend/list',
+        },
+        {
+          name: '推荐管理',
+          open: false,
+          subItems: [
+            {
+              name: '推荐列表',
+              link: '/recommend/officer/list',
+            },
+            {
+              name: '我的补贴',
+              link: '/recommend/apply',
+            },
+            {
+              name: '申请补贴',
+              link: '/recommend/apply_subsidy',
+            },
+            {
+              name: '申请记录',
+              link: '/recommend/record',
+            },
+            {
+              name: '补贴明细',
+              link: '/recommend/detail',
+            },
+          ],
+        },
+        {
+          name: '企业申报管理',
+          open: false,
+          subItems: [
+            {
+              name: '企业申报',
+              link: '/decEnt/entry',
+            },
+            {
+              name: '企业列表',
+              link: '/ent/list',
+            },
+            {
+              name: '我的补贴',
+              link: '/subsidy/apply',
+            },
+            {
+              name: '申请补贴',
+              link: '/subsidy/apply_subsidy',
+            },
+            {
+              name: '申请记录',
+              link: '/subsidy/record',
+            },
+            {
+              name: '补贴明细',
+              link: '/subsidy/list',
+            },
+          ],
         },
       ],
     };
@@ -75,9 +123,6 @@ export default {
   mounted() {
     if (window.sessionStorage.getItem('type') === '1') {
       this.items.splice(1, 1);
-      this.items[this.items.length - 1].link = '/recommend/officer/list';
-    } else {
-      this.items[this.items.length - 1].link = '/recommend/list';
     }
   },
 };

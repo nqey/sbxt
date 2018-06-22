@@ -241,6 +241,10 @@ export const ORGANIZ_SUBSIDY_RECORD_QUERY = `${ENTERPRISE_BASE_URL}organiz/subsi
 // 我的申请记录列表、分页信息
 export const ORGANIZ_SUBSIDY_RECORD_COUNT = `${ENTERPRISE_BASE_URL}organiz/subsidy/record/count`;
 // 我的申请记录列表、分页信息
+export const ORGANIZ_SUBSIDY_RECOMMEND_RECORD_QUERY = `${ENTERPRISE_BASE_URL}organiz/subsidy/recommend/record/query`;
+// 我的申请记录列表、分页信息
+export const ORGANIZ_SUBSIDY_RECOMMEND_RECORD_COUNT = `${ENTERPRISE_BASE_URL}organiz/subsidy/recommend/record/count`;
+// 我的申请记录列表、分页信息
 export const ORGANIZ_SUBSIDY_WITHDRAW_RECOMMEND = `${ENTERPRISE_BASE_URL}organiz/subsidy/withdraw/recommend`;
 // 申报官、申报机构我的补贴金额
 export const ORGANIZ_SUBSIDY_AMOUNT = `${ENTERPRISE_BASE_URL}organiz/subsidy/amount`;
@@ -248,3 +252,7 @@ export const ORGANIZ_SUBSIDY_AMOUNT = `${ENTERPRISE_BASE_URL}organiz/subsidy/amo
 export const ORGANIZ_SUBSIDY_DETAIL_QUERY = `${ENTERPRISE_BASE_URL}organiz/subsidy/detail/query`;
 // 申报官、申报机构补贴明细
 export const ORGANIZ_SUBSIDY_DETAIL_COUNT = `${ENTERPRISE_BASE_URL}organiz/subsidy/detail/count`;
+// 工号验证 + {cellphone}
+export const PUBLICS_DECLARER_CHECK_CELLPHONE = `${DECLARE_BASE_URL}publics/declarer/`;
+//  申报官列表
+export const PUBLICS_DECLARER_LIST = `${DECLARE_BASE_URL}/publics/declarer/list`;

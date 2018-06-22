@@ -47,7 +47,7 @@
       <div class="index_chunk">
         <div class="t_nav">&#12288;我的推荐列表 </div>
         <div style="background:#f6f7fb;width:80%;position:absolute;top:28px;left:230px;height: 50px;">
-          <div style="width: 30%;text-align: center;float: left;line-height: 50px;">我的推荐码：<b>{{myCode}}</b></div>
+          <div style="width: 30%;text-align: center;float: left;line-height: 50px;">工号：<b>{{myCode}}</b></div>
           <div style="width: 30%;text-align: center;float: left;line-height: 50px;">申报官申请地址：<a href="http://www.xxx.com">http://www.xxx.com</a></div>
           <div style="width: 30%;text-align: center;float: left;line-height: 50px;">申报机构申请地址：<a href="http://mp.cpsdb.com">http://mp.cpsdb.com</a></div>
           <div style="clear: both;"></div>
@@ -62,7 +62,6 @@
                 <th>手机号码</th>
                 <th>申请时间</th>
                 <th>状态</th>
-                <th>他的推荐</th>
                 <th>补贴</th>
               </tr>
             </thead>
@@ -72,7 +71,6 @@
                 <td>{{item.tellphone}}</td>
                 <td>{{item.createTime}}</td>
                 <td>{{stateObj[item.state]}}</td>
-                <td><router-link :to="'/recommend/officer/other/'+item.id">{{item.recommendCount}}</router-link></td>
                 <td>{{subsidyStateObj[item.subsidyState]}}</td>
               </tr>
             </tbody>

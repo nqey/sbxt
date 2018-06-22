@@ -43,6 +43,70 @@ export default {
           name: '首页',
           link: '/index',
         },
+        // {
+        //   name: '申报官',
+        //   open: false,
+        //   subItems: [
+        //     {
+        //       name: '添加申报官',
+        //       link: '/officer/entry',
+        //     },
+        //     {
+        //       name: '申报官列表',
+        //       link: '/officer/list',
+        //     },
+        //   ],
+        // },
+        // {
+        //   name: '推荐列表',
+        //   link: '/recommend/list',
+        // },
+        {
+          name: '推荐管理',
+          open: false,
+          subItems: [
+            {
+              name: '推荐列表',
+              link: '/recommend/officer/list',
+            },
+            {
+              name: '申请补贴',
+              link: '/recommend/apply',
+            },
+            {
+              name: '申请记录',
+              link: '/recommend/record',
+            },
+          ],
+        },
+        {
+          name: '企业申报管理',
+          open: false,
+          subItems: [
+            {
+              name: '企业申报',
+              link: '/decEnt/entry',
+            },
+            {
+              name: '企业列表',
+              link: '/ent/list',
+            },
+            {
+              name: '申请补贴',
+              link: '/subsidy/apply',
+            },
+            {
+              name: '申请记录',
+              link: '/subsidy/record',
+            },
+          ],
+        },
+      ],
+      items2: [
+        {
+          name: '首页',
+          link: '/index',
+        },
         {
           name: '申报官',
           open: false,
@@ -61,32 +125,24 @@ export default {
           name: '推荐列表',
           link: '/recommend/list',
         },
-        {
-          name: '推荐管理',
-          open: false,
-          subItems: [
-            {
-              name: '推荐列表',
-              link: '/recommend/officer/list',
-            },
-            {
-              name: '我的补贴',
-              link: '/recommend/apply',
-            },
-            {
-              name: '申请补贴',
-              link: '/recommend/apply_subsidy',
-            },
-            {
-              name: '申请记录',
-              link: '/recommend/record',
-            },
-            {
-              name: '补贴明细',
-              link: '/recommend/detail',
-            },
-          ],
-        },
+        // {
+        //   name: '推荐管理',
+        //   open: false,
+        //   subItems: [
+        //     {
+        //       name: '推荐列表',
+        //       link: '/recommend/officer/list',
+        //     },
+        //     {
+        //       name: '申请补贴',
+        //       link: '/recommend/apply',
+        //     },
+        //     {
+        //       name: '申请记录',
+        //       link: '/recommend/record',
+        //     },
+        //   ],
+        // },
         {
           name: '企业申报管理',
           open: false,
@@ -100,20 +156,12 @@ export default {
               link: '/ent/list',
             },
             {
-              name: '我的补贴',
-              link: '/subsidy/apply',
-            },
-            {
               name: '申请补贴',
-              link: '/subsidy/apply_subsidy',
+              link: '/subsidy/apply',
             },
             {
               name: '申请记录',
               link: '/subsidy/record',
-            },
-            {
-              name: '补贴明细',
-              link: '/subsidy/list',
             },
           ],
         },
@@ -121,8 +169,8 @@ export default {
     };
   },
   mounted() {
-    if (window.sessionStorage.getItem('type') === '1') {
-      this.items.splice(1, 1);
+    if (window.sessionStorage.getItem('type') === '2') {
+      this.items = this.items2;
     }
   },
 };

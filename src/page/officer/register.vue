@@ -16,7 +16,7 @@
         <div class="form-group">
           <label class="col-xs-12 col-sm-4 control-label"><span class="info">*</span> 手机号码：</label>
           <div class="col-xs-12 col-sm-4 imb">
-            <input type="text" class="form-control" placeholder="请输入手机号码" v-model="cellphone" @blur="validate">
+            <input type="text" class="form-control" placeholder="请输入手机号码" v-model="cellphone" @blur="valcellphone">
             <small class="areafc" style="line-height: 50px">&#12288;该手机号必须是申报官真实手机号码，每一个手机号码只能添加一名申报官。</small>
             <div class="row">
               <div class="col-xs-8 col-sm-8">
@@ -50,7 +50,7 @@
         <div class="form-group">
           <label class="col-xs-12 col-sm-4 control-label"><span class="info">*</span> 身份证号码：</label>
           <div class="col-xs-12 col-sm-4 imb">
-            <input type="text" class="form-control" placeholder="请输入身份证号码" v-model="idNumber" @blur="validate">
+            <input type="text" class="form-control" placeholder="请输入身份证号码" v-model="idNumber">
             <br/>
             <br/>
             &#12288;<small class="areafc">申报官真实有效身份证号码，每一个身份证号只能添加一名申报官。</small>
@@ -98,10 +98,10 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="col-xs-12 col-sm-4 control-label">推荐码：</label>
+          <label class="col-xs-12 col-sm-4 control-label">工号：</label>
           <div class="col-xs-12 col-sm-4 imb">
             <input type="text" class="form-control"
-                   placeholder="请输入推荐码" v-model="recommendId">
+                   placeholder="请输入工号" v-model="recommendId" @blur="valcellRecommend">
           </div>
         </div>
         <div class="form-group">
@@ -124,7 +124,7 @@
 import multipleUpload from '@/components/upload/multipleUpload';
 import errInfo from '@/components/info/error';
 import rules from '@/config/rules';
-import { DECLARE_GET_VALIDATECODE, DECLARE_PUBLICS_POST_DECLARER, EXCEL_SERVER_URL, PUBLICS_GET_CHECK_CELLPHONE } from '@/config/env';
+import { DECLARE_GET_VALIDATECODE, DECLARE_PUBLICS_POST_DECLARER, EXCEL_SERVER_URL, PUBLICS_GET_CHECK_CELLPHONE, PUBLICS_DECLARER_CHECK_CELLPHONE } from '@/config/env';
 import area from '@/components/area/area';
 
 export default {
@@ -160,23 +160,52 @@ export default {
     };
   },
   methods: {
-    async validate() {
+    async valcellphone() {
       this.errMsg = [];
       // 手机号码验证
       if (this.cellphone && !rules.mPattern.pattern.test(this.cellphone)) {
         this.errMsg.push(rules.mPattern.message);
+        return;
       }
       // 手机号码验证
       if (this.cellphone) {
         await this.$http.get(`${PUBLICS_GET_CHECK_CELLPHONE}${this.cellphone}`);
       }
+    },
+    async valcellRecommend() {
+      this.errMsg = [];
+      // 工号验证
+      if (this.recommendId && !rules.mPattern.pattern.test(this.recommendId)) {
+        this.errMsg.push('请输入正确的工号！');
+        return;
+      }
+      // 工号验证
+      if (this.recommendId) {
+        await this.$http.get(`${PUBLICS_DECLARER_CHECK_CELLPHONE}${this.recommendId}`);
+      }
+    },
+    async validate() {
+      this.errMsg = [];
+      // // 手机号码验证
+      // if (this.cellphone && !rules.mPattern.pattern.test(this.cellphone)) {
+      //   this.errMsg.push(rules.mPattern.message);
+      // }
+      // // 手机号码验证
+      // if (this.cellphone) {
+      //   await this.$http.get(`${PUBLICS_GET_CHECK_CELLPHONE}${this.cellphone}`);
+      // }
       // 身份证号码
       if (this.idNumber && !rules.cP.pattern.test(this.idNumber)) {
         this.errMsg.push(rules.cP.message);
       }
-    },
-    validate2() {
-      this.validate();
+      // // 工号验证
+      // if (this.recommendId && !rules.mPattern.pattern.test(this.recommendId)) {
+      //   this.errMsg.push('请输入正确的工号！');
+      // }
+      // // 工号验证
+      // if (this.recommendId) {
+      //   await this.$http.get(`${PUBLICS_DECLARER_CHECK_CELLPHONE}${this.recommendId}`);
+      // }
       // 手机号码验证
       if (!this.cellphone) {
         this.errMsg.push(`${rules.nonEmpty}${rules.phone}`);
@@ -267,7 +296,7 @@ export default {
       }
     },
     async submit() {
-      this.validate2();
+      this.validate();
       const obj = {};
       obj.name = this.name;
       obj.code = this.code;

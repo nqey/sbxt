@@ -21,6 +21,11 @@ const router = new Router({
       component: r => require.ensure([], (require) => { r(require('@/page/officer/registerEl')); }, 'registerEl'),
     },
     {
+      path: '/officer/sblist',
+      name: 'sblist',
+      component: r => require.ensure([], (require) => { r(require('@/page/officer/sblist')); }, 'sblist'),
+    },
+    {
       path: '/officer/registerSuccess',
       name: 'officerRegisterSuccess',
       component: r => require.ensure([], (require) => { r(require('@/page/officer/registerSuccess')); }, 'officerRegisterSuccess'),
@@ -202,23 +207,23 @@ const router = new Router({
     },
     {
       path: '/recommend/apply_subsidy',
-      name: 'subsidyApplySubsidy',
-      component: r => require.ensure([], require => r(require('@/page/recommend/apply_subsidy')), 'recommendApplySubsidy'),
+      name: 'subsidyApplySubsidyRecommend',
+      component: r => require.ensure([], require => r(require('@/page/recommend/apply_subsidy')), 'subsidyApplySubsidyRecommend'),
     },
     {
       path: '/recommend/successful',
-      name: 'subsidySuccessful',
-      component: r => require.ensure([], require => r(require('@/page/recommend/successful')), 'recommendSuccessful'),
+      name: 'subsidySuccessfulrecommend',
+      component: r => require.ensure([], require => r(require('@/page/recommend/successful')), 'recommendSuccessfulrecommend'),
     },
     {
       path: '/recommend/apply',
-      name: 'subsidyApply',
-      component: r => require.ensure([], require => r(require('@/page/recommend/apply')), 'recommendApply'),
+      name: 'subsidyApplyrecommend',
+      component: r => require.ensure([], require => r(require('@/page/recommend/apply')), 'recommendApplyrecommend'),
     },
     {
       path: '/recommend/record',
-      name: 'subsidyRecord',
-      component: r => require.ensure([], require => r(require('@/page/recommend/record')), 'recommendRecord'),
+      name: 'subsidyRecordrecommend',
+      component: r => require.ensure([], require => r(require('@/page/recommend/record')), 'recommendRecordrecommend'),
     },
     {
       path: '/recommend/detail',

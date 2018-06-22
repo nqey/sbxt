@@ -1,23 +1,18 @@
 <template>
   <div class="index_more">
-      <div class="index_chunk">
-      <div style="width: 100%;text-align: center;">
+      <div class="index_chunk" style="text-align: center;">
         <img :src="subsidies" style="width: 124px;height: 124px;">
-      </div>
-      <br/>
-      <div class="money center"><span>{{money}}</span>元</div>
- <!--      <div class="mx center">
-        <router-link to="/subsidy/list">
-          查看补贴明细
+        <br/>
+        <div class="money"><span>{{money}}</span>元</div>
+        <br/>
+        <router-link to="/subsidy/list">查看补贴明细</router-link>
+        <br/>
+        <br/>
+        <router-link to="/subsidy/apply_subsidy">
+          <button class="btn btn-primary" style="width: 350px;height: 35px;">
+          申请补贴
+          </button>
         </router-link>
-      </div> -->
-      <br/>
-      <br/>
-      <router-link to="/subsidy/apply_subsidy" style="display: block;width: 300px; margin: 0 auto;">
-        <button class="but center">
-        申请补贴
-        </button>
-      </router-link>
     </div>
   </div>
 </template>
@@ -66,9 +61,6 @@ top:120px;
 left: 19%;
 margin: 0;
 width: 78%;background:#fff; padding: 40px 70px 55px;border-radius: 4px; box-shadow: 0px 20px 20px -20px #ddd;}
-.center{
-  text-align: center;
-}
 .money{
   font-size: 16px;
 }
@@ -76,21 +68,4 @@ width: 78%;background:#fff; padding: 40px 70px 55px;border-radius: 4px; box-shad
   font-size:22px;
   font-weight: 600;
 }
-.mx{
-  color: #337cfd;
-  font-size: 16px;
-  margin: 25px 0 50px 0;
-}
-.but{
-  width: 300px;
-  height: 40px;
-  line-height: 40px;
-  color: #fff;
-  font-size: 16px;
-  border-radius: 3px;
-  letter-spacing: 2px;
-  background-color: #337cfd;
-  border:none;
-}
-
 </style>

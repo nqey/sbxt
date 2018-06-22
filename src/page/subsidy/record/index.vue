@@ -27,11 +27,12 @@
           delayed: '延后',
         },
         typeObj: {
-          1: '入库费用',
-          2: '二维码赋码费用',
-          3: '粉丝推送费用',
+          1: '企业入库',
+          2: '二维码',
+          3: '粉丝',
+          4: '推荐',
         },
-        columns: [{ field: 'id', header: '交易号', sort: 'id', width: 230 },
+        columns: [{ field: 'sn', header: '交易号', sort: 'sn', width: 230 },
           {
             field: 'createTime',
             header: '申请时间',
@@ -51,17 +52,13 @@
             field: 'state',
             header: '补贴状态',
             width: 230,
-            formatter(row) {
-              return this.status(row.state);
-            },
+            formatter: row => this.status[row.state],
           },
           {
             field: 'type',
             header: '申请提现类型',
             width: 230,
-            formatter(row) {
-              return this.typeObj(row.type);
-            },
+            formatter: row => this.typeObj[row.type],
           },
         ],
       };

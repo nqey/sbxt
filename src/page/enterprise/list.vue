@@ -37,7 +37,6 @@
                 <th>申报人</th>
                 <th>申报时间</th>
                 <th>生码数量(万)</th>
-                <th>补贴金额 <span class="glyphicon glyphicon-question-sign"></span></th>
                 <th>操作</th>
               </tr>
             </thead>
@@ -49,7 +48,6 @@
                 <td>{{item.declarerName}}</td>
                 <td>{{item.createtime}}</td>
                 <td>{{item.codeCount}}</td>
-                <td>{{item.amount}}</td>
                 <td>
                   <router-link v-show="item.detailShow" :to="'/ent/detail/'+item.id">查看</router-link>
                   <router-link v-show="item.eidtShow" :to="'/decEnt/edit/'+item.id">修改</router-link>

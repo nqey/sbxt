@@ -94,8 +94,8 @@
           <v-multiple-upload len="1" title="承诺公函" @acceptData="setLetterImageUrl" uploadid="upload5"></v-multiple-upload>
         </el-form-item>
         <br/>
-        <el-form-item label="推荐码">
-          <el-input v-model="form.recommendId" placeholder="请输入推荐码"></el-input>
+        <el-form-item label="工号" prop="recommendId">
+          <el-input v-model="form.recommendId" placeholder="请输入工号"></el-input>
         </el-form-item>
         <el-form-item class="submit">
           <el-button type="primary" @click="onSubmit('form')">提交</el-button>
@@ -107,7 +107,7 @@
 <script>
 import multipleUpload from '@/components/upload/multipleUploadMol';
 import ru from '@/config/rules';
-import { DECLARE_GET_VALIDATECODE, DECLARE_POST_UPLOAD, EXCEL_SERVER_URL, DECLARE_PUBLICS_POST_DECLARER, PUBLICS_GET_CHECK_CELLPHONE, DECLARE_GET_AREA_TREE } from '@/config/env';
+import { DECLARE_GET_VALIDATECODE, DECLARE_POST_UPLOAD, EXCEL_SERVER_URL, DECLARE_PUBLICS_POST_DECLARER, PUBLICS_GET_CHECK_CELLPHONE, DECLARE_GET_AREA_TREE, PUBLICS_DECLARER_CHECK_CELLPHONE } from '@/config/env';
 import slz from '@/assets/img/slz.jpg';
 import idcar from '@/assets/img/idcar.png';
 import idcar2 from '@/assets/img/idcar-2.png';
@@ -197,6 +197,9 @@ export default {
         letterImageUrl: [
           { required: true, message: '请上传承诺公函', trigger: 'change' },
         ],
+        recommendId: [
+          { validator: this.validateRecommendId, trigger: 'blur' },
+        ],
       },
     };
   },
@@ -240,6 +243,19 @@ export default {
         return;
       }
       const res = await this.$http.get(`${PUBLICS_GET_CHECK_CELLPHONE}${this.form.cellphone}`);
+      if (!res.success) {
+        callback(new Error(res.data.message));
+        return;
+      }
+      callback();
+    },
+    async validateRecommendId(rule, value, callback) {
+      if (!value) callback();
+      if (!ru.mPattern.pattern.test(value)) {
+        callback(new Error('请输入正确的工号'));
+        return;
+      }
+      const res = await this.$http.get(`${PUBLICS_DECLARER_CHECK_CELLPHONE}${value}`);
       if (!res.success) {
         callback(new Error(res.data.message));
         return;
@@ -313,7 +329,7 @@ export default {
         me.time -= 1;
         if (me.time < 0) {
           me.buttonName = '重新发送';
-          me.time = 10;
+          me.time = 60;
           me.isDisabled = false;
           window.clearInterval(interval);
         }

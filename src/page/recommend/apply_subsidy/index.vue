@@ -53,7 +53,7 @@
                         <input type="text" v-validator="validator.code" class="v-validator form-control" placeholder="请输入手机验证码" v-model="form.code">
                       </div>
                       <div class="col-sm-2">
-                        <button type="button" class="btn btn-primary" @click="sendMsg">获取验证码</button>
+                        <button type="button" class="btn btn-primary" @click="sendMsg" :disabled="isDisabled">{{buttonName}}</button>
                       </div>
                     </div>
                   </div>
@@ -98,6 +98,9 @@
     data() {
       return {
         bankList: [],
+        buttonName: '发送验证码',
+        isDisabled: false,
+        time: 60,
         validator: {
           cellphone: {
             type: ['required', 'cellphone'],
@@ -160,6 +163,18 @@
         }
       },
       async sendMsg() {
+        const me = this;
+        me.isDisabled = true;
+        const interval = window.setInterval(() => {
+          me.buttonName = me.time;
+          me.time -= 1;
+          if (me.time < 0) {
+            me.buttonName = '重新发送';
+            me.time = 60;
+            me.isDisabled = false;
+            window.clearInterval(interval);
+          }
+        }, 1000);
         await this.$http.get(`${DECLARE_GET_VALIDATECODE}withaw/${this.form.cellphone}`);
       },
       async commit() {
@@ -224,6 +239,9 @@ width: 78%;background:#fff; padding: 40px 70px 55px;border-radius: 4px; box-shad
   margin-top: 25px;
   padding-top: 20px;
   background: linear-gradient(left, #f57373 , #ffe484);
+  background: -moz-linear-gradient(left, #f57373 , #ffe484);
+  background: -o-linear-gradient(left, #f57373 , #ffe484);
+  background: -webkit-linear-gradient(left,#f57373 , #ffe484);
 }
 .card > div{
   color: #fff;

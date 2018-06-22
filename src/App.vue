@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     checkLogin() {
-      const arr = ['step', 'login', 'sys/msg', 'agency', 'reset', 'officer/register', 'officer/registerEl', 'officer/registerSuccess'];
+      const arr = ['step', 'login', 'sys/msg', 'agency', 'reset', 'officer/register', 'officer/registerEl', 'officer/registerSuccess', 'officer/sblist'];
       if (location.hash === '#/') {
         this.$router.push('/login');
         return;

@@ -50,7 +50,7 @@
         <div class="form-group">
           <label class="col-xs-12 col-sm-4 control-label"><span class="info">*</span> 身份证号码：</label>
           <div class="col-xs-12 col-sm-4 imb">
-            <input type="text" class="form-control" placeholder="请输入身份证号码" v-model="idNumber">
+            <input type="text" class="form-control" placeholder="请输入身份证号码" v-model="idNumber" @blur="valIdNumber">
             <br/>
             <br/>
             &#12288;<small class="areafc">申报官真实有效身份证号码，每一个身份证号只能添加一名申报官。</small>
@@ -98,10 +98,10 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="col-xs-12 col-sm-4 control-label">工号：</label>
+          <label class="col-xs-12 col-sm-4 control-label">推荐人工号：</label>
           <div class="col-xs-12 col-sm-4 imb">
             <input type="text" class="form-control"
-                   placeholder="请输入工号" v-model="recommendId" @blur="valcellRecommend">
+                   placeholder="请输入推荐人电话号码" v-model="recommendId" disabled>
           </div>
         </div>
         <div class="form-group">
@@ -124,7 +124,8 @@
 import multipleUpload from '@/components/upload/multipleUpload';
 import errInfo from '@/components/info/error';
 import rules from '@/config/rules';
-import { DECLARE_GET_VALIDATECODE, DECLARE_PUBLICS_POST_DECLARER, EXCEL_SERVER_URL, PUBLICS_GET_CHECK_CELLPHONE, PUBLICS_DECLARER_CHECK_CELLPHONE } from '@/config/env';
+import { DECLARE_GET_VALIDATECODE, DECLARE_PUBLICS_POST_DECLARER, EXCEL_SERVER_URL,
+PUBLICS_GET_CHECK_CELLPHONE, PUBLICS_DAYU_GETPHONE } from '@/config/env';
 import area from '@/components/area/area';
 
 export default {
@@ -172,17 +173,20 @@ export default {
         await this.$http.get(`${PUBLICS_GET_CHECK_CELLPHONE}${this.cellphone}`);
       }
     },
-    async valcellRecommend() {
+    async valIdNumber() {
       this.errMsg = [];
-      // 工号验证
-      if (this.recommendId && !rules.mPattern.pattern.test(this.recommendId)) {
-        this.errMsg.push('请输入正确的工号！');
-        return;
+      // 身份证号码
+      if (this.idNumber && !rules.cP.pattern.test(this.idNumber)) {
+        this.errMsg.push(rules.cP.message);
+        return false;
       }
-      // 工号验证
-      if (this.recommendId) {
-        await this.$http.get(`${PUBLICS_DECLARER_CHECK_CELLPHONE}${this.recommendId}`);
+      //  身份证号码
+      if (!this.idNumber) {
+        this.errMsg.push(`${rules.nonEmpty}${rules.idNumber}`);
+        return false;
       }
+      this.getRCode();
+      return true;
     },
     async validate() {
       this.errMsg = [];
@@ -324,6 +328,12 @@ export default {
         this.$router.push('/officer/registerSuccess');
       } else {
         this.isShowSubmit = !this.isShowSubmit;
+      }
+    },
+    async getRCode() {
+      const res = await this.$http.get(`${PUBLICS_DAYU_GETPHONE}${this.idNumber}`);
+      if (res.success) {
+        this.recommendId = res.data;
       }
     },
   },

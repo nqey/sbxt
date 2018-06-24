@@ -57,8 +57,8 @@ export const FANS_BASE_URL = {
 }[env];
 
 export const EXCEL_SERVER_URL = {
-  test: '//adm.cpsdb61.com/',
-  online: '//adm.cpsdb.com/',
+  test: '//mp.cpsdb61.com/',
+  online: '//mp.cpsdb.com/',
   local: location.hostname,
 }[env];
 
@@ -256,3 +256,5 @@ export const ORGANIZ_SUBSIDY_DETAIL_COUNT = `${ENTERPRISE_BASE_URL}organiz/subsi
 export const PUBLICS_DECLARER_CHECK_CELLPHONE = `${DECLARE_BASE_URL}publics/declarer/`;
 //  申报官列表
 export const PUBLICS_DECLARER_LIST = `${DECLARE_BASE_URL}/publics/declarer/list`;
+//  {idNumber}
+export const PUBLICS_DAYU_GETPHONE = `${DECLARE_BASE_URL}/publics/dayu/getPhone/`;

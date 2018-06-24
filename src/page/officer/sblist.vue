@@ -7,8 +7,8 @@
         <el-form-item label="姓　　名" prop="name">
           <el-input v-model="name" placeholder="请输入申报官姓名"></el-input>
         </el-form-item>
-        <el-form-item label="工　　号" prop="cellphone">
-          <el-input v-model="cellphone" placeholder="请输入工号"></el-input>
+        <el-form-item label="推荐人工号" prop="cellphone">
+          <el-input v-model="cellphone" placeholder="请输入推荐人手机号码"></el-input>
         </el-form-item>
         <el-form-item class="submit">
           <el-button
@@ -119,7 +119,6 @@ export default {
     },
   },
   mounted() {
-    this.init();
     const f = () => {
       if (this.isReachBottom()) {
         this.page = this.page + 1;

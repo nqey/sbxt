@@ -9,7 +9,7 @@
         <br/>
         <br/>
         <router-link to="/recommend/apply_subsidy">
-          <button class="btn btn-primary" style="width: 350px;height: 35px;">
+          <button class="btn btn-primary" style="width: 350px;height: 35px;" :disabled="!(money > 0)">
           申请补贴
           </button>
         </router-link>
@@ -42,7 +42,7 @@
       async getData() {
         const res = await this.$http.get(ORGANIZ_DECLARER_RECOMMEND_AMOUNT);
         if (res.success) {
-          this.money = res.data;
+          this.money = Number.prototype.toFixed.call((res.data * 10) / 9, 2);
         }
       },
     },

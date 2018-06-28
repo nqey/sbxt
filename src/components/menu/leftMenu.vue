@@ -111,10 +111,10 @@ export default {
           name: '申报官',
           open: false,
           subItems: [
-            {
-              name: '添加申报官',
-              link: '/officer/entry',
-            },
+            // {
+            //   name: '添加申报官',
+            //   link: '/officer/entry',
+            // },
             {
               name: '申报官列表',
               link: '/officer/list',

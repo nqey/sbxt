@@ -3,6 +3,9 @@
       <div class="index_chunk">
     <div class="t_nav">&#12288;推荐列表</div>
     <hr>
+    <div style="background:#f6f7fb;width:80%;position:absolute;top:28px;left:230px;height: 50px;">
+      <div style="width: 30%;text-align: center;float: left;line-height: 50px;">工号：<b>{{myCode}}</b></div>
+    </div>
 	<span v-if="lists.length === 0">无数据</span>
     <div v-show="lists.length > 0">
       <table class="table">
@@ -46,6 +49,7 @@ export default {
       rows: 20,
       lists: [],
       pages: 0,
+      myCode: null,
       status: {
         baseWaitSubmit: '基本信息待填写',
         baseWaitPending: '基本信息待初审',
@@ -83,6 +87,7 @@ export default {
     'v-pagination': pagination,
   },
   mounted() {
+    this.myCode = window.sessionStorage.getItem('recommendId') || '无';
     this.search();
   },
 };

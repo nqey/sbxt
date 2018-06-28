@@ -39,8 +39,8 @@
         <div class="form-group">
           <label class="col-xs-12 col-sm-4 control-label"><span class="info">*</span> 寸 照：</label>
           <div class="col-xs-12 col-sm-4 imb">
-            <p class="label_height areafc">请按照示例图拍摄，蓝底、正装寸照；将照片上传至此；支持格式：bmp、jpg、png、gif。 </p>
-            <p class="areafc">照片大小不超过2M。</p>
+            <p class="label_height areafc">请按照示例图拍摄，蓝底、正装寸照；将照片上传至此；</p>
+            <p class="areafc">支持格式：bmp、jpg、png、gif。 照片大小不超过2M。</p>
             <small class="info label_height">请上传本人真实照，审核会与身份证进行对比，不按照要求上传会导致审核通不过。</small>
             <br/>
             <br/>

@@ -46,12 +46,6 @@
           },
           { field: 'paidQuantity', header: '补贴数量', width: 300 },
           { field: 'amount', header: '补贴金额', width: 300 },
-          {
-            field: 'subsidyState',
-            header: '补贴状态',
-            width: 300,
-            formatter: row => this.status[row.state],
-          },
         ],
       };
     },

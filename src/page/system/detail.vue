@@ -47,7 +47,7 @@ export default {
       if (res.success) {
         this.title = res.data.title;
         this.content = res.data.content;
-        this.createDate = formatDate(new Date(res.data.createTime), 'yyyy-MM-dd hh:mm:ss');
+        this.createDate = formatDate(new Date(res.data.modifyTime), 'yyyy-MM-dd hh:mm:ss');
       }
     },
   },

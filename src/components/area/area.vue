@@ -1,5 +1,5 @@
 <template>
-  <div class='form-group'>
+  <div class='form-group row'>
     <div class="col-xs-12 col-sm-4 mb">
       <select v-show="provinces.length > 0" class='form-control' @change="queryCity" v-model="province">
         <option value="">请选择省份</option>

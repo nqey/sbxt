@@ -194,13 +194,13 @@ export const PLATFORM_GET_DECLARER_EXAMINATION = `${DECLARE_BASE_URL}publics/dec
 export const PLATFORM_POST_DECLARER_SCORE = `${DECLARE_BASE_URL}platform/declarer/score`;
 // ================================公告===================================================
 // 最新显示在页面上的信息
-export const PUBLICS_GET_NOTICES_NEWEST = `${DECLARE_BASE_URL}publics/notices/newest`;
+export const PUBLICS_GET_NOTICES_NEWEST = `${BASE_URL}publics/notices/newest/declare`;
 // 系统公告的详情 + {id}
-export const PUBLICS_GET_NOTICES_DETAILS = `${DECLARE_BASE_URL}publics/notices/details/`;
+export const PUBLICS_GET_NOTICES_DETAILS = `${BASE_URL}publics/notices/details/`;
 // 动态条件查询下的系统公告的分页内容列表
-export const PUBLICS_GET_NOTICES_LISTING = `${DECLARE_BASE_URL}publics/notices/listing`;
+export const PUBLICS_GET_NOTICES_LISTING = `${BASE_URL}publics/notices/listing`;
 // 动态条件查询下的系统公告的分页内容列表
-export const PUBLICS_GET_NOTICES_COUNTS = `${DECLARE_BASE_URL}publics/notices/counts`;
+export const PUBLICS_GET_NOTICES_COUNTS = `${BASE_URL}publics/notices/counts`;
 // 手机号验证 + {cellphone}
 export const PUBLICS_GET_CHECK_CELLPHONE = `${DECLARE_BASE_URL}publics/get/`;
 // ------------------------补贴公共---------------------------------
@@ -255,6 +255,6 @@ export const ORGANIZ_SUBSIDY_DETAIL_COUNT = `${ENTERPRISE_BASE_URL}organiz/subsi
 // 工号验证 + {cellphone}
 export const PUBLICS_DECLARER_CHECK_CELLPHONE = `${DECLARE_BASE_URL}publics/declarer/`;
 //  申报官列表
-export const PUBLICS_DECLARER_LIST = `${DECLARE_BASE_URL}/publics/declarer/list`;
+export const PUBLICS_DECLARER_LIST = `${DECLARE_BASE_URL}publics/declarer/list`;
 //  {idNumber}
-export const PUBLICS_DAYU_GETPHONE = `${DECLARE_BASE_URL}/publics/dayu/getPhone/`;
+export const PUBLICS_DAYU_GETPHONE = `${DECLARE_BASE_URL}publics/dayu/getPhone/`;

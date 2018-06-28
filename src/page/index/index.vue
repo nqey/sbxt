@@ -41,7 +41,7 @@ export default {
       if (res.success) {
         this.news = res.data;
         this.news.forEach((o) => {
-          o.pushTime = formatDate(new Date(o.createTime), 'yyyy-MM-dd hh:mm:ss');
+          o.pushTime = formatDate(new Date(o.modifyTime), 'yyyy-MM-dd hh:mm:ss');
         });
       }
       const res2 = await this.$http.get(PUBLICS_GET_NOTICES_COUNTS);

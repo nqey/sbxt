@@ -9,7 +9,7 @@
         <br/>
         <br/>
         <router-link to="/subsidy/apply_subsidy">
-          <button class="btn btn-primary" style="width: 350px;height: 35px;">
+          <button class="btn btn-primary" style="width: 350px;height: 35px;" :disabled="!(money > 0)">
           申请补贴
           </button>
         </router-link>

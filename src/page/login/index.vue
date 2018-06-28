@@ -22,20 +22,21 @@
       <!-- 申报机构logo和说明 开始 -->
       <div class="col-sm-6 caption">
         <img :src="logo"></img>
-        <h2>CPS 申报机构</h2>
+        <h2>CPS 申报系统</h2>
         <p style="line-height: 25px; margin-top: 20px;">
-          申报机构是依法筛选和推荐符合标准的生产企业，使其获<br />
-          得中国商品诚信数据库项目扶持资金补贴，隶属于中国商<br />品诚信数据库服务中心，须忠实执行中国商品诚信数据库<br />的筛选标准、全心全意为消费者服务。</p>
+            申报官是中国商品诚信数据库授权依法筛选和推荐生产企业的申报服务人员，协助入库企业完善并提交申报材料，使其获得中国商品诚信数据库项目扶持资金补贴，须忠实执行中国商品诚信数据库的筛选标准，全心全意为消费者服务。
+        </p>
+        
         <br/>
         <br/>
-        <router-link to="/step1"><button class="btn">立即申请</button></router-link>
+        <router-link to="/officer/register"><button class="btn">立即申请</button></router-link>
       </div>
       <!-- 申报机构logo和说明 结束 -->
       <!-- 登录框 开始 -->
       <div class="col-sm-6" style="position: relative;text-align: center;">
         <div  class="loginContent pull-right">
           <div class="login">
-            <h3 class="loginTitle">CPS申报机构自主管理平台登录</h3>
+            <h3 class="loginTitle">CPS申报官</h3>
             <ul>
               <li>
                 <input class="input valid" name="username" @keypress="loginBefor($event)" type="text" placeholder="请输入帐号" title="用户名"  v-model="username">
@@ -254,7 +255,6 @@ export default {
         } else if (res.data.state === 'registUnPass' || res.data.state === 'registWaitUnPending') {
           this.$router.push('/step4/2');
         } else {
-          window.console.log(res.data.state);
           this.$router.push('/index');
         }
       } else {

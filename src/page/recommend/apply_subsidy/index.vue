@@ -11,6 +11,7 @@
                   <label class="col-sm-2 control-label">提现金额</label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control"  placeholder="请输入金额" disabled v-model="money">
+                    <small style="color: #0070ff;">提现金额为奖励金额的百分之90</small>
                   </div>
                 </div>
                 <div class="form-group">

@@ -9,7 +9,7 @@
     <div class="main-left_nav_list">
         <section class="sidebar">
             <ul class="sidebar-menu">
-                <li v-for="item in items"> 
+                <li v-for="item in items" :class="{ active: item.selected }" @click="setC(item)"> 
                     <a v-if="item.subItems && item.subItems.length>0" @click="item.open = !item.open;">
                       {{item.name}}
                       <span class="glyphicon ms" 
@@ -17,7 +17,7 @@
                     </a>
                     <router-link v-else :to="item.link">{{item.name}}</router-link>
                     <ul v-if="item.subItems && item.subItems.length>0" v-show="item.open" class="treeview-menu"> 
-                      <li v-for="subItem in item.subItems"> 
+                      <li v-for="subItem in item.subItems" :class="{ active: subItem.selected }" @click="setC(subItem)"> 
                         <router-link :to="subItem.link">{{subItem.name}}</router-link>
                       </li> 
                     </ul> 
@@ -42,6 +42,7 @@ export default {
         {
           name: '首页',
           link: '/index',
+          selected: false,
         },
         // {
         //   name: '申报官',
@@ -64,40 +65,49 @@ export default {
         {
           name: '推荐管理',
           open: false,
+          selected: false,
           subItems: [
             {
               name: '推荐列表',
               link: '/recommend/officer/list',
+              selected: false,
             },
             {
               name: '申请补贴',
               link: '/recommend/apply',
+              selected: false,
             },
             {
               name: '申请记录',
               link: '/recommend/record',
+              selected: false,
             },
           ],
         },
         {
           name: '企业申报管理',
           open: false,
+          selected: false,
           subItems: [
             {
               name: '企业申报',
               link: '/decEnt/entry',
+              selected: false,
             },
             {
               name: '企业列表',
               link: '/ent/list',
+              selected: false,
             },
             {
               name: '申请补贴',
               link: '/subsidy/apply',
+              selected: false,
             },
             {
               name: '申请记录',
               link: '/subsidy/record',
+              selected: false,
             },
           ],
         },
@@ -106,10 +116,12 @@ export default {
         {
           name: '首页',
           link: '/index',
+          selected: false,
         },
         {
           name: '申报官',
           open: false,
+          selected: false,
           subItems: [
             // {
             //   name: '添加申报官',
@@ -118,12 +130,14 @@ export default {
             {
               name: '申报官列表',
               link: '/officer/list',
+              selected: false,
             },
           ],
         },
         {
           name: '推荐列表',
           link: '/recommend/list',
+          selected: false,
         },
         // {
         //   name: '推荐管理',
@@ -146,22 +160,27 @@ export default {
         {
           name: '企业申报管理',
           open: false,
+          selected: false,
           subItems: [
             {
               name: '企业申报',
               link: '/decEnt/entry',
+              selected: false,
             },
             {
               name: '企业列表',
               link: '/ent/list',
+              selected: false,
             },
             {
               name: '申请补贴',
               link: '/subsidy/apply',
+              selected: false,
             },
             {
               name: '申请记录',
               link: '/subsidy/record',
+              selected: false,
             },
           ],
         },
@@ -172,6 +191,25 @@ export default {
     if (window.sessionStorage.getItem('type') === '2') {
       this.items = this.items2;
     }
+  },
+  methods: {
+    // 外部传入参数变更
+    setC(li) {
+      this.items.forEach((o) => {
+        o.selected = false;
+        if (o.subItems) {
+          o.subItems.forEach((s) => {
+            s.selected = false;
+          });
+        }
+      });
+      li.selected = true;
+      this.stopproPagation();
+    },
+    // 阻止冒泡
+    stopproPagation() {
+      window.event.cancelBubble = true;
+    },
   },
 };
 </script>

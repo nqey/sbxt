@@ -11,7 +11,7 @@
                   <label class="col-sm-2 control-label">提现金额</label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control"  placeholder="请输入金额" disabled v-model="money">
-                    <small style="color: #0070ff;">提现金额为奖励金额的百分之90</small>
+                    <small style="color: #0070ff;">平台将冻结可申请补贴总金额的10%，请申请人补交企业普通发票，<br/>并邮寄至我中心，财务确认后将其10%拨付至绑定银行卡中。<br/>邮寄地址：四川省成都市双流区蛟龙港海港广场15座9层，<br/>联系电话：15608507181  <br/>收件人：商品数据库服务中心  。 <br/>发票类型建议开具广告类发票</small>
                   </div>
                 </div>
                 <div class="form-group">

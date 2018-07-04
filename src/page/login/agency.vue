@@ -23,9 +23,10 @@
               <tr>
                 <th>序号</th>
                 <th>机构名称</th>
-                <th v-if="$route.params.type === '1'">负责人</th>
+                <th>负责人</th>
                 <th>负责区域</th>
                 <th v-if="$route.params.type === '1'">地址</th>
+                <th v-if="$route.params.type !== '1'">联系方式</th>
               </tr>
             </thead>
             <tbody>
@@ -33,8 +34,10 @@
                 <th scope="row">{{item.id}}</th>
                 <td>{{item.name}}</td>
                 <td v-if="$route.params.type === '1'">{{item.charger}}</td>
+                <td v-if="$route.params.type !== '1'">{{item.chargerName}}</td>
                 <td>{{item.chargeAddress}}</td>
                 <td v-if="$route.params.type === '1'">{{item.address}}</td>
+                <td v-if="$route.params.type !== '1'">{{item.cellphone}}</td>
               </tr>
             </tbody>
           </table>
@@ -105,12 +108,12 @@ export default {
       this.apiC = DECLARE_GET_DECLARE_ORGANIZ_COUNT;
     } else if (this.$route.params.type === '2') {
       this.title = '市级管理中心';
-      this.api = `${DECLARE_GET_DECLARE_FWZX}2`;
-      this.apiC = `${DECLARE_GET_DECLARE_FWZX_COUNT}1`;
-    } else if (this.$route.params.type === '3') {
-      this.title = '省级服务中心';
       this.api = `${DECLARE_GET_DECLARE_FWZX}3`;
       this.apiC = `${DECLARE_GET_DECLARE_FWZX_COUNT}3`;
+    } else if (this.$route.params.type === '3') {
+      this.title = '省级服务中心';
+      this.api = `${DECLARE_GET_DECLARE_FWZX}2`;
+      this.apiC = `${DECLARE_GET_DECLARE_FWZX_COUNT}2`;
     }
     this.search(1);
   },

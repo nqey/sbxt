@@ -8,7 +8,7 @@
       <div class="col-sm-12 sq">
         <div>
           <h3>没有账号的，可申请成为CPS申报机构</h3>
-          <router-link to="/step1"><button class="btn ljsq">立即申请</button></router-link>
+          <router-link to="/officer/register"><button class="btn ljsq">立即申请</button></router-link>
         </div>
       </div>
     </div>

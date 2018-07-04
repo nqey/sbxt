@@ -136,6 +136,7 @@
           <a>联系我们</a>
           <a>官网网站</a>
           <a>企业入库</a>
+          <a href="https://www.wnbiaodan.com/f/tDYSrb" target="_blank">申请报告</a>
         </div>
         <div class="col-sm-6 text-right">
           <small>版权所有 @中国商品诚信数据库技术服务中心 ALL Rights Reserved 蜀ICP备16015082号-2 </small>

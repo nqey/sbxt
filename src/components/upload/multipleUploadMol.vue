@@ -72,7 +72,8 @@ export default {
           this.viewImgs.splice(0, 1);
           this.acceptData.splice(0, 1);
         }
-        this.viewImgs.push(`${this.serverurl}${res.data[0]}?q=10`);
+        const url = res.data[0].match('?') ? `${this.serverurl}${res.data[0]}?q=10` : `${this.serverurl}${res.data[0]}&q=10`;
+        this.viewImgs.push(url);
         this.acceptData.push(res.data[0]);
         this.$emit('acceptData', this.acceptData.join(','));
         this.loading.close();

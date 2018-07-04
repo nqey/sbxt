@@ -111,6 +111,7 @@
             </button>
             <button v-show="!isShowSubmit" type="button" class="btn btn-success" style="height: 35px;" disabled>提交
             </button>
+            <a href="http://base.cpsdb61.com/publics/file/transfer/regist.pdf?name=%E5%AD%94%E6%B8%85&&areaCode=510000" target="_blank">注册协议</a>
             <br/>
             <br/>
             <p class="areafc">&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#32;申报官信息需审核</p>
